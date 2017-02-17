@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="247dp"
+    android:layout_height="142.5dp"
+    android:background="@drawable/dialog_whight"
+    >
+
+    <TextView
+        android:textColor="#666666"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="将以快速注册账号进入游戏"
+        android:textSize="15sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="为了保证账号安全，建议尽快绑定手机号，将手机号作为登录账号方便您使用账号"/>
+
+    <LinearLayout
+        android:layout_marginTop="21dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_marginRight="6dp"
+            android:layout_width="0dp"
+            android:layout_height="37dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_greenbtn"
+            android:text="绑定手机"
+            android:id="@+id/btn_bindphone1"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="37dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_redbtn"
+            android:text="进入游戏"
+            android:id="@+id/btn_quickenter1"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

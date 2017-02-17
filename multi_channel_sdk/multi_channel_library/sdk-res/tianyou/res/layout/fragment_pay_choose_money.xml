@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="40dp"
+    android:paddingTop="20dp"
+    android:paddingRight="40dp"
+    android:paddingBottom="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_choose_pay_way"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_text_gray"
+            android:text="支付方式："/>
+
+        <TextView
+            android:id="@+id/text_choose_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_text_gray"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/text_choose_money_0"
+            style="@style/style_btn_pay_money"
+            android:layout_marginLeft="0dp" />
+
+        <TextView
+            android:id="@+id/text_choose_money_1"
+            style="@style/style_btn_pay_money"/>
+
+        <TextView
+            android:id="@+id/text_choose_money_2"
+            style="@style/style_btn_pay_money"/>
+
+        <TextView
+            android:id="@+id/text_choose_money_3"
+            style="@style/style_btn_pay_money"/>
+
+        <TextView
+            android:id="@+id/text_choose_money_4"
+            style="@style/style_btn_pay_money"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/text_choose_money_5"
+            style="@style/style_btn_pay_money"
+            android:layout_marginLeft="0dp"/>
+
+        <TextView
+            android:id="@+id/text_choose_money_6"
+            style="@style/style_btn_pay_money"/>
+
+        <TextView
+            android:id="@+id/text_choose_money_7"
+            style="@style/style_btn_pay_money"/>
+
+        <TextView
+            android:id="@+id/text_choose_money_8"
+            style="@style/style_btn_pay_money"/>
+
+        <EditText
+            android:id="@+id/edit_choose_other"
+            style="@style/style_btn_pay_money"
+            android:maxLength="6"
+            android:numeric="integer"
+            android:singleLine="true"
+            android:hint="其他"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_choose_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_gray"
+                android:text="充值账号："/>
+
+            <TextView
+                android:id="@+id/text_choose_server"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_gray"
+                android:text="游戏区服："/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_choose_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_gray"
+                android:text="游戏名称："/>
+
+            <TextView
+                android:id="@+id/text_choose_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_gray"
+                android:text="充值金额："/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_choose_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="立即支付"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_btn_green_fill"/>
+</LinearLayout>

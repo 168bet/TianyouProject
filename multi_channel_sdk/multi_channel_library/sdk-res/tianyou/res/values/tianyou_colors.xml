@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 文本颜色 -->
+    <color name="color_text_gray">#acacac</color>
+    <!-- 深灰色 -->
+    <color name="color_gray">#606060</color>
+    <!-- 白色 -->
+    <color name="color_white">#ffffff</color>
+    <!-- 绿色 -->
+    <color name="color_green">#0bc50c</color>
+    <!-- 蓝色 -->
+    <color name="color_blue">#3399fe</color>
+    <!-- 橙色 -->
+    <color name="color_orange">#e84e40</color>
+    <!-- 黑色 -->
+    <color name="color_black">#000000</color>
+    <!-- 红色 -->
+    <color name="color_red">#E84E40</color>
+</resources>

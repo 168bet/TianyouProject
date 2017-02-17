@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="20dp" >
+
+    <TextView
+        android:id="@+id/edit_home_account"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/shape_btn_gray"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="当前账号："
+        android:textColor="#333333"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:id="@+id/layout_home_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/edit_home_server"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/shape_btn_gray"
+            android:gravity="center_vertical"
+            android:hint="游戏区服："
+            android:paddingLeft="15dp"
+            android:textColor="#333333"
+            android:textColorHint="#999"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/img_home_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/pay_down" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_home_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/edit_home_money1"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/shape_btn_gray"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="充值金额："
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/edit_home_money2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="请选择支付方式："
+        android:textColor="#666666"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/text_pay_wechat"
+            style="@style/style_btn_pay_way"
+            android:drawableTop="@mipmap/pay_icon_0"
+            android:visibility="gone"
+            android:text="微信支付" />
+
+        <TextView
+            android:id="@+id/text_pay_alipay"
+            style="@style/style_btn_pay_way"
+            android:drawableTop="@mipmap/pay_icon_1"
+            android:visibility="gone"
+            android:text="支付宝" />
+
+        <TextView
+            android:id="@+id/text_pay_ebank"
+            style="@style/style_btn_pay_way"
+            android:drawableTop="@mipmap/pay_icon_2"
+            android:visibility="gone"
+            android:text="银联支付" />
+
+        <TextView
+            android:id="@+id/text_pay_card"
+            style="@style/style_btn_pay_way"
+            android:drawableTop="@mipmap/pay_icon_3"
+            android:visibility="gone"
+            android:text="点卡支付" />
+
+        <TextView
+            android:id="@+id/text_pay_transfer"
+            style="@style/style_btn_pay_way"
+            android:drawableTop="@mipmap/pay_icon_4"
+            android:visibility="gone"
+            android:text="汇款" />
+
+        <TextView
+            android:id="@+id/text_pay_wallet"
+            style="@style/style_btn_pay_way"
+            android:drawableTop="@mipmap/pay_icon_5"
+            android:visibility="gone"
+            android:text="钱包支付" />
+    </LinearLayout>
+
+</LinearLayout>

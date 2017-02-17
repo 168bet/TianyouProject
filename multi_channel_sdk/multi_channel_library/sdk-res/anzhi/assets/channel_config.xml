@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infos>
+    
+    <!-- 当前接入sdk的channel_name -->
+    <select_channel>anzhi</select_channel>
+    
+    <anzhi>
+        <channel_name>anzhi</channel_name>
+        <channel_id>ty010</channel_id>
+        <ty_app_id>1009</ty_app_id>
+        
+        <app_key>147608287922rVtbgHxpKplTf49L2v</app_key>
+        <app_secret>CfdpRGPhx0j7lsvc3o2hdOD8</app_secret>
+    </anzhi>
+    
+    <pay_info>
+        <id>zy001</id>
+        <money>1</money>
+        <product_id>10001</product_id>
+        <product_name>魔剑阿波菲斯</product_name>
+        <product_desc>+10物理攻击</product_desc>
+    </pay_info>
+    
+    <pay_info>
+        <id>zy002</id>
+        <money>2</money>
+        <product_id>10002</product_id>
+        <product_name>手枪</product_name>
+        <product_desc>+10远距离伤害 </product_desc>
+    </pay_info>
+    
+</infos> 

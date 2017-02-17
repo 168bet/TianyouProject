@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pang.dragongod.onestore"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <!-- one store -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- igaworks -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 选项值 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Live Operation -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- LiveOps v1.3.6 版本以上不需添加 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- facebook -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- C2DM Permission -->
+    <permission
+        android:name="com.pang.dragongod.onestore.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.pang.dragongod.onestore.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application
+        android:name="com.multi.channel.demo.DemoAppliction"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name="com.multi.channel.demo.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="adbrix190444067" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider201871723552350"
+            android:exported="true" />
+        
+        <meta-data 
+            android:name="google_version"
+            android:value="2.0"/>
+
+        <!-- C2DM Permission -->
+        <!-- IGAWorks GCM Broadcast Receiver -->
+        <receiver
+            android:name="com.igaworks.liveops.pushservice.LiveOpsGCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.pang.dragongod.onestore" />
+            </intent-filter>
+        </receiver>
+
+        <!-- IGAWorks Push Service -->
+        <service
+            android:name="com.igaworks.liveops.pushservice.GCMIntentService"
+            android:enabled="true" />
+
+        <!-- Client Push App Receiver -->
+        <receiver
+            android:name="com.igaworks.liveops.pushservice.LiveOpsReceiver"
+            android:permission="com.pang.dragongod.onestore.permission.C2D_MESSAGE" >
+            <intent-filter>
+                <action android:name="com.igaworks.liveops.pushservice.CLIENT_PUSH_RECEIVE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- igaworks -->
+        <meta-data
+            android:name="igaworks_app_key"
+            android:value="190444067" />
+        <meta-data
+            android:name="igaworks_hash_key"
+            android:value="4f49613c6c5f4650" />
+
+        <receiver
+            android:name="com.igaworks.IgawReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- one store -->
+        <meta-data
+            android:name="iap:api_version"
+            android:value="4" />
+
+        <!-- google login -->
+
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.PangLoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.BlockMemberActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.CheckGameActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.ResignGameActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.ChoiceLoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.FirstAgreeActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.DeleteMemberInfoActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.MemberInfoActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.DeleteInfoActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.LogoutActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.CSCenterAcitivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.AutoLoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.GuestLoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.GuestInfoActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.GuestUpgradeActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.GuestUpgradeSuccessActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.WebSiteActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppThemeMain" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.PopupListActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppThemeMain" />
+        <activity
+            android:name="com.panggame.pgmp2sdk.Activity.LoginAfterNoticeActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppThemeMain" />
+
+        <!-- [Android M Permission Check][start] -->
+        <activity
+            android:name="com.panggame.pgmp2sdk.MAppPermission.AppPermissionCheckActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <!-- [Android M Permission Check][end] -->
+
+
+        <!-- [google api][start] signin 을 사용하기 위해 넣어줘야하는 부분 -->
+        <activity
+            android:name="com.panggame.pgmp2sdk.snsApi.GooglePlusSignInActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/google_games_app_id" />
+        <!-- [google api][end] -->
+
+
+        <!-- [naveroauthlogin][start] 为了用NAVER账号登录 需添加的部分 -->
+        <activity
+            android:name="com.panggame.pgmp2sdk.snsApi.NaverLoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PGMPAppTheme" />
+        <activity
+            android:name="com.skplanet.dodo.IapWeb"
+            android:configChanges="orientation|screenSize|keyboardHidden|locale|layoutDirection"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="stateHidden" />
+        <!-- one store -->
+    </application>
+
+</manifest>

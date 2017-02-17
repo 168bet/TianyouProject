@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tianyouxi.lszg"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:name="com.example.unitygamedemo.DemoAppliction"
+        android:allowBackup="true"
+        android:icon="@drawable/ty_icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name="com.example.unitygamedemo.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="ML_APPID"
+            android:value="2" />
+        <meta-data
+            android:name="ML_APPKEY"
+            android:value="d77f69c2d8478f483bb8cd6724492af5" />
+    </application>
+
+</manifest>

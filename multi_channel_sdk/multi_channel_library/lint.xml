@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="InlinedApi">
+        <ignore path="src/com/tianyou/channel/business/M4399SdkService.java" />
+        <ignore path="src/com/tianyou/channel/business/m4399SdkService.java" />
+    </issue>
+    <issue id="NewApi" severity="ignore">
+        <ignore path="src/com/tianyou/channel/business/OppoSdkService.java" />
+    </issue>
+    <issue id="ProtectedPermissions" severity="ignore">
+        <ignore path="sdk-res/jinli/AndroidManifest.xml" />
+    </issue>
+</lint>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pay_demo_btn_margin_left">20dp</dimen>
+</resources>

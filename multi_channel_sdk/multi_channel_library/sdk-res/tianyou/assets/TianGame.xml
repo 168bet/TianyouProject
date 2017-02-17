@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infos>
+    <!-- gameID:app唯一标识，非常重要，请认真填写，确保正确 -->
+    <gameID>1020</gameID>
+    <!-- appkey -->
+    <usertoken>65cc2c8205a05d7379fa3a6386f710e1</usertoken>
+    <!-- 默认不需要改动 -->
+    <channel>0,0</channel>
+    <!-- 微信登录的appID，需要接入微信登录，将应用包名 -->
+    <wxappID>wx7e3aa06f2043eb71</wxappID>
+</infos> 

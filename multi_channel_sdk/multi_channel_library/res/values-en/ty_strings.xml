@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="ty_main_activity">com.tianyou.sdk.demo.MainActivity</string>
+    <string name="facebook_app_id">1026966590741849</string>
+    
+    <string name="ty_company_name">TianYou Games</string>
+    <string name="ty_company_name2">[TianYou Games]</string>
+    <string name="ty_phone_login">Mobile login</string>
+    <string name="ty_no_register">(No register)</string>
+    <string name="ty_tianyou_notice">TianYou notice</string>
+    <string name="ty_game_recommend">Recommendation of games</string>
+    <string name="ty_pay_center">Center of payment</string>
+    <string name="ty_pay_failed_tip">Failed to pay,whether to confirm quit?</string>
+    <string name="ty_confirm_exit">Confirm quit</string>
+    <string name="ty_platform_pay">Go to the purchase platform</string>
+    <string name="ty_quick_title">System will use the quick account to enter the game</string>
+    <string name="ty_quick_content">In order to ensure the safety of your account,we advice you to bind your phone number.It is convinent for you to use the phone number as the login account.</string>
+    <string name="ty_binding_phone">Bind mobile phone</string>
+    
+    <string name="ty_entry_game">Enter the game</string>
+    <string name="ty_game_name">Name of the game:</string>
+    <string name="ty_game_size">Size of the game:</string>
+    <string name="ty_download_game">Download the game</string>
+    <string name="ty_hot_game">Hot recommendation of the game</string>
+    <string name="ty_exit_game">leave the game</string>
+    <string name="ty_phone_nomber">Phone number/account</string>
+    <string name="ty_password">password</string>
+    <string name="ty_forget_password">Forgot password</string>
+    <string name="ty_switch_login">Switch account</string>
+    <string name="ty_quick_register">Quick register</string>
+    <string name="ty_input_phone">Please enter the phone number</string>
+    
+    <string name="ty_send_code">Send a verification code</string>
+    <string name="ty_input_code">Enter a verification code</string>
+    <string name="ty_account_login">Old Account</string>
+    <string name="ty_server_info">The terms of TianYou service</string>
+    <string name="ty_no_binding_history">Dear players,\r\n We did not find the history of your QQ binding~</string>
+    <string name="ty_add_qq">Add new QQ account</string>
+    <string name="ty_quick_start">Start the game quickly</string>
+    <string name="ty_sms_login">Login by the mobile message</string>
+    <string name="ty_google_login">Sign in</string>
+    <string name="ty_qq_login">Login by the QQ account</string>
+    <string name="ty_agree_server">Register and agree the Tianyou service</string>
+    <string name="ty_account">Account:</string>
+    <string name="ty_username">User name</string>
+    <string name="ty_letter_number">4-16 letters,numbers</string>
+    <string name="ty_little_char">6-20 characters</string>
+    <string name="ty_phone_number">Phone number</string>
+    <string name="ty_sms_code">Message verification code</string>
+    <string name="ty_get_code">Obtain the verification code</string>
+    <string name="ty_one_key_login">One key to log in</string>
+    <string name="ty_send_sms">Send the message to finish the verification</string>
+    <string name="ty_add_new_qq">Add new QQ number</string>
+    <string name="ty_password_info">Password(6~20 numbers/letters)</string>
+    <string name="ty_pay_fail">Sorry,failed to pay</string>
+    <string name="ty_pay_order">Purchase order</string>
+    <string name="ty_pay_order2">Purchase order:</string>
+    <string name="ty_pay_server">Service area of the purchase</string>
+    <string name="ty_pay_server2">Service area of the purchase:</string>
+    <string name="ty_pay_money">The sum of the purchase</string>
+    <string name="ty_pay_money2">The sum of the purchase:</string>
+    <string name="ty_merry_play">TianYou Games hope you have a fun in games</string>
+    <string name="ty_server_qq">The QQ of the customer service:</string>
+    <string name="ty_server_phone">The phone number of the customer service:</string>
+    <string name="ty_wechat_code">Focus on the WeChat public number:</string>
+    <string name="ty_quick_get_help">Get help quickly</string>
+    <string name="ty_back_game">Return the game</string>
+    <string name="ty_sorry_pay_fail">Sorry,filaed to pay</string>
+    <string name="ty_otner_money">Other amount</string>
+    <string name="ty_money">Amount:</string>
+    <string name="ty_immediately_pay">Immedicate payment</string>
+    <string name="ty_tianyou_balance">The balance of TianYou coins:</string>
+    <string name="ty_pay_way">The way of payment</string>
+    <string name="ty_switch_pay_way">Switch the way of payment</string>
+    
+    <string name="ty_wechat_pay">WeChat payment</string>
+    <string name="ty_alipay_pay">Alipay payment</string>
+    <string name="ty_qq_pay">QQ wallet payment</string>
+    <string name="ty_wechat_scan_pay">Scan WeChat yard to pay</string>
+    <string name="ty_union_pay">UionPay payment</string>
+    <string name="ty_remit_pay">Remittance payment</string>
+    <string name="ty_tianyou_pay">TianYou Coins payment</string>
+    <string name="ty_google_pay">Google payment</string>
+    <string name="ty_paypal_pay">PayPal payment</string>
+    
+    <string name="ty_no_network">No network</string>
+    <string name="ty_link_network">Please try to contact internet again</string>
+    <string name="ty_flush">Refresh</string>
+    <string name="ty_remit_server">Remittance service</string>
+    <string name="ty_contact_server">(Please contact TianYou customer service under your payment success)</string>
+    <string name="ty_tianyou_server_phone">The phone number of the TianYou customer service:</string>
+    <string name="ty_save_photo">QR code will be saved into the album automatically</string>
+    <string name="ty_wechat_scan">Use WeChat scan,to scan the pay QR code in this album for payment.</string>
+    <string name="ty_concern_code">Focus on WeChat public number:</string>
+    <string name="ty_get_help">Contact customer service for help</string>
+    <string name="ty_wechat_scan_remit">(Pay by the WeChat scan)</string>
+    <string name="ty_pay_tip">Please contact TianYou customer service under payment success:</string>
+    <string name="ty_pay_success">Succeeded to pay</string>
+    <string name="ty_congrats_pay_success">Congraluate you on payment!</string>
+    <string name="ty_continue_pay">Continue to pay</string>
+    <string name="ty_server_center">Center of the customer service</string>
+    <string name="ty_server_content">The following services are 72*24 hours,we will always serve you!</string>
+    <string name="ty_server_content2">(7*24 hours services)</string>
+    <string name="ty_call_phone">Click on and call</string>
+    <string name="ty_add_server_qq">Add the QQ of customer service</string>
+    <string name="ty_tianyou_server">The customer service of TianYou Games </string>
+    <string name="ty_wechat_server">WeChat:The NO.1 customer service of TianYou Games</string>
+    <string name="ty_wechat_server2">Search:The NO.1 customer service of TianYou Games</string>
+    <string name="ty_scan_wechat">Scan and add the WeChat of customer service</string>
+    <string name="ty_query_result">Check payment results</string>
+    <string name="ty_wechat_scan_pay2">(WeChat Scan payment)</string>
+    <string name="ty_welcome_back">TianYou users, welcome back home!</string>
+    <string name="ty_switch_account">Switch account</string>
+    <string name="ty_choose_pay_way">Choose payment way</string>
+    
+    <string name="ty_menu_account">Account</string>
+    <string name="ty_menu_more">More</string>
+    <string name="ty_menu_gift">Gift bag</string>
+    <string name="ty_menu_bbs">Forum</string>
+    <string name="ty_menu_help">Help</string>
+	<string name="ty_menu_logout">Logout</string>
+	
+    
+    <string name="ty_money_sign">$</string>
+    <string name="ty_account_login2">Login account</string>
+    <string name="ty_server">service:</string>
+    <string name="ty_scale">scale:</string>
+    <string name="ty_get">get</string>
+    <string name="ty_confirm_delete">confirm delete</string>
+    <string name="ty_confirm">confirm</string>
+    <string name="ty_confirm_cancel">cancel</string>
+    
+    <string name="ty_menu_index">index</string>
+    <string name="ty_hot_game2">hot game</string>
+    <string name="ty_platform_pay2">platform pay</string>
+    <string name="ty_server_info2">server info</string>
+    <string name="ty_qq_login2">qq login</string>
+    <string name="ty_currency">$</string>
+    <string name="ty_tianyou">tianyou</string>
+    <string name="ty_welcome_back2">,welcome back home!</string>
+    
+</resources>

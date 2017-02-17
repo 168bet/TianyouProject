@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/sdk_main_bg"
+              android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/lv_trade"
+        android:dividerHeight="0dp"
+        android:divider="@color/transparent"
+        android:layout_width="match_parent"
+        android:background="@color/sdk_main_bg"
+        android:layout_height="match_parent"
+        android:listSelector="@color/transparent"
+        android:cacheColorHint="@color/transparent"
+        android:paddingBottom="@dimen/sdk_general_margin">
+
+    </ListView>
+    <ViewStub
+        android:id="@+id/sdk_stub_empty"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout="@layout/sdk_feedback_empty"/>
+</LinearLayout>

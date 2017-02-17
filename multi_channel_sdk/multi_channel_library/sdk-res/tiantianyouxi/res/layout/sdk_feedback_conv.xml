@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sdk_main_bg"
+    android:orientation="vertical">
+
+    <com.ltsdkgame.sdk.view.TitleBar
+        android:id="@+id/sdk_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/sdk_listview"
+        tools:listitem="@layout/sdk_chat_item_base_left"
+        android:layout_width="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:listSelector="@color/transparent"
+        android:cacheColorHint="@color/transparent"
+        android:layout_weight="1"
+        android:transcriptMode="alwaysScroll"
+        android:layout_height="0dp"/>
+
+    <TextView
+        android:id="@+id/sdk_feedback_status"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/white"
+        android:textColor="#f80"
+        android:text="当前反馈已结束，如有问题请提交新的反馈"
+        android:visibility="gone"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/sdk_rl_feedback"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="57dp">
+
+        <View
+            android:background="#ddd"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <LinearLayout
+            android:background="@drawable/sdk_bg_frame"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:src="@drawable/sdk_edit"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textSize="16sp"
+                android:textColor="#bbb"
+                android:hint="请输入您要反馈的问题描述"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

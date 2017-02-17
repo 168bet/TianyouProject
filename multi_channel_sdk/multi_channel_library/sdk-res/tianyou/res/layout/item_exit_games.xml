@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:layout_gravity="center_vertical">
+    
+	    <ImageView 
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:id="@+id/iv_item_games_gamelogo"
+	      	android:layout_weight="1" />
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/tv_item_games_gamename"
+	      	android:layout_weight="1"
+	      	android:textSize="12sp"
+	      	android:maxEms="5"  
+			android:singleLine="true"  
+			android:ellipsize="end"/>
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/tv_item_games_loadmount"
+	        android:layout_weight="1"
+	        android:textSize="10sp"
+	        android:textColor="#66000000"
+	       />
+    
+
+</LinearLayout>

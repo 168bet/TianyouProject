@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_height="320dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".activity.LoginActivity"
+    android:background="@drawable/shape_base">
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/back"
+            android:id="@+id/iv_bindphone_back"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/logo"
+                />
+            <TextView
+                android:textColor="#666666"
+                android:layout_marginLeft="5dp"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="天游戏 | 绑定手机"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999"/>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="13dp">
+
+        <TextView
+            android:textColor="#666666"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前游戏账号："/>
+
+        <TextView
+            android:textColor="#333333"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_putpwd_username"
+            />
+        <ImageView
+            android:layout_marginLeft="3dp"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:id="@+id/iv_putpwd_type"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_marginTop="21dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp">
+
+        <EditText
+            android:textColorHint="#999"
+            android:textSize="12sp"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:id="@+id/et_bindphone_phonenumber"
+            android:textColor="#333333"
+            android:background="@drawable/shape_edit"
+            android:layout_width="255dp"
+            android:layout_height="36dp"
+            android:hint="请输入手机号"/>
+
+        <Button
+            android:layout_alignParentRight="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="116dp"
+            android:layout_height="36dp"
+            android:text="获取验证码"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:id="@+id/btn_bindephone_getmessagecode"
+            android:padding="5dp"
+            android:background="@drawable/shape_btn_getcode"
+            />
+    </RelativeLayout>
+
+    <EditText
+        android:textColorHint="#999"
+        android:inputType="number"
+        android:textSize="12sp"
+        android:id="@+id/et_bindphone_checkcode"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@drawable/shape_edit2"
+        android:hint="验证码"
+        android:textColor="#333333"/>
+
+    <Button
+        android:textColor="#ffffff"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="进入游戏"
+        android:padding="5dp"
+        android:id="@+id/btn_bindphone_entergame"
+        android:background="@drawable/shape_redbtn"/>
+
+</LinearLayout>

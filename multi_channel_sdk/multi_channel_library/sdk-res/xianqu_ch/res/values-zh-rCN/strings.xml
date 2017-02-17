@@ -1,0 +1,24 @@
+<resources>
+   <string name="app_name">android_joy2u_yijie</string>
+    <string name="payment_result_tip_01">支付金额必须大于0</string>
+    <string name="payment_result_tip_02">创建订单失败,请稍后重试</string>    
+    <string name="payment_result_tip_03">获取数据失败</string>
+    <string name="payment_result_tip_04">不能连接到网络</string>
+    <string name="payment_result_tip_05">支付异常</string>
+    <string name="payment_result_tip_06">取消支付</string>
+    <string name="payment_result_tip_07">支付成功</string>
+    <string name="payment_result_tip_08">请先登录</string>
+    <string name="payment_result_tip_09">请使用人民币支付</string>
+    <string name="connect_time_out">连接超时</string>
+    <string name="requesting_load_txt">加载中</string>
+    <string name="loading_txt">加载中</string>
+    <string name="progress_loading_txt">处理中</string>
+    <string name="submit_button_txt" >提交</string>
+    <string name="cancel_button_txt">取消</string>
+    <string name="not_login_tip">您还没登录！</string>
+    <string name="loginSuccess">登录成功</string>
+    <string name="loginFaild">登录失败</string>
+    <string name="enter_server_error">不存在指定的服务器,请检查对应的参数</string>
+    <string name="create_role_error">创建角色错误,请检查对应的角色ID或者服务器ID</string>
+    <string name="levelup_role_error">升级角色错误,请检查对应的角色ID或者服务器ID</string>
+</resources>

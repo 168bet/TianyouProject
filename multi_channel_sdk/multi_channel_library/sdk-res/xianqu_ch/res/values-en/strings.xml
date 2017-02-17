@@ -1,0 +1,25 @@
+<resources>
+
+   <string name="app_name">android_joy2u_yijie</string>
+    <string name="payment_result_tip_01">Payment amount must be greater than zero</string>
+    <string name="payment_result_tip_02">create order faild</string>
+    <string name="payment_result_tip_03">Did not get the data!!</string>
+    <string name="payment_result_tip_04">Unable to connect to the network!!</string>
+    <string name="payment_result_tip_05">There was an error payment</string>
+    <string name="payment_result_tip_06">Cancel the payment</string>
+    <string name="payment_result_tip_07">payment success</string>
+    <string name="payment_result_tip_08">please login</string>
+    <string name="payment_result_tip_09">pay by only CNY!</string>
+    <string name="connect_time_out">connect time out!!</string>
+    <string name="requesting_load_txt">loading</string>
+    <string name="loading_txt">loading</string>
+    <string name="progress_loading_txt">handling</string>
+    <string name="submit_button_txt" >commit</string>
+    <string name="cancel_button_txt">cancel</string>
+    <string name="not_login_tip">you not login!!</string>
+    <string name="loginSuccess">login success!!</string>
+    <string name="loginFaild">login faild!!</string>
+    <string name="enter_server_error">enter server error!</string>
+    <string name="create_role_error">create role error! please check args</string>
+    <string name="levelup_role_error">levelUp role error! please check args</string>    
+</resources>

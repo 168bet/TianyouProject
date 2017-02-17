@@ -1,0 +1,182 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sdk_rl_dialog_login"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/sdk_dialog_login_xml_bg">
+
+
+    <ImageView
+        android:id="@+id/sdk_img_user_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/sdk_dialog_login_bg" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/sdk_action_bar_tittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="天天游戏中心账号登录"
+                android:textColor="@color/sdk_green_light"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/sdk_ll_userName"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/sdk_bg_frame"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/sdk_img_username" />
+
+            <TextView
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/sdk_gray_line" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="44dp">
+
+                <EditText
+                    android:id="@+id/sdk_et_userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="请输入手机号码或邮箱"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/sdk_dialog_login_edit_text_color"
+                    android:textColorHint="#bbbbbb"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/general_font_size" />
+
+                <Button
+                    android:id="@+id/sdk_tb_arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/sdk_btn_open_arrow"
+                    android:layout_alignRight="@+id/sdk_et_userName"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/sdk_bg_frame"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_passWord"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/sdk_img_password" />
+
+            <TextView
+                android:id="@+id/img_line"
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/sdk_gray_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/sdk_et_passWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/sdk_forget_password"
+                    android:background="@null"
+                    android:hint="请输入密码"
+                    android:imeOptions="flagNoExtractUi"
+                    android:maxLength="20"
+                    android:password="true"
+                    android:singleLine="true"
+                    android:textColor="@color/sdk_dialog_login_edit_text_color"
+                    android:textColorHint="#bbbbbb"
+                    android:textSize="@dimen/general_font_size" />
+
+                <TextView
+                    android:id="@+id/sdk_forget_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:text="忘记密码？"
+                    android:textColor="@color/sdk_green_light"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/sdk_login"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/sdk_green_button"
+            android:gravity="center"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="进入游戏"
+            android:textColor="@color/sdk_while"
+            android:textSize="@dimen/general_font_size" />
+
+        <TextView
+            android:id="@+id/sdk_fast_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="6dp"
+            android:text="一键注册>>"
+            android:textColor="@color/sdk_green_light"
+            android:textSize="@dimen/general_font_size" />
+    </LinearLayout>
+</RelativeLayout>

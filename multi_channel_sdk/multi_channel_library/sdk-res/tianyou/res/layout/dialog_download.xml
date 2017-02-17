@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="300dp"
+    android:orientation="vertical" 
+    android:background="@drawable/dialog_whight">
+    
+    <RelativeLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content">
+        
+        <ImageView 
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ty_exit_logo"
+            android:layout_centerHorizontal="true"/>
+        
+        <ImageView 
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ty_exit_close"
+            android:id="@+id/ty_iv_download_close"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    
+    <View 
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#33000000"/>
+    
+	<RelativeLayout 
+	    android:layout_marginTop="15dp"
+	    android:layout_marginLeft="35dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1">
+	    
+	    <ImageView 
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:id="@+id/ty_iv_download_gamelogo"
+	        />
+	    
+	    <LinearLayout 
+	        android:layout_marginLeft="10dp"
+	        android:id="@+id/ty_ll_download_name"
+	        android:layout_toRightOf="@id/ty_iv_download_gamelogo"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="游戏名称:"
+		        android:textSize="15sp"
+		        android:id="@+id/ty_tv_download_name"/>
+	    
+	    	<TextView 
+	    	    android:layout_marginLeft="8dp"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="15sp"
+		        android:textColor="#ff0000"
+		        android:id="@+id/ty_tv_download_gamename"/>
+	        
+	    </LinearLayout>
+	    
+	    <LinearLayout 
+	        android:layout_marginLeft="10dp"
+	        android:layout_below="@id/ty_ll_download_name"
+	        android:layout_toRightOf="@id/ty_iv_download_gamelogo"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        >
+	        
+	        <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="游戏大小:"
+		        android:textSize="15sp"
+		        />
+	    
+	    	<TextView 
+	    	    android:layout_marginLeft="8dp"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="15sp"
+		        android:textColor="#ff0000"
+		        android:id="@+id/ty_tv_download_gamesize"/>
+	        
+	    </LinearLayout>
+	    
+	    
+	</RelativeLayout>
+    
+    <Button 
+        android:id="@+id/ty_btn_download"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="下载游戏"
+        android:background="#ef5151"/>
+    
+
+</LinearLayout>

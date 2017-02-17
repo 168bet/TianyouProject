@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<infos>
+    
+    <!-- 当前接入sdk的channel_name -->
+    <select_channel>uc</select_channel>
+    
+    <uc>
+        <channel_name>uc</channel_name>
+        <channel_id>ty005</channel_id>
+        <ty_app_id>1009</ty_app_id>
+        <app_id>733805</app_id>
+        <app_key>08e557120ae7eb761424b7ec17018ed7</app_key>
+        <app_secret>ae36f4ee3946e1cbb98d6965b0b2ff5c</app_secret>
+        
+        <pay_info>
+            <id>zy001</id>
+            <money>1</money>
+            <product_name>uc魔剑</product_name>
+            <product_id>10001</product_id>
+            <product_desc>10物理攻击</product_desc>
+        </pay_info>
+        
+        <pay_info>
+            <id>zy002</id>
+            <money>2</money>
+            <product_name>uc长枪</product_name>
+            <product_id>10002</product_id>
+        </pay_info>
+    </uc>
+    
+</infos> 

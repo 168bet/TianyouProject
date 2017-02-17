@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sdk_main_bg"
+    android:orientation="vertical">
+
+    <com.ltsdkgame.sdk.view.TitleBar
+        android:id="@+id/sdk_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sdk_general_margin"
+        android:layout_marginRight="@dimen/sdk_general_margin"
+        android:layout_marginTop="@dimen/sdk_general_margin"
+        android:background="@drawable/sdk_bg_frame"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/sdk_edt_desc"
+            android:layout_width="match_parent"
+            android:layout_height="144dp"
+            android:background="@android:color/transparent"
+            android:gravity="left|top"
+            android:hint="@string/sdk_submit_feedback_tip"
+            android:paddingBottom="10dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/sdk_main_txt"
+            android:textColorHint="@color/sdk_gray_text"
+            android:textSize="16sp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.8dp"
+            android:background="@drawable/sdk_feedback_dash_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/sdk_img_select_photo"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/sdk_select_photo"/>
+
+            <GridView
+                android:id="@+id/sdk_gv_submit_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@color/transparent"
+                android:padding="12dp"
+                android:verticalSpacing="12dp"
+                android:horizontalSpacing="12dp"
+                android:layout_toLeftOf="@id/sdk_img_select_photo"
+                android:numColumns="3"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/sdk_btn_submit_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="@dimen/sdk_general_margin"
+        android:layout_marginRight="@dimen/sdk_general_margin"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/sdk_green_button"
+        android:text="@string/sdk_submit_feedback_submit"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
+
+</LinearLayout>
