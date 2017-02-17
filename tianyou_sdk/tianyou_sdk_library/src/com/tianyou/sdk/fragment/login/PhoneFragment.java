@@ -94,7 +94,6 @@ public class PhoneFragment extends BaseLoginFragment {
 	protected void initData() {
 		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
-			mActivity.finish();
 			Map<String, String> map = loginInfo.get(0);
 			String userName = map.get(LoginInfoHandler.USER_ACCOUNT);
 			String userPass = map.get(LoginInfoHandler.USER_PASSWORD);
