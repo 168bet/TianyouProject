@@ -400,7 +400,12 @@ public class PangGooglepaySdkService extends BaseSdkService {
 	@Override
 	public void doGoogleAchieveActivity() {
 		super.doGoogleAchieveActivity();
-		pgmp2SdkGoogleServiceObj.openGoogleAchievements(mActivity, mActivity);
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				pgmp2SdkGoogleServiceObj.openGoogleAchievements(mActivity, mActivity);
+			}
+		});
 	}
 	
 	@Override
