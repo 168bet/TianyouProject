@@ -1,0 +1,55 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="登录" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="注销（非必接）" />
+
+        <Button
+            android:id="@+id/btn_create_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="创建角色" />
+
+        <Button
+            android:id="@+id/btn_send_role_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="上传角色信息" />
+
+        <Button
+            android:id="@+id/btn_entry_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="进入游戏" />
+
+        <Button
+            android:id="@+id/btn_update_role_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="更新角色信息" />
+
+        <Button
+            android:id="@+id/btn_pay_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="支付一元" />
+    </LinearLayout>
+
+</ScrollView>
