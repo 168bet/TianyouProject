@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="DefaultLocale" severity="ignore">
+        <ignore path="src/com/tianyou/sdk/pay/business/WechatPay.java" />
+    </issue>
+    <issue id="HandlerLeak" severity="ignore">
+        <ignore path="src/com/tianyou/sdk/activity/PayActivity.java" />
+    </issue>
+    <issue id="NewApi" severity="ignore" />
+    <issue id="SetJavaScriptEnabled" severity="ignore" />
+    <issue id="SimpleDateFormat">
+        <ignore path="src/com/tianyou/sdk/utils/AppUtils.java" />
+    </issue>
+    <issue id="ViewConstructor">
+        <ignore path="src/com/tianyou/sdk/view/SelectPicPopupWindow.java" />
+        <ignore path="src/com/tianyou/sdk/views/PayPopupWindow.java" />
+    </issue>
+</lint>

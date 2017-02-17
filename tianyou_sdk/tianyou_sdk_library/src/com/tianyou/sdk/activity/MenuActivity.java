@@ -1,0 +1,155 @@
+package com.tianyou.sdk.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.TextView;
+
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.umeng.analytics.MobclickAgent;
+
+/**
+ * 悬浮菜单Activity
+ * @author itstrong
+ * 
+ */
+public class MenuActivity extends Activity implements OnClickListener {
+
+	public static final int POPUP_MENU_0 = 0;
+	public static final int POPUP_MENU_1 = 1;
+	public static final int POPUP_MENU_2 = 2;
+	public static final int POPUP_MENU_3 = 3;
+	public static final int POPUP_MENU_4 = 4;
+	public static final int POPUP_MENU_5 = 5;
+	public static final int POPUP_MENU_6 = 6;
+	public static final int POPUP_MENU_7 = 7;
+	
+	public static int REQUEST_OK = 1;
+
+	private TextView mTextTitle;
+	private WebView mWebView;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(ResUtils.getResById(this, "activity_menu", "layout"));
+//		PushAgent.getInstance(this).onAppStart();
+		initFindViewById();
+		showWebView();
+	}
+	
+	private void initFindViewById() {
+		findViewById(ResUtils.getResById(this, "img_menu_back", "id")).setOnClickListener(this);
+		findViewById(ResUtils.getResById(this, "img_menu_close", "id")).setOnClickListener(this);
+		mTextTitle = (TextView) findViewById(ResUtils.getResById(this, "text_menu_title", "id"));
+		mWebView = (WebView) findViewById(ResUtils.getResById(this, "web_view_menu", "id"));
+		mWebView.getSettings().setJavaScriptEnabled(true);
+		mWebView.setWebViewClient(new MyWebViewClient());
+	}
+	
+	class MyWebViewClient extends WebViewClient {
+		@Override
+		public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			LogUtils.d("url:" + url);
+			String substring = url.substring(url.length() - 3, url.length());
+			LogUtils.d("substring:" + substring);
+			if (!"apk".equals(substring)) {
+				view.loadUrl(url);
+			} else {
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse(url));
+				startActivity(intent);
+			}
+			return true;
+		}
+	}
+	
+	private void showWebView() {
+		switch (getIntent().getIntExtra("menu_type", 0)) {
+		case POPUP_MENU_0:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_index"));
+			mWebView.loadUrl(getURL(URLHolder.URL_CENTER));
+			break;
+		case POPUP_MENU_1:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_more"));
+			mWebView.loadUrl(getURL(URLHolder.URL_HOT_GAME));
+			break;
+		case POPUP_MENU_2:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_gift"));
+			mWebView.loadUrl(getURL(URLHolder.URL_GIFT));
+			break;
+		case POPUP_MENU_3:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_bbs"));
+			mWebView.loadUrl(getURL(URLHolder.URL_BBS));
+			break;
+		case POPUP_MENU_4:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_help"));
+			mWebView.loadUrl(URLHolder.URL_MENU_HELP);
+			break;
+		case POPUP_MENU_5:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_hot_game2"));
+			mWebView.loadUrl(URLHolder.URL_HOT_GAME);
+			break;
+		case POPUP_MENU_6:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_forget_password"));
+			mWebView.loadUrl(URLHolder.URL_FORGET_PASS);
+			break;
+			
+		case POPUP_MENU_7:
+			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_platform_pay2"));
+			String url = getIntent().getStringExtra("url");
+			setResult(REQUEST_OK,getIntent());
+			LogUtils.d("POPUP_MENU_7:" + url);
+			mWebView.loadUrl(url);
+			break;
+		}
+	}
+
+	private String getURL(String url) {
+		String getUrl = url + "&username=" + ConfigHolder.USER_ACCOUNT + "&appID=" + 
+				ConfigHolder.GAME_ID + "&usertoken=" + ConfigHolder.GAME_TOKEN + "&type=sdk";
+		LogUtils.d("url:" + getUrl);
+		return url + "&username=" + ConfigHolder.USER_ACCOUNT + "&appID=" + 
+				ConfigHolder.GAME_ID + "&usertoken=" + ConfigHolder.GAME_TOKEN + "&type=sdk";
+	}
+
+	@Override
+	public void onClick(View view) {
+		if (view.getId() == ResUtils.getResById(this, "img_menu_back", "id")) {
+			if (mWebView.canGoBack()) {
+				mWebView.goBack();
+			} else {
+				finish();
+			}
+		} else if (view.getId() == ResUtils.getResById(this, "img_menu_close", "id")) {
+			
+			finish();
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// 友盟统计
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// 友盟统计
+		MobclickAgent.onPause(this);
+	}
+}

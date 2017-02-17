@@ -1,0 +1,217 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.tianyouxi.lszg.bm">
+    <!-- package="com.tianyou.sdk.demo" -->
+
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="18"/>
+
+    <application android:allowBackup="true" android:icon="@drawable/ty_logo" android:label="@string/app_name" android:name="com.tianyou.sdk.demo.MyApplication" android:theme="@style/AppTheme">
+        <activity android:configChanges="keyboard|screenSize|orientation|layoutDirection" android:name="com.tianyou.sdk.activity.SplashActivity" android:screenOrientation="sensorPortrait" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/app_name" android:name="com.tianyou.sdk.demo.MainActivity" android:screenOrientation="sensorPortrait" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1026966590741849" android:exported="true" android:name="com.facebook.FacebookContentProvider"/>
+
+        <!-- 
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+        
+        <activity android:configChanges="screenSize|keyboardHidden|orientation" android:name="com.tianyou.sdk.activity.LoginActivity" android:theme="@style/style_my_dialog"/>
+        <activity android:configChanges="screenSize|keyboardHidden|orientation" android:name="com.tianyou.sdk.activity.MenuActivity" android:screenOrientation="sensorPortrait"/>
+        <activity android:configChanges="screenSize|keyboardHidden|orientation" android:name="com.tianyou.sdk.activity.PayActivity"/>
+        <activity android:configChanges="screenSize|keyboardHidden|orientation" android:name="com.tianyou.sdk.activity.ExitActivity" android:theme="@style/style_my_dialog"/>
+        <activity android:configChanges="screenSize|keyboardHidden|orientation" android:name="com.tianyou.sdk.activity.WebViewAvtivity" android:screenOrientation="sensorPortrait"/>
+        <activity android:configChanges="screenSize|keyboardHidden|orientation" android:name="com.tianyou.sdk.activity.NotifyActivity" android:theme="@style/style_my_dialog"/>
+
+        <!-- 微信sdk -->
+        <activity android:name="com.switfpass.pay.activity.QQWapPayWebView" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!-- 支付宝sdk -->
+        <activity android:configChanges="orientation|keyboardHidden|navigation" android:exported="false" android:name="com.alipay.sdk.app.H5PayActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:configChanges="orientation|keyboardHidden|navigation" android:exported="false" android:name="com.alipay.sdk.auth.AuthActivity" android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:configChanges="orientation|keyboardHidden|keyboard" android:name="com.unionpay.uppay.PayActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:configChanges="orientation|keyboardHidden|fontScale" android:name="com.unionpay.UPPayWapActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize">
+        </activity>
+        
+        <!--Google Login-->
+        <activity android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.GOOGLE_SIGN_IN"/>
+            </intent-filter>
+        </activity>
+        
+        <!-- paypal pay -->
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.PayPalProfileSharingActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.ProfileSharingConsentActivity"/>
+
+        <!-- Umeng push sdk start -->
+        <service android:exported="true" android:name="com.taobao.accs.ChannelService" android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.SERVICE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.ELECTION"/>
+            </intent-filter>
+        </service>
+        <service android:exported="true" android:name="com.taobao.accs.data.MsgDistributeService">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE"/>
+            </intent-filter>
+        </service>
+
+        <service android:name="com.taobao.accs.ChannelService$KernelService" android:process=":channel">
+        </service>
+        <service android:exported="true" android:name="org.android.agoo.accs.AgooService">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.RECEIVE"/>
+            </intent-filter>
+        </service>
+        <service android:exported="true" android:name="com.umeng.message.UmengIntentService">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE"/>
+            </intent-filter>
+        </service>
+
+        <service android:exported="false" android:name="com.umeng.message.UmengMessageCallbackHandlerService">
+            <intent-filter>
+                <action android:name="com.umeng.messge.registercallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.enablecallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.disablecallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.message.handler.action"/>
+            </intent-filter>
+        </service>
+        <service android:exported="false" android:name="com.umeng.message.UmengDownloadResourceService"/>
+        <service android:exported="true" android:name="com.umeng.message.UmengMessageIntentReceiverService" android:process=":channel">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService"/>
+            </intent-filter>
+        </service>
+
+        <service android:exported="false" android:name="com.paypal.android.sdk.payments.PayPalService"/>
+
+        <receiver android:name="com.taobao.accs.EventReceiver" android:process=":channel">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.taobao.accs.ServiceReceiver" android:process=":channel">
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.COMMAND"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.taobao.accs.intent.action.START_FROM_AGOO"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:exported="true" android:name="com.taobao.agoo.AgooCommondReceiver">
+            <intent-filter>
+                <action android:name="com.tianyou.mjx.intent.action.COMMAND"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:exported="false" android:name="com.umeng.message.NotificationProxyBroadcastReceiver"/>
+
+        <!-- 银联sdk -->
+        <uses-library android:name="org.simalliance.openmobileapi" android:required="false"/>
+
+        <!--
+        <provider
+            android:name="com.umeng.message.provider.MessageProvider"
+            android:authorities="com.tianyou.mjx.umeng.message"
+            android:exported="true" >
+            <grant-uri-permission android:pathPattern=".*" />
+        </provider>
+         Umeng push sdk end -->
+
+
+        <!-- Umeng analysis set start -->
+        <meta-data android:name="UMENG_APPKEY" android:value="58455f4365b6d624220006e9"/>
+        <!-- android:value="5805886d67e58e943a000454" /> -->
+        <meta-data android:name="UMENG_CHANNEL" android:value="0,0"/>
+        <!-- Umeng analysis set end -->
+
+
+        <!-- Umeng push set start -->
+        <meta-data android:name="UMENG_MESSAGE_SECRET" android:value="12404a015b1c2a574ad937be2face5d1"/>
+        <!-- android:value="12404a015b1c2a574ad937be2face5d1" /> -->
+        <!-- Umeng push set end -->
+        
+        <!-- google -->
+        <meta-data android:name="google_client_id" android:value="775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com"/>
+        
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+        <activity android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:name="com.facebook.FacebookActivity" android:theme="@style/com_facebook_activity_theme"/>
+        <activity android:exported="true" android:name="com.facebook.CustomTabActivity">
+        </activity>
+        <activity android:name="com.facebook.CustomTabMainActivity"/>
+    </application>
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.NFC"/>
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL"/>
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <uses-feature android:name="android.hardware.nfc.hce"/>
+
+</manifest>
