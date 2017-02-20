@@ -243,9 +243,9 @@ public class PangGooglepaySdkService extends BaseSdkService {
 		};
 		this.pgmp2Sdk = Pgmp2Sdk.getInstance();
 		this.pgmp2Sdk.useFirstAgree();
-		String versionCode = CommenUtil.getMetaDataValue(mActivity, "google_version");
-		LogUtils.d("versionCode= "+versionCode);
-		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 2, versionCode, 
+//		String versionCode = CommenUtil.getMetaDataValue(mActivity, "google_version");
+//		LogUtils.d("versionCode= "+versionCode);
+		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 2, "2.1", 
 				mActivity, eventListener, pgmp2NaverCafeListener);
 		
 		if (pgmp2SdkInitGameResultCode == 1) {
