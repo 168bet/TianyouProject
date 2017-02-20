@@ -2,6 +2,7 @@ package com.tianyou.sdk.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.tianyou.sdk.holder.ConfigHolder;
@@ -37,6 +39,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 	public static int REQUEST_OK = 1;
 
 	private TextView mTextTitle;
+	private ProgressBar mProgressBar;
 	private WebView mWebView;
 
 	@Override
@@ -54,6 +57,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		findViewById(ResUtils.getResById(this, "img_menu_back", "id")).setOnClickListener(this);
 		findViewById(ResUtils.getResById(this, "img_menu_close", "id")).setOnClickListener(this);
 		mTextTitle = (TextView) findViewById(ResUtils.getResById(this, "text_menu_title", "id"));
+		mProgressBar = (ProgressBar) findViewById(ResUtils.getResById(this, "pg_menu_loading", "id"));
 		mWebView = (WebView) findViewById(ResUtils.getResById(this, "web_view_menu", "id"));
 		mWebView.getSettings().setJavaScriptEnabled(true);
 		mWebView.setWebViewClient(new MyWebViewClient());
@@ -73,6 +77,18 @@ public class MenuActivity extends Activity implements OnClickListener {
 				startActivity(intent);
 			}
 			return true;
+		}
+		
+		@Override
+		public void onPageStarted(WebView view, String url, Bitmap favicon) {
+			super.onPageStarted(view, url, favicon);
+			mProgressBar.setVisibility(View.VISIBLE);
+		}
+		
+		@Override
+		public void onPageFinished(WebView view, String url) {
+			super.onPageFinished(view, url);
+			mProgressBar.setVisibility(View.GONE);
 		}
 	}
 	

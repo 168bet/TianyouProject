@@ -43,10 +43,23 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#999" />
-
-    <WebView
-        android:id="@+id/web_view_menu"
+    
+    <FrameLayout 
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        
+
+	    <WebView
+	        android:id="@+id/web_view_menu"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent" />
+	    
+        <ProgressBar 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/pg_menu_loading"
+            android:visibility="gone"/>
+    </FrameLayout>
 
 </LinearLayout>
