@@ -85,9 +85,10 @@ public class LoginHandler {
 	// 登录逻辑处理
 	public void onLoginProcess(ResultBean result) {
     	if (result.getCode() == 200) {
+    		mActivity.finish();
     		showWelComePopup(result);
 		} else {
-			ToastUtils.showDialog(mActivity, result.getMsg());
+			ToastUtils.show(mActivity, result.getMsg());
 			Tianyouxi.mLoginCallback.onFailed(result.getMsg());
 		}
     }

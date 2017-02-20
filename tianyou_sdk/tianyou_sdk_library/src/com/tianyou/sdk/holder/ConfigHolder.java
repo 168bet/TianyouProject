@@ -16,6 +16,9 @@ public class ConfigHolder {
 	/** 存储game_id */
 	public static boolean IS_OVERSEAS;
 	
+	/** 是否打开日志 */
+	public static boolean IS_OPEN_LOG;
+	
 	/** 存储game_token */
 	public static String GAME_TOKEN;
 	

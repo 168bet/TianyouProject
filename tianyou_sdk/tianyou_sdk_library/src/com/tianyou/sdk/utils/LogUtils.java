@@ -1,5 +1,7 @@
 package com.tianyou.sdk.utils;
 
+import com.tianyou.sdk.holder.ConfigHolder;
+
 import android.util.Log;
 
 /**
@@ -7,12 +9,11 @@ import android.util.Log;
  */
 public class LogUtils {
 
-	private static final String TAG = "tianyouxi";
-	private static boolean isOpen = true;
+	private static final String TAG = "tianyou";
 
-	public static void d(String msg) { if (isOpen) Log.d(TAG, "tianyou_" + msg); }
+	public static void d(String msg) { if (ConfigHolder.IS_OPEN_LOG) Log.d(TAG, "tianyou_" + msg); }
 
-	public static void w(String msg) { if (isOpen) Log.w(TAG, "tianyou_" + msg); }
+	public static void w(String msg) { if (ConfigHolder.IS_OPEN_LOG) Log.w(TAG, "tianyou_" + msg); }
 
-	public static void e(String msg) { if (isOpen) Log.e(TAG, "tianyou_" + msg); }
+	public static void e(String msg) { if (ConfigHolder.IS_OPEN_LOG) Log.e(TAG, "tianyou_" + msg); }
 }
