@@ -103,10 +103,10 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 			mImgMenuLogo.setOnClickListener(this);
 			
 			View menu0 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_0", "id"));
-			View menu1 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_0", "id"));
-			View menu2 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_0", "id"));
-			View menu3 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_0", "id"));
-			View menu4 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_0", "id"));
+			View menu1 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_1", "id"));
+			View menu2 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_2", "id"));
+			View menu3 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_3", "id"));
+			View menu4 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_4", "id"));
 			View menu5 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_0", "id"));
 			
 			menu0.setOnClickListener(this);
