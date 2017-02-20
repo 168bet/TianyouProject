@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouCallback.LoginCallback;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_entry_game).setOnClickListener(this);
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
+		Tianyouxi.initActivity(mActivity);
 		Tianyouxi.createFloatMenu(mActivity);
 	}
 

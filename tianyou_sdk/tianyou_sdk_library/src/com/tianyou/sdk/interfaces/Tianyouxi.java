@@ -94,15 +94,20 @@ public class Tianyouxi {
 		}
 
 	}
+	
+	// 初始化Activity接口
+	public static void initActivity(Activity activity){
+		getPayWay(activity);
+	}
 
-	private static void getPayWay(){
+	private static void getPayWay(final Activity activity){
 		Map<String,String> map = new HashMap<String, String>();
     	map.put("appID", ConfigHolder.GAME_ID);
 		map.put("usertoken", ConfigHolder.GAME_TOKEN);
-		HttpUtils.post(mActivity, URLHolder.URL_PAY_WAY_CONTROL, map, new HttpCallback() {
+		HttpUtils.post(activity, URLHolder.URL_PAY_WAY_CONTROL, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
-				SPHandler.putString(mActivity, SPHandler.SP_PAY_WAY, response);
+				SPHandler.putString(activity, SPHandler.SP_PAY_WAY, response);
 			}
 			
 			@Override
