@@ -13,16 +13,16 @@ public class ToastUtils {
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}
 
-	public static void showDialog(Context context, String msg) {
-		AlertDialog.Builder builder = new Builder(context);
-		builder.setMessage(msg);
-		builder.setTitle("提示");
-		builder.setPositiveButton("确认", new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int arg1) {
-				dialog.dismiss();
-			}
-		});
-		builder.create().show();
-	}
+//	public static void showDialog(Context context, String msg) {
+//		AlertDialog.Builder builder = new Builder(context);
+//		builder.setMessage(msg);
+//		builder.setTitle("提示");
+//		builder.setPositiveButton("确认", new OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int arg1) {
+//				dialog.dismiss();
+//			}
+//		});
+//		builder.create().show();
+//	}
 }

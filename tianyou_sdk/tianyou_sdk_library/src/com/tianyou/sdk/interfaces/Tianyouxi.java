@@ -65,6 +65,7 @@ public class Tianyouxi {
 		Map<String, Object> mm = XMLParser.paraserXML(is);
 		ConfigHolder.CHANNEL_ID = (String) ((Map<String, Object>) mm.get("infos")).get("channel_id");
 		ConfigHolder.IS_OVERSEAS = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("is_overseas"));
+		ConfigHolder.IS_OPEN_LOG = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("log_switch"));
 		ConfigHolder.GAME_ID = gameId;
 		ConfigHolder.GAME_TOKEN = gameToken;
 

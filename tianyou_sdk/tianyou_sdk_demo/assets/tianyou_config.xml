@@ -2,4 +2,5 @@
 <infos>
     <channel_id>0,0</channel_id>
     <is_overseas>1</is_overseas>
+    <log_switch>1</log_switch>
 </infos> 

@@ -84,9 +84,10 @@ public class LoginHandler {
 	// 登录逻辑处理
 	public void onLoginProcess(ResultBean result) {
     	if (result.getCode() == 200) {
+    		mActivity.finish();
     		showWelComePopup(result);
 		} else {
-			ToastUtils.showDialog(mActivity, result.getMsg());
+			ToastUtils.show(mActivity, result.getMsg());
 			Tianyouxi.mLoginCallback.onFailed(result.getMsg());
 		}
     }
@@ -136,7 +137,6 @@ public class LoginHandler {
     
     // 用户登录欢迎pupup
   	public void showWelComePopup(final ResultBean result) {
-  		mActivity.finish();
   		View mView = new View(Tianyouxi.mActivity);
   		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
   		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

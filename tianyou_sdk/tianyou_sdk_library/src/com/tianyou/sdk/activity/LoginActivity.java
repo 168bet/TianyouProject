@@ -164,13 +164,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			finish();
 		} if (mFragmentTag.equals("AccountFragment")) {
 			if (!ConfigHolder.IS_LOGIN) {
-				ToastUtils.showDialog(mActivity, "登录失败");
+				ToastUtils.show(mActivity, "登录失败");
 				Tianyouxi.mLoginCallback.onFailed("登录失败");
 			}
 			finish();
 		} if (mFragmentTag.equals("PhoneFragment")) {
 			if (!ConfigHolder.IS_LOGIN) {
-				ToastUtils.showDialog(mActivity, "登录失败");
+				ToastUtils.show(mActivity, "登录失败");
 				Tianyouxi.mLoginCallback.onFailed("登录失败");
 			}
 			finish();
