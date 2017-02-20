@@ -24,6 +24,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.activity.NotifyActivity;
 import com.tianyou.sdk.bean.LoginInfo;
@@ -93,6 +94,7 @@ public class LoginHandler {
 	
 	// 用户登录欢迎pupup
 	public void showWelComePopup() {
+		LogUtils.d("showWelcomePopup-------------");
 		View mView = new View(Tianyouxi.mActivity);
 		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -136,7 +138,10 @@ public class LoginHandler {
     
     // 用户登录欢迎pupup
   	public void showWelComePopup(final ResultBean result) {
+  		LogUtils.d("showWelcomePopup result-------------");
   		mActivity.finish();
+  		ConfigHolder.USER_NICKNAME = result.getNickname();
+  		ConfigHolder.USER_ACCOUNT = result.getUsername();
   		View mView = new View(Tianyouxi.mActivity);
   		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
   		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -145,6 +150,7 @@ public class LoginHandler {
   		View view = View.inflate(Tianyouxi.mActivity, ResUtils.getResById(Tianyouxi.mActivity, "popup_welcome", "layout"), null);
   		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(Tianyouxi.mActivity, "text_welcome_user", "id"));
   		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(Tianyouxi.mActivity, "text_welcome_switch", "id"));
+  		LogUtils.d("nickName= "+ConfigHolder.USER_NICKNAME+",account= "+ConfigHolder.USER_ACCOUNT);
   		if (ConfigHolder.USER_NICKNAME == null || ConfigHolder.USER_NICKNAME.isEmpty()) {
   			textUser.setText(ResUtils.getString(mActivity, "ty_tianyou") + 
    					ConfigHolder.USER_ACCOUNT + ResUtils.getString(mActivity, "ty_welcome_back2"));
@@ -209,6 +215,7 @@ public class LoginHandler {
   	
   	// 登录成功
     public void onLoginSuccess(ResultBean result) {
+    	LogUtils.d("onLoginSuccess---------------------");
     	ConfigHolder.IS_LOGIN = true;
 		ConfigHolder.USER_ACCOUNT = result.getUsername();
 		ConfigHolder.USER_ID = result.getUserid();
