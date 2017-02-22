@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#ffffff">
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="안내"
+        android:layout_margin="15dp"
+        android:textColor="#333"
+        android:textSize="15sp"/>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="필수 권한을 동의하셔야 게임을 실행할 수 있습니다."
+        android:textColor="#333"
+        android:textSize="15sp"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp">
+            
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text=" 게임 종료"
+	            android:id="@+id/tv_permission_close"
+	            android:layout_margin="5dp"
+	            android:layout_marginRight="25dp"
+	            android:textColor="#008800"
+	            android:textSize="15sp"
+	            />
+	        <TextView 
+	            android:textColor="#008800"
+	            android:id="@+id/tv_permission_setting"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="권한 설정"
+	            android:layout_margin="5dp"
+	            android:layout_marginLeft="15dp"
+	            android:textSize="15sp"
+	            />
+	        
+        </LinearLayout>
+            
+    </RelativeLayout>
+    
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import cn.joy2u.common.model.PayChannelType;
+import cn.joy2u.common.service.OpenApiService;
 import cn.joy2u.common.type.MoneyType;
 import cn.joy2u.middleware.EnvironmentType;
 import cn.joy2u.middleware.Joy2uCallback;
@@ -137,6 +138,14 @@ public class XianquChSdkService extends BaseSdkService{
 		joy2u.loginGameServer(mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), mRoleInfo.getRoleLevel(), 
 				mRoleInfo.getServerId(), mRoleInfo.getServerName(), mRoleInfo.getBalance(), mRoleInfo.getVipLevel(),
 				mRoleInfo.getParty(), mRoleInfo.getCreateTime(), mRoleInfo.getRoleLevelUpTime());
+		
+		try {
+			OpenApiService.getInstance(mActivity).loginGameServer(Long.parseLong(mRoleInfo.getServerId()), mRoleInfo.getServerName(),
+					"http://channel.tianyouxi.com/index.php/AndroidReceive/GetPayInfo");
+		} catch (Exception e) {
+			e.printStackTrace();
+			LogUtils.d("e= "+e.getMessage());
+		}
 	}
 	
 	@Override

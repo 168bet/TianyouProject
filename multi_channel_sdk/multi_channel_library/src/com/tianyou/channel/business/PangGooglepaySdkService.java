@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -17,10 +18,15 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.facebook.FacebookSdk;
@@ -44,11 +50,11 @@ import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
+import com.tianyou.channel.utils.ResUtils;
 import com.tianyou.channel.utils.URLHolder;
 
 public class PangGooglepaySdkService extends BaseSdkService {
@@ -60,6 +66,11 @@ public class PangGooglepaySdkService extends BaseSdkService {
 	// 谷歌支付
 	private IInAppBillingService mService;
     private ServiceConnection mServiceConn;
+    
+    // 权限
+    private AlertDialog confirmDialog;
+    private String[] permissions = {Manifest.permission.READ_PHONE_STATE,Manifest.permission.ACCESS_FINE_LOCATION};
+
     
     // Facebook广告
     
@@ -105,7 +116,7 @@ public class PangGooglepaySdkService extends BaseSdkService {
         serviceIntent.setPackage("com.android.vending");
         mActivity.bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
         
-        // 申请权限
+        /** 申请权限
         if (ContextCompat.checkSelfPermission(mActivity, Manifest.permission.READ_PHONE_STATE)
 				!= PackageManager.PERMISSION_GRANTED) {
         	Log.d("TAG","111111111");
@@ -119,7 +130,10 @@ public class PangGooglepaySdkService extends BaseSdkService {
         	ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
         	Log.d("TAG","44444444");
         }
+        */
 	}
+	
+	
 	
 	//谷歌包接入
 	private void facebookDeepLink() {
@@ -245,7 +259,7 @@ public class PangGooglepaySdkService extends BaseSdkService {
 		this.pgmp2Sdk.useFirstAgree();
 //		String versionCode = CommenUtil.getMetaDataValue(mActivity, "google_version");
 //		LogUtils.d("versionCode= "+versionCode);
-		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 2, "2.1", 
+		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 2, "2.5", 
 				mActivity, eventListener, pgmp2NaverCafeListener);
 		
 		if (pgmp2SdkInitGameResultCode == 1) {
@@ -414,14 +428,13 @@ public class PangGooglepaySdkService extends BaseSdkService {
 		IgawLiveOps.setTargetingData(mActivity, "night_push", isOpen == true ? 1 : 0);
 	}
 	
-	
-	private String googelOrderID;
+	private String googelOrderID = "";
 	@Override
 	public void doActivityResult(int requestCode, int resultCode, Intent data) {
 		super.doActivityResult(requestCode, resultCode, data);
 		LogUtils.d("doActivityResult:" + requestCode + "," + resultCode);
 		if (requestCode == AppConst.ON_ACTIVITY_REQUEST_CODE_CHECK_GAME) {		
-			// 设置维护后的行为
+			// 设置维护后的行为 
 		} else {
 			if (resultCode == AppConst.ON_ACTIVITY_RESULT_CODE_LOGIN) {
 				// 设置登录后的行为 游戏玩家信息
@@ -458,18 +471,24 @@ public class PangGooglepaySdkService extends BaseSdkService {
         			@Override
         			public void run() {
         				// 消耗谷歌商品
+        				JSONObject dataObject = null;
         				try {
-        					JSONObject dataObject = new JSONObject(purchaseData);
+        					dataObject = new JSONObject(purchaseData);
         					String purchaseToken = dataObject.getString("purchaseToken");LogUtils.d("purchaseToken= "+purchaseToken);
         					int response = mService.consumePurchase(3, mActivity.getPackageName(), purchaseToken);
         					LogUtils.d("packageName= "+mActivity.getPackageName()+",purchaseToken= "+purchaseToken);
         					LogUtils.d("onActivityRestul response= "+response);
-        					googelOrderID = dataObject.getString("orderId");
-        					LogUtils.d("googleOrderID= "+googelOrderID);
         				} catch (Exception e) {
-        					Log.d("TAG", "consumePurchase= "+e.getMessage());
         					e.printStackTrace();
         				}
+        				try {
+        					if (dataObject != null) {
+        						googelOrderID = dataObject.getString("orderId");
+        						LogUtils.d("googleOrderID= "+googelOrderID);
+        					}
+						} catch (Exception e) {
+							Log.d("TAG", "consumePurchase= "+e.getMessage());
+						}
         			}
         		}).start();
             }
@@ -519,6 +538,22 @@ public class PangGooglepaySdkService extends BaseSdkService {
             }
         });
 	}
+	
+//	@Override
+//	public void doRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grantResults) {
+//		super.doRequestPermissionsResult(requestCode, permissions, grantResults);
+//		if (1 == requestCode) {
+//			 if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||grantResults[1] != PackageManager.PERMISSION_GRANTED) {
+//				 showAgreeDialog();
+//	        }
+//		}
+//		
+////		if (2 == requestCode) {
+////			if (grantResults[0] != PackageManager.PERMISSION_GRANTED ||grantResults[1] != PackageManager.PERMISSION_GRANTED) {
+////				 showAgreeDialog();
+////	        }
+////		}
+//	}
 	
 	@Override
 	public void doResume() {

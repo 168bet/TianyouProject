@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
@@ -190,4 +191,8 @@ public interface SdkServiceInterface {
 	 * @return true：不显示游戏的注销按钮，false：显示游戏的注销按钮
 	 */
 	boolean isShowLogout();
+	
+	void doRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grantResults);
+
 }
+

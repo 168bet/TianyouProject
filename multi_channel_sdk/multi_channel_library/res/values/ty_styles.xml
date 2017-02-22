@@ -1,4 +1,11 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="Theme_Transparent" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
     <style name="style_my_dialog">
         <item name="android:windowBackground">@android:color/transparent</item>

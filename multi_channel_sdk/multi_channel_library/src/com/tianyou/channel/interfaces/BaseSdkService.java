@@ -11,6 +11,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
@@ -301,5 +302,11 @@ public class BaseSdkService implements SdkServiceInterface {
 	public boolean isShowLogout() { return true; }
 
 	public interface LoginCallback { void onSuccess(String data); }
+
+	@Override
+	public void doRequestPermissionsResult(int requestCode,
+			@NonNull String[] permissions, @NonNull int[] grantResults) {
+		
+	}
 
 }
