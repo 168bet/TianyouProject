@@ -249,6 +249,8 @@ public class PangSdkService extends BaseSdkService {
 					HttpUtils.post(mActivity, url, param, new HttpCallback() {
 						@Override
 						public void onSuccess(String data) {
+							LogUtils.d("CODE_PAY_SUCCESS");
+							mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
 							LogUtils.d("调用purchase方法" + orderInfo.getProductId());
 							LogUtils.d("调用purchase方法" + orderInfo.getMoNey());
 							LogUtils.d("调用purchase方法result.getTxid()" + result.getTxid());

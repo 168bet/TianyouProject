@@ -159,8 +159,9 @@ public class BaseSdkService implements SdkServiceInterface {
 					if ("200".equals(code)) {
 						String userId = result.getString("uid");
 						mLoginInfo.setTianyouUserId(userId);
-						if (callback != null) callback.onSuccess("");
+						LogUtils.d("CODE_LOGIN_SUCCESS");
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
+						if (callback != null) callback.onSuccess("");
 					} else {
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 					}
