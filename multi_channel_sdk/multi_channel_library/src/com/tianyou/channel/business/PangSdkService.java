@@ -63,8 +63,8 @@ public class PangSdkService extends BaseSdkService {
 	}
 	
 	private void oneStorePay() {
-		mPlugin = IapPlugin.getPlugin(mActivity, "development");
-//		mPlugin = IapPlugin.getPlugin(mActivity, "release");
+//		mPlugin = IapPlugin.getPlugin(mActivity, "development");
+		mPlugin = IapPlugin.getPlugin(mActivity, "release");
 	}
 	
 	private void pgmpLogin() {
@@ -180,8 +180,8 @@ public class PangSdkService extends BaseSdkService {
 		};
 		this.pgmp2Sdk = Pgmp2Sdk.getInstance();
 		this.pgmp2Sdk.useFirstAgree();
-		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(38, "3b3cc01a3hhhh9e5", 8, "1.1", mActivity, eventListener, pgmp2NaverCafeListener, true);
-//		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 8, "1.1", mActivity, eventListener, pgmp2NaverCafeListener);
+//		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(38, "3b3cc01a3hhhh9e5", 8, "1.1", mActivity, eventListener, pgmp2NaverCafeListener, true);
+		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 8, "1.1", mActivity, eventListener, pgmp2NaverCafeListener);
 		LogUtils.d("pgmp2SdkInitGameResultCode:" + pgmp2SdkInitGameResultCode);
 		if (pgmp2SdkInitGameResultCode == 1) {
 			this.pgmp2SdkGoogleServiceObj = new GoogleServiceObj(this.pgmp2Sdk,mActivity,mActivity);

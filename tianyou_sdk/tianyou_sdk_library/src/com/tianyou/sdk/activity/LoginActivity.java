@@ -41,6 +41,7 @@ import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
@@ -165,13 +166,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		} if (mFragmentTag.equals("AccountFragment")) {
 			if (!ConfigHolder.IS_LOGIN) {
 				ToastUtils.show(mActivity, "登录失败");
-				Tianyouxi.mLoginCallback.onFailed("登录失败");
+				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
 			finish();
 		} if (mFragmentTag.equals("PhoneFragment")) {
 			if (!ConfigHolder.IS_LOGIN) {
 				ToastUtils.show(mActivity, "登录失败");
-				Tianyouxi.mLoginCallback.onFailed("登录失败");
+				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
 			finish();
 		} else if (mFragmentTag.equals("PerfectFragment")) {

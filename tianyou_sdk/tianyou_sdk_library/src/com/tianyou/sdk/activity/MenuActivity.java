@@ -19,6 +19,7 @@ import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * 悬浮菜单Activity
@@ -48,7 +49,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(ResUtils.getResById(this, "activity_menu", "layout"));
-//		PushAgent.getInstance(this).onAppStart();
+		PushAgent.getInstance(this).onAppStart();
 		initFindViewById();
 		showWebView();
 	}
@@ -122,7 +123,6 @@ public class MenuActivity extends Activity implements OnClickListener {
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_forget_password"));
 			mWebView.loadUrl(URLHolder.URL_FORGET_PASS);
 			break;
-			
 		case POPUP_MENU_7:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_platform_pay2"));
 			String url = getIntent().getStringExtra("url");

@@ -20,6 +20,7 @@ import com.tianyou.sdk.bean.ExitGame.ResultBean;
 import com.tianyou.sdk.bean.ExitGame.ResultBean.ProductinfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
@@ -100,7 +101,7 @@ public class HomeFragment extends BaseFragment {
 			MobclickAgent.onProfileSignOff();
 			MobclickAgent.onKillProcess(mActivity);
 			mActivity.finish();
-			Tianyouxi.mExitGameCallback.onSuccess("");
+			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_exit_icon", "id")) {
 			mActivity.switchFragment(DownloadFragment.getInstall(bundle), "DownloadFragment");
 		}

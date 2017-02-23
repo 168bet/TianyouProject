@@ -62,7 +62,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 		SDKInstace.InGame(mRoleInfo.getServerId(), mRoleInfo.getServerName(), 
 				mRoleInfo.getServerId(), mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), new HttpDataCallBack() {
 			@Override
-			public void HttpSuccess(String arg0) { }
+			public void HttpSuccess(String arg0) { LogUtils.d("SDKInstace.InGame：" + arg0); }
 
 			@Override
 			public void HttpFail(int arg0) { }
@@ -75,7 +75,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 		SDKInstace.MemberLevelUp(roleInfo.getServerId(), roleInfo.getRoleName(), 
 				Integer.parseInt(roleInfo.getRoleLevel()), new HttpDataCallBack() {
 			@Override
-			public void HttpSuccess(String arg0) { }
+			public void HttpSuccess(String arg0) { LogUtils.d("SDKInstace.MemberLevelUp：" + arg0); }
 
 			@Override
 			public void HttpFail(int arg0) { }

@@ -9,6 +9,7 @@ import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.PayParamInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -52,7 +53,7 @@ public class SuccessFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		Tianyouxi.mPayCallback.onSuccess("支付成功");
+		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
 		PayActivity activity = (PayActivity) getActivity();
 		PayParamInfo payInfo = activity.mPayHandler.mPayInfo;
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){

@@ -13,6 +13,7 @@ import com.tianyou.sdk.bean.PayParamInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -59,7 +60,7 @@ public class FailedFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		Tianyouxi.mPayCallback.onFailed("支付失败");
+		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "");
 		activity = (PayActivity) getActivity();
 		PayParamInfo payInfo = activity.mPayHandler.mPayInfo;
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){

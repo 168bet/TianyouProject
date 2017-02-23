@@ -3,21 +3,18 @@ package com.tianyou.sdk.demo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-
-import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.TianyouCallback.LoginCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 import com.tianyouxi.lszg.bm.R;
+
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -34,9 +31,47 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_entry_game).setOnClickListener(this);
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
-		Tianyouxi.initActivity(mActivity);
-		Tianyouxi.createFloatMenu(mActivity);
+		Tianyouxi.doInitActivity(this, mTianyouCallback);
 	}
+	
+	private TianyouCallback mTianyouCallback = new TianyouCallback() {
+		@Override
+		public void onResult(int code, String msg) {
+			switch (code) {
+			case TianyouCallback.CODE_INIT:
+				ToastUtils.show(mActivity, "初始化：" + msg);
+				break;
+			case TianyouCallback.CODE_LOGIN_SUCCESS:
+				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
+				break;
+			case TianyouCallback.CODE_LOGIN_FAILED:
+				ToastUtils.show(mActivity, "登录失败：" + msg);
+				break;
+			case TianyouCallback.CODE_LOGIN_CANCEL:
+				ToastUtils.show(mActivity, "登录取消：" + msg);
+				break;
+			case TianyouCallback.CODE_LOGOUT:
+				ToastUtils.show(mActivity, "注销：" + msg);
+				break;
+			case TianyouCallback.CODE_PAY_SUCCESS:
+				ToastUtils.show(mActivity, "支付成功：" + msg);
+				break;
+			case TianyouCallback.CODE_PAY_FAILED:
+				ToastUtils.show(mActivity, "支付失败：" + msg);
+				break;
+			case TianyouCallback.CODE_PAY_CANCEL:
+				ToastUtils.show(mActivity, "支付取消：" + msg);
+				break;
+			case TianyouCallback.CODE_QUIT_SUCCESS:
+				finish();
+				android.os.Process.killProcess(android.os.Process.myPid());
+				break;
+			case TianyouCallback.CODE_QUIT_CANCEL:
+				ToastUtils.show(mActivity, "退出游戏取消：" + msg);
+				break;
+			}
+		}
+	};
 
 	@Override
 	public void onClick(View v) {
@@ -45,10 +80,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			doLogin();
 			break;
 		case R.id.btn_pay:
-			Tianyouxi.pay(mActivity, getPayParam(), mPayCallback);
+			Tianyouxi.pay(getPayParam());
 			break;
 		case R.id.btn_pay_1:
-			Tianyouxi.pay(mActivity, getPayParam(), 15, "超值大礼包", mPayCallback);
+			Tianyouxi.pay(getPayParam(), 15, "超值大礼包");
 			break;
 		case R.id.btn_entry_game:
 			doEntryGame();
@@ -114,45 +149,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	private void doLogin() {
-		Tianyouxi.login(mActivity, "龙神捕鱼", new LoginCallback() {
-			@Override
-			public void onSuccess(String userId, String userToken) {
-				ToastUtils.show(mActivity, "登录成功，userId=" + userId);
-			}
-			
-			@Override
-			public void onFailed(String resultMsg) {
-				Log.d("===", "===hehe");
-				ToastUtils.show(mActivity, resultMsg);
-			}
-		});
+		Tianyouxi.login("龙神捕鱼");
 	}
 	
-	private TianyouCallback mPayCallback = new TianyouCallback() {
-		@Override
-		public void onSuccess(String resultMsg) {
-			ToastUtils.show(mActivity, "支付成功！");
-		}
-
-		@Override
-		public void onFailed(String resultMsg) {
-//			ToastUtils.show(mActivity, "支付失败！");
-		}
-	};
-
 	@Override
 	public void onBackPressed() {
-		Tianyouxi.exitGame(this, new TianyouCallback() {
-			@Override
-			public void onSuccess(String resultMsg) {
-				finish();
-				android.os.Process.killProcess(android.os.Process.myPid());
-			}
-
-			@Override
-			public void onFailed(String resultMsg) {
-				ToastUtils.show(mActivity, resultMsg);
-			}
-		});
+		Tianyouxi.exitGame();
 	}
 }

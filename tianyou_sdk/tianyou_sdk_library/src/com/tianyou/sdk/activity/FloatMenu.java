@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.tianyou.sdk.base.FloatControl;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
@@ -107,7 +109,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 			View menu2 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_2", "id"));
 			View menu3 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_3", "id"));
 			View menu4 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_4", "id"));
-			View menu5 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_0", "id"));
+			View menu5 = contentView.findViewById(ResUtils.getResById(mActivity, "popup_menu_5", "id"));
 			
 			menu0.setOnClickListener(this);
 			menu1.setOnClickListener(this);
@@ -117,15 +119,9 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 			menu5.setOnClickListener(this);
 			
 			String response = SPHandler.getString(mActivity, SPHandler.SP_FLOAT_CONTROL);
-			LogUtils.d("response%:" + response);
+			LogUtils.d("response:" + response);
 			FloatControl control = new Gson().fromJson(response, FloatControl.class);
 			FloatControl.ResultBean.FrameinfoBean frameinfo = control.getResult().getFrameinfo();
-			LogUtils.d("frameinfo:" + frameinfo.getAccount());
-			LogUtils.d("frameinfo:" + frameinfo.getMore());
-			LogUtils.d("frameinfo:" + frameinfo.getGift());
-			LogUtils.d("frameinfo:" + frameinfo.getBbs());
-			LogUtils.d("frameinfo:" + frameinfo.getHelp());
-			LogUtils.d("frameinfo:" + frameinfo.getLogout());
 			menu0.setVisibility(frameinfo.getAccount() == 1 ? View.VISIBLE : View.GONE);
 			menu1.setVisibility(frameinfo.getMore() == 1 ? View.VISIBLE : View.GONE);
 			menu2.setVisibility(frameinfo.getGift() == 1 ? View.VISIBLE : View.GONE);
@@ -223,6 +219,12 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 						intent.putExtra("menu_type", MenuActivity.POPUP_MENU_3);
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_4", "id")) {
 						intent.putExtra("menu_type", MenuActivity.POPUP_MENU_4);
+					} else if (id == ResUtils.getResById(mActivity, "popup_menu_5", "id")) {
+						ConfigHolder.IS_LOGIN = false;
+						Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+						mMenupopupWindow.dismiss();
+						isShowFloat = true;
+						return;
 					}
 					mActivity.startActivity(intent);
 				}

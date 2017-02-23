@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.fragment.exit.HomeFragment;
+import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.ResUtils;
 
@@ -41,8 +42,8 @@ public class ExitActivity extends BaseActivity {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (mFragmentTag.equals("HomeFragment")){
-			Tianyouxi.mExitGameCallback.onFailed("");
+		if (mFragmentTag.equals("HomeFragment")) {
+			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
 		}
 		return super.onKeyDown(keyCode, event);
 	}

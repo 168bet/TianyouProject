@@ -120,7 +120,7 @@
     <string name="ty_menu_gift">礼包</string>
     <string name="ty_menu_bbs">论坛</string>
     <string name="ty_menu_help">帮助</string>
-    
+    <string name="ty_menu_logout">注销</string>
     
     <string name="ty_money_sign">￥</string>
     <string name="ty_account_login2">账号登录</string>

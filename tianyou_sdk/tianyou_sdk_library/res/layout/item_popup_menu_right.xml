@@ -12,6 +12,12 @@
         android:paddingLeft="@dimen/layout_space_small" >
 
         <TextView
+            android:id="@+id/popup_menu_5"
+            style="@style/style_popup_menu"
+            android:drawableTop="@drawable/selector_menu_0"
+            android:text="@string/ty_menu_logout" />
+        
+        <TextView
             android:id="@+id/popup_menu_4"
             style="@style/style_popup_menu"
             android:drawableTop="@drawable/selector_menu_4"

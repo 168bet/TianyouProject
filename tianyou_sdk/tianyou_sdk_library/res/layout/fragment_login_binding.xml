@@ -22,6 +22,7 @@
             android:hint="@string/ty_input_phone"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
+            android:inputType="phone"
             android:textColor="@color/color_black"
             android:textColorHint="@color/color_gray_1"
             android:textSize="@dimen/text_size_common" />
@@ -51,9 +52,9 @@
             android:layout_marginTop="0.5dp"
             android:background="@drawable/shape_bg_white_fill"
             android:hint="@string/ty_input_code"
-            android:inputType="textPassword"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
+            android:inputType="phone"
             android:textColor="@color/color_black"
             android:textColorHint="@color/color_gray_1"
             android:textSize="@dimen/text_size_common" />

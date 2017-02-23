@@ -8,6 +8,21 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.tianyou.sdk.activity.LoginActivity;
+import com.tianyou.sdk.activity.NotifyActivity;
+import com.tianyou.sdk.bean.LoginInfo;
+import com.tianyou.sdk.bean.LoginInfo.ResultBean;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+import com.umeng.analytics.MobclickAgent;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,21 +37,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.tianyou.channel.utils.LogUtils;
-import com.tianyou.sdk.activity.LoginActivity;
-import com.tianyou.sdk.activity.NotifyActivity;
-import com.tianyou.sdk.bean.LoginInfo;
-import com.tianyou.sdk.bean.LoginInfo.ResultBean;
-import com.tianyou.sdk.fragment.login.PerfectFragment;
-import com.tianyou.sdk.interfaces.Tianyouxi;
-import com.tianyou.sdk.utils.AppUtils;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * 登录逻辑处理
@@ -89,13 +89,12 @@ public class LoginHandler {
     		showWelComePopup(result);
 		} else {
 			ToastUtils.show(mActivity, result.getMsg());
-			Tianyouxi.mLoginCallback.onFailed(result.getMsg());
+			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, result.getMsg());
 		}
     }
 	
 	// 用户登录欢迎pupup
 	public void showWelComePopup() {
-		LogUtils.d("showWelcomePopup-------------");
 		View mView = new View(Tianyouxi.mActivity);
 		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -139,7 +138,6 @@ public class LoginHandler {
     
     // 用户登录欢迎pupup
   	public void showWelComePopup(final ResultBean result) {
-  		LogUtils.d("showWelcomePopup result-------------");
   		mActivity.finish();
   		ConfigHolder.USER_NICKNAME = result.getNickname();
   		ConfigHolder.USER_ACCOUNT = result.getUsername();
@@ -203,7 +201,7 @@ public class LoginHandler {
   						intent.putExtra("content", custominfo);
   						Tianyouxi.mActivity.startActivity(intent);
   					} else {
-  						Tianyouxi.mLoginCallback.onSuccess(ConfigHolder.USER_ID, ConfigHolder.USER_TOKEN);
+  						Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.USER_ID);
   					}
   				} catch (JSONException e) {
   					e.printStackTrace();
@@ -240,7 +238,6 @@ public class LoginHandler {
 		}
 		if ("qq".equals(result.getRegistertype())) {
 			if ("0".equals(result.getIsperfect())) {
-				
 				Message msg = new Message();
 				Bundle data = new Bundle();
 				data.putString("username", result.getUsername());
