@@ -25,6 +25,7 @@ import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.bean.FacebookLogin;
 import com.tianyou.sdk.bean.FacebookLogin.ResultBean;
 import com.tianyou.sdk.fragment.login.AccountFragment;
+import com.tianyou.sdk.fragment.login.BindingFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
 import com.tianyou.sdk.fragment.login.PerfectFragment;
 import com.tianyou.sdk.fragment.login.PhoneFragment;
@@ -60,9 +61,9 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	private TextView mTextTitle2;
 	private CallbackManager callbackManager;
 	
-	// test start
 	private GoogleApiClient mApiClient;
 	private ConnectionResult mConnectionResult;
+	private LoginHandler mLoginHandler;
 	
 	private static final int REQUEST_CODE_SIGN_IN = 1;
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
@@ -77,14 +78,19 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 					checkGoogleLogin(data.getString("id"), data.getString("token"));
 					break;
 				case 2:
-//					Bundle qqData = msg.getData();
 					switchFragment(new PerfectFragment(), "PerfectFragment");
+					break;
+				case 3:
+					switchFragment(BindingFragment.getInstance(mLoginHandler.mResultBean.getUserid(), mLoginHandler.mResultBean.getUsername(), 
+							mLoginHandler.mResultBean.getPassword(), mLoginHandler.mResultBean.getToken()), "BandingFragment");
+					break;
+				case 4:
+					switchFragment(new PhoneFragment(), "PhoneFragment");
 					break;
 			}
 		};
 	};
 	
-	@Override
 	protected int setContentView() {
 		return ResUtils.getResById(this, ConfigHolder.IS_OVERSEAS ? "activity_login_overseas" : "activity_login", "layout");
 	}
@@ -124,7 +130,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 						if (result.getCode() == 200) {
 							String username = result.getUsername();
 							int password = result.getPassword();
-							LoginHandler.getInstance(mActivity,mHandler).onUserLogin(username, password + "", false);
+							mLoginHandler.doUserLogin(username, password + "", false);
 						} else {
 							ToastUtils.show(mActivity, result.getMsg());
 						}
@@ -142,6 +148,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 
 	@Override
 	protected void initData() {
+		mLoginHandler = LoginHandler.getInstance(mActivity,mHandler);
 		showLoginWay();
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
@@ -191,7 +198,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			}
 			finish();
 		} else if (mFragmentTag.equals("PerfectFragment")) {
-			LoginHandler.getInstance(mActivity).doSaveData();
+			mLoginHandler.doSaveUserInfo();
 		}
 		super.onBackPressed();
 	}
@@ -286,7 +293,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 					if (code == 200) {
 						String userName = jsonObject.getString("username");
 						String userPass = jsonObject.getString("truepass");
-						LoginHandler.getInstance(mActivity,mHandler).onUserLogin(userName, userPass, false);
+						mLoginHandler.doUserLogin(userName, userPass, false);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

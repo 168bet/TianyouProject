@@ -1,39 +1,16 @@
 package com.tianyou.sdk.fragment.login;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
-import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
 import com.tianyou.sdk.activity.WebViewAvtivity;
 import com.tianyou.sdk.base.BaseLoginFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
-import com.tianyou.sdk.utils.GoogleLogin;
-import com.tianyou.sdk.utils.GoogleSignIn;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.ToastUtils;
-//import com.tianyou.sdk.utils.GoogleLogin;
-//import com.tianyou.sdk.utils.GoogleLogin;
-import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
+
+import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * 一键登录
@@ -101,9 +78,9 @@ public class OneKeyFragment extends BaseLoginFragment {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "layout_one_key_quick", "id")) {
-			doQuickRegister();
+			mLoginHandler.doQuickRegister();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_msm", "id")) {
-			doOneKeyLogin();
+			mLoginHandler.doOneKeyLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_qq", "id")) {
 			Intent intent = new Intent(mActivity, WebViewAvtivity.class);
 			intent.putExtra("title", ResUtils.getString(mActivity, "ty_qq_login"));

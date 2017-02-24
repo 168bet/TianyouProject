@@ -1,42 +1,21 @@
 package com.tianyou.sdk.base;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
-import com.tianyou.sdk.bean.LoginInfo;
-import com.tianyou.sdk.bean.LoginInfo.ResultBean;
-import com.tianyou.sdk.fragment.login.BindingFragment;
 import com.tianyou.sdk.fragment.login.NoQQFragment;
-import com.tianyou.sdk.fragment.login.PhoneFragment;
 import com.tianyou.sdk.fragment.login.QQBindingFragment;
-import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginInfoHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.AppUtils;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
 
 /**
  * Created by itstrong on 2016/7/1.
@@ -79,108 +58,6 @@ public abstract class BaseLoginFragment extends Fragment implements OnClickListe
      */
     protected abstract void initData();
     
- 	// 一键登录
- 	protected void doOneKeyLogin() {
-		final ProgressDialog dialog = new ProgressDialog(mActivity);
-		dialog.setTitle("一键登录");
-		dialog.setMessage("正在发送短信...");
-		dialog.setIndeterminate(false);
-		dialog.setMax(100);
-		dialog.incrementProgressBy(30);
-		dialog.incrementSecondaryProgressBy(70);
-		dialog.setCancelable(false);
-		dialog.show();
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				dialog.dismiss();
-				String number = AppUtils.getPhoneNumber(mActivity);
-				if (number.isEmpty()) {
-					ToastUtils.show(mActivity, "验证失败，请使用其他方式登录！");
-					mActivity.switchFragment(new PhoneFragment(), "PhoneFragment");
-				} else {
-					Map<String,String> map = new HashMap<String, String>();
-					map.put("username", number);
-					map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-					map.put("ip", AppUtils.getIP());
-					map.put("channel", ConfigHolder.CHANNEL_ID);
-					map.put("appID", ConfigHolder.GAME_ID);
-					map.put("type", "android");
-					HttpUtils.post(mActivity, URLHolder.URL_KEY_LOGIN, map, new HttpsCallback() {
-						@Override
-						public void onSuccess(String response) {
-							LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
-							if (info.getResult().getCode() == 200) {
-//								mLoginHandler.onLoginSuccess(info.getResult());
-							} else {
-								ToastUtils.show(mActivity, info.getResult().getMsg());
-							}
-						}
-					});
-				}
-				
-			}
-		}, 1000);
-	}
- 	
- 	// 快速注册
-	protected void doQuickRegister() {
-		Map<String,String> map = new HashMap<String, String>();
-		String phoeImei = AppUtils.getPhoeIMEI(mActivity);
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("imei", phoeImei);
-		map.put("isgenerate", "1");
-		map.put("channel", ConfigHolder.CHANNEL_ID);
-		map.put("ip", AppUtils.getIP());
-		map.put("type", "android");
-		String url = (ConfigHolder.IS_OVERSEAS ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.URL_LOGIN_QUICK;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
-				final ResultBean result = info.getResult();
-				if (result.getCode() == 200) {
-					showTipDialog(result);
-				} else {
-					ToastUtils.show(mActivity, result.getMsg());
-				}
-			}
-		});
-	}
-	
-	private void showTipDialog(final ResultBean result) {
-		View view = View.inflate(mActivity, ResUtils.getResById(mActivity, "dialog_login_quick", "layout"), null);
-		final AlertDialog dialog = new AlertDialog.Builder(mActivity).create();
-		dialog.setCanceledOnTouchOutside(false);
-		dialog.setView(view);
-		dialog.show();
-		setDialogWindowAttr(dialog, mActivity);
-		view.findViewById(ResUtils.getResById(mActivity, "text_dialog_menu_0", "id")).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				mActivity.switchFragment(BindingFragment.getInstance(result.getUserid(), 
-						result.getUsername(), result.getPassword(), result.getToken()), "BandingFragment");
-				dialog.dismiss();
-			}
-		});
-		view.findViewById(ResUtils.getResById(mActivity, "text_dialog_menu_1", "id")).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				dialog.dismiss();
-				mLoginHandler.showWelComePopup(result);
-			}
-		});
-	}
-	
-	public static void setDialogWindowAttr(Dialog dlg,Context ctx){
-        Window window = dlg.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.CENTER;
-        lp.width = (int) ctx.getResources().getDimension(ResUtils.getResById(ctx, "dialog_login_tip", "dimen"));//宽高可设置具体大小
-        lp.height = LayoutParams.WRAP_CONTENT;
-        dlg.getWindow().setAttributes(lp);
-    }
-	
 	// QQ登录
 	protected void doQQLogin() {
 		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ);

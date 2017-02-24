@@ -97,7 +97,7 @@ public class PhoneFragment extends BaseLoginFragment {
 			Map<String, String> map = loginInfo.get(0);
 			String userName = map.get(LoginInfoHandler.USER_ACCOUNT);
 			String userPass = map.get(LoginInfoHandler.USER_PASSWORD);
-			mLoginHandler.onUserLogin(userName, userPass, true);
+			mLoginHandler.doUserLogin(userName, userPass, true);
 			return;
 		}
 		showLoginWay();
@@ -144,7 +144,7 @@ public class PhoneFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_2", "id")) {
 			mActivity.switchFragment(new AccountFragment(), "AccountFragment");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_login_quick", "id")) {
-			doOneKeyLogin();
+			mLoginHandler.doOneKeyLogin();
 			SPHandler.putBoolean(mActivity, SPHandler.SP_IS_SHOW_KEY, true);
 			mLayoutQuick.setVisibility(View.GONE);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_home_entry", "id")) {
@@ -152,7 +152,7 @@ public class PhoneFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_code", "id")) {
 			getVerificationCode();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {
-			doQuickRegister();
+			mLoginHandler.doQuickRegister();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_home_user_list", "id")) {
 			showPopupWindow();
 		}
@@ -214,7 +214,7 @@ public class PhoneFragment extends BaseLoginFragment {
 		} else if (loginCode != null && !code.equals(loginCode)) {
 			ToastUtils.show(mActivity, "验证码输入有误");
 		} else {
-			mLoginHandler.onUserLogin(mEditPhone.getText().toString(), mEditCode.getText().toString(), true);
+			mLoginHandler.doUserLogin(mEditPhone.getText().toString(), mEditCode.getText().toString(), true);
 		}
 	}
 	

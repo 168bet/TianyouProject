@@ -88,7 +88,7 @@ public class AccountFragment extends BaseLoginFragment {
 			String userPass = map.get(LoginInfoHandler.USER_PASSWORD);
 			mEditAccount.setText(userName);
 			mEditPassword.setText(userPass);
-			mLoginHandler.onUserLogin(userName, userPass, false);
+			mLoginHandler.doUserLogin(userName, userPass, false);
 			return;
 		}
 		showLoginWay();
@@ -125,7 +125,7 @@ public class AccountFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_home_entry", "id")) {
 			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {
-			doQuickRegister();
+			mLoginHandler.doQuickRegister();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_home_user_list", "id")) {
 			showPopupWindow();
 		}
@@ -137,7 +137,7 @@ public class AccountFragment extends BaseLoginFragment {
 		if (username.isEmpty() || password.isEmpty()) {
 			ToastUtils.show(mActivity, "用户名或密码不能为空");
 		} else {
-			mLoginHandler.onUserLogin(username, password, false);
+			mLoginHandler.doUserLogin(username, password, false);
 		}
 	}
 

@@ -113,7 +113,7 @@ public class BindingFragment extends BaseLoginFragment {
 						JSONObject result = jsonObject.getJSONObject("result");
 						ToastUtils.show(mActivity, result.getString("msg"));
 						if (result.getInt("code") == 200) {
-							mLoginHandler.onUserLogin(getArguments().getString("username"), getArguments().getString("password"), false);
+							mLoginHandler.doUserLogin(getArguments().getString("username"), getArguments().getString("password"), false);
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();

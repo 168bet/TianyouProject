@@ -1,10 +1,15 @@
 package com.tianyou.sdk.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.tianyou.sdk.holder.LoginHandler;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,19 +22,6 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.tianyou.sdk.bean.LoginInfo;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.LoginHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.AppUtils;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.PushAgent;
 
 public class WebViewAvtivity extends Activity implements OnClickListener {
 
@@ -84,7 +76,7 @@ public class WebViewAvtivity extends Activity implements OnClickListener {
 					if (ret == 0) {
 						String nickname = jsonObject.getString("nickname");
 						String imgUrl = jsonObject.getString("figureurl_qq_1");
-						LoginHandler.getInstance(mActivity).doQQLogin(mActivity, openid, access_token, nickname, imgUrl);;
+						LoginHandler.getInstance().doQQLogin(mActivity, openid, access_token, nickname, imgUrl);;
 					} else {
 						ToastUtils.show(mActivity, "网络连接出错，请检查网络设置...");
 					}

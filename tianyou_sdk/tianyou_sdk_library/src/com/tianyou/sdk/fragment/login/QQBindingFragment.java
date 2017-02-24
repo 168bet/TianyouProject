@@ -73,7 +73,7 @@ public class QQBindingFragment extends BaseLoginFragment {
 		if (v.getId() == ResUtils.getResById(mActivity, "btn_binding_entry", "id")) {
 			mUserPass = mLoginInfos.get(0).get(LoginInfoHandler.USER_PASSWORD);
 			mUserName = mLoginInfos.get(0).get(LoginInfoHandler.USER_ACCOUNT);
-			mLoginHandler.onUserLogin(mUserName, mUserPass, false);
+			mLoginHandler.doUserLogin(mUserName, mUserPass, false);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_binding_add", "id")) {
 			Intent intent = new Intent(mActivity, WebViewAvtivity.class);
 			intent.putExtra("title", ResUtils.getString(mActivity, "ty_qq_login"));
