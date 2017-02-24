@@ -29,6 +29,7 @@ import com.tianyou.sdk.bean.ExitGame;
 import com.tianyou.sdk.bean.ExitGame.ResultBean;
 import com.tianyou.sdk.bean.ExitGame.ResultBean.ProductinfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
@@ -167,13 +168,13 @@ public class NotifyActivity extends Activity implements OnClickListener {
 	
 	// 登录成功
 	private void startEntryGame() {
-		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "");
+		LoginHandler.onNoticeLoginSuccess();
 		mActivity.finish();
 	}
 	
 	@Override
 	public void onBackPressed() {
-		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "");
+		LoginHandler.onNoticeLoginSuccess();
 		super.onBackPressed();
 	}
 	

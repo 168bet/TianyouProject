@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.internal.el;
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.ExitActivity;
 import com.tianyou.sdk.activity.FloatMenu;
@@ -38,6 +39,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap.Config;
 
 public class Tianyouxi {
 
@@ -162,7 +164,11 @@ public class Tianyouxi {
 	// 登陆接口
 	public static void login(String gameName) {
 		ConfigHolder.GAME_NAME = gameName;
-		mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+		if (ConfigHolder.IS_LOGIN) {
+			ToastUtils.show(mActivity, "用户已登录");
+		} else {
+			mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+		}
 	}
 
 	// 支付接口

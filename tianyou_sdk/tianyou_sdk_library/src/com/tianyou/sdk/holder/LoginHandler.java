@@ -17,6 +17,7 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -60,8 +61,9 @@ public class LoginHandler {
 		return mLoginHandler;
 	}
 	
-	// 登录接口
+	// 用户登录接口
 	public void onUserLogin(String userName, String userPass, boolean isPhone) {
+		ProgressBarHandler.getInstance().open(mActivity);
     	Map<String,String> map = new HashMap<String, String>();
 		map.put("username", userName);
 		map.put("verification", userPass);
@@ -72,7 +74,6 @@ public class LoginHandler {
 		map.put("ip", AppUtils.getIP());
 		map.put("channel", ConfigHolder.CHANNEL_ID);
 		Log.d("TAG", "login map= "+map);
-//		String url = (ConfigHolder.IS_OVERSEAS ? URLHolder.URL_OVERSEAS: URLHolder.URL_BASE) + URLHolder.URL_CODE_LOGIN;
 		HttpUtils.post(mActivity, URLHolder.URL_CODE_LOGIN, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -83,11 +84,16 @@ public class LoginHandler {
     }
 	
 	// 登录逻辑处理
-	public void onLoginProcess(ResultBean result) {
+	public void onLoginProcess(final ResultBean result) {
     	if (result.getCode() == 200) {
-    		mActivity.finish();
-    		showWelComePopup(result);
+    		new Handler().postDelayed(new Runnable() {
+    			@Override
+    			public void run() {
+    	    		showWelComePopup(result);
+    			}
+    		}, 2000);
 		} else {
+			ProgressBarHandler.getInstance().close();
 			ToastUtils.show(mActivity, result.getMsg());
 			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, result.getMsg());
 		}
@@ -95,6 +101,7 @@ public class LoginHandler {
 	
 	// 用户登录欢迎pupup
 	public void showWelComePopup() {
+		mActivity.finish();
 		View mView = new View(Tianyouxi.mActivity);
 		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -118,7 +125,6 @@ public class LoginHandler {
 		final Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
-				ConfigHolder.IS_LOGIN = true;
 				displayAnnouncement();
 				popupWindow.dismiss();
 			}
@@ -138,6 +144,7 @@ public class LoginHandler {
     
     // 用户登录欢迎pupup
   	public void showWelComePopup(final ResultBean result) {
+  		ProgressBarHandler.getInstance().close();
   		mActivity.finish();
   		ConfigHolder.USER_NICKNAME = result.getNickname();
   		ConfigHolder.USER_ACCOUNT = result.getUsername();
@@ -201,7 +208,7 @@ public class LoginHandler {
   						intent.putExtra("content", custominfo);
   						Tianyouxi.mActivity.startActivity(intent);
   					} else {
-  						Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.USER_ID);
+  						onNoticeLoginSuccess();
   					}
   				} catch (JSONException e) {
   					e.printStackTrace();
@@ -212,10 +219,15 @@ public class LoginHandler {
   		});
   	}
   	
+  	// 通知游戏登录成功
+  	public static void onNoticeLoginSuccess() {
+  		ConfigHolder.IS_LOGIN = true;
+		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.USER_ID);
+  	}
+  	
   	// 登录成功
     public void onLoginSuccess(ResultBean result) {
     	LogUtils.d("onLoginSuccess---------------------");
-    	ConfigHolder.IS_LOGIN = true;
 		ConfigHolder.USER_ACCOUNT = result.getUsername();
 		ConfigHolder.USER_ID = result.getUserid();
 		ConfigHolder.USER_NICKNAME = result.getNickname();

@@ -101,7 +101,7 @@ public class HomeFragment extends BaseFragment {
 			MobclickAgent.onProfileSignOff();
 			MobclickAgent.onKillProcess(mActivity);
 			mActivity.finish();
-			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "");
+			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_exit_icon", "id")) {
 			mActivity.switchFragment(DownloadFragment.getInstall(bundle), "DownloadFragment");
 		}

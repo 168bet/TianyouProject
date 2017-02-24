@@ -86,6 +86,8 @@ public class AccountFragment extends BaseLoginFragment {
 			Map<String, String> map = loginInfo.get(0);
 			String userName = map.get(LoginInfoHandler.USER_ACCOUNT);
 			String userPass = map.get(LoginInfoHandler.USER_PASSWORD);
+			mEditAccount.setText(userName);
+			mEditPassword.setText(userPass);
 			mLoginHandler.onUserLogin(userName, userPass, false);
 			return;
 		}
