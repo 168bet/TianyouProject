@@ -35,19 +35,27 @@
         android:textSize="@dimen/text_size_title" />
 
     <Button
+        android:id="@+id/btn_create_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/layout_space_little"
+        android:text="创建角色"
+        android:textSize="@dimen/text_size_title" />
+    
+    <Button
         android:id="@+id/btn_entry_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/layout_space_little"
         android:text="进入游戏"
         android:textSize="@dimen/text_size_title" />
-
+    
     <Button
-        android:id="@+id/btn_create_role"
+        android:id="@+id/btn_update_role_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/layout_space_little"
-        android:text="创建角色"
+        android:text="更新角色信息"
         android:textSize="@dimen/text_size_title" />
     
     <Button

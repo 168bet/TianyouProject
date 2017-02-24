@@ -46,7 +46,7 @@ public class Tianyouxi {
 	
 	// 初始化接口
 	@SuppressWarnings("unchecked")
-	public static void doApplicationInit(Context context, String gameId, String gameToken, boolean isLandscape) {
+	public static void applicationInit(Context context, String gameId, String gameToken, boolean isLandscape) {
 		LogUtils.d("appliction初始化");
 		ConfigHolder.isLandscape = isLandscape;
 		InputStream is;
@@ -91,7 +91,7 @@ public class Tianyouxi {
 	}
 	
 	// Activity初始化接口
-	public static void doInitActivity(Activity activity, TianyouCallback callback) {
+	public static void activityInit(Activity activity, TianyouCallback callback) {
 		mActivity = activity;
 		mTianyouCallback = callback;
 		getPayWay();
@@ -190,9 +190,9 @@ public class Tianyouxi {
 	}
 
 	// 进入游戏
-	public static void enterGame(Context context, String jsonData) {
+	public static void enterGame(String jsonData) {
 		if (!ConfigHolder.IS_LOGIN) {
-			ToastUtils.show(context, "请先登录！");
+			ToastUtils.show(mActivity, "请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
@@ -218,9 +218,9 @@ public class Tianyouxi {
 	}
 
 	// 创建角色
-	public static void createRole(Context context, String jsonData) {
+	public static void createRole(String jsonData) {
 		if (!ConfigHolder.IS_LOGIN) {
-			ToastUtils.show(context, "请先登录！");
+			ToastUtils.show(mActivity, "请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
@@ -246,9 +246,9 @@ public class Tianyouxi {
 	}
 	
 	// 更新角色信息
-	public static void updateRoleInfo(Context context, String jsonData) {
+	public static void updateRoleInfo(String jsonData) {
 		if (!ConfigHolder.IS_LOGIN) {
-			ToastUtils.show(context, "请先登录！");
+			ToastUtils.show(mActivity, "请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();

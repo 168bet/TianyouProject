@@ -31,7 +31,37 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_entry_game).setOnClickListener(this);
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
-		Tianyouxi.doInitActivity(this, mTianyouCallback);
+		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
+		Tianyouxi.activityInit(this, mTianyouCallback);
+	}
+	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_login:
+			Tianyouxi.login("龙神捕鱼");
+			break;
+		case R.id.btn_pay:
+			Tianyouxi.pay(getPayParam());
+			break;
+		case R.id.btn_pay_1:
+			Tianyouxi.pay(getPayParam(), 15, "超值大礼包");
+			break;
+		case R.id.btn_entry_game:
+			Tianyouxi.enterGame(getRoleInfo());
+			break;
+		case R.id.btn_create_role:
+			Tianyouxi.createRole(getRoleInfo());
+			break;
+		case R.id.btn_update_role_info:
+			Tianyouxi.updateRoleInfo(getRoleInfo());
+			break;
+		case R.id.btn_switch:
+			ConfigHolder.isLandscape = !ConfigHolder.isLandscape;
+			setRequestedOrientation(ConfigHolder.isLandscape ? ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE 
+					: ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+			break;
+		}
 	}
 	
 	private TianyouCallback mTianyouCallback = new TianyouCallback() {
@@ -72,32 +102,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btn_login:
-			doLogin();
-			break;
-		case R.id.btn_pay:
-			Tianyouxi.pay(getPayParam());
-			break;
-		case R.id.btn_pay_1:
-			Tianyouxi.pay(getPayParam(), 15, "超值大礼包");
-			break;
-		case R.id.btn_entry_game:
-			doEntryGame();
-			break;
-		case R.id.btn_create_role:
-			doCreateRole();
-			break;
-		case R.id.btn_switch:
-			ConfigHolder.isLandscape = !ConfigHolder.isLandscape;
-			setRequestedOrientation(ConfigHolder.isLandscape ? ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE 
-					: ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-			break;
-		}
-	}
 	
 	private String getPayParam() {
 		try {
@@ -120,7 +124,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		return null;
 	}
 
-	private void doCreateRole() {
+	private String getRoleInfo() {
 		try {
 			JSONObject roleInfo = new JSONObject();
 			roleInfo.put("roleId", "1000");
@@ -128,30 +132,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			roleInfo.put("serverId", "1000");
 			roleInfo.put("serverName", "sName");
 			roleInfo.put("profession", "剑圣");
-			Tianyouxi.createRole(mActivity, roleInfo.toString());
+			return roleInfo.toString();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
-	private void doEntryGame() {
-		try {
-			JSONObject roleInfo = new JSONObject();
-			roleInfo.put("roleId", "1000");
-			roleInfo.put("roleLevel", "100");
-			roleInfo.put("serverId", "1000");
-			roleInfo.put("serverName", "sName");
-			roleInfo.put("vipLevel", "100");
-			Tianyouxi.enterGame(mActivity, roleInfo.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void doLogin() {
-		Tianyouxi.login("龙神捕鱼");
-	}
-	
 	@Override
 	public void onBackPressed() {
 		Tianyouxi.exitGame();

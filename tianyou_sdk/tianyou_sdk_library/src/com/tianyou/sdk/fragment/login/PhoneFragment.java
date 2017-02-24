@@ -122,6 +122,19 @@ public class PhoneFragment extends BaseLoginFragment {
 		});
 	}
 
+	private void showLoginWay() {
+		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+		ResultBean result = loginWay.getResult();
+		if (result.getCode() == 200) {
+			CustominfoBean custominfo = result.getCustominfo();
+			mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
+			mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
+		} else {
+			ToastUtils.show(mActivity, result.getMsg());
+		}
+	}
+
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_0", "id")) {
@@ -259,26 +272,5 @@ public class PhoneFragment extends BaseLoginFragment {
 				}
 			}
 		}, 1000);
-	}
-
-	// 显示隐藏登录方式
-	private void showLoginWay() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
-		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_WAY, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
-				ResultBean result = loginWay.getResult();
-				if (result.getCode() == 200) {
-					CustominfoBean custominfo = result.getCustominfo();
-					mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
-					mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
-				} else {
-					ToastUtils.show(mActivity, result.getMsg());
-				}
-			}
-		});
 	}
 }

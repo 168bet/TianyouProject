@@ -25,6 +25,7 @@ import com.tianyou.sdk.bean.LoginWay.ResultBean;
 import com.tianyou.sdk.bean.LoginWay.ResultBean.CustominfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginInfoHandler;
+import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
@@ -191,22 +192,15 @@ public class AccountFragment extends BaseLoginFragment {
 
 	// 显示隐藏登录方式
 	private void showLoginWay() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
-		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_WAY, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
-				ResultBean result = loginWay.getResult();
-				if (result.getCode() == 200) {
-					CustominfoBean custominfo = result.getCustominfo();
-					mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
-					mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
-				} else {
-					ToastUtils.show(mActivity, result.getMsg());
-				}
-			}
-		});
+		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+		ResultBean result = loginWay.getResult();
+		if (result.getCode() == 200) {
+			CustominfoBean custominfo = result.getCustominfo();
+			mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
+			mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
+		} else {
+			ToastUtils.show(mActivity, result.getMsg());
+		}
 	}
 }

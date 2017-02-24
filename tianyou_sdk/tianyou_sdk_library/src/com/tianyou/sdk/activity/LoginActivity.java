@@ -31,7 +31,9 @@ import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.bean.FacebookLogin;
+import com.tianyou.sdk.bean.LoginWay;
 import com.tianyou.sdk.bean.FacebookLogin.ResultBean;
+import com.tianyou.sdk.bean.LoginWay.ResultBean.CustominfoBean;
 import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
 import com.tianyou.sdk.fragment.login.PerfectFragment;
@@ -48,6 +50,7 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 
 /**
  * 登录Activity
@@ -142,6 +145,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 
 	@Override
 	protected void initData() {
+		showLoginWay();
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		if (info1.size() == 0 && info2.size() == 0) {
@@ -154,6 +158,20 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				switchFragment(AccountFragment.getInstance(isSwitchAccount), "AccountFragment");
 			}
 		}
+	}
+	
+	// 显示隐藏登录方式
+	private void showLoginWay() {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("appID", ConfigHolder.GAME_ID);
+		map.put("usertoken", ConfigHolder.GAME_TOKEN);
+		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_WAY, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_LOGIN_WAY, response);
+				
+			}
+		});
 	}
 
 	@Override

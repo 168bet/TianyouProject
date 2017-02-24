@@ -16,7 +16,7 @@ public class MyApplication extends Application {
 		 * gameToken：appkey
 		 * isLandscape：游戏横屏为true，竖屏为false
 		 */
-		Tianyouxi.doApplicationInit(this, gameId, gameToken, false);
+		Tianyouxi.applicationInit(this, gameId, gameToken, false);
 	}
 }
  
