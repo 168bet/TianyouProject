@@ -28,6 +28,7 @@ import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 public class WebViewAvtivity extends Activity implements OnClickListener {
 
@@ -40,7 +41,7 @@ public class WebViewAvtivity extends Activity implements OnClickListener {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(ResUtils.getResById(this, "activity_web_view", "layout"));
 		mActivity = this;
-//		PushAgent.getInstance(this).onAppStart();
+		PushAgent.getInstance(this).onAppStart();
 		Intent intent = getIntent();
 		findViewById(ResUtils.getResById(this, "img_web_back", "id")).setOnClickListener(this);
 		TextView textTitle = (TextView) findViewById(ResUtils.getResById(this, "text_web_title", "id"));

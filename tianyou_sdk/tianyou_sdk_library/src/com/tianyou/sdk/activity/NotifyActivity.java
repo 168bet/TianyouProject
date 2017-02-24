@@ -37,6 +37,7 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * 公告Activity
@@ -64,7 +65,7 @@ public class NotifyActivity extends Activity implements OnClickListener {
 		setContentView(ResUtils.getResById(this, "activity_notify", "layout"));
 		setRequestedOrientation(ConfigHolder.isLandscape ? ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE 
 				: ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-//		PushAgent.getInstance(this).onAppStart();
+		PushAgent.getInstance(this).onAppStart();
 		content = getIntent().getStringExtra("content");
 		initFindViewById();
 		initData();

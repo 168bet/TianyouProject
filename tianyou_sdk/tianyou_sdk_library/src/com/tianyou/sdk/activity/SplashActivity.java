@@ -15,6 +15,7 @@ import android.view.WindowManager;
 
 import com.tianyou.sdk.utils.ResUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 public class SplashActivity extends Activity {
 
@@ -24,7 +25,7 @@ public class SplashActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(ResUtils.getResById(this, "activity_splash", "layout"));
-//		PushAgent.getInstance(this).onAppStart();
+		PushAgent.getInstance(this).onAppStart();
 		View mViewLogo = findViewById(ResUtils.getResById(this, "img_splash_logo", "id"));
 		View mViewText = findViewById(ResUtils.getResById(this, "img_splash_text", "id"));
 		

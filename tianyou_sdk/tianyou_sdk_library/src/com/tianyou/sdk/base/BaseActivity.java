@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.utils.ResUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 public abstract class BaseActivity extends FragmentActivity implements OnClickListener {
 
@@ -32,7 +33,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 				: ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         setContentView(setContentView());
         mActivity = this;
-//        PushAgent.getInstance(this).onAppStart();
+        PushAgent.getInstance(this).onAppStart();
         mFragmentManager = getFragmentManager();
         mTextTitle = (TextView) findViewById(ResUtils.getResById(this, "text_title", "id"));
         initView();
