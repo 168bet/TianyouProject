@@ -212,10 +212,10 @@ public class HomeFragment extends BaseFragment {
 			String value = text.toString();
 			if (value.matches("\\d+") && !value.isEmpty()) {
 				LogUtils.d("2" + mPaymentInfo.getMoney());
-				mTextMoney.setText("( " + ResUtils.getResById(mActivity, "ty_get", "string") + mPayHandler.getCurrencyValue(value) + ")");
+				mTextMoney.setText("( " + ResUtils.getString(mActivity, "ty_get") + mPayHandler.getCurrencyValue(value) + ")");
 				mPaymentInfo.setPayMoney(Integer.parseInt(value) * mPayHandler.mPayInfo.getScale() + mPayHandler.mPayInfo.getCurrency());
 			} else {
-				mTextMoney.setText("(" + ResUtils.getResById(mActivity, "ty_get", "string") + "0" + mPayHandler.mPayInfo.getCurrency() + ")");
+				mTextMoney.setText("(" + ResUtils.getString(mActivity, "ty_get") + "0" + mPayHandler.mPayInfo.getCurrency() + ")");
 			}
 		}
 	};
@@ -361,7 +361,7 @@ public class HomeFragment extends BaseFragment {
 		}
 		if (mMoneyIndex == -1) {
 			mEditOther.setBackgroundResource(ResUtils.getResById(mActivity, "shape_bg_jacinth", "drawable"));
-			mTextMoney.setText("(" + ResUtils.getResById(mActivity, "ty_get", "string") + "0" + mPayHandler.mPayInfo.getCurrency() + ")");
+			mTextMoney.setText("(" + ResUtils.getString(mActivity, "ty_get") + "0" + mPayHandler.mPayInfo.getCurrency() + ")");
 		} else {
 			mPaymentInfo.setPayMoney(mMoneyList.get(mMoneyIndex) * mPayHandler.mPayInfo.getScale() + mPayHandler.mPayInfo.getCurrency());
 			mEditOther.setBackgroundResource(ResUtils.getResById(mActivity, "shape_bg_gray_2", "drawable"));
