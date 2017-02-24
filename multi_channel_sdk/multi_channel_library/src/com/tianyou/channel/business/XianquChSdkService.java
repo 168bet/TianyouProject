@@ -16,6 +16,7 @@ import cn.joy2u.middleware.Joy2uPlatform;
 import cn.joy2u.middleware.model.LoginResult;
 import cn.joy2u.middleware.model.PayResult;
 
+import com.baidu.bdgame.sdk.obf.ml;
 import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
@@ -32,6 +33,7 @@ public class XianquChSdkService extends BaseSdkService{
 	@Override
 	public void doApplicationCreate(Context context, boolean island) {
 		super.doApplicationCreate(context, island);
+		LogUtils.d("application oncreate------------------");
 		 try { 
              Class<?> cls = Class.forName("com.snowfish.cn.ganga.helper.SFOnlineApplication");
              Constructor<?> con = cls.getConstructor(Context.class);
@@ -47,7 +49,7 @@ public class XianquChSdkService extends BaseSdkService{
 	@Override
 	public void doActivityInit(Activity activity,TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		
+		LogUtils.d("activity oncreate---------------");
 		
 		joy2u.setEnvironment(EnvironmentType.PROD);//设置环境：TEST为测试环境，AWS:为亚马逊环境,PROD为国内生产环境
 		joy2u.setInitCallback(new Joy2uCallback<String>() {
@@ -77,6 +79,7 @@ public class XianquChSdkService extends BaseSdkService{
 			@Override
 			public void callback(String msg, boolean flag) {
 				if (flag) {
+					LogUtils.d("---------------1");
 					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, msg);
 				} else {
 					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, msg);
@@ -184,6 +187,7 @@ public class XianquChSdkService extends BaseSdkService{
 	
 	@Override
 	public void doExitGame() {
+		LogUtils.d("doExitGame-----------------");
 		joy2u.exit();
 //		super.doExitGame();
 	}
@@ -191,47 +195,57 @@ public class XianquChSdkService extends BaseSdkService{
 	@Override
 	public void doPause() {
 		super.doPause();
+		LogUtils.d("onPause----------------");
 		joy2u.onPause();
 	}
 	
 	@Override
 	public void doResume() {
 		super.doResume();
+		LogUtils.d("onResume---------------");
 		joy2u.onResume();
 	}
 	
 	@Override
 	public void doRestart() {
 		super.doRestart();
+		LogUtils.d("onRestart-----------------");
 		joy2u.onRestart();
 	}
 	
 	@Override
 	public void doBackPressed() {
+		LogUtils.d("onBackPressed---------------");
 		joy2u.onBackPressed(); 
 	}
 	
 	@Override
 	public void doNewIntent(Intent intent) {
 		super.doNewIntent(intent);
+		LogUtils.d("onNewIntent--------------------");
 		joy2u.onNewIntent(intent);
 	}
 	
 	@Override
 	public void doStop() {
 		super.doStop();
+		LogUtils.d("onStop-----------------");
 		joy2u.onStop();
 	}
 	
 	@Override
 	public void doDestory() {
 		super.doDestory();
+		LogUtils.d("onDestroy-----------------");
 		joy2u.onDestroy();
+//		System.exit(0);
+//		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 	
 	@Override
 	public void doActivityResult(int requestCode, int resultCode, Intent data) {
 		super.doActivityResult(requestCode, resultCode, data);
+		LogUtils.d("onActivityResult--------------");
 		joy2u.onActivityResult(requestCode, resultCode, data);
 	}
 	
@@ -250,10 +264,9 @@ public class XianquChSdkService extends BaseSdkService{
 			Log.d("TAG", "ext= "+result.getExt()+",msg= "+result.getMsg()+",ticket= "+result.getTicket()+",userid= "+result.getUserId()
 					+",flag= "+flag);
 			if (flag) {
-				LoginInfo param = new LoginInfo();
-				param.setChannelUserId(result.getUserId()+"");
-				param.setUserToken(result.getTicket());
-				checkLogin(param);
+				mLoginInfo.setChannelUserId(result.getUserId()+"");
+				mLoginInfo.setUserToken(result.getTicket());
+				checkLogin(mLoginInfo);
 			}
 		}
 	}
@@ -269,7 +282,6 @@ public class XianquChSdkService extends BaseSdkService{
 			} else {
 				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");
 			}
-			
 		}
 		
 	}

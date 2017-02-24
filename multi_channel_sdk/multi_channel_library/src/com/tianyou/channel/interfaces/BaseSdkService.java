@@ -57,6 +57,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		mIsOverseas = false;
 		mActivity = activity;
 		mTianyouCallback = tianyouCallback;
+		mLoginInfo = new LoginInfo();
 		mChannelInfo = ConfigHolder.getChannelInfo(activity);
 	}
 	
@@ -158,9 +159,19 @@ public class BaseSdkService implements SdkServiceInterface {
 					String code = result.getString("code");
 					if ("200".equals(code)) {
 						String userId = result.getString("uid");
-						mLoginInfo.setTianyouUserId(userId);
-						LogUtils.d("CODE_LOGIN_SUCCESS");
-						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
+						LogUtils.d("userid= "+userId);
+						LogUtils.d("tianyouuserId= "+mLoginInfo.getTianyouUserId());
+						if (mLoginInfo.getTianyouUserId() != null && !userId.equals(mLoginInfo.getTianyouUserId())) {
+							LogUtils.d("current uid= "+mLoginInfo.getTianyouUserId()+",new uid= "+userId);
+							mLoginInfo.setTianyouUserId(userId);
+							mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+							LogUtils.d("onlogout -------------------------");
+						} else {
+							LogUtils.d("uid= "+userId);
+							mLoginInfo.setTianyouUserId(userId);
+							LogUtils.d("CODE_LOGIN_SUCCESS");
+							mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
+						}
 						if (callback != null) callback.onSuccess("");
 					} else {
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");

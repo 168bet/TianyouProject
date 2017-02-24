@@ -32,6 +32,7 @@ public class SpActivity extends SFOnlineSplashActivity {
 			mainClass = Class.forName("org.cocos2dx.lua.AppActivity");
 			Intent intent = new Intent(SpActivity.this, mainClass);
 			startActivity(intent);
+			finish();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
