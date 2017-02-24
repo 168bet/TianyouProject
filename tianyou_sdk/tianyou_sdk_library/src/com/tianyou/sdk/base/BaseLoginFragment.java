@@ -4,23 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.Fragment;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
-
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.bean.LoginInfo;
@@ -38,6 +21,22 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * Created by itstrong on 2016/7/1.
@@ -80,14 +79,6 @@ public abstract class BaseLoginFragment extends Fragment implements OnClickListe
      */
     protected abstract void initData();
     
-    @Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == 100 && data != null) {
-			mLoginHandler.onLoginProcess((ResultBean) data.getSerializableExtra("login_result"));
-		}
-	}
-    
  	// 一键登录
  	protected void doOneKeyLogin() {
 		final ProgressDialog dialog = new ProgressDialog(mActivity);
@@ -120,7 +111,7 @@ public abstract class BaseLoginFragment extends Fragment implements OnClickListe
 						public void onSuccess(String response) {
 							LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
 							if (info.getResult().getCode() == 200) {
-								mLoginHandler.onLoginSuccess(info.getResult());
+//								mLoginHandler.onLoginSuccess(info.getResult());
 							} else {
 								ToastUtils.show(mActivity, info.getResult().getMsg());
 							}

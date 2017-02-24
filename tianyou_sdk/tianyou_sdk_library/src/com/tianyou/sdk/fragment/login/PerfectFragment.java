@@ -1,29 +1,16 @@
 package com.tianyou.sdk.fragment.login;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.tianyou.sdk.base.BaseLoginFragment;
+import com.tianyou.sdk.holder.LoginHandler;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Fragment;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.tianyou.sdk.base.BaseLoginFragment;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.LoginInfoHandler;
-import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
 
 /**
  * 完善账号信息
@@ -44,16 +31,16 @@ public class PerfectFragment extends BaseLoginFragment {
 	@Override
 	protected String setContentView() { return "fragment_login_perfect"; }
 	
-	public static Fragment getInstall(String userName, String userPass, String userId, String nickName) {
-		PerfectFragment fragment = new PerfectFragment();
-		Bundle bundle = new Bundle();
-		bundle.putString("user_name", userName);
-		bundle.putString("user_pass", userPass);
-		bundle.putString("user_id", userId);
-		bundle.putString("user_nickname", nickName);
-		fragment.setArguments(bundle);
-		return fragment;
-	}
+//	public static Fragment getInstall(String userName, String userPass, String userId, String nickName) {
+//		PerfectFragment fragment = new PerfectFragment();
+//		Bundle bundle = new Bundle();
+//		bundle.putString("user_name", userName);
+//		bundle.putString("user_pass", userPass);
+//		bundle.putString("user_id", userId);
+//		bundle.putString("user_nickname", nickName);
+//		fragment.setArguments(bundle);
+//		return fragment;
+//	}
 
 	@Override
 	protected void initView() {
@@ -109,8 +96,8 @@ public class PerfectFragment extends BaseLoginFragment {
 	@Override
 	protected void initData() {
 		mActivity.setFragmentTitle("完善账号信息");
-		mEditName.setText(getArguments().getString("user_name"));
-		mTextText.setText("亲爱的" + getArguments().getString("user_nickname") + "，请完善以下账号信息");
+		mEditName.setText(mLoginHandler.mResultBean.getUsername());
+		mTextText.setText("亲爱的" + mLoginHandler.mResultBean.getNickname() + "，请完善以下账号信息");
 	}
 
 	@Override
@@ -128,50 +115,8 @@ public class PerfectFragment extends BaseLoginFragment {
 			return;
 		}
 		if (v.getId() == ResUtils.getResById(mActivity, "btn_perfect_entry", "id")) {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("password", password);
-			map.put("newname", nickname);
-			map.put("username", getArguments().getString("user_name"));
-			map.put("userid", getArguments().getString("user_id"));
-			HttpUtils.post(mActivity, URLHolder.URL_LOGIN_PERFECT, map, new HttpsCallback() {
-				@Override
-				public void onSuccess(String response) {
-					try {
-						JSONObject jsonObject = new JSONObject(response);
-						JSONObject result = jsonObject.getJSONObject("result");
-						ToastUtils.show(mActivity, result.getString("msg"));
-						if (result.getInt("code") == 200) {
-							ConfigHolder.USER_ACCOUNT = result.getString("username");
-							Map<String, String> info = new HashMap<String, String>();
-							info.put(LoginInfoHandler.USER_ACCOUNT, result.getString("username"));
-							info.put(LoginInfoHandler.USER_NICKNAME, result.getString("nickname"));
-							info.put(LoginInfoHandler.USER_PASSWORD, password);
-							info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.GAME_NAME);
-							info.put(LoginInfoHandler.USER_LOGIN_WAY, "qq");
-							SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, false);
-							LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
-							LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ, info);
-							mActivity.finish();
-							mLoginHandler.showWelComePopup();
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			});
+			LoginHandler.getInstance(mActivity).doPerfectAccountInfo();
 		}
-	}
-	
-	public void onKeyDown(){
-		Map<String, String> info = new HashMap<String, String>();
-		info.put(LoginInfoHandler.USER_ACCOUNT, ConfigHolder.USER_ACCOUNT);
-		info.put(LoginInfoHandler.USER_NICKNAME, ConfigHolder.USER_NICKNAME);
-		info.put(LoginInfoHandler.USER_PASSWORD, ConfigHolder.USER_PASS_WORD);
-		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.GAME_NAME);
-		info.put(LoginInfoHandler.USER_LOGIN_WAY, "qq");
-		LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
-		LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ, info);
-		mLoginHandler.showWelComePopup();
 	}
 	
 	@Override

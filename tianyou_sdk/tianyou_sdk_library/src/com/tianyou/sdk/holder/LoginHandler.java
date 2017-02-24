@@ -17,7 +17,6 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -26,9 +25,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -49,10 +46,19 @@ public class LoginHandler {
 	private static LoginHandler mLoginHandler;
 	private static Activity mActivity;
 	private static Handler mHandler;
+	public ResultBean mResultBean;
 	
 	private LoginHandler() { }
+	
+	public static LoginHandler getInstance(Activity activity) {
+		mActivity = activity;
+		if (mLoginHandler == null) {
+			mLoginHandler = new LoginHandler();
+		}
+		return mLoginHandler;
+	}
 
-	public static LoginHandler getInstance(Activity activity,Handler handler) {
+	public static LoginHandler getInstance(Activity activity, Handler handler) {
 		mActivity = activity;
 		mHandler = handler;
 		if (mLoginHandler == null) {
@@ -61,7 +67,7 @@ public class LoginHandler {
 		return mLoginHandler;
 	}
 	
-	// 用户登录接口
+	// 1-1.用户登录接口
 	public void onUserLogin(String userName, String userPass, boolean isPhone) {
 		ProgressBarHandler.getInstance().open(mActivity);
     	Map<String,String> map = new HashMap<String, String>();
@@ -77,31 +83,97 @@ public class LoginHandler {
 		HttpUtils.post(mActivity, URLHolder.URL_CODE_LOGIN, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
-				LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
-				onLoginProcess(info.getResult());
+				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
+				mResultBean = request.getResult();
+				onLoginProcess();
 			}
 		});
     }
 	
-	// 登录逻辑处理
-	public void onLoginProcess(final ResultBean result) {
-    	if (result.getCode() == 200) {
+	// 1-2.QQ登陆接口
+	public void doQQLogin(final Activity activity, final String openid, final String access_token, final String nickname, final String imgUrl) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+		map.put("openid", openid);
+		map.put("access_token", access_token);
+		map.put("ip", AppUtils.getIP());
+		map.put("appID", ConfigHolder.GAME_ID);
+		map.put("channel", ConfigHolder.CHANNEL_ID);
+		map.put("type", "android");
+		map.put("nickname", nickname);
+		map.put("headimg", imgUrl);
+		HttpUtils.post(mActivity, URLHolder.URL_QQ_LOGIN, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				activity.finish();
+				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
+				mResultBean = request.getResult();
+				onLoginProcess();
+		}});
+	}
+	
+	// 2.登录逻辑处理
+	public void onLoginProcess() {
+    	if (mResultBean.getCode() == 200) {
     		new Handler().postDelayed(new Runnable() {
     			@Override
     			public void run() {
-    	    		showWelComePopup(result);
+    				doHandlerLoginInfo();
     			}
-    		}, 2000);
+    		}, 1500);
 		} else {
 			ProgressBarHandler.getInstance().close();
-			ToastUtils.show(mActivity, result.getMsg());
-			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, result.getMsg());
+			ToastUtils.show(mActivity, mResultBean.getMsg());
+			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, mResultBean.getMsg());
 		}
     }
 	
-	// 用户登录欢迎pupup
+	// 3.登陆成功数据处理
+	private void doHandlerLoginInfo() {
+		if ("qq".equals(mResultBean.getRegistertype()) && "0".equals(mResultBean.getIsperfect())) {	//	QQ登陆且没有完善账号信息
+			mHandler.sendEmptyMessage(2);
+		} else {
+			mActivity.finish();
+			doSaveData();
+		}
+	}
+	
+	// 4-1.保存登陆成功信息
+    public void doSaveData() {
+    	//保存到内存
+		ConfigHolder.USER_ACCOUNT = mResultBean.getUsername();
+		ConfigHolder.USER_ID = mResultBean.getUserid();
+		ConfigHolder.USER_NICKNAME = mResultBean.getNickname();
+		ConfigHolder.USER_TOKEN = mResultBean.getToken();
+		ConfigHolder.USER_CODE = mResultBean.getVerification() + "";
+		ConfigHolder.USER_PASS_WORD = mResultBean.getPassword();
+		MobclickAgent.onProfileSignIn(ConfigHolder.USER_ID);
+		//保存到文件
+		Map<String, String> info = new HashMap<String, String>();
+		info.put(LoginInfoHandler.USER_ACCOUNT, mResultBean.getUsername());
+		info.put(LoginInfoHandler.USER_NICKNAME, mResultBean.getNickname() == null ? "" : mResultBean.getNickname());
+		info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword() == null ? mResultBean.getVerification() : mResultBean.getPassword());
+		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.GAME_NAME);
+		info.put(LoginInfoHandler.USER_LOGIN_WAY, mResultBean.getRegistertype() == null ? "" : mResultBean.getRegistertype());
+		//保存到手机登陆信息表
+		if ("1".equals(mResultBean.getIscode())) {
+			LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE, info);
+			SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, true);
+		//保存到账号登陆信息表
+		} else {
+			LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
+			SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, false);
+		}
+		//保存到QQ登陆信息表
+		if ("qq".equals(mResultBean.getRegistertype())) {
+			LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ, info);
+		}
+		ConfigHolder.IS_LOGIN = true;
+		showWelComePopup(mResultBean);
+    }
+	
+	// 4-1.显示用户登录欢迎pupup
 	public void showWelComePopup() {
-		mActivity.finish();
 		View mView = new View(Tianyouxi.mActivity);
 		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -142,12 +214,9 @@ public class LoginHandler {
 		});
 	}
     
-    // 用户登录欢迎pupup
+    // 4-1.显示用户登录欢迎pupup
   	public void showWelComePopup(final ResultBean result) {
   		ProgressBarHandler.getInstance().close();
-  		mActivity.finish();
-  		ConfigHolder.USER_NICKNAME = result.getNickname();
-  		ConfigHolder.USER_ACCOUNT = result.getUsername();
   		View mView = new View(Tianyouxi.mActivity);
   		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
   		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -172,7 +241,6 @@ public class LoginHandler {
   		final Runnable runnable = new Runnable() {
   			@Override
   			public void run() {
-  				onLoginSuccess(result);
   				displayAnnouncement();
   				popupWindow.dismiss();
   			}
@@ -190,7 +258,42 @@ public class LoginHandler {
   		});
   	}
   	
-  	// 弹公告
+  	// 4-3.完善QQ账号信息
+ 	public void doPerfectAccountInfo() {
+ 		Map<String, String> map = new HashMap<String, String>();
+ 		map.put("password", mResultBean.getPassword());
+ 		map.put("newname", mResultBean.getNickname());
+ 		map.put("username", mResultBean.getUsername());
+ 		map.put("userid", mResultBean.getUserid());
+ 		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_PERFECT, map, new HttpsCallback() {
+ 			@Override
+ 			public void onSuccess(String response) {
+ 				try {
+ 					JSONObject jsonObject = new JSONObject(response);
+ 					JSONObject result = jsonObject.getJSONObject("result");
+ 					ToastUtils.show(mActivity, result.getString("msg"));
+ 					if (result.getInt("code") == 200) {
+ 						ConfigHolder.USER_ACCOUNT = result.getString("username");
+ 						Map<String, String> info = new HashMap<String, String>();
+ 						info.put(LoginInfoHandler.USER_ACCOUNT, result.getString("username"));
+ 						info.put(LoginInfoHandler.USER_NICKNAME, result.getString("nickname"));
+ 						info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword());
+ 						info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.GAME_NAME);
+ 						info.put(LoginInfoHandler.USER_LOGIN_WAY, "qq");
+ 						SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, false);
+ 						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
+ 						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ, info);
+ 						mActivity.finish();
+ 						mLoginHandler.showWelComePopup();
+ 					}
+ 				} catch (JSONException e) {
+ 					e.printStackTrace();
+ 				}
+ 			}
+ 		});
+ 	}
+  	
+  	// 5.弹公告
   	private void displayAnnouncement() {
   		Map<String, String> map = new HashMap<String, String>();
   		map.put("appID", ConfigHolder.GAME_ID);
@@ -221,47 +324,7 @@ public class LoginHandler {
   	
   	// 通知游戏登录成功
   	public static void onNoticeLoginSuccess() {
-  		ConfigHolder.IS_LOGIN = true;
 		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.USER_ID);
   	}
   	
-  	// 登录成功
-    public void onLoginSuccess(ResultBean result) {
-    	LogUtils.d("onLoginSuccess---------------------");
-		ConfigHolder.USER_ACCOUNT = result.getUsername();
-		ConfigHolder.USER_ID = result.getUserid();
-		ConfigHolder.USER_NICKNAME = result.getNickname();
-		ConfigHolder.USER_TOKEN = result.getToken();
-		ConfigHolder.USER_CODE = result.getVerification() + "";
-		ConfigHolder.USER_PASS_WORD = result.getPassword();
-		MobclickAgent.onProfileSignIn(ConfigHolder.USER_ID);
-		Map<String, String> info = new HashMap<String, String>();
-		info.put(LoginInfoHandler.USER_ACCOUNT, result.getUsername());
-		info.put(LoginInfoHandler.USER_NICKNAME, result.getNickname() == null ? "" : result.getNickname());
-		info.put(LoginInfoHandler.USER_PASSWORD, result.getPassword() == null ? result.getVerification() : result.getPassword());
-		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.GAME_NAME);
-		info.put(LoginInfoHandler.USER_LOGIN_WAY, result.getRegistertype() == null ? "" : result.getRegistertype());
-		if ("1".equals(result.getIscode())) {
-			LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE, info);
-			SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, true);
-		} else {
-			LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
-			SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, false);
-		}
-		if ("qq".equals(result.getRegistertype())) {
-			if ("0".equals(result.getIsperfect())) {
-				Message msg = new Message();
-				Bundle data = new Bundle();
-				data.putString("username", result.getUsername());
-				data.putString("password", result.getPassword());
-				data.putString("userid", result.getUserid());
-				data.putString("nickname", result.getNickname());
-				msg.setData(data);
-				msg.what = 2;
-				mHandler.sendMessage(msg);
-			} else {
-				LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ, info);
-			}
-		}
-    }
 }

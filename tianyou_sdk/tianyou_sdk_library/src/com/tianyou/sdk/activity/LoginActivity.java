@@ -7,14 +7,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -31,9 +23,7 @@ import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.bean.FacebookLogin;
-import com.tianyou.sdk.bean.LoginWay;
 import com.tianyou.sdk.bean.FacebookLogin.ResultBean;
-import com.tianyou.sdk.bean.LoginWay.ResultBean.CustominfoBean;
 import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
 import com.tianyou.sdk.fragment.login.PerfectFragment;
@@ -47,10 +37,18 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * 登录Activity
@@ -79,9 +77,8 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 					checkGoogleLogin(data.getString("id"), data.getString("token"));
 					break;
 				case 2:
-					Bundle qqData = msg.getData();
-					switchFragment(PerfectFragment.getInstall(qqData.getString("username"), 
-					qqData.getString("password"), qqData.getString("userid"), qqData.getString("nickname")), "PerfectFragment");
+//					Bundle qqData = msg.getData();
+					switchFragment(new PerfectFragment(), "PerfectFragment");
 					break;
 			}
 		};
@@ -194,7 +191,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			}
 			finish();
 		} else if (mFragmentTag.equals("PerfectFragment")) {
-			new PerfectFragment().onKeyDown();
+			LoginHandler.getInstance(mActivity).doSaveData();
 		}
 		super.onBackPressed();
 	}
@@ -208,55 +205,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		}
 		super.setFragmentTitle(title);
 	}
-	
-	/*
-	 * 
-	 
-	private void handleLoginResultFromGoogle(GoogleSignInResult result){
-		if (result.isSuccess()) {
-			//登录成功
-			GoogleSignInAccount acct = result.getSignInAccount();
-			Map<String,String> googleParam = new HashMap<String, String>();
-			googleParam.put("id_token",acct.getIdToken());
-			googleParam.put("id",acct.getId());
-			googleParam.put("GGappid", AppUtils.getMetaDataValue(mActivity,"google_client_id"));
-			googleParam.put("appID",ConfigHolder.GAME_ID);
-			googleParam.put("imei",AppUtils.getPhoeIMEI(mActivity));
-
-//					"738790003955-6lgcm4hf42tnmh982kb3i0g647jm4tbs.apps.googleusercontent.com");
-			LogUtils.d("googleParam= "+googleParam);
-			HttpUtils.post(mActivity, URLHolder.URL_GOOGLE_LOGIN, googleParam, new HttpUtils.HttpCallback() {
-				@Override
-				public void onSuccess(String response) {
-					LogUtils.d("login success response= "+response);
-					try {
-						JSONObject jsonObject = new JSONObject(response);
-						int code = jsonObject.getInt("code");
-						if (code == 200) {
-							String userName = jsonObject.getString("username");
-							String userPass = jsonObject.getString("truepass");
-							LoginHandler.getInstance(mActivity).onUserLogin(userName, userPass, false);
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-						ToastUtils.show(mActivity, "服务器好像开小差了...");
-						LogUtils.d(e.getMessage());
-					}
-				}
-
-				@Override
-				public void onFailed() {
-					LogUtils.d("login failed-------------");
-					ToastUtils.show(mActivity, "网络连接出错,请检查您的网络设置...");
-				}
-			});
-		} else {
-			// Signed out, show unauthenticated UI.
-			ToastUtils.show(mActivity,"取消登录");
-		}
-	}
-	*/
-	
 	
 	@Override
 	protected void onStart() {
@@ -286,11 +234,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
             	mApiClient.connect();
             }
         }
-		
-//		if (requestCode == 10) {
-//			GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-//			handleLoginResultFromGoogle(result);
-//		}
 	}
 
 	@Override

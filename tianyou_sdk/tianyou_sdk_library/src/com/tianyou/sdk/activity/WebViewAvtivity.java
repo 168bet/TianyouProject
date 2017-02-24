@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.tianyou.sdk.bean.LoginInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
@@ -83,7 +84,7 @@ public class WebViewAvtivity extends Activity implements OnClickListener {
 					if (ret == 0) {
 						String nickname = jsonObject.getString("nickname");
 						String imgUrl = jsonObject.getString("figureurl_qq_1");
-						login(openid, access_token, nickname, imgUrl);
+						LoginHandler.getInstance(mActivity).doQQLogin(mActivity, openid, access_token, nickname, imgUrl);;
 					} else {
 						ToastUtils.show(mActivity, "网络连接出错，请检查网络设置...");
 					}
@@ -92,28 +93,6 @@ public class WebViewAvtivity extends Activity implements OnClickListener {
 				}
 			}
 		});
-	}
-	
-	private void login(final String openid, final String access_token, final String nickname, final String imgUrl) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("openid", openid);
-		map.put("access_token", access_token);
-		map.put("ip", AppUtils.getIP());
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("channel", ConfigHolder.CHANNEL_ID);
-		map.put("type", "android");
-		map.put("nickname", nickname);
-		map.put("headimg", imgUrl);
-		HttpUtils.post(mActivity, URLHolder.URL_QQ_LOGIN, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
-				Intent intent = new Intent();
-				intent.putExtra("login_result", request.getResult());
-				setResult(100, intent);
-				finish();
-			}});
 	}
 	
 	@Override
