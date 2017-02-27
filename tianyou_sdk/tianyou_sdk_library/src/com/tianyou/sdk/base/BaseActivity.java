@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
@@ -117,6 +118,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     	// 友盟统计
     	MobclickAgent.onPause(this);
     }
+    
     
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

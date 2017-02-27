@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,10 +17,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -112,6 +116,22 @@ public class HomeFragment extends BaseFragment {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_1", "id")).setOnClickListener(this);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_2", "id")).setOnClickListener(this);
 		}
+		
+		mEditOther.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent ev) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					InputMethodManager im = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+					if (im.isActive()) {  
+						im.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);  
+                    }  
+					return true;
+				}
+				return false;
+			}
+		});
+		
 		mPayMoneyList = new ArrayList<TextView>();
 		mPayMoneyList.add((TextView)mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_money_0", "id")));
 		mPayMoneyList.add((TextView)mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_money_1", "id")));
