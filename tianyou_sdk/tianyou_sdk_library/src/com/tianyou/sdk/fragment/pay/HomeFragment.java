@@ -192,6 +192,7 @@ public class HomeFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_8", "id")) {
 			doPortPay(PaymentHandler.PAY_TYPE_PAYPAL);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "edit_choose_other", "id")) {
+			mEditOther.setText("");
 			setPayMoneyState(-1);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_money_0", "id")) {
 			setPayMoneyState(0);
