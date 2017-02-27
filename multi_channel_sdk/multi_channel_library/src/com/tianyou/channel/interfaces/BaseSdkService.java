@@ -321,4 +321,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		
 	}
 
+	@Override
+	public void doConfigurationChanged(Configuration newConfig) { }
+
 }

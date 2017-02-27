@@ -193,6 +193,8 @@ public interface SdkServiceInterface {
 	boolean isShowLogout();
 	
 	void doRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grantResults);
+	
+	void doConfigurationChanged(Configuration newConfig);
 
 }
 

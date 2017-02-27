@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
 import cn.joy2u.common.model.PayChannelType;
 import cn.joy2u.common.service.OpenApiService;
@@ -248,6 +249,13 @@ public class XianquChSdkService extends BaseSdkService{
 		LogUtils.d("onActivityResult--------------");
 		joy2u.onActivityResult(requestCode, resultCode, data);
 	}
+	
+	@Override
+	public void doConfigurationChanged(Configuration newConfig) {
+		super.doConfigurationChanged(newConfig);
+		joy2u.onConfigurationChanged(newConfig);
+	}
+	
 	
 	private class MyInitCallback implements Joy2uCallback<String> {
 		@Override
