@@ -364,7 +364,6 @@ public class LoginHandler {
   	
   	// 1-2-1
  	private void showTipDialog(final ResultBean result) {
- 		mResultBean = result;
  		View view = View.inflate(mActivity, ResUtils.getResById(mActivity, "dialog_login_quick", "layout"), null);
  		final AlertDialog dialog = new AlertDialog.Builder(mActivity).create();
  		dialog.setCanceledOnTouchOutside(false);
@@ -381,6 +380,7 @@ public class LoginHandler {
  		view.findViewById(ResUtils.getResById(mActivity, "text_dialog_menu_1", "id")).setOnClickListener(new OnClickListener() {
  			@Override
  			public void onClick(View arg0) {
+ 				doUserLogin(result.getUsername(), result.getPassword(), false);
  				doSaveUserInfo();
  				dialog.dismiss();
  			}
