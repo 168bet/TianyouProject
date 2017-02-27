@@ -1,15 +1,22 @@
 package com.tianyou.sdk.base;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tianyou.sdk.holder.ConfigHolder;
@@ -109,5 +116,37 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     	super.onPause();
     	// 友盟统计
     	MobclickAgent.onPause(this);
+    }
+    
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+    	if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+    		View v = getCurrentFocus();
+    		if (isShouldHideKeyboard(v,ev)) {
+    			hideKeyboard(v.getWindowToken());
+    		}
+    	}
+    	return super.dispatchTouchEvent(ev);
+    }
+    
+    private boolean isShouldHideKeyboard(View v,MotionEvent ev) {
+    	if (v != null && (v instanceof EditText)) {
+    		int[] l = {0,0};
+    		v.getLocationInWindow(l);
+    		int left = l[0],top = l[1],bottom = top + v.getHeight(),right = left + v.getWidth();
+    		if (ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom) {
+    			return false;
+    		} else {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    private void hideKeyboard (IBinder token) {
+    	if (token != null) {
+    		InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    		im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+    	}
     }
 }
