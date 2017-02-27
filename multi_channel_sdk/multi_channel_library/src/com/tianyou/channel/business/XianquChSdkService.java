@@ -247,6 +247,7 @@ public class XianquChSdkService extends BaseSdkService{
 	public void doActivityResult(int requestCode, int resultCode, Intent data) {
 		super.doActivityResult(requestCode, resultCode, data);
 		LogUtils.d("onActivityResult--------------");
+		LogUtils.d("data= "+data);
 		joy2u.onActivityResult(requestCode, resultCode, data);
 	}
 	
