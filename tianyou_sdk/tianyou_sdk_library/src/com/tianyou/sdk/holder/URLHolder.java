@@ -41,13 +41,12 @@ public class URLHolder {
 	public static final String URL_BINDING_PHONE = URL_BASE + "?c=login&a=BindPhone";
 	// facebook 用户验证
 	public static final String URL_FACEBOOK_LOGIN = "http://testapi.tianyouxi.com/index.php?s=/Facebook/fbSdk";
-	
 	// Google 用户验证
 	public static final String URL_GOOGLE_LOGIN = "http://testapi.tianyouxi.com/index.php?s=Google/GoogleSdk";
+	// 更新角色信息
+	public static final String URL_UPDATE_ROLE_INFO = (ConfigHolder.IS_OVERSEAS ? URL_OVERSEAS : URL_BASE) + "?c=UidSellInfo&a=UpdateRoleInfo";
 	
 	/** ------------------------- 支付接口 ------------------------- */
-	// 控制支付方式接口
-	public static String URL_PAY_TYPE_ON_OFF = URL_BASE + "?c=Member&a=GetPayType";
 	// 产品信息接口
 	public static String URL_GET_PRODUCT_INFO = URL_BASE + "?c=GameProduct&a=GetProduct";
 	// 创建订单
@@ -65,7 +64,7 @@ public class URLHolder {
 	// 查询订单接口
 	public static String URL_QUERY_ORDER = URL_BASE + "?c=Order&a=GetOrderStatus";
 	// 支付方式控制
-	public static String URL_PAY_WAY_CONTROL = "http://testapi.tianyouxi.com/index.php?c=Member&a=GetPayType";
+	public static String URL_PAY_WAY_CONTROL = (ConfigHolder.IS_OVERSEAS ? URL_OVERSEAS : URL_BASE) + "?c=Member&a=GetPayType";
 	// 创建订单海外接口
 	public static String URL_CREATE_ORDER_OVERSEAS = "http://testapi.tianyouxi.com/index.php?s=Order/CreatOrder";
 	// 谷歌支付校验地址

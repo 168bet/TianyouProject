@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.google.android.gms.internal.el;
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.ExitActivity;
 import com.tianyou.sdk.activity.FloatMenu;
@@ -39,7 +38,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap.Config;
 
 public class Tianyouxi {
 
@@ -106,6 +104,7 @@ public class Tianyouxi {
 		Map<String,String> map = new HashMap<String, String>();
     	map.put("appID", ConfigHolder.GAME_ID);
 		map.put("usertoken", ConfigHolder.GAME_TOKEN);
+		map.put("language", ConfigHolder.GAME_TOKEN);
 		HttpUtils.post(mActivity, URLHolder.URL_PAY_WAY_CONTROL, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -264,16 +263,17 @@ public class Tianyouxi {
 		try {
 			JSONObject roleInfo;
 			roleInfo = new JSONObject(jsonData);
-			map.put("roleID", roleInfo.getString("roleId"));
+			map.put("roleId", roleInfo.getString("roleId"));
+			map.put("roleLevel", roleInfo.getString("roleLevel"));
 			map.put("roleName", roleInfo.getString("roleName"));
-			map.put("serverID", roleInfo.getString("serverId"));
+			map.put("serverId", roleInfo.getString("serverId"));
 			map.put("serverName", roleInfo.getString("serverName"));
-			map.put("profession", roleInfo.getString("profession"));
+			map.put("vipLevel", roleInfo.getString("vipLevel"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 			ToastUtils.show(mActivity, "角色信息解析错误");
 		}
-		HttpUtils.post(mActivity, URLHolder.URL_CREATE_ROLE, map, new HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_UPDATE_ROLE_INFO, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) { }
 		});

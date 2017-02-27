@@ -9,6 +9,7 @@ import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.LogUtils;
+import com.tianyou.channel.utils.ToastUtils;
 import com.wuyouwan.callback.HttpDataCallBack;
 import com.wuyouwan.callback.InitCallBack;
 import com.wuyouwan.callback.MemberLoginCallBack;
@@ -21,14 +22,15 @@ public class WuyouwanSdkService extends BaseSdkService {
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		SDKInstace.SDKInitialize(mActivity, 1, new InitCallBack() {
+		int platformNumber = Integer.parseInt(mChannelInfo.getChannelId());
+		SDKInstace.SDKInitialize(mActivity, platformNumber, new InitCallBack() {
 			@Override
 			public void InitSuccess(int arg0) {
 				mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "SDK初始化完成");
 			}
 
 			@Override
-			public void InitFail(int arg0) { }
+			public void InitFail(int arg0) { ToastUtils.showToast(mActivity, "初始化失败：" + arg0); }
 		});
 	}
 
@@ -98,6 +100,12 @@ public class WuyouwanSdkService extends BaseSdkService {
 				checkOrder(model.getOutPayNo());
 			}
 		});
+	}
+	
+	@Override
+	public void doLogout() {
+		super.doLogout();
+		SDKInstace.MemberLogout();
 	}
 
 }

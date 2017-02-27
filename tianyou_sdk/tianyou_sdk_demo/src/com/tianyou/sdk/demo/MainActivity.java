@@ -127,11 +127,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	private String getRoleInfo() {
 		try {
 			JSONObject roleInfo = new JSONObject();
-			roleInfo.put("roleId", "1000");
-			roleInfo.put("roleName", "tom");
-			roleInfo.put("serverId", "1000");
+			roleInfo.put("roleId", "13141654");
+			roleInfo.put("roleLevel", "35");
+			roleInfo.put("roleName", "Jack");
+			roleInfo.put("serverId", "99990");
 			roleInfo.put("serverName", "sName");
-			roleInfo.put("profession", "剑圣");
+			roleInfo.put("vipLevel", "5");
 			return roleInfo.toString();
 		} catch (JSONException e) {
 			e.printStackTrace();

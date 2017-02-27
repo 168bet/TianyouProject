@@ -250,7 +250,6 @@ public class LoginHandler {
 		if ("qq".equals(mResultBean.getRegistertype())) {
 			LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ, info);
 		}
-		ConfigHolder.IS_LOGIN = true;
 		showWelComePopup();
     }
 	
@@ -354,7 +353,7 @@ public class LoginHandler {
  						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
  						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_QQ, info);
  						mActivity.finish();
- 						mLoginHandler.showWelComePopup();
+ 						showWelComePopup();
  					}
  				} catch (JSONException e) {
  					e.printStackTrace();
@@ -365,6 +364,7 @@ public class LoginHandler {
   	
   	// 1-2-1
  	private void showTipDialog(final ResultBean result) {
+ 		mResultBean = result;
  		View view = View.inflate(mActivity, ResUtils.getResById(mActivity, "dialog_login_quick", "layout"), null);
  		final AlertDialog dialog = new AlertDialog.Builder(mActivity).create();
  		dialog.setCanceledOnTouchOutside(false);
@@ -381,7 +381,7 @@ public class LoginHandler {
  		view.findViewById(ResUtils.getResById(mActivity, "text_dialog_menu_1", "id")).setOnClickListener(new OnClickListener() {
  			@Override
  			public void onClick(View arg0) {
- 				mLoginHandler.showWelComePopup();
+ 				doSaveUserInfo();
  				dialog.dismiss();
  			}
  		});
@@ -399,6 +399,7 @@ public class LoginHandler {
   	
   	// 通知游戏登录成功
   	public static void onNoticeLoginSuccess() {
+  		ConfigHolder.IS_LOGIN = true;
 		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.USER_ID);
   	}
   	

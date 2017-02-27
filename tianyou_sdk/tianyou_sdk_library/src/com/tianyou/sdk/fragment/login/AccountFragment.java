@@ -81,6 +81,7 @@ public class AccountFragment extends BaseLoginFragment {
 
 	@Override
 	protected void initData() {
+		showLoginWay();
 		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
 			Map<String, String> map = loginInfo.get(0);
@@ -91,7 +92,6 @@ public class AccountFragment extends BaseLoginFragment {
 			mLoginHandler.doUserLogin(userName, userPass, false);
 			return;
 		}
-		showLoginWay();
 		mActivity.setFragmentTitle(getResources().getString(ResUtils.getResById(mActivity, "ty_account_login2", "string")));
 		mLoginInfos = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (mLoginInfos.size() == 0) {
