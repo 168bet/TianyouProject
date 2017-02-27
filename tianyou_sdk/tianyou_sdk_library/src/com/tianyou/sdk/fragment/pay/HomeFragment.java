@@ -160,7 +160,7 @@ public class HomeFragment extends BaseFragment {
 		mLayoutMenu2.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu3.setVisibility(mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu2.setText(mPaymentInfo.getProductDesc());
-		mTextPayMoney.setText(mPaymentInfo.getMoney() + ResUtils.getResById(mActivity, "ty_currency", "string"));
+		mTextPayMoney.setText(mPaymentInfo.getMoney() + ResUtils.getString(mActivity,"ty_currency"));
 		mMoneyList = new ArrayList<Integer>();
 		mTextAccount.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_account", "string")) + ConfigHolder.USER_ACCOUNT);
 		mTextServer.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_server", "string")) + mPaymentInfo.getServerName());
