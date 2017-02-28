@@ -221,7 +221,6 @@ public class LoginHandler {
 	
 	// 4-1.保存登陆成功信息
     public void doSaveUserInfo() {
-    	LogUtils.d("mActivity.finish();mActivity.finish();mActivity.finish();mActivity.finish();mActivity.finish();mActivity.finish();");
     	//保存到内存
 		ConfigHolder.USER_ACCOUNT = mResultBean.getUsername();
 		ConfigHolder.USER_ID = mResultBean.getUserid();
