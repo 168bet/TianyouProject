@@ -215,6 +215,7 @@ public class LoginHandler {
 		if ("qq".equals(mResultBean.getRegistertype()) && "0".equals(mResultBean.getIsperfect())) {	//	QQ登陆且没有完善账号信息
 			mHandler.sendEmptyMessage(2);
 		} else {
+			LogUtils.d("doSaveUserInfo----------------");
 			doSaveUserInfo();
 		}
 	}
@@ -380,7 +381,7 @@ public class LoginHandler {
  			@Override
  			public void onClick(View arg0) {
  				doUserLogin(result.getUsername(), result.getPassword(), false);
- 				doSaveUserInfo();
+// 				doSaveUserInfo();
  				dialog.dismiss();
  			}
  		});
