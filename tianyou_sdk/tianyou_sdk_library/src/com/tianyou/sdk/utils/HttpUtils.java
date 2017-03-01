@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
 import com.tianyou.sdk.holder.ConstantHolder;
-import com.tianyou.sdk.holder.ProgressBarHandler;
+import com.tianyou.sdk.holder.ProgressHandler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -152,6 +152,7 @@ public class HttpUtils {
 					@Override
 					public void run() {
 						ToastUtils.show(activity, "网络连接失败，请检查网络~");
+						ProgressHandler.getInstance().closeProgressDialog();
 //						progressBar.setVisibility(View.GONE);
 					}
 				});
@@ -191,7 +192,7 @@ public class HttpUtils {
 					@Override
 					public void run() {
 						ToastUtils.show(activity, "网络连接失败，请检查网络~");
-						ProgressBarHandler.getInstance().close();
+						ProgressHandler.getInstance().closeProgressDialog();
 //						progressBar.setVisibility(View.GONE);
 					}
 				});

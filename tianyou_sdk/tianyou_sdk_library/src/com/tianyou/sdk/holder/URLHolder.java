@@ -10,7 +10,7 @@ public class URLHolder {
 	
 	/** ------------------------- 登录接口 ------------------------- */
 	// 获取登录方式
-	public static final String URL_LOGIN_WAY = URL_BASE + "?c=Member&a=GetLoginSwitch";
+	public static final String URL_LOGIN_WAY = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=Member&a=GetLoginSwitch";
 	// 获取验证码
 	public static final String URL_GET_CODE = URL_BASE + "?c=sms&a=SendMsg";
 	// 公告接口
@@ -60,7 +60,7 @@ public class URLHolder {
 	// 钱包支付
 	public static String URL_PAY_WALLET = URL_BASE + "?c=OrderWallet&a=CreatOrder";
 	// 客服图片接口
-	public static String URL_SERVER_IMG = URL_BASE + "/Member/GetCustom";
+	public static String URL_SERVER_IMG = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=Member&a=GetCustom";
 	// 查询订单接口
 	public static String URL_QUERY_ORDER = URL_BASE + "?c=Order&a=GetOrderStatus";
 	// 支付方式控制
