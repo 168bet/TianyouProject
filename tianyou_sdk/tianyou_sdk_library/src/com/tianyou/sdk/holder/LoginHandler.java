@@ -87,11 +87,11 @@ public class LoginHandler {
 		map.put("username", userName);
 		map.put("verification", userPass);
 		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("appID", ConfigHolder.GAME_ID);
+		map.put("appID", ConfigHolder.gameId);
 		map.put("type", "android");
 		map.put("ispass", isPhone == true ? "0" : "1");
 		map.put("ip", AppUtils.getIP());
-		map.put("channel", ConfigHolder.CHANNEL_ID);
+		map.put("channel", ConfigHolder.channelId);
 		Log.d("TAG", "login map= "+map);
 		HttpUtils.post(mActivity, URLHolder.URL_CODE_LOGIN, map, new HttpsCallback() {
 			@Override
@@ -106,13 +106,13 @@ public class LoginHandler {
 	public void doQuickRegister() {
 		Map<String,String> map = new HashMap<String, String>();
 		String phoeImei = AppUtils.getPhoeIMEI(mActivity);
-		map.put("appID", ConfigHolder.GAME_ID);
+		map.put("appID", ConfigHolder.gameId);
 		map.put("imei", phoeImei);
 		map.put("isgenerate", "1");
-		map.put("channel", ConfigHolder.CHANNEL_ID);
+		map.put("channel", ConfigHolder.channelId);
 		map.put("ip", AppUtils.getIP());
 		map.put("type", "android");
-		String url = (ConfigHolder.IS_OVERSEAS ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.URL_LOGIN_QUICK;
+		String url = (ConfigHolder.isOverseas ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.URL_LOGIN_QUICK;
 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -134,8 +134,8 @@ public class LoginHandler {
 		map.put("openid", openid);
 		map.put("access_token", access_token);
 		map.put("ip", AppUtils.getIP());
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("channel", ConfigHolder.CHANNEL_ID);
+		map.put("appID", ConfigHolder.gameId);
+		map.put("channel", ConfigHolder.channelId);
 		map.put("type", "android");
 		map.put("nickname", nickname);
 		map.put("headimg", imgUrl);
@@ -172,8 +172,8 @@ public class LoginHandler {
 					map.put("username", number);
 					map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 					map.put("ip", AppUtils.getIP());
-					map.put("channel", ConfigHolder.CHANNEL_ID);
-					map.put("appID", ConfigHolder.GAME_ID);
+					map.put("channel", ConfigHolder.channelId);
+					map.put("appID", ConfigHolder.gameId);
 					map.put("type", "android");
 					HttpUtils.post(mActivity, URLHolder.URL_KEY_LOGIN, map, new HttpsCallback() {
 						@Override
@@ -223,19 +223,19 @@ public class LoginHandler {
 	// 4-1.保存登陆成功信息
     public void doSaveUserInfo() {
     	//保存到内存
-		ConfigHolder.USER_ACCOUNT = mResultBean.getUsername();
-		ConfigHolder.USER_ID = mResultBean.getUserid();
-		ConfigHolder.USER_NICKNAME = mResultBean.getNickname();
-		ConfigHolder.USER_TOKEN = mResultBean.getToken();
-		ConfigHolder.USER_CODE = mResultBean.getVerification() + "";
-		ConfigHolder.USER_PASS_WORD = mResultBean.getPassword();
-		MobclickAgent.onProfileSignIn(ConfigHolder.USER_ID);
+		ConfigHolder.userName = mResultBean.getUsername();
+		ConfigHolder.userId = mResultBean.getUserid();
+		ConfigHolder.userNickname = mResultBean.getNickname();
+		ConfigHolder.userToken = mResultBean.getToken();
+		ConfigHolder.userCode = mResultBean.getVerification() + "";
+		ConfigHolder.userPassword = mResultBean.getPassword();
+		MobclickAgent.onProfileSignIn(ConfigHolder.userId);
 		//保存到文件
 		Map<String, String> info = new HashMap<String, String>();
 		info.put(LoginInfoHandler.USER_ACCOUNT, mResultBean.getUsername());
 		info.put(LoginInfoHandler.USER_NICKNAME, mResultBean.getNickname() == null ? "" : mResultBean.getNickname());
 		info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword() == null ? mResultBean.getVerification() : mResultBean.getPassword());
-		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.GAME_NAME);
+		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
 		info.put(LoginInfoHandler.USER_LOGIN_WAY, mResultBean.getRegistertype() == null ? "" : mResultBean.getRegistertype());
 		//保存到手机登陆信息表
 		if ("1".equals(mResultBean.getIscode())) {
@@ -265,12 +265,12 @@ public class LoginHandler {
   		View view = View.inflate(Tianyouxi.mActivity, ResUtils.getResById(Tianyouxi.mActivity, "popup_welcome", "layout"), null);
   		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(Tianyouxi.mActivity, "text_welcome_user", "id"));
   		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(Tianyouxi.mActivity, "text_welcome_switch", "id"));
-  		LogUtils.d("nickName= "+ConfigHolder.USER_NICKNAME+",account= "+ConfigHolder.USER_ACCOUNT);
-  		if (ConfigHolder.USER_NICKNAME == null || ConfigHolder.USER_NICKNAME.isEmpty()) {
+  		LogUtils.d("nickName= "+ConfigHolder.userNickname+",account= "+ConfigHolder.userName);
+  		if (ConfigHolder.userNickname == null || ConfigHolder.userNickname.isEmpty()) {
   			textUser.setText(ResUtils.getString(mActivity, "ty_tianyou") + 
-   					ConfigHolder.USER_ACCOUNT + ResUtils.getString(mActivity, "ty_welcome_back2"));
+   					ConfigHolder.userName + ResUtils.getString(mActivity, "ty_welcome_back2"));
  		} else {
- 			textUser.setText(ConfigHolder.USER_NICKNAME + ResUtils.getString(mActivity, "ty_welcome_back2"));
+ 			textUser.setText(ConfigHolder.userNickname + ResUtils.getString(mActivity, "ty_welcome_back2"));
  		}
   		final PopupWindow popupWindow = new PopupWindow(view, 0, 0);
   		popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
@@ -301,8 +301,8 @@ public class LoginHandler {
   	// 6.弹公告
    	private void displayAnnouncement() {
    		Map<String, String> map = new HashMap<String, String>();
-   		map.put("appID", ConfigHolder.GAME_ID);
-   		map.put("usertoken", ConfigHolder.USER_TOKEN);
+   		map.put("appID", ConfigHolder.gameId);
+   		map.put("usertoken", ConfigHolder.userToken);
    		HttpUtils.post(Tianyouxi.mActivity, URLHolder.URL_ANNOUNCE, map, new HttpsCallback() {
    			@Override
    			public void onSuccess(String response) {
@@ -342,12 +342,12 @@ public class LoginHandler {
  					JSONObject result = jsonObject.getJSONObject("result");
  					ToastUtils.show(mActivity, result.getString("msg"));
  					if (result.getInt("code") == 200) {
- 						ConfigHolder.USER_ACCOUNT = result.getString("username");
+ 						ConfigHolder.userName = result.getString("username");
  						Map<String, String> info = new HashMap<String, String>();
  						info.put(LoginInfoHandler.USER_ACCOUNT, result.getString("username"));
  						info.put(LoginInfoHandler.USER_NICKNAME, result.getString("nickname"));
  						info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword());
- 						info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.GAME_NAME);
+ 						info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
  						info.put(LoginInfoHandler.USER_LOGIN_WAY, "qq");
  						SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, false);
  						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
@@ -397,10 +397,10 @@ public class LoginHandler {
          dlg.getWindow().setAttributes(lp);
      }
   	
-  	// 通知游戏登录成功
+  	// 7.通知游戏登录成功
   	public static void onNoticeLoginSuccess() {
-  		ConfigHolder.IS_LOGIN = true;
-		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.USER_ID);
+  		ConfigHolder.userIsLogin = true;
+		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.userId);
   	}
   	
 }

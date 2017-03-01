@@ -22,7 +22,7 @@ public class URLHolder {
 	// 一键登录
 	public static final String URL_KEY_LOGIN = URL_BASE + "?c=NewReg&a=ShortMessageReg";
 	// 用户登录
-	public static final String URL_CODE_LOGIN = (ConfigHolder.IS_OVERSEAS ? URL_OVERSEAS : URL_BASE) + "?c=NewLog&a=VerificationLog";
+	public static final String URL_CODE_LOGIN = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=NewLog&a=VerificationLog";
 	// 快速登录
 	public static final String URL_LOGIN_QUICK = "?c=NewReg&a=FastReg";
 	// 完善用户信息
@@ -44,7 +44,7 @@ public class URLHolder {
 	// Google 用户验证
 	public static final String URL_GOOGLE_LOGIN = "http://testapi.tianyouxi.com/index.php?s=Google/GoogleSdk";
 	// 更新角色信息
-	public static final String URL_UPDATE_ROLE_INFO = (ConfigHolder.IS_OVERSEAS ? URL_OVERSEAS : URL_BASE) + "?c=UidSellInfo&a=UpdateRoleInfo";
+	public static final String URL_UPDATE_ROLE_INFO = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=UidSellInfo&a=UpdateRoleInfo";
 	
 	/** ------------------------- 支付接口 ------------------------- */
 	// 产品信息接口
@@ -64,7 +64,7 @@ public class URLHolder {
 	// 查询订单接口
 	public static String URL_QUERY_ORDER = URL_BASE + "?c=Order&a=GetOrderStatus";
 	// 支付方式控制
-	public static String URL_PAY_WAY_CONTROL = (ConfigHolder.IS_OVERSEAS ? URL_OVERSEAS : URL_BASE) + "?c=Member&a=GetPayType";
+	public static String URL_PAY_WAY_CONTROL = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=Member&a=GetPayType";
 	// 创建订单海外接口
 	public static String URL_CREATE_ORDER_OVERSEAS = "http://testapi.tianyouxi.com/index.php?s=Order/CreatOrder";
 	// 谷歌支付校验地址
@@ -94,5 +94,5 @@ public class URLHolder {
 	// 获取汇款二维码
 	public static String URL_GET_REMIT_CODE = "http://www.tianyouxi.com/Public/tyx/shewm.png";
 	// 悬浮球开关控制
-	public static String URL_FLOAT_CONTROL = "http://testapi.tianyouxi.com/index.php?s=/Member/GetFrame";
+	public static String URL_FLOAT_CONTROL = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?s=/Member/GetFrame";
 }

@@ -11,9 +11,9 @@ public class LogUtils {
 
 	private static final String TAG = "tianyou";
 
-	public static void d(String msg) { if (ConfigHolder.IS_OPEN_LOG) Log.d(TAG, "tianyou_" + msg); }
+	public static void d(String msg) { if (ConfigHolder.isOpenLog) Log.d(TAG, "tianyou_" + msg); }
 
-	public static void w(String msg) { if (ConfigHolder.IS_OPEN_LOG) Log.w(TAG, "tianyou_" + msg); }
+	public static void w(String msg) { if (ConfigHolder.isOpenLog) Log.w(TAG, "tianyou_" + msg); }
 
-	public static void e(String msg) { if (ConfigHolder.IS_OPEN_LOG) Log.e(TAG, "tianyou_" + msg); }
+	public static void e(String msg) { if (ConfigHolder.isOpenLog) Log.e(TAG, "tianyou_" + msg); }
 }

@@ -125,7 +125,7 @@ public class WalletFragment extends BaseFragment {
 		mLayoutMenu2.setText(mPaymentInfo.getProductDesc());
 		mPaymentInfo = mPayHandler.mPayInfo;
 		mMoneyList = new ArrayList<Integer>();
-		mTextAccount.setText("账号：" + ConfigHolder.USER_ACCOUNT);
+		mTextAccount.setText("账号：" + ConfigHolder.userName);
 		mTextServer.setText("T币：天游币充值");
 		mTextScale.setText("比例：1:1");
 		getPayMoneyValue();
@@ -213,9 +213,9 @@ public class WalletFragment extends BaseFragment {
 	// 获取钱包余额
 	private void getWalletMoney() {
 		Map<String,String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.USER_TOKEN);
-		map.put("userid", ConfigHolder.USER_ID);
+    	map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.userToken);
+		map.put("userid", ConfigHolder.userId);
     	HttpUtils.post(mActivity, URLHolder.URL_PAY_WALLET_REMAIN, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -347,8 +347,8 @@ public class WalletFragment extends BaseFragment {
 	// 充值金额数值
     private void getPayMoneyValue() {
     	Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
+    	map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
         HttpUtils.post(mActivity, URLHolder.URL_WALLET_MONEY_VALUE, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {

@@ -38,7 +38,6 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.Tianyouxi;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
@@ -92,13 +91,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	};
 	
 	protected int setContentView() {
-		return ResUtils.getResById(this, ConfigHolder.IS_OVERSEAS ? "activity_login_overseas" : "activity_login", "layout");
+		return ResUtils.getResById(this, ConfigHolder.isOverseas ? "activity_login_overseas" : "activity_login", "layout");
 	}
 
 	@Override
 	protected void initView() {
 		mTextTitle2 = (TextView) findViewById(ResUtils.getResById(mActivity, "text_title_2", "id"));
-		if (ConfigHolder.IS_OVERSEAS) {
+		if (ConfigHolder.isOverseas) {
 			facebookLogin();
 		}
 		
@@ -120,7 +119,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				final Map<String, String> map = new HashMap<String, String>();
 				map.put("uid", loginResult.getAccessToken().getUserId());
 				map.put("usertoken", loginResult.getAccessToken().getToken());
-				map.put("appID", ConfigHolder.GAME_ID);
+				map.put("appID", ConfigHolder.gameId);
 				map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 				HttpUtils.post(mActivity, URLHolder.URL_FACEBOOK_LOGIN, map, new HttpUtils.HttpsCallback() {
 					@Override
@@ -149,7 +148,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	@Override
 	protected void initData() {
 		mLoginHandler = LoginHandler.getInstance(mActivity,mHandler);
-		showLoginWay();
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		if (info1.size() == 0 && info2.size() == 0) {
@@ -164,20 +162,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		}
 	}
 	
-	// 显示隐藏登录方式
-	private void showLoginWay() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
-		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_WAY, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				SPHandler.putString(mActivity, SPHandler.SP_LOGIN_WAY, response);
-				
-			}
-		});
-	}
-
 	@Override
 	public void onClick(View v) { }
 	
@@ -186,13 +170,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		if (mFragmentTag.equals("NoQQFragment")) {
 			finish();
 		} if (mFragmentTag.equals("AccountFragment")) {
-			if (!ConfigHolder.IS_LOGIN) {
+			if (!ConfigHolder.userIsLogin) {
 				ToastUtils.show(mActivity, "登录失败");
 				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
 			finish();
 		} if (mFragmentTag.equals("PhoneFragment")) {
-			if (!ConfigHolder.IS_LOGIN) {
+			if (!ConfigHolder.userIsLogin) {
 				ToastUtils.show(mActivity, "登录失败");
 				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
@@ -230,7 +214,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (ConfigHolder.IS_OVERSEAS) {
+		if (ConfigHolder.isOverseas) {
 			callbackManager.onActivityResult(requestCode, resultCode, data);
 		}
 		
@@ -281,7 +265,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		googleParam.put("id_token",token);
 		googleParam.put("id",id);
 		googleParam.put("GGappid", AppUtils.getMetaDataValue(mActivity,"google_client_id"));
-		googleParam.put("appID",ConfigHolder.GAME_ID);
+		googleParam.put("appID",ConfigHolder.gameId);
 		googleParam.put("imei",AppUtils.getPhoeIMEI(mActivity));
 		HttpUtils.post(mActivity, URLHolder.URL_GOOGLE_LOGIN, googleParam, new HttpUtils.HttpCallback() {
 			@Override

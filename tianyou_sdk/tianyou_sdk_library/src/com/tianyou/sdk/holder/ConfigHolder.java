@@ -7,48 +7,37 @@ package com.tianyou.sdk.holder;
  */
 public class ConfigHolder {
 
-	/** 游戏是否是横屏 */
+	// 游戏是否是横屏
 	public static boolean isLandscape;
+	// 是否是海外包
+	public static boolean isOverseas;
+	// 是否打开日志
+	public static boolean isOpenLog;
 	
-	/** 存储game_id */
-	public static String GAME_ID;
-	
-	/** 存储game_id */
-	public static boolean IS_OVERSEAS;
-	
-	/** 是否打开日志 */
-	public static boolean IS_OPEN_LOG;
-	
-	/** 存储game_token */
-	public static String GAME_TOKEN;
-	
-	/** 存储游戏名 */
-	public static String GAME_NAME;
+	// 存储游戏id
+	public static String gameId;
+	// 存储游戏token
+	public static String gameToken;
+	// 存储游戏名
+	public static String gameName;
 
-	/** 存储channel_id */
-	public static String CHANNEL_ID;
-	
-	/** 存储wx_app_id */
-	public static String WX_APP_ID;
+	// 存储渠道id
+	public static String channelId;
+	// 存储微信appId
+	public static String wechatAppId;
 
-	/** 存储是否登陆 */
-	public static boolean IS_LOGIN;
-	
-	/** 存储用户id */
-	public static String USER_ID;
-	
-	/** 存储用户名 */
-	public static String USER_ACCOUNT;
-
-	/** 存储用户昵称 */
-	public static String USER_NICKNAME;
-	
-	/** 存储用户密码 */
-	public static String USER_PASS_WORD;
-	
-	/** 存储user_token */
-	public static String USER_TOKEN;
-	
-	/** 存储验证码 */
-	public static String USER_CODE;
+	// 存储用户是否已登陆 */
+	public static boolean userIsLogin;
+	// 存储用户id
+	public static String userId;
+	// 存储用户名
+	public static String userName;
+	// 存储用户昵称
+	public static String userNickname;
+	// 存储用户密码
+	public static String userPassword;
+	// 存储用户token
+	public static String userToken;
+	// 存储用户验证码
+	public static String userCode;
 }

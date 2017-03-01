@@ -205,7 +205,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 			return;
 		} else {
 			if (id != ResUtils.getResById(mActivity, "item_menu_logo", "id")) {
-				if (!ConfigHolder.IS_LOGIN) {
+				if (!ConfigHolder.userIsLogin) {
 					ToastUtils.show(mActivity, "请先登录");
 				} else {
 					Intent intent = new Intent(mActivity, MenuActivity.class);
@@ -220,7 +220,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_4", "id")) {
 						intent.putExtra("menu_type", MenuActivity.POPUP_MENU_4);
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_5", "id")) {
-						ConfigHolder.IS_LOGIN = false;
+						ConfigHolder.userIsLogin = false;
 						Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
 						mMenupopupWindow.dismiss();
 						isShowFloat = true;

@@ -7,13 +7,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.FormBody.Builder;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.tianyou.sdk.holder.ConstantHolder;
+import com.tianyou.sdk.holder.ProgressBarHandler;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,16 +18,15 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.tianyou.sdk.holder.ConstantHolder;
-import com.tianyou.sdk.holder.ProgressBarHandler;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.FormBody.Builder;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class HttpUtils {
 
