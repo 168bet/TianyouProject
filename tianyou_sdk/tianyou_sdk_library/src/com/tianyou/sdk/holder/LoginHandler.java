@@ -328,10 +328,10 @@ public class LoginHandler {
    	}
   	
   	// 1-3-1.完善QQ账号信息
- 	public void doPerfectAccountInfo() {
+ 	public void doPerfectAccountInfo(String newName,final String newPwd) {
  		Map<String, String> map = new HashMap<String, String>();
- 		map.put("password", mResultBean.getPassword());
- 		map.put("newname", mResultBean.getNickname());
+ 		map.put("password", newPwd);
+ 		map.put("newname", newName);
  		map.put("username", mResultBean.getUsername());
  		map.put("userid", mResultBean.getUserid());
  		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_PERFECT, map, new HttpsCallback() {
@@ -346,7 +346,7 @@ public class LoginHandler {
  						Map<String, String> info = new HashMap<String, String>();
  						info.put(LoginInfoHandler.USER_ACCOUNT, result.getString("username"));
  						info.put(LoginInfoHandler.USER_NICKNAME, result.getString("nickname"));
- 						info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword());
+ 						info.put(LoginInfoHandler.USER_PASSWORD, newPwd);
  						info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
  						info.put(LoginInfoHandler.USER_LOGIN_WAY, "qq");
  						SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, false);

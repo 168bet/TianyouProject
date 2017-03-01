@@ -44,7 +44,7 @@
     <string name="ty_agree_server">Register and agree the Tianyou service</string>
     <string name="ty_account">Account:</string>
     <string name="ty_username">User name</string>
-    <string name="ty_letter_number">4-16 letters,numbers</string>
+    <string name="ty_letter_number">6-16 letters,numbers</string>
     <string name="ty_little_char">6-20 characters</string>
     <string name="ty_phone_number">Phone number</string>
     <string name="ty_sms_code">Message verification code</string>

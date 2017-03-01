@@ -104,8 +104,8 @@ public class PerfectFragment extends BaseLoginFragment {
 	public void onClick(View v) {
 		final String password = mEditPass.getText().toString();
 		final String nickname = mEditNick.getText().toString();
-		if (nickname.length() < 4 || nickname.length() > 16) {
-			ToastUtils.show(mActivity, "用户名长度不能小于4位或大于16位！");
+		if (nickname.length() < 6 || nickname.length() > 16) {
+			ToastUtils.show(mActivity, "用户名长度不能小于6位或大于16位！");
 			return;
 		} else if (!nickname.matches("^[A-Za-z0-9]+$")) {
 			ToastUtils.show(mActivity, "用户名只能为字母或数字！");
@@ -113,9 +113,12 @@ public class PerfectFragment extends BaseLoginFragment {
 		} else if (password.isEmpty() || nickname.isEmpty()) {
 			ToastUtils.show(mActivity, "用户名或密码不能为空！");
 			return;
+		} else if (password.length() < 6 || password.length() > 20) {
+			ToastUtils.show(mActivity, "密码长度不能小于6位或大于20位！");
+			return;
 		}
 		if (v.getId() == ResUtils.getResById(mActivity, "btn_perfect_entry", "id")) {
-			LoginHandler.getInstance(mActivity).doPerfectAccountInfo();
+			LoginHandler.getInstance(mActivity).doPerfectAccountInfo(nickname,password);
 		}
 	}
 	

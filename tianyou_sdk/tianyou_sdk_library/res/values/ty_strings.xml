@@ -45,7 +45,7 @@
     <string name="ty_agree_server">注册即同意《天游戏服务条款》</string>
     <string name="ty_account">账号：</string>
     <string name="ty_username">用户名</string>
-    <string name="ty_letter_number">4-16位字母、数字</string>
+    <string name="ty_letter_number">6-16位字母、数字</string>
     <string name="ty_little_char">6-20位字符</string>
     <string name="ty_phone_number">手机号</string>
     <string name="ty_sms_code">短信验证码</string>
