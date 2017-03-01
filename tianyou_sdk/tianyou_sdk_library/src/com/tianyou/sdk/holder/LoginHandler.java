@@ -201,7 +201,7 @@ public class LoginHandler {
     			@Override
     			public void run() {
     				doHandlerLoginInfo();
-    			}
+    			} 
     		}, 1500);
 		} else {
 			ProgressBarHandler.getInstance().close();
