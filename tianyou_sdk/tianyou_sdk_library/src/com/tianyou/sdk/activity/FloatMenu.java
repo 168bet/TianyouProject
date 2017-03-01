@@ -1,5 +1,15 @@
 package com.tianyou.sdk.activity;
 
+import com.google.gson.Gson;
+import com.tianyou.sdk.base.FloatControl;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,16 +27,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
-
-import com.google.gson.Gson;
-import com.tianyou.sdk.base.FloatControl;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
-import com.tianyou.sdk.utils.LogUtils;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
 
 /**
  * 显示悬浮小球菜单

@@ -82,7 +82,7 @@ public class LoginHandler {
 	
 	// 1-1.账号密码登录接口
 	public void doUserLogin(String userName, String userPass, boolean isPhone) {
-		ProgressBarHandler.getInstance().open(mActivity);
+		ProgressHandler.getInstance().openProgressDialog(mActivity);
     	Map<String,String> map = new HashMap<String, String>();
 		map.put("username", userName);
 		map.put("verification", userPass);
@@ -204,7 +204,7 @@ public class LoginHandler {
     			} 
     		}, 1500);
 		} else {
-			ProgressBarHandler.getInstance().close();
+//			ProgressBarHandler.getInstance().close();
 			ToastUtils.show(mActivity, mResultBean.getMsg());
 			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, mResultBean.getMsg());
 		}
@@ -256,7 +256,7 @@ public class LoginHandler {
     // 5.显示用户登录欢迎pupup
   	public void showWelComePopup() {
   		mActivity.finish();
-  		ProgressBarHandler.getInstance().close();
+//  		ProgressBarHandler.getInstance().close();
   		View mView = new View(Tianyouxi.mActivity);
   		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
   		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
