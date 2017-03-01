@@ -48,8 +48,8 @@ public class HomeFragment extends BaseFragment {
 	protected void initData() {
 		bundle = new Bundle();
 		Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.GAME_ID);
-    	map.put("usertoken", ConfigHolder.GAME_TOKEN);
+    	map.put("appID", ConfigHolder.gameId);
+    	map.put("usertoken", ConfigHolder.gameToken);
 		HttpUtils.post(mActivity, URLHolder.URL_EXIT_MORE, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {

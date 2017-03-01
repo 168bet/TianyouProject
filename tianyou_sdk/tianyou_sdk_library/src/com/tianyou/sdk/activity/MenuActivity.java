@@ -134,11 +134,11 @@ public class MenuActivity extends Activity implements OnClickListener {
 	}
 
 	private String getURL(String url) {
-		String getUrl = url + "&username=" + ConfigHolder.USER_ACCOUNT + "&appID=" + 
-				ConfigHolder.GAME_ID + "&usertoken=" + ConfigHolder.GAME_TOKEN + "&type=sdk";
+		String getUrl = url + "&username=" + ConfigHolder.userName + "&appID=" + 
+				ConfigHolder.gameId + "&usertoken=" + ConfigHolder.gameToken + "&type=sdk";
 		LogUtils.d("url:" + getUrl);
-		return url + "&username=" + ConfigHolder.USER_ACCOUNT + "&appID=" + 
-				ConfigHolder.GAME_ID + "&usertoken=" + ConfigHolder.GAME_TOKEN + "&type=sdk";
+		return url + "&username=" + ConfigHolder.userName + "&appID=" + 
+				ConfigHolder.gameId + "&usertoken=" + ConfigHolder.gameToken + "&type=sdk";
 	}
 
 	@Override

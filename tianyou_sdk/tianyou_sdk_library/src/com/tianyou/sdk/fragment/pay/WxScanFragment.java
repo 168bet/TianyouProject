@@ -39,9 +39,9 @@ public class WxScanFragment extends BaseFragment{
 		if (v.getId() == ResUtils.getResById(mActivity, "btn_wxscan_check_order", "id")){
 			activity.mPayHandler.doQueryOrder();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_wxscan_pay_onplat", "id")) {
-			String url = URLHolder.URL_PAY_ONPLAT+"username="+ConfigHolder.USER_ACCOUNT+
-					"&appID="+ConfigHolder.GAME_ID+"&sid="+activity.mPayHandler.mPayInfo.getServerId()+
-					"&usertoken="+ConfigHolder.USER_TOKEN+"&type=sdk";
+			String url = URLHolder.URL_PAY_ONPLAT+"username="+ConfigHolder.userName+
+					"&appID="+ConfigHolder.gameId+"&sid="+activity.mPayHandler.mPayInfo.getServerId()+
+					"&usertoken="+ConfigHolder.userToken+"&type=sdk";
 			Log.d("tianyouxi", "pay platform url= "+url);
 			Intent intent = new Intent(mActivity,MenuActivity.class);
 			intent.putExtra("menu_type", MenuActivity.POPUP_MENU_7);

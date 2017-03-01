@@ -90,8 +90,8 @@ public class PaymentHandler {
         } else if (mPayType == PAY_TYPE_PAYPAL) {
         	payWay = "PAYPALPAY";
         }
-        String userId = ConfigHolder.USER_ID;
-        String appID = ConfigHolder.GAME_ID;
+        String userId = ConfigHolder.userId;
+        String appID = ConfigHolder.gameId;
         String serverID = mPayInfo.getServerId();
         String createOrderUrl = "";
         Map<String, String> map = new HashMap<String, String>();
@@ -228,8 +228,8 @@ public class PaymentHandler {
         } else if (mPayType == PAY_TYPE_WXSCAN) {
             payWay = "WXSCAN";
         }
-        String userId = ConfigHolder.USER_ID;
-        String appID = ConfigHolder.GAME_ID;
+        String userId = ConfigHolder.userId;
+        String appID = ConfigHolder.gameId;
         String serverID = mPayInfo.getServerId();
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
@@ -319,8 +319,8 @@ public class PaymentHandler {
             public void onDismiss() {
                 Map<String, String> checkParam = new HashMap<String, String>();
                 checkParam.put("orderID", mPayInfo.getOrderId());
-                checkParam.put("appID",ConfigHolder.GAME_ID);
-                checkParam.put("Token",ConfigHolder.GAME_TOKEN);
+                checkParam.put("appID",ConfigHolder.gameId);
+                checkParam.put("Token",ConfigHolder.gameToken);
                 HttpUtils.post(mActivity, URLHolder.URL_QUERY_ORDER, checkParam, new HttpsCallback() {
                     @Override
                     public void onSuccess(String response) {

@@ -104,7 +104,7 @@ public class BindingFragment extends BaseLoginFragment {
 			map.put("userid", getArguments().getString("userId"));
 			map.put("mobile_code", mLoginCode);
 			map.put("usertoken", getArguments().getString("usertoken"));
-			map.put("appID", ConfigHolder.GAME_ID);
+			map.put("appID", ConfigHolder.gameId);
 			HttpUtils.post(mActivity, URLHolder.URL_BINDING_PHONE, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {
@@ -135,7 +135,7 @@ public class BindingFragment extends BaseLoginFragment {
             map.put("mobile", phone);
             map.put("send_code", AppUtils.MD5(phone));
             map.put("send_type", "verification");
-            map.put("appID", ConfigHolder.GAME_ID);
+            map.put("appID", ConfigHolder.gameId);
 			HttpUtils.post(mActivity, URLHolder.URL_GET_CODE, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {

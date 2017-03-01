@@ -58,11 +58,11 @@ public class Tianyouxi {
 		}
 		if (is == null) LogUtils.e("没有找到配置文件");
 		Map<String, Object> mm = XMLParser.paraserXML(is);
-		ConfigHolder.CHANNEL_ID = (String) ((Map<String, Object>) mm.get("infos")).get("channel_id");
-		ConfigHolder.IS_OVERSEAS = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("is_overseas"));
-		ConfigHolder.IS_OPEN_LOG = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("log_switch"));
-		ConfigHolder.GAME_ID = gameId;
-		ConfigHolder.GAME_TOKEN = gameToken;
+		ConfigHolder.channelId = (String) ((Map<String, Object>) mm.get("infos")).get("channel_id");
+		ConfigHolder.isOverseas = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("is_overseas"));
+		ConfigHolder.isOpenLog = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("log_switch"));
+		ConfigHolder.gameId = gameId;
+		ConfigHolder.gameToken = gameToken;
 
 		// 友盟统计
 		MobclickAgent.setScenarioType(context, EScenarioType.E_UM_NORMAL);// 设置为普通统计场景类型
@@ -82,7 +82,7 @@ public class Tianyouxi {
 			public void onFailure(String s, String s1) { }
 		});
 		
-		if (ConfigHolder.IS_OVERSEAS) {
+		if (ConfigHolder.isOverseas) {
 			//facebook初始化
 			FacebookSdk.sdkInitialize(context);
 			AppEventsLogger.activateApp((Application)context);
@@ -94,17 +94,31 @@ public class Tianyouxi {
 	public static void activityInit(Activity activity, TianyouCallback callback) {
 		mActivity = activity;
 		mTianyouCallback = callback;
+		createFloatMenu();
 		getPayWay();
 		getServiceInfo();
-		createFloatMenu();
+		showLoginWay();
+	}
+	
+	// 显示隐藏登录方式
+	private static void showLoginWay() {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
+		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_WAY, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_LOGIN_WAY, response);
+			}
+		});
 	}
 
 	// 支付方式控制
 	private static void getPayWay(){
 		Map<String,String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
-		map.put("language", ConfigHolder.GAME_TOKEN);
+    	map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
+		map.put("language", ConfigHolder.gameToken);
 		HttpUtils.post(mActivity, URLHolder.URL_PAY_WAY_CONTROL, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -119,8 +133,8 @@ public class Tianyouxi {
 	// 创建悬浮球接口
 	private static void createFloatMenu() {
 		final Map<String, String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
+		map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
 		map.put("language", AppUtils.getLanguageSort(mActivity));
 		HttpUtils.post(mActivity, URLHolder.URL_FLOAT_CONTROL, map, new HttpUtils.HttpsCallback() {
 			@Override
@@ -141,8 +155,8 @@ public class Tianyouxi {
 	// 获取客户服务信息
 	private static void getServiceInfo() {
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
+		map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
 		HttpUtils.post(mActivity, URLHolder.URL_SERVER_IMG, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -162,8 +176,8 @@ public class Tianyouxi {
 
 	// 登陆接口
 	public static void login(String gameName) {
-		ConfigHolder.GAME_NAME = gameName;
-		if (ConfigHolder.IS_LOGIN) {
+		ConfigHolder.gameName = gameName;
+		if (ConfigHolder.userIsLogin) {
 			ToastUtils.show(mActivity, "用户已登录");
 		} else {
 			mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
@@ -172,7 +186,7 @@ public class Tianyouxi {
 
 	// 支付接口
 	public static void pay(String payInfo) {
-		if (ConfigHolder.IS_LOGIN) {
+		if (ConfigHolder.userIsLogin) {
 			Intent intent = new Intent(mActivity, PayActivity.class);
 			intent.putExtra("payInfo", payInfo);
 			mActivity.startActivity(intent);
@@ -183,7 +197,7 @@ public class Tianyouxi {
 	
 	// 支付接口
 	public static void pay(String payInfo, int money, String productDesc) {
-		if (ConfigHolder.IS_LOGIN) {
+		if (ConfigHolder.userIsLogin) {
 			Intent intent = new Intent(mActivity, PayActivity.class);
 			intent.putExtra("payInfo", payInfo);
 			intent.putExtra("money", money);
@@ -196,14 +210,14 @@ public class Tianyouxi {
 
 	// 进入游戏
 	public static void enterGame(String jsonData) {
-		if (!ConfigHolder.IS_LOGIN) {
+		if (!ConfigHolder.userIsLogin) {
 			ToastUtils.show(mActivity, "请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("userID", ConfigHolder.USER_ID);
-		map.put("channel", ConfigHolder.CHANNEL_ID);
+		map.put("appID", ConfigHolder.gameId);
+		map.put("userID", ConfigHolder.userId);
+		map.put("channel", ConfigHolder.channelId);
 		try {
 			JSONObject roleInfo;
 			roleInfo = new JSONObject(jsonData);
@@ -224,14 +238,14 @@ public class Tianyouxi {
 
 	// 创建角色
 	public static void createRole(String jsonData) {
-		if (!ConfigHolder.IS_LOGIN) {
+		if (!ConfigHolder.userIsLogin) {
 			ToastUtils.show(mActivity, "请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("userID", ConfigHolder.USER_ID);
-		map.put("channel", ConfigHolder.CHANNEL_ID);
+		map.put("appID", ConfigHolder.gameId);
+		map.put("userID", ConfigHolder.userId);
+		map.put("channel", ConfigHolder.channelId);
 		try {
 			JSONObject roleInfo;
 			roleInfo = new JSONObject(jsonData);
@@ -252,14 +266,14 @@ public class Tianyouxi {
 	
 	// 更新角色信息
 	public static void updateRoleInfo(String jsonData) {
-		if (!ConfigHolder.IS_LOGIN) {
+		if (!ConfigHolder.userIsLogin) {
 			ToastUtils.show(mActivity, "请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.GAME_ID);
-		map.put("userID", ConfigHolder.USER_ID);
-		map.put("channel", ConfigHolder.CHANNEL_ID);
+		map.put("appID", ConfigHolder.gameId);
+		map.put("userID", ConfigHolder.userId);
+		map.put("channel", ConfigHolder.channelId);
 		try {
 			JSONObject roleInfo;
 			roleInfo = new JSONObject(jsonData);

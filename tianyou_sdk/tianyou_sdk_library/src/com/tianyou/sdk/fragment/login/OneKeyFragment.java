@@ -24,7 +24,7 @@ public class OneKeyFragment extends BaseLoginFragment {
 
 	@Override
 	protected String setContentView() {
-		return ConfigHolder.IS_OVERSEAS ? "fragment_login_one_key_overseas" : "fragment_login_one_key";
+		return ConfigHolder.isOverseas ? "fragment_login_one_key_overseas" : "fragment_login_one_key";
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class OneKeyFragment extends BaseLoginFragment {
 
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_quick", "id")).setOnClickListener(this);
 		
-		if (ConfigHolder.IS_OVERSEAS) {
+		if (ConfigHolder.isOverseas) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id")).setVisibility(View.VISIBLE);
 			// 谷歌登录
 			Button btnGoogle = (Button) mContentView.findViewById(ResUtils.getResById(mActivity, "btn_google_login", "id"));

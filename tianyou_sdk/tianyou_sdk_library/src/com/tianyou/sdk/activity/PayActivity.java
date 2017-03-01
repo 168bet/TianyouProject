@@ -267,8 +267,8 @@ public class PayActivity extends BaseActivity {
 	private void checkPaypalOrder(String paymentId) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("orderid",mPayHandler.mPayInfo.getOrderId());
-		param.put("appID", ConfigHolder.GAME_ID);
-		param.put("sign", AppUtils.MD5(ConfigHolder.USER_ACCOUNT+ConfigHolder.GAME_ID+mPayHandler.mPayInfo.getServerId()));
+		param.put("appID", ConfigHolder.gameId);
+		param.put("sign", AppUtils.MD5(ConfigHolder.userName+ConfigHolder.gameId+mPayHandler.mPayInfo.getServerId()));
 		param.put("payment_id", paymentId);
 		HttpUtils.post(mActivity, URLHolder.URL_CHECK_ORDER_PAYPAL, param, new HttpUtils.HttpsCallback() {
 			
@@ -292,8 +292,8 @@ public class PayActivity extends BaseActivity {
 	
 	private void checkGoogleOrder(String purchaseData,String dataSignature){
 		Map<String, String> param = new HashMap<String, String>();
-		param.put("appID", ConfigHolder.GAME_ID);
-		param.put("sign",AppUtils.MD5(ConfigHolder.GAME_ID+mPayHandler.mPayInfo.getOrderId()));
+		param.put("appID", ConfigHolder.gameId);
+		param.put("sign",AppUtils.MD5(ConfigHolder.gameId+mPayHandler.mPayInfo.getOrderId()));
 		param.put("inapp_purchase_data",purchaseData);
 		param.put("inapp_data_signature",dataSignature);
 		LogUtils.d("google pay param= "+param);

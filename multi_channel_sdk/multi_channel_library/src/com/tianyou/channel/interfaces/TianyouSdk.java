@@ -116,7 +116,8 @@ public class TianyouSdk {
 			sdkService = new TianTianSdkService();
 		} else if ("ty033".equals(channelInfo.getChannelId())) {
 			sdkService = new MoguSdkService();
-		} else if ("ty034".equals(channelInfo.getChannelId())) { 
+		} else if ("ty034".equals(channelInfo.getChannelId())  || "ty044".equals(channelInfo.getChannelId())  || 
+				"ty045".equals(channelInfo.getChannelId())  || "ty046".equals(channelInfo.getChannelId())) { 
 			sdkService = new WuyouwanSdkService();
 		} else if ("ty035".equals(channelInfo.getChannelId())) {
 			sdkService = new ShanyouSdkService();

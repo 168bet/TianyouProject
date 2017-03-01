@@ -162,7 +162,7 @@ public class HomeFragment extends BaseFragment {
 		mLayoutMenu2.setText(mPaymentInfo.getProductDesc());
 		mTextPayMoney.setText(mPaymentInfo.getMoney() + ResUtils.getString(mActivity,"ty_currency"));
 		mMoneyList = new ArrayList<Integer>();
-		mTextAccount.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_account", "string")) + ConfigHolder.USER_ACCOUNT);
+		mTextAccount.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_account", "string")) + ConfigHolder.userName);
 		mTextServer.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_server", "string")) + mPaymentInfo.getServerName());
 		setPayWayState(mPayHandler.mPayType);
 		getPayMoneyValue();
@@ -252,9 +252,9 @@ public class HomeFragment extends BaseFragment {
 	// 获取钱包余额
 	private void getWalletMoney() {
 		Map<String,String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.USER_TOKEN);
-		map.put("userid", ConfigHolder.USER_ID);
+    	map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.userToken);
+		map.put("userid", ConfigHolder.userId);
     	HttpUtils.post(mActivity, URLHolder.URL_PAY_WALLET_REMAIN, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -426,8 +426,8 @@ public class HomeFragment extends BaseFragment {
 	// 充值金额数值
     private void getPayMoneyValue() {
     	Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.GAME_ID);
-		map.put("usertoken", ConfigHolder.GAME_TOKEN);
+    	map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
         HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {

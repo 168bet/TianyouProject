@@ -241,9 +241,9 @@ public class AppUtils {
 			
 			@Override
 			public void onClick(View arg0) {
-				String url = URLHolder.URL_PAY_ONPLAT+"username="+ConfigHolder.USER_ACCOUNT+
-						"&appID="+ConfigHolder.GAME_ID+"&sid="+activity.mPayHandler.mPayInfo.getServerId()+
-						"&usertoken="+ConfigHolder.USER_TOKEN+"&type=sdk";
+				String url = URLHolder.URL_PAY_ONPLAT+"username="+ConfigHolder.userName+
+						"&appID="+ConfigHolder.gameId+"&sid="+activity.mPayHandler.mPayInfo.getServerId()+
+						"&usertoken="+ConfigHolder.userToken+"&type=sdk";
 				Log.d("tianyouxi", "pay platform url= "+url);
 				Intent intent = new Intent(activity,MenuActivity.class);
 				intent.putExtra("menu_type", MenuActivity.POPUP_MENU_7);
