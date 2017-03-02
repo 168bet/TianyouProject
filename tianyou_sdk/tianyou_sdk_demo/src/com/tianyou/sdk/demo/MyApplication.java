@@ -11,12 +11,13 @@ public class MyApplication extends Application {
 		super.onCreate();
 		String gameId = "1021";
 		String gameToken = "0768281a05da9f27df178b5c39a51263";
+		String gameName = "龙神之光";
 		/**
 		 * gameId：app唯一标识，非常重要，请认真填写，确保正确
 		 * gameToken：appkey
 		 * isLandscape：游戏横屏为true，竖屏为false
 		 */
-		Tianyouxi.applicationInit(this, gameId, gameToken, false);
+		Tianyouxi.applicationInit(this, gameId, gameToken, gameName, false);
 	}
 }
  

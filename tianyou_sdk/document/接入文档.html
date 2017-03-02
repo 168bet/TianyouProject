@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>接入文档</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<p>2016/10/20 16:44:52 </p>
+
+<h1 id="toc_0"><center>天游SDK接入文档</center></h1>
+
+<h2 id="toc_1">一、总体流程</h2>
+
+<blockquote>
+<p>天游戏SDK主要提供三方面核心功能：登陆、注册和支付。游戏每次启动，都需要先调用login()接口来进行游戏登陆，通过天游戏账户的userID和token来创建或者查询游戏的id等信息。登陆成功后，根据用户需要，可以调用pay()接口来进行物品购买、充值。</p>
+
+<p>用户登录完成进入游戏后，还能展示Gamebar（悬浮的操作栏），用户可在游戏中方便地查询、修改账户信息，领取礼包、联系客服以及修改账号等。</p>
+</blockquote>
+
+<p><br></p>
+
+<h2 id="toc_2">二、流程介绍</h2>
+
+<h3 id="toc_3">1. 登录流程：</h3>
+
+<p><img src="1.png" alt=""></p>
+
+<blockquote>
+<p>1) 在上图中的流程1-2，是玩家打开游戏，启动登陆的过程。游戏方需在这里调用SDK的登陆界面，自此后流程操作由SDK完成。</p>
+
+<p>2) 直至完成流程3-4，在流程5玩家选择了游戏服务器进入将要进入游戏时，SDK回调游戏方提供的回调对象，将相关数据传递给游戏方，至此SDK完成登录相关流程，此后流程操作由游戏方完成。（具体回调对象信息详见第一章SDK接入）</p>
+
+<p>3) 游戏方在接收到SDK传递的数据后，进行流程6-9验证玩家令牌是否有效。若有效在流程9传递玩家信息，若无效则登录失败。</p>
+</blockquote>
+
+<h3 id="toc_4">2. 充值流程</h3>
+
+<p><img src="2.png" alt=""></p>
+
+<blockquote>
+<p>1) 在流程1中，玩家点击充值界面，游戏方需要调用SDK中的充值界面，之后流程操作均由SDK完成。</p>
+
+<p>2) 在执行流程3-4时，平台服务器需要向游戏服务器验证当前游戏角色是否存在。需要游戏方提供相应接口，此接口的参数规定由米乐方提供，接口链接最终需游戏方提供给米乐方。</p>
+
+<p>3) 在执行流程7-8时，平台服务器需要通知游戏服务器玩家充值的元宝数。需要游戏方提供相应接口，此接口的参数规定由米乐方提供，接口链接最终需游戏方提供给米乐方。
+在执行到流程10时，充值完成，SDK调用游戏方提供的回调对象，传递相关参数给游戏方，由游戏方实现游戏中的数据更新。（具体回调对象信息详见第一章SDK接入）</p>
+</blockquote>
+
+<p><br></p>
+
+<h2 id="toc_5">三、 接入方式</h2>
+
+<h3 id="toc_6">1. 接入方式一（添加依赖方式）：</h3>
+
+<blockquote>
+<p>推荐使用这种方式接入，后期SDK有jar包或者资源更新（没有接口变化）时只需要替换新的依赖库即可</p>
+</blockquote>
+
+<p>导入依赖库工程TianyouSdk到eclipse，添加游戏依赖，然后在游戏工程project.properties文件中添加
+<code>manifestmerger.enabled=true</code>，即可完成接入。</p>
+
+<h3 id="toc_7">2. 接入方式二（拷贝资源方式）：</h3>
+
+<blockquote>
+<p>这种方式接入当我们的SDK有jar包或者资源文件更新时需要CP替换相应的文件</p>
+</blockquote>
+
+<p>将依赖库中的libs目录、res目录下的所有文件拷贝到游戏对应的目录，将<code>AndroidManifest.xml</code>中的权限及组件拷贝到游戏<code>AndroidManifest.xml</code>文件中即可。</p>
+
+<p><br></p>
+
+<h2 id="toc_8">四、 SDK接口</h2>
+
+<h3 id="toc_9">测试充值时请使用统一充值账号：15611729501 密码：123456</h3>
+
+<h3 id="toc_10">1. 闪屏接口：（必接）</h3>
+
+<ul>
+<li><p>将SplashActivity设置为首启项，去掉游戏主Activity的intent-filter</p>
+
+<div><pre><code class="language-none">&lt;activity
+    android:name=&quot;com.tianyou.sdk.activity.SplashActivity&quot;
+    android:screenOrientation=&quot;sensorPortrait&quot;
+    android:configChanges=&quot;keyboard|screenSize|orientation|layoutDirection&quot;
+    android:theme=&quot;@android:style/Theme.NoTitleBar.Fullscreen&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+        &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;</code></pre></div></li>
+<li><p>将游戏的主Activity全路径放到依赖库的<code>res\values\ty_strings.xml的ty_main_activity</code>字段中</p>
+
+<div><pre><code class="language-none">&lt;string name=&quot;ty_main_activity&quot;&gt;com.tianyou.sdk.demo.MainActivity&lt;/string&gt;</code></pre></div></li>
+</ul>
+
+<h3 id="toc_11">2. 初始化接口：（必接）</h3>
+
+<ul>
+<li><p>Application初始化：</p>
+
+<div><pre><code class="language-none">String gameId = &quot;1020&quot;;
+String gameToken = &quot;65cc2c8205a05d7379fa3a6386f710e1&quot;;
+/**
+ * gameId：app唯一标识，非常重要，请认真填写，确保正确
+ * gameToken：appkey
+ * isLandscape：游戏横屏为true，竖屏为false
+ */
+Tianyouxi.applicationInit(this, gameId, gameToken, false);</code></pre></div></li>
+<li><p>Activity初始化：</p>
+
+<div><pre><code class="language-none">// mTianyouCallback SDK回调对象
+Tianyouxi.activityInit(this, mTianyouCallback);
+
+private TianyouCallback mTianyouCallback = new TianyouCallback() {
+@Override
+public void onResult(int code, String msg) {
+    switch (code) {
+    case TianyouCallback.CODE_INIT:
+        ToastUtils.show(mActivity, &quot;初始化：&quot; + msg);
+        break;
+    case TianyouCallback.CODE_LOGIN_SUCCESS:
+        ToastUtils.show(mActivity, &quot;登录成功：uid=&quot; + msg);
+        break;
+    case TianyouCallback.CODE_LOGIN_FAILED:
+        ToastUtils.show(mActivity, &quot;登录失败：&quot; + msg);
+        break;
+    case TianyouCallback.CODE_LOGIN_CANCEL:
+        ToastUtils.show(mActivity, &quot;登录取消：&quot; + msg);
+        break;
+    case TianyouCallback.CODE_LOGOUT:
+        ToastUtils.show(mActivity, &quot;注销：&quot; + msg);
+        break;
+    case TianyouCallback.CODE_PAY_SUCCESS:
+        ToastUtils.show(mActivity, &quot;支付成功：&quot; + msg);
+        break;
+    case TianyouCallback.CODE_PAY_FAILED:
+        ToastUtils.show(mActivity, &quot;支付失败：&quot; + msg);
+        break;
+    case TianyouCallback.CODE_PAY_CANCEL:
+        ToastUtils.show(mActivity, &quot;支付取消：&quot; + msg);
+        break;
+    case TianyouCallback.CODE_QUIT_SUCCESS:
+        finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        break;
+    case TianyouCallback.CODE_QUIT_CANCEL:
+        ToastUtils.show(mActivity, &quot;退出游戏取消：&quot; + msg);
+        break;
+    }
+}</code></pre></div>
+
+<p>};</p></li>
+</ul>
+
+<h3 id="toc_12">3. 登录接口：（必接）</h3>
+
+<p>接口原型：</p>
+
+<div><pre><code class="language-none">Tianyouxi.login();</code></pre></div>
+
+<h3 id="toc_13">4. 支付接口（有选择金额页面）：（必接其中一种支付）</h3>
+
+<p>接口原型：</p>
+
+<div><pre><code class="language-none">Tianyouxi.pay(String payInfo);</code></pre></div>
+
+<p>参数说明：payInfo</p>
+
+<div><pre><code class="language-none">* roleId：角色ID（必传）
+* serverId：服务器ID（必传）
+* serverName：服务器名称(必传)
+* customInfo：自定义信息(非必传)
+* productId：产品ID(必传)
+* productName：产品名称(非必传)
+* gameName：游戏名称(必传)
+* sign：签名验证(必传)
+* signType：验证类型(必传)</code></pre></div>
+
+<p>代码示例：</p>
+
+<div><pre><code class="language-none">try {
+    JSONObject payInfo = new JSONObject();
+    String roleId = &quot;13141654&quot;;
+    String serverId = &quot;10281&quot;;
+    payInfo.put(&quot;roleId&quot;, roleId);
+    payInfo.put(&quot;serverId&quot;, serverId);
+    payInfo.put(&quot;serverName&quot;, &quot;国内Android测试服&quot;);
+    payInfo.put(&quot;customInfo&quot;, &quot;21689575c5284a334ca8f6630127915f9058&quot;);
+    payInfo.put(&quot;productId&quot;, &quot;scom.tianyouxi.skszj.p1&quot;);
+    payInfo.put(&quot;productName&quot;, &quot;60金钻&quot;);
+    payInfo.put(&quot;gameName&quot;, &quot;寻龙剑&quot;);
+    payInfo.put(&quot;sign&quot;, AppUtils.MD5(roleId + serverId));
+    payInfo.put(&quot;signType&quot;, &quot;MD5&quot;);
+    Tianyouxi.pay(payInfo.toString(), money, giftName);
+} catch (JSONException e) {
+    e.printStackTrace();
+}</code></pre></div>
+
+<h3 id="toc_14">5. 支付接口（没有选择金额页面）：（必接其中一种支付）</h3>
+
+<p>接口原型：</p>
+
+<div><pre><code class="language-none">Tianyouxi.pay(String payInfo, int money, String productDesc);</code></pre></div>
+
+<p>参数说明：</p>
+
+<div><pre><code class="language-none">money：支付金额，单位元，例如1元传1；
+productDesc：商品描述；
+
+payInfo：
+    * roleId：角色ID（必传）
+    * serverId：服务器ID（必传）
+    * serverName：服务器名称(必传)
+    * customInfo：自定义信息(非必传)
+    * productId：产品ID(必传)
+    * productName：产品名称(非必传)
+    * gameName：游戏名称(必传)
+    * sign：签名验证(必传)
+    * signType：验证类型(必传)</code></pre></div>
+
+<p>代码示例：</p>
+
+<div><pre><code class="language-none">try {
+    JSONObject payInfo = new JSONObject();
+    String roleId = &quot;13141654&quot;;
+    String serverId = &quot;10281&quot;;
+    payInfo.put(&quot;roleId&quot;, roleId);
+    payInfo.put(&quot;serverId&quot;, serverId);
+    payInfo.put(&quot;serverName&quot;, &quot;国内Android测试服&quot;);
+    payInfo.put(&quot;customInfo&quot;, &quot;21689575c5284a334ca8f6630127915f9058&quot;);
+    payInfo.put(&quot;productId&quot;, &quot;scom.tianyouxi.skszj.p1&quot;);
+    payInfo.put(&quot;productName&quot;, &quot;60金钻&quot;);
+    payInfo.put(&quot;gameName&quot;, &quot;寻龙剑&quot;);
+    payInfo.put(&quot;sign&quot;, AppUtils.MD5(roleId + serverId));
+    payInfo.put(&quot;signType&quot;, &quot;MD5&quot;);
+    Tianyouxi.pay(payInfo.toString(), money, productDesc);
+} catch (JSONException e) {
+    e.printStackTrace();
+}</code></pre></div>
+
+<h3 id="toc_15">6. 创建角色接口：（必接）</h3>
+
+<p>接口原型：</p>
+
+<div><pre><code class="language-none">Tianyouxi.createRole(String roleInfo)</code></pre></div>
+
+<p>参数说明：</p>
+
+<div><pre><code class="language-none">* roleId：角色ID（必传）
+* roleLevel：角色等级（必传）
+* roleName: 角色名称（必传）
+* serverId：服务器ID(必传)
+* serverName：服务器名(必传)
+* vipLevel：VIP等级(必传)</code></pre></div>
+
+<p>代码示例：</p>
+
+<div><pre><code class="language-none">try {
+    JSONObject roleInfo = new JSONObject();
+    roleInfo.put(&quot;roleId&quot;, &quot;13141654&quot;);
+    roleInfo.put(&quot;roleLevel&quot;, &quot;35&quot;);
+    roleInfo.put(&quot;roleName&quot;, &quot;Jack&quot;);
+    roleInfo.put(&quot;serverId&quot;, &quot;99990&quot;);
+    roleInfo.put(&quot;serverName&quot;, &quot;sName&quot;);
+    roleInfo.put(&quot;vipLevel&quot;, &quot;5&quot;);
+    return roleInfo.toString();
+} catch (JSONException e) {
+    e.printStackTrace();
+}
+
+Tianyouxi.createRole(roleInfo);</code></pre></div>
+
+<h3 id="toc_16">7. 进入游戏接口：（必接）</h3>
+
+<p>接口原型：</p>
+
+<div><pre><code class="language-none">Tianyouxi.enterGame(String roleInfo)</code></pre></div>
+
+<p>参数说明：</p>
+
+<div><pre><code class="language-none">* roleId：角色ID（必传）
+* roleLevel：角色等级（必传）
+* roleName: 角色名称（必传）
+* serverId：服务器ID(必传)
+* serverName：服务器名(必传)
+* vipLevel：VIP等级(必传)</code></pre></div>
+
+<p>代码示例：</p>
+
+<div><pre><code class="language-none">try {
+    JSONObject roleInfo = new JSONObject();
+    roleInfo.put(&quot;roleId&quot;, &quot;13141654&quot;);
+    roleInfo.put(&quot;roleLevel&quot;, &quot;35&quot;);
+    roleInfo.put(&quot;roleName&quot;, &quot;Jack&quot;);
+    roleInfo.put(&quot;serverId&quot;, &quot;99990&quot;);
+    roleInfo.put(&quot;serverName&quot;, &quot;sName&quot;);
+    roleInfo.put(&quot;vipLevel&quot;, &quot;5&quot;);
+    return roleInfo.toString();
+} catch (JSONException e) {
+    e.printStackTrace();
+}
+
+Tianyouxi.enterGame(roleInfo);</code></pre></div>
+
+<h3 id="toc_17">8. 更新角色信息：（必接）</h3>
+
+<p>接口原型：</p>
+
+<div><pre><code class="language-none">Tianyouxi.updateRoleInfo(String roleInfo)</code></pre></div>
+
+<p>参数说明：</p>
+
+<div><pre><code class="language-none">* roleId：角色ID（必传）
+* roleLevel：角色等级（必传）
+* roleName: 角色名称（必传）
+* serverId：服务器ID(必传)
+* serverName：服务器名(必传)
+* vipLevel：VIP等级(必传)</code></pre></div>
+
+<p>代码示例：</p>
+
+<div><pre><code class="language-none">try {
+    JSONObject roleInfo = new JSONObject();
+    roleInfo.put(&quot;roleId&quot;, &quot;13141654&quot;);
+    roleInfo.put(&quot;roleLevel&quot;, &quot;35&quot;);
+    roleInfo.put(&quot;roleName&quot;, &quot;Jack&quot;);
+    roleInfo.put(&quot;serverId&quot;, &quot;99990&quot;);
+    roleInfo.put(&quot;serverName&quot;, &quot;sName&quot;);
+    roleInfo.put(&quot;vipLevel&quot;, &quot;5&quot;);
+    return roleInfo.toString();
+} catch (JSONException e) {
+    e.printStackTrace();
+}
+
+Tianyouxi.updateRoleInfo(roleInfo);</code></pre></div>
+
+<h3 id="toc_18">9. 退出游戏接口：（必接）</h3>
+
+<div><pre><code class="language-none">Tianyouxi.exitGame();</code></pre></div>
+
+
+
+
+</body>
+
+</html>

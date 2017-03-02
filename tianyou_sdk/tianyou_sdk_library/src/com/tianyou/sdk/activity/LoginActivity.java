@@ -107,12 +107,18 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				.setServerClientId("775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com").build())
 		.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
 	}
+	
+	public void logoutFacebook() {
+		btnLogin.performClick();
+	}
+	
+	private LoginButton btnLogin;
 
 	//facebook登录
 	private void facebookLogin() {
 		FacebookSdk.sdkInitialize(this);
 		callbackManager = CallbackManager.Factory.create();
-		LoginButton btnLogin = (LoginButton) findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id"));
+		btnLogin = (LoginButton) findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id"));
 		btnLogin.setReadPermissions("email");
 		btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 			@Override
