@@ -23,7 +23,7 @@
             android:drawableTop="@drawable/selector_menu_4"
             android:text="@string/ty_menu_help" />
 
-        <TextView
+        <TextView	
             android:id="@+id/popup_menu_3"
             style="@style/style_popup_menu"
             android:drawableTop="@drawable/selector_menu_3"

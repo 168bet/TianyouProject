@@ -101,8 +101,8 @@
     <string name="ty_congrats_pay_success">恭喜你充值成功</string>
     <string name="ty_continue_pay">继续充值</string>
     <string name="ty_server_center">客服中心</string>
-    <string name="ty_server_content">以下服务均为72*24小时,随时为您服务</string>
-    <string name="ty_server_content2">（7x12小时服务）</string>
+    <string name="ty_server_content">以下服务均为7*24小时,随时为您服务</string>
+    <string name="ty_server_content2">（7x24小时服务）</string>
     <string name="ty_call_phone">点击拨打电话</string>
     <string name="ty_add_server_qq">添加客服QQ</string>
     <string name="ty_tianyou_server">天游戏客服</string>
