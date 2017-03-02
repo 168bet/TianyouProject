@@ -74,6 +74,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			
 			switch (msg.what) {
 				case 1:
+					LogUtils.d("handler msg=1");
 					Bundle data = msg.getData();
 					checkGoogleLogin(data.getString("id"), data.getString("token"));
 					break;
@@ -278,6 +279,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 					if (code == 200) {
 						String userName = jsonObject.getString("username");
 						String userPass = jsonObject.getString("truepass");
+						LogUtils.d("code== 200");
 						mLoginHandler.doUserLogin(userName, userPass, false);
 					}
 				} catch (JSONException e) {

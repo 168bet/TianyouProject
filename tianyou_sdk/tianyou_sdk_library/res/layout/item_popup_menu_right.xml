@@ -9,12 +9,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="@drawable/ty_float_bg_right"
-        android:paddingLeft="@dimen/layout_space_small" >
+        android:paddingLeft="@dimen/layout_space_little" >
 
         <TextView
             android:id="@+id/popup_menu_5"
             style="@style/style_popup_menu"
-            android:drawableTop="@drawable/selector_menu_0"
+            android:drawableTop="@drawable/selector_menu_5"
             android:text="@string/ty_menu_logout" />
         
         <TextView

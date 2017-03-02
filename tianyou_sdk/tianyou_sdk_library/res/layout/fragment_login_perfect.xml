@@ -98,7 +98,6 @@
                 android:layout_weight="1"
                 android:background="@color/color_white"
                 android:hint="6-20位字符"
-                android:inputType="textPassword"
                 android:paddingLeft="@dimen/layout_space_small"
                 android:textColor="@color/color_gray_3"
                 android:textColorHint="@color/color_gray_2"

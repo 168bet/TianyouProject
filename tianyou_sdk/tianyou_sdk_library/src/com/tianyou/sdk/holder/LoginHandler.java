@@ -204,7 +204,7 @@ public class LoginHandler {
     			} 
     		}, 1500);
 		} else {
-//			ProgressBarHandler.getInstance().close();
+			ProgressHandler.getInstance().closeProgressDialog();
 			ToastUtils.show(mActivity, mResultBean.getMsg());
 			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, mResultBean.getMsg());
 		}
