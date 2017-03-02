@@ -92,6 +92,7 @@ public class OneKeyFragment extends BaseLoginFragment {
 			AppUtils.openServerTerms(mActivity);
 		} else if (v.getId() == ResUtils.getResById(mActivity,"btn_google_login","id")) {
 //			mGoogleSignIn.signIn();
+			mActivity.setIsGoogleConnected(true);
 			try {
 				mActivity.getConnectionResult().startResolutionForResult(mActivity, 1);
 			} catch (SendIntentException e) {

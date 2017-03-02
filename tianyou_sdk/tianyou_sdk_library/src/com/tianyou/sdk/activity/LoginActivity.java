@@ -64,6 +64,8 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	private ConnectionResult mConnectionResult;
 	private LoginHandler mLoginHandler;
 	
+	private boolean isGoogleConnected = false;
+	
 	private static final int REQUEST_CODE_SIGN_IN = 1;
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
 	private static final int REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES = 2;
@@ -73,7 +75,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			
 			switch (msg.what) {
 				case 1:
-					LogUtils.d("handler msg=1");
+					Log.d("TAG","handler msg=1");
 					Bundle data = msg.getData();
 					checkGoogleLogin(data.getString("id"), data.getString("token"));
 					break;
@@ -241,30 +243,33 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		LogUtils.d("onConnected------------");
-		final String accountName = Plus.AccountApi.getAccountName(mApiClient);
-		Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
-		final String id = person.getId();
-		Log.d("TAG", "id= "+id+",accountName= "+accountName);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					String token = GoogleAuthUtil.getToken(mActivity, accountName, "audience:server:client_id:775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com");
-					Log.d("TAG", ",token= "+token);
-//					checkGoogleLogin(id,token);
-					Bundle bundle = new Bundle();
-					bundle.putString("id", id);
-					bundle.putString("token", token);
-					Message msg = new Message();
-					msg.what = 1;
-					msg.setData(bundle);
-					mHandler.sendMessage(msg);
-				} catch (Exception e) {
-					Log.d("TAG", "Exception= "+e.getMessage());
+		if (isGoogleConnected) {
+			isGoogleConnected = false;
+			Log.d("TAG","onConnected------------");
+			final String accountName = Plus.AccountApi.getAccountName(mApiClient);
+			Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
+			final String id = person.getId();
+			Log.d("TAG", "id= "+id+",accountName= "+accountName);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						String token = GoogleAuthUtil.getToken(mActivity, accountName, "audience:server:client_id:775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com");
+						Log.d("TAG", ",token= "+token);
+	//					checkGoogleLogin(id,token);
+						Bundle bundle = new Bundle();
+						bundle.putString("id", id);
+						bundle.putString("token", token);
+						Message msg = new Message();
+						msg.what = 1;
+						msg.setData(bundle);
+						mHandler.sendMessage(msg);
+					} catch (Exception e) {
+						Log.d("TAG", "Exception= "+e.getMessage());
+					}
 				}
-			}
-		}).start();
+			}).start();
+		}
 	}
 	
 	private void checkGoogleLogin(String id,String token) {
@@ -284,7 +289,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 					if (code == 200) {
 						String userName = jsonObject.getString("username");
 						String userPass = jsonObject.getString("truepass");
-						LogUtils.d("code== 200");
+						Log.d("TAG","code== 200");
 						mLoginHandler.doUserLogin(userName, userPass, false);
 					}
 				} catch (JSONException e) {
@@ -326,5 +331,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	
 	public Handler getHandler(){
 		return mHandler;
+	}
+	
+	public boolean getIsGoogleConnected (){
+		return isGoogleConnected;
+	}
+	
+	public void setIsGoogleConnected (boolean isGoogleConnected) {
+		this.isGoogleConnected = isGoogleConnected;
 	}
 }

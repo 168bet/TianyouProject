@@ -400,7 +400,14 @@ public class LoginHandler {
   	// 7.通知游戏登录成功
   	public static void onNoticeLoginSuccess() {
   		ConfigHolder.userIsLogin = true;
-		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, ConfigHolder.userId);
+  		JSONObject jsonObject = new JSONObject();
+  		try {
+			jsonObject.put("uid", ConfigHolder.userId);
+			jsonObject.put("userToken", ConfigHolder.userToken);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
   	}
   	
 }
