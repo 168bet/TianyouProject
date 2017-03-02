@@ -25,6 +25,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mActivity = this;
+		Tianyouxi.activityInit(this, mTianyouCallback);
 		findViewById(R.id.btn_login).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_pay_1).setOnClickListener(this);
@@ -32,26 +33,25 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
 		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
-		Tianyouxi.activityInit(this, mTianyouCallback);
 	}
 	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_login:
-			Tianyouxi.login("龙神捕鱼");
+			Tianyouxi.login();
 			break;
 		case R.id.btn_pay:
-			Tianyouxi.pay(getPayParam());
+			doPay();
 			break;
 		case R.id.btn_pay_1:
-			Tianyouxi.pay(getPayParam(), 15, "超值大礼包");
-			break;
-		case R.id.btn_entry_game:
-			Tianyouxi.enterGame(getRoleInfo());
+			doFixPay(15, "超值大礼包");
 			break;
 		case R.id.btn_create_role:
 			Tianyouxi.createRole(getRoleInfo());
+			break;
+		case R.id.btn_entry_game:
+			Tianyouxi.enterGame(getRoleInfo());
 			break;
 		case R.id.btn_update_role_info:
 			Tianyouxi.updateRoleInfo(getRoleInfo());
@@ -64,6 +64,46 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	private void doFixPay(int money, String productDesc) {
+		try {
+			JSONObject payInfo = new JSONObject();
+			String roleId = "13141654";
+			String serverId = "10281";
+			payInfo.put("roleId", roleId);
+			payInfo.put("serverId", serverId);
+			payInfo.put("serverName", "国内Android测试服");
+			payInfo.put("customInfo", "21689575c5284a334ca8f6630127915f9058");
+			payInfo.put("productId", "scom.tianyouxi.skszj.p1");
+			payInfo.put("productName", "60金钻");
+			payInfo.put("gameName", "寻龙剑");
+			payInfo.put("sign", AppUtils.MD5(roleId + serverId));
+			payInfo.put("signType", "MD5");
+			Tianyouxi.pay(payInfo.toString(), money, productDesc);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void doPay() {
+		try {
+			JSONObject payInfo = new JSONObject();
+			String roleId = "13141654";
+			String serverId = "10281";
+			payInfo.put("roleId", roleId);
+			payInfo.put("serverId", serverId);
+			payInfo.put("serverName", "国内Android测试服");
+			payInfo.put("customInfo", "21689575c5284a334ca8f6630127915f9058");
+			payInfo.put("productId", "scom.tianyouxi.skszj.p1");
+			payInfo.put("productName", "60金钻");
+			payInfo.put("gameName", "寻龙剑");
+			payInfo.put("sign", AppUtils.MD5(roleId + serverId));
+			payInfo.put("signType", "MD5");
+			Tianyouxi.pay(payInfo.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private TianyouCallback mTianyouCallback = new TianyouCallback() {
 		@Override
 		public void onResult(int code, String msg) {
@@ -102,27 +142,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-	
-	private String getPayParam() {
-		try {
-			JSONObject payInfo = new JSONObject();
-			String roleId = "13141654";
-			String serverId = "10281";
-			payInfo.put("roleId", roleId);
-			payInfo.put("serverId", serverId);
-			payInfo.put("serverName", "国内Android测试服");
-			payInfo.put("customInfo", "21689575c5284a334ca8f6630127915f9058");
-			payInfo.put("productId", "scom.tianyouxi.skszj.p1");
-			payInfo.put("productName", "60金钻");
-			payInfo.put("gameName", "寻龙剑");
-			payInfo.put("sign", AppUtils.MD5(roleId + serverId));
-			payInfo.put("signType", "MD5");
-			return payInfo.toString();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	private String getRoleInfo() {
 		try {

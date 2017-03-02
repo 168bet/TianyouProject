@@ -46,9 +46,10 @@ public class Tianyouxi {
 	
 	// 初始化接口
 	@SuppressWarnings("unchecked")
-	public static void applicationInit(Context context, String gameId, String gameToken, boolean isLandscape) {
+	public static void applicationInit(Context context, String gameId, String gameToken, String gameName, boolean isLandscape) {
 		LogUtils.d("appliction初始化");
 		ConfigHolder.isLandscape = isLandscape;
+		ConfigHolder.gameName = gameName;
 		InputStream is;
 		try {
 			is = context.getAssets().open("tianyou_config.xml");
@@ -175,8 +176,7 @@ public class Tianyouxi {
 	}
 
 	// 登陆接口
-	public static void login(String gameName) {
-		ConfigHolder.gameName = gameName;
+	public static void login() {
 		if (ConfigHolder.userIsLogin) {
 			ToastUtils.show(mActivity, "用户已登录");
 		} else {
