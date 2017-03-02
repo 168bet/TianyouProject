@@ -176,17 +176,16 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	
 	@Override
 	public void onBackPressed() {
-		if (mFragmentTag.equals("NoQQFragment")) {
-			finish();
-		} if (mFragmentTag.equals("AccountFragment")) {
+		LogUtils.d("mFragmentTag:" + mFragmentTag);
+//		if (mFragmentTag.equals("NoQQFragment")) {
+//			finish();
+		if (mFragmentTag.equals("AccountFragment")) {
 			if (!ConfigHolder.userIsLogin) {
-				ToastUtils.show(mActivity, "登录失败");
 				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
 			finish();
 		} if (mFragmentTag.equals("PhoneFragment")) {
 			if (!ConfigHolder.userIsLogin) {
-				ToastUtils.show(mActivity, "登录失败");
 				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
 			finish();
