@@ -56,7 +56,7 @@ public class PaymentHandler {
     private static Activity mActivity;
     private static Handler mHandler;
     
-    private PaymentHandler() { }
+    private PaymentHandler() {}
     
     public static PaymentHandler getInstance(Activity activity, Handler handler) {
     	mHandler = handler;
