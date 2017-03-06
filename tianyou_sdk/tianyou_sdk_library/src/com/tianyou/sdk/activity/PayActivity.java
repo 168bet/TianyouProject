@@ -90,9 +90,11 @@ public class PayActivity extends BaseActivity {
 				switchFragment(new WalletFragment(), "WalletFragment");
 				break;
 			case 3:
+				Log.d("TAG", "case google pay == 3,google pay success");
 				switchFragment(new SuccessFragment(), "SuccessFragment");
 				break;
 			case 4:
+				Log.d("TAG", "case google pay ==4,goolge pay failed");
 				switchFragment(new FailedFragment(), "FailedFragment");
 				break;
 			case 5:
@@ -214,10 +216,10 @@ public class PayActivity extends BaseActivity {
             LogUtils.d("purchaseData= " + purchaseData + ",dataSignature= " + dataSignature);
             LogUtils.d("result code= " + resultCode);
             if (resultCode == mActivity.RESULT_OK) {
+            	// 消耗谷歌商品
             	new Thread(new Runnable() {
         			@Override
         			public void run() {
-        				// 消耗谷歌商品
         				try {
         					JSONObject dataObject = new JSONObject(purchaseData);
         					String purchaseToken = dataObject.getString("purchaseToken");
@@ -234,7 +236,7 @@ public class PayActivity extends BaseActivity {
             	// 校验谷歌订单
             	checkGoogleOrder(purchaseData, dataSignature);
             }
-		} else { LogUtils.d("Google pay resultCode != 1001"); mHandler.sendEmptyMessage(4); }
+		} else { Log.d("TAG","Google pay resultCode != 1001"); mHandler.sendEmptyMessage(4); }
 		
 		// PayPal支付回调
 		if (resultCode == Activity.RESULT_OK) {
@@ -306,11 +308,14 @@ public class PayActivity extends BaseActivity {
 					JSONObject jsonObject = new JSONObject(data);
 					JSONObject result = jsonObject.getJSONObject("result");
 					if ("200".equals(result.getString("code"))) {
+						Log.d("TAG", "google pay code == 200");
 						mHandler.sendEmptyMessage(3);
 					} else {
+						Log.d("TAG", "google pay code != 200");
 						mHandler.sendEmptyMessage(4);
 					}
 				} catch (JSONException e) {
+					Log.d("TAG", "google pay e= "+e.getMessage());
 					e.printStackTrace();
 				}
 			}

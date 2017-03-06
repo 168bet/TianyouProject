@@ -35,16 +35,16 @@ public class XianquChSdkService extends BaseSdkService{
 	public void doApplicationCreate(Context context, boolean island) {
 		super.doApplicationCreate(context, island);
 		LogUtils.d("application oncreate------------------");
-		 try { 
-             Class<?> cls = Class.forName("com.snowfish.cn.ganga.helper.SFOnlineApplication");
-             Constructor<?> con = cls.getConstructor(Context.class);
-             con.newInstance(context.getApplicationContext());
-             Object obj = con.newInstance(context.getApplicationContext());
-             Method md = cls.getMethod("onCreate"); 
-             md.invoke(obj); 
-         } catch (Exception e) { 
-        	 e.printStackTrace(); 
-         } 
+//		 try { 
+//             Class<?> cls = Class.forName("com.snowfish.cn.ganga.helper.SFOnlineApplication");
+//             Constructor<?> con = cls.getConstructor(Context.class);
+//             con.newInstance(context.getApplicationContext());
+//             Object obj = con.newInstance(context.getApplicationContext());
+//             Method md = cls.getMethod("onCreate"); 
+//             md.invoke(obj); 
+//         } catch (Exception e) { 
+//        	 e.printStackTrace(); 
+//         } 
 	}
 	
 	@Override
