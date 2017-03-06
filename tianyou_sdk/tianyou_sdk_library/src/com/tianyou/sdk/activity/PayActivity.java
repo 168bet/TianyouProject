@@ -196,6 +196,7 @@ public class PayActivity extends BaseActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (data == null) return;
+		Log.d("TAG", "requestCode= "+requestCode+",resultCode= "+resultCode);
         String respCode = data.getExtras().getString("resultCode");
 		if (!TextUtils.isEmpty(respCode) && respCode.equalsIgnoreCase("success")) {
 			mPayHandler.doQueryOrder();
@@ -208,7 +209,7 @@ public class PayActivity extends BaseActivity {
 		}
 		
 		// 谷歌支付结果回调
-		if (requestCode == 1001) {
+		if (requestCode == 1001 && "Google Payment".equals(mPayHandler.getPayWayName())) {
             int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
             LogUtils.d("pay responsecode= " + responseCode);
             final String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
@@ -236,10 +237,10 @@ public class PayActivity extends BaseActivity {
             	// 校验谷歌订单
             	checkGoogleOrder(purchaseData, dataSignature);
             }
-		} else { Log.d("TAG","Google pay resultCode != 1001"); mHandler.sendEmptyMessage(4); }
+		} else if (requestCode != 1001 && "Google Payment".equals(mPayHandler.getPayWayName())){ Log.d("TAG","Google pay resultCode != 1001"); mHandler.sendEmptyMessage(4); }
 		
 		// PayPal支付回调
-		if (resultCode == Activity.RESULT_OK) {
+		if (resultCode == Activity.RESULT_OK && "Paypal Payment".equals(mPayHandler.getPayWayName())) {
             Log.d("TAG","activity result_ok--------------");
             PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
             if (confirm != null) {
@@ -252,9 +253,9 @@ public class PayActivity extends BaseActivity {
                 }
             }
         } 
-		else if (resultCode == Activity.RESULT_CANCELED) { Log.i("paymentExample", "The user canceled.");} 
-		else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");} 
-		else { Toast.makeText(this,"unkown error",Toast.LENGTH_LONG).show();}
+		else if (resultCode == Activity.RESULT_CANCELED && "Paypal Payment".equals(mPayHandler.getPayWayName())) { Log.i("paymentExample", "The user canceled.");} 
+		else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID && "Paypal Payment".equals(mPayHandler.getPayWayName())) {Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");} 
+//		else { Toast.makeText(this,"unkown error",Toast.LENGTH_LONG).show();}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	

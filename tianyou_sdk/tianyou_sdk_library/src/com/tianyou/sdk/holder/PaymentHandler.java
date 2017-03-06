@@ -206,6 +206,12 @@ public class PaymentHandler {
         case PAY_TYPE_WXSCAN:
             payWayName = "微信扫码支付方式";
             break;
+        case PAY_TYPE_GOOGLE:
+        	payWayName = "Google Payment";
+        	break;
+        case PAY_TYPE_PAYPAL:
+        	payWayName = "Paypal Payment";
+        	break;
         }
         return payWayName;
     }
