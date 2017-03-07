@@ -19,6 +19,15 @@ public class ChannelInfo {
 	private String payRsaPublic;
 	private String merchantId;
 	private String appSecret;
+	private String platformId;
+
+	public String getPlatformId() {
+		return platformId;
+	}
+
+	public void setPlatformId(String platformId) {
+		this.platformId = platformId;
+	}
 
 	public String getChannelId() {
 		return channelId;

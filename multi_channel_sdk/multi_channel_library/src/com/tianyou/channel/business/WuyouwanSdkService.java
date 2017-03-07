@@ -22,7 +22,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		int platformNumber = Integer.parseInt(mChannelInfo.getChannelId());
+		int platformNumber = Integer.parseInt(mChannelInfo.getPlatformId());
 		SDKInstace.SDKInitialize(mActivity, platformNumber, new InitCallBack() {
 			@Override
 			public void InitSuccess(int arg0) {

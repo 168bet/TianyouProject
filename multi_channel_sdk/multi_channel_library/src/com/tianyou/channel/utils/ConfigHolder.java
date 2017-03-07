@@ -51,6 +51,7 @@ public class ConfigHolder {
             	mChannelInfo.setPayRsaPrivate(channelinfo.getString("pay_private"));
             	mChannelInfo.setPayRsaPublic(channelinfo.getString("pay_public"));
             	mChannelInfo.setAppSecret(channelinfo.getString("appsecret"));
+            	mChannelInfo.setPlatformId(channelinfo.getString("channel_id"));
             	return mChannelInfo;
 			} else {
 				result.getString("msg");
@@ -59,6 +60,7 @@ public class ConfigHolder {
 			LogUtils.d("配置文件不存在");
 		} catch (JSONException e) {
 			LogUtils.d("渠道信息解析异常");
+			LogUtils.d("e= "+e.getMessage());
 		}
 		return null;
 	}
