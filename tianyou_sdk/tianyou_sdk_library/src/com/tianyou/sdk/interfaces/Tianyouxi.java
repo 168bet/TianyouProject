@@ -62,6 +62,7 @@ public class Tianyouxi {
 		ConfigHolder.channelId = (String) ((Map<String, Object>) mm.get("infos")).get("channel_id");
 		ConfigHolder.isOverseas = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("is_overseas"));
 		ConfigHolder.isOpenLog = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("log_switch"));
+		ConfigHolder.isUnion = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("union_mode"));
 		ConfigHolder.gameId = gameId;
 		ConfigHolder.gameToken = gameToken;
 
