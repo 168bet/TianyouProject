@@ -13,6 +13,8 @@ public class ConfigHolder {
 	public static boolean isOverseas;
 	// 是否打开日志
 	public static boolean isOpenLog;
+	// 是否是工会模式
+	public static boolean isUnion;
 	
 	// 存储游戏id
 	public static String gameId;

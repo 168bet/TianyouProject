@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import com.google.android.gms.internal.el;
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.MenuActivity;
 import com.tianyou.sdk.base.BaseLoginFragment;
@@ -121,11 +122,19 @@ public class AccountFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_1", "id")) {
 			// TODO	微信登陆
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_2", "id")) {
-			mActivity.switchFragment(new PhoneFragment(), "PhoneFragment");
+			if (ConfigHolder.isUnion) {
+				ToastUtils.show(mActivity, "暂未开放");
+			} else {
+				mActivity.switchFragment(new PhoneFragment(), "PhoneFragment");
+			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_home_entry", "id")) {
 			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {
-			mLoginHandler.doQuickRegister();
+			if (ConfigHolder.isUnion) {
+				ToastUtils.show(mActivity, "暂未开放");
+			} else {
+				mLoginHandler.doQuickRegister();
+			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_home_user_list", "id")) {
 			showPopupWindow();
 		}

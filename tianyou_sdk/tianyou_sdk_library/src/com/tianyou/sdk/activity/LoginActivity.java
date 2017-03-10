@@ -159,7 +159,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		mLoginHandler = LoginHandler.getInstance(mActivity,mHandler);
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
-		if (info1.size() == 0 && info2.size() == 0) {
+		if (!ConfigHolder.isUnion && info1.size() == 0 && info2.size() == 0) {
 			switchFragment(new OneKeyFragment(), "OneKeyFragment");
 		} else {
 			boolean isSwitchAccount = getIntent().getBooleanExtra("is_switch_account", false);
