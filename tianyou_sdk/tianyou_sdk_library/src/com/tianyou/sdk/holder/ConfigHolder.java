@@ -42,4 +42,5 @@ public class ConfigHolder {
 	public static String userToken;
 	// 存储用户验证码
 	public static String userCode;
+	
 }

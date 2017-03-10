@@ -31,6 +31,7 @@ import com.tianyou.sdk.fragment.login.PerfectFragment;
 import com.tianyou.sdk.fragment.login.PhoneFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
+import com.tianyou.sdk.holder.LoginHandler.LogoutCallback;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
@@ -115,6 +116,10 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	}
 	
 	private LoginButton btnLogin;
+	
+	public void clickFacebook() {
+		btnLogin.performClick();
+	}
 
 	//facebook登录
 	private void facebookLogin() {
@@ -125,6 +130,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 			@Override
 			public void onSuccess(LoginResult loginResult) {
+				ToastUtils.show(mActivity, "facebook登陆成功");
 				final Map<String, String> map = new HashMap<String, String>();
 				map.put("uid", loginResult.getAccessToken().getUserId());
 				map.put("usertoken", loginResult.getAccessToken().getToken());
@@ -147,27 +153,42 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			}
 
 			@Override
-			public void onCancel() { LogUtils.d("onCancel:"); }
+			public void onCancel() { 
+				ToastUtils.show(mActivity, "facebook登陆取消");
+				LogUtils.d("onCancel:"); }
 
 			@Override
-			public void onError(FacebookException e) { LogUtils.d("onError:"); }
+			public void onError(FacebookException e) { 
+				ToastUtils.show(mActivity, "facebook登陆失败");
+				LogUtils.d("onError:"); }
 		});
 	}
+	
+	private LogoutCallback mLogoutCallback = new LogoutCallback() {
+		@Override
+		public void onSuccess(String response) {
+			ToastUtils.show(mActivity, "注销Facebook");
+			clickFacebook();
+		}
+	};
 
 	@Override
 	protected void initData() {
-		mLoginHandler = LoginHandler.getInstance(mActivity,mHandler);
+		mLoginHandler = LoginHandler.getInstance(mActivity, mHandler, mLogoutCallback);
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
+		boolean isSwitchAccount = getIntent().getBooleanExtra("is_switch_account", false);
 		if (!ConfigHolder.isUnion && info1.size() == 0 && info2.size() == 0) {
 			switchFragment(new OneKeyFragment(), "OneKeyFragment");
 		} else {
-			boolean isSwitchAccount = getIntent().getBooleanExtra("is_switch_account", false);
 			if (SPHandler.getBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN)) {
 				switchFragment(PhoneFragment.getInstance(isSwitchAccount), "PhoneFragment");
 			} else {
 				switchFragment(AccountFragment.getInstance(isSwitchAccount), "AccountFragment");
 			}
+		}
+		if (isSwitchAccount && ConfigHolder.isOverseas) {
+			clickFacebook();
 		}
 	}
 	
@@ -222,6 +243,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		LogUtils.d("requestCode, resultCode, data");
 		if (ConfigHolder.isOverseas) {
 			callbackManager.onActivityResult(requestCode, resultCode, data);
 		}
