@@ -1,5 +1,7 @@
 package com.tianyou.sdk.holder;
 
+import com.tianyou.sdk.utils.ResUtils;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.view.Gravity;
@@ -38,7 +40,7 @@ public class ProgressHandler {
 	//打开进度条对话框
 	public void openProgressDialog(Activity activity) {
 		mProgressDialog = new ProgressDialog(activity);
-		mProgressDialog.setMessage("正在登陆...");
+		mProgressDialog.setMessage(ResUtils.getString(activity, "ty_entry_load"));
 		mProgressDialog.setIndeterminate(true);
 		mProgressDialog.setCancelable(false);
 		mProgressDialog.show();

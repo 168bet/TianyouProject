@@ -30,6 +30,7 @@
     <string name="ty_switch_login">切换登录</string>
     <string name="ty_quick_register">快速注册</string>
     <string name="ty_input_phone">请输入手机号</string>
+    <string name="ty_entry_load">正在登陆...</string>
     
     <string name="ty_send_code">发送验证码</string>
     <string name="ty_input_code">请输入验证码</string>

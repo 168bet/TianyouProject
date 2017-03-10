@@ -117,7 +117,7 @@ public class PayActivity extends BaseActivity {
                     PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
                     mPayHandler.PAY_FLAG = false;
 
-                    startIntentSenderForResult(pendingIntent.getIntentSender(),
+                    mActivity.startIntentSenderForResult(pendingIntent.getIntentSender(),
                             1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
                             Integer.valueOf(0));
                 } catch (Exception e) { 
