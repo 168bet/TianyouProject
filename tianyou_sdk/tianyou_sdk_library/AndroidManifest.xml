@@ -33,7 +33,7 @@
 
     <uses-feature android:name="android.hardware.nfc.hce" />
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> 
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
 
@@ -274,14 +274,12 @@
             android:name="com.paypal.android.sdk.payments.PayPalService"
             android:exported="false" />
 
-        <!--
         <provider
             android:name="com.umeng.message.provider.MessageProvider"
-            android:authorities="com.tianyou.mjx.umeng.message"
+            android:authorities="com.tianyouxi.lszg.bm.umeng.message"
             android:exported="true" >
             <grant-uri-permission android:pathPattern=".*" />
         </provider>
-         Umeng push sdk end -->
 
 
         <!-- Umeng analysis set start -->
