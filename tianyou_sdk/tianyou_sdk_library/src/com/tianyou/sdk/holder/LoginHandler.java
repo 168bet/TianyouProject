@@ -50,6 +50,7 @@ import android.widget.TextView;
 public class LoginHandler {
 	
 	private static LoginHandler mLoginHandler;
+	private static LogoutCallback mLogoutCallback;
 	private static Activity mActivity;
 	private static Handler mHandler;
 	public ResultBean mResultBean;
@@ -65,19 +66,17 @@ public class LoginHandler {
 	
 	public static LoginHandler getInstance(Activity activity) {
 		mActivity = activity;
-		if (mLoginHandler == null) {
-			mLoginHandler = new LoginHandler();
-		}
-		return mLoginHandler;
+		return getInstance();
 	}
 
 	public static LoginHandler getInstance(Activity activity, Handler handler) {
-		mActivity = activity;
 		mHandler = handler;
-		if (mLoginHandler == null) {
-			mLoginHandler = new LoginHandler();
-		}
-		return mLoginHandler;
+		return getInstance(activity);
+	}
+	
+	public static LoginHandler getInstance(Activity activity, Handler handler, LogoutCallback callback) {
+		mLogoutCallback = callback;
+		return getInstance(activity, handler);
 	}
 	
 	// 1-1.账号密码登录接口
@@ -291,12 +290,16 @@ public class LoginHandler {
   			public void onClick(View arg0) {
   				handler.removeCallbacks(runnable);
   				popupWindow.dismiss();
-  				Intent intent = new Intent(Tianyouxi.mActivity, LoginActivity.class);
-  				intent.putExtra("is_switch_account", true);
-  				Tianyouxi.mActivity.startActivity(intent);
+				Intent intent = new Intent(Tianyouxi.mActivity, LoginActivity.class);
+				intent.putExtra("is_switch_account", true);
+				Tianyouxi.mActivity.startActivity(intent);
   			}
   		});
   	}
+  	
+  	public interface LogoutCallback {
+		void onSuccess(String response);
+	}
   	
   	// 6.弹公告
    	private void displayAnnouncement() {

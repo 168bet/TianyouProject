@@ -284,6 +284,7 @@ public class Tianyouxi {
 			map.put("serverId", roleInfo.getString("serverId"));
 			map.put("serverName", roleInfo.getString("serverName"));
 			map.put("vipLevel", roleInfo.getString("vipLevel"));
+			map.put("帮会", "帮会");
 		} catch (JSONException e) {
 			e.printStackTrace();
 			ToastUtils.show(mActivity, "角色信息解析错误");

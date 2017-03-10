@@ -82,7 +82,13 @@ public class AccountFragment extends BaseLoginFragment {
 
 	@Override
 	protected void initData() {
-		showLoginWay();
+		if (ConfigHolder.isOverseas) {
+			View loginWay3 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_3", "id"));
+			loginWay3.setVisibility(View.VISIBLE);
+			loginWay3.setOnClickListener(this);
+		} else {
+			showLoginWay();
+		}
 		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
 			Map<String, String> map = loginInfo.get(0);
@@ -127,6 +133,8 @@ public class AccountFragment extends BaseLoginFragment {
 			} else {
 				mActivity.switchFragment(new PhoneFragment(), "PhoneFragment");
 			}
+		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_3", "id")) {
+			mActivity.clickFacebook();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_home_entry", "id")) {
 			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {
