@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/ccc"
+            android:background="@drawable/ty_login_way_4"
             android:padding="@dimen/layout_space_small"
             android:text="@string/ty_google_login"
             android:textColor="@color/color_gray_1"

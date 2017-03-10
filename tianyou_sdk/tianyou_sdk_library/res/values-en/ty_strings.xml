@@ -8,8 +8,8 @@
     <string name="ty_company_name2">[TianYou Games]</string>
     <string name="ty_phone_login">Mobile login</string>
     <string name="ty_no_register">(No register)</string>
-    <string name="ty_tianyou_notice">TianYou notice</string>
-    <string name="ty_game_recommend">Recommendation of games</string>
+    <string name="ty_tianyou_notice">Notice</string>
+    <string name="ty_game_recommend">Games</string>
     <string name="ty_pay_center">Center of payment</string>
     <string name="ty_pay_failed_tip">Failed to pay,whether to confirm quit?</string>
     <string name="ty_confirm_exit">Confirm quit</string>

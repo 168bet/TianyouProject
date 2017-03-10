@@ -191,9 +191,16 @@ public class HttpUtils {
 				activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						ToastUtils.show(activity, "网络连接失败，请检查网络~");
-						ProgressHandler.getInstance().closeProgressDialog();
-//						progressBar.setVisibility(View.GONE);
+						activity.runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								ToastUtils.show(activity, "网络连接失败，请检查网络~");
+								ProgressHandler.getInstance().closeProgressDialog();
+//								progressBar.setVisibility(View.GONE);
+							}
+						});
 					}
 				});
 			}

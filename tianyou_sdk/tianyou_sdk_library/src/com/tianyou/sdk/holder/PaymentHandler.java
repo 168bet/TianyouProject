@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -133,6 +134,7 @@ public class PaymentHandler {
                     } else if ("GOOGLEPAY".equals(orderinfo.getWay())) {
                     	LogUtils.d("ggproductid= "+result.getPayinfo().getGGproduct_id());
                         mPayInfo.setGoogleProductID(result.getPayinfo().getGGproduct_id());
+                        Log.d("TAG", "111111111111111111111111111111");
                     }
                     doPay();
                 } else if (mPayType == PAY_TYPE_WALLET) {
@@ -307,13 +309,16 @@ public class PaymentHandler {
             	mHandler.sendEmptyMessage(7);
                 break;
             case PAY_TYPE_GOOGLE:
+            	Log.d("TAG", "2222222222222222222222");
             	mHandler.sendEmptyMessage(8);
+            	Log.d("TAG", "3333333333333333333333");
                 break;
             case PAY_TYPE_PAYPAL:
             	PayPalPayment payment = new PayPalPayment(new BigDecimal(mPayInfo.getMoney()), "USD", mPayInfo.getProductName(),
                         PayPalPayment.PAYMENT_INTENT_SALE);
                 Intent intent = new Intent(mActivity, PaymentActivity.class);
                 intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+                mPaymentHandler.PAY_FLAG = false;
                 mActivity.startActivityForResult(intent, 0);
                 break;
         }

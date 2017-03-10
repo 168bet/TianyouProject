@@ -110,10 +110,12 @@ public class PayActivity extends BaseActivity {
 				try {
 //                	LogUtils.d("packageName= "+mActivity.getPackageName()+",ggproductid= "+getGoogleProductID()+",orderid= "+mPayInfo.getOrderId());
 //                	LogUtils.d("mBillingService= "+mBillingService);
+					Log.d("TAG", "4444444444444444444444");
                     Bundle buyIntentBundle = mBillingService.getBuyIntent(3,mActivity.getPackageName(),
                     		mPayHandler.mPayInfo.getGoogleProductID(),"inapp",mPayHandler.mPayInfo.getOrderId());
                     int code = buyIntentBundle.getInt("RESPONSE_CODE");
                     PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+                    mPayHandler.PAY_FLAG = false;
 
                     startIntentSenderForResult(pendingIntent.getIntentSender(),
                             1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
@@ -198,13 +200,15 @@ public class PayActivity extends BaseActivity {
 		if (data == null) return;
 		Log.d("TAG", "requestCode= "+requestCode+",resultCode= "+resultCode);
         String respCode = data.getExtras().getString("resultCode");
-		if (!TextUtils.isEmpty(respCode) && respCode.equalsIgnoreCase("success") && requestCode != 1001) {
-			Log.d("TAG", "requestCode!=1001-----------");
-			mPayHandler.doQueryOrder();
-		} else {
-			Log.d("TAG", "FailedFragment-------------------------");
-			switchFragment(new FailedFragment(), "FailedFragment");
-		}
+        if (requestCode != 1001 && requestCode != 0) {
+        	if (!TextUtils.isEmpty(respCode) && respCode.equalsIgnoreCase("success")) {
+        		Log.d("TAG", "requestCode!=1001-----------");
+        		mPayHandler.doQueryOrder();
+        	} else {
+        		Log.d("TAG", "FailedFragment-------------------------");
+        		switchFragment(new FailedFragment(), "FailedFragment");
+        	}
+        }
 		
 		if (requestCode == ACTIVITY_FINISH && resultCode == MenuActivity.REQUEST_OK){
 			finish();
@@ -243,21 +247,23 @@ public class PayActivity extends BaseActivity {
 		
 		
 		// PayPal支付回调
-		if (resultCode == Activity.RESULT_OK) {
-            Log.d("TAG","activity result_ok--------------");
-            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-            if (confirm != null) {
-                try {
-                    String paymentId = confirm.toJSONObject().getJSONObject("response").getString("id");
-                    Log.d("TAG","paymentId= "+paymentId);
-                    checkPaypalOrder(paymentId);
-                } catch (JSONException e) {
-                    Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
-                }
-            }
-        } 
-		else if (resultCode == Activity.RESULT_CANCELED) { Log.i("paymentExample", "The user canceled.");} 
-		else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");} 
+		if (requestCode == 0) {
+			if (resultCode == Activity.RESULT_OK) {
+				Log.d("TAG","activity result_ok--------------");
+				PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+				if (confirm != null) {
+					try {
+						String paymentId = confirm.toJSONObject().getJSONObject("response").getString("id");
+						Log.d("TAG","paymentId= "+paymentId);
+						checkPaypalOrder(paymentId);
+					} catch (JSONException e) {
+						Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+					}
+				}
+			} 
+			else if (resultCode == Activity.RESULT_CANCELED) { Log.i("paymentExample", "The user canceled.");} 
+			else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");} 
+		}
 //		else { Toast.makeText(this,"unkown error",Toast.LENGTH_LONG).show();}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -324,6 +330,12 @@ public class PayActivity extends BaseActivity {
 				}
 			}
 		});
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		Log.d("TAG", "payactivity ondestroy------------");
 	}
 
 }
