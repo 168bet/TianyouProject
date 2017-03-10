@@ -140,6 +140,14 @@
                 android:layout_marginLeft="@dimen/layout_space_small"
                 android:src="@drawable/ty_facebook"
                 android:visibility="gone" />
+            
+            <ImageView
+                android:id="@+id/img_login_way_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_space_small"
+                android:src="@drawable/ty_google"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView

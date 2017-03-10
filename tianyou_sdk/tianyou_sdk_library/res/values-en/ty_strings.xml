@@ -27,7 +27,7 @@
     <string name="ty_phone_nomber">Phone number/account</string>
     <string name="ty_password">password</string>
     <string name="ty_forget_password">Forgot password</string>
-    <string name="ty_switch_login">Switch account</string>
+    <string name="ty_switch_login">Switch login</string>
     <string name="ty_quick_register">Quick register</string>
     <string name="ty_input_phone">Please enter the phone number</string>
     <string name="ty_entry_load">is Loading...</string>
@@ -54,6 +54,12 @@
     <string name="ty_send_sms">Send the message to finish the verification</string>
     <string name="ty_add_new_qq">Add new QQ number</string>
     <string name="ty_password_info">Password(6~20 numbers/letters)</string>
+    <string name="ty_pay_order">Recharge Order</string>
+    <string name="ty_pay_order2">Recharge Order：</string>
+    <string name="ty_pay_server">Recharge Server</string>
+    <string name="ty_pay_server2">Recharge Server：</string>
+    <string name="ty_pay_money">Recharge Amount</string>
+    <string name="ty_pay_money2">Recharge Amount：</string>
     <string name="ty_pay_fail">Sorry,failed to pay</string>
     <string name="ty_pay_order">Purchase order</string>
     <string name="ty_pay_order2">Purchase order:</string>

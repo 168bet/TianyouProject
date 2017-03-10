@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -86,6 +87,9 @@ public class AccountFragment extends BaseLoginFragment {
 			View loginWay3 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_3", "id"));
 			loginWay3.setVisibility(View.VISIBLE);
 			loginWay3.setOnClickListener(this);
+			View loginWay4 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_4", "id"));
+			loginWay4.setVisibility(View.VISIBLE);
+			loginWay4.setOnClickListener(this);
 		} else {
 			showLoginWay();
 		}
@@ -135,6 +139,16 @@ public class AccountFragment extends BaseLoginFragment {
 			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_3", "id")) {
 			mActivity.clickFacebook();
+		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_4", "id")) {
+			mActivity.setIsGoogleConnected(true);
+			try {
+				mActivity.getConnectionResult().startResolutionForResult(mActivity, 1);
+			} catch (SendIntentException e) {
+				if (mActivity.getGoogleApiClient() != null){ 
+					mActivity.getGoogleApiClient().connect(); 
+				}
+				e.printStackTrace();
+			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_home_entry", "id")) {
 			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {

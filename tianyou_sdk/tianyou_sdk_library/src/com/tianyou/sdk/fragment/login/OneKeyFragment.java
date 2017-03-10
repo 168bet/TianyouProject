@@ -31,6 +31,8 @@ public class OneKeyFragment extends BaseLoginFragment {
 	protected void initView() {
 
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_quick", "id")).setOnClickListener(this);
+		mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_account", "id")).setOnClickListener(this);
+		mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_server", "id")).setOnClickListener(this);
 		
 		if (ConfigHolder.isOverseas) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id")).setVisibility(View.VISIBLE);
@@ -41,8 +43,6 @@ public class OneKeyFragment extends BaseLoginFragment {
 			btnGoogle.setOnClickListener(this);
 		} else {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_qq", "id")).setOnClickListener(this);
-			mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_account", "id")).setOnClickListener(this);
-			mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_server", "id")).setOnClickListener(this);
 			
 			View textMsm = mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_msm", "id"));
 			textMsm.setVisibility(View.VISIBLE);
