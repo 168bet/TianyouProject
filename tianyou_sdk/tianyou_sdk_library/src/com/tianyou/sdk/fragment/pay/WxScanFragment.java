@@ -102,9 +102,9 @@ public class WxScanFragment extends BaseFragment{
 		}
 		
 		if (ConfigHolder.isLandscape){
-			mTextOrderLand.setText("充值订单："+payInfo.getOrderId());
-			mTextServerLand.setText("充值区服："+payInfo.getServerName());
-			mTextMoneyLand.setText("充值金额："+Integer.parseInt(payInfo.getMoney()) * payInfo.getScale()+payInfo.getCurrency());
+			mTextOrderLand.setText(ResUtils.getString(mActivity, "ty_pay_order2")+payInfo.getOrderId());
+			mTextServerLand.setText(ResUtils.getString(mActivity, "ty_pay_server2")+payInfo.getServerName());
+			mTextMoneyLand.setText(ResUtils.getString(mActivity, "ty_pay_money2")+Integer.parseInt(payInfo.getMoney()) * payInfo.getScale()+payInfo.getCurrency());
 			
 			mTextPhoneLand.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
 			mTextQQLand.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_QQ));

@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.google.android.gms.plus.model.people.Person.Name;
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.bean.FacebookLogin;
@@ -44,6 +45,7 @@ import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
+import android.R.string;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -79,7 +81,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				case 1:
 					Log.d("TAG","handler msg=1");
 					Bundle data = msg.getData();
-					checkGoogleLogin(data.getString("id"), data.getString("token"));
+					checkGoogleLogin(data.getString("id"), data.getString("token"),data.getString("nickname"));
 					break;
 				case 2:
 					switchFragment(new PerfectFragment(), "PerfectFragment");
@@ -276,8 +278,10 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			Log.d("TAG","onConnected------------");
 			final String accountName = Plus.AccountApi.getAccountName(mApiClient);
 			Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
+			final String nickname = person.getDisplayName();
 			final String id = person.getId();
-			Log.d("TAG", "id= "+id+",accountName= "+accountName);
+//			final String nickname = person.getNickname();
+			Log.d("TAG", "id= "+id+",accountName= "+accountName+",displayname= "+nickname);
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -288,6 +292,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 						Bundle bundle = new Bundle();
 						bundle.putString("id", id);
 						bundle.putString("token", token);
+						bundle.putString("nickname", nickname);
 						Message msg = new Message();
 						msg.what = 1;
 						msg.setData(bundle);
@@ -300,10 +305,11 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		}
 	}
 	
-	private void checkGoogleLogin(String id,String token) {
+	private void checkGoogleLogin(String id,String token,String nickname) {
 		Map<String,String> googleParam = new HashMap<String, String>();
 		googleParam.put("id_token",token);
 		googleParam.put("id",id);
+		googleParam.put("nickname",nickname);
 		googleParam.put("GGappid", AppUtils.getMetaDataValue(mActivity,"google_client_id"));
 		googleParam.put("appID",ConfigHolder.gameId);
 		googleParam.put("imei",AppUtils.getPhoeIMEI(mActivity));
@@ -313,10 +319,11 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				LogUtils.d("login success response= "+response);
 				try {
 					JSONObject jsonObject = new JSONObject(response);
-					int code = jsonObject.getInt("code");
+					JSONObject result = jsonObject.getJSONObject("result");
+					int code = result.getInt("code");
 					if (code == 200) {
-						String userName = jsonObject.getString("username");
-						String userPass = jsonObject.getString("truepass");
+						String userName = result.getString("username");
+						String userPass = result.getString("password");
 						Log.d("TAG","code== 200");
 						mLoginHandler.doUserLogin(userName, userPass, false);
 					}
