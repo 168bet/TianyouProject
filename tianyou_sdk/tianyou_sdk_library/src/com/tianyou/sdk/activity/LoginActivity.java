@@ -190,15 +190,15 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				switchFragment(AccountFragment.getInstance(isSwitchAccount), "AccountFragment");
 			}
 		}
-		if (ConfigHolder.isOverseas) {
-			AccessToken token = AccessToken.getCurrentAccessToken();
-			if (token != null) {
-				LogUtils.d("token:" + token.getToken());
-			}
-		}
-		if (isSwitchAccount && ConfigHolder.isOverseas && AccessToken.getCurrentAccessToken() != null) {
-			clickFacebook();
-		}
+//		if (ConfigHolder.isOverseas) {
+//			AccessToken token = AccessToken.getCurrentAccessToken();
+//			if (token != null) {
+//				LogUtils.d("token:" + token.getToken());
+//			}
+//		}
+//		if (isSwitchAccount && ConfigHolder.isOverseas && AccessToken.getCurrentAccessToken() != null) {
+//			clickFacebook();
+//		}
 	}
 	
 	@Override

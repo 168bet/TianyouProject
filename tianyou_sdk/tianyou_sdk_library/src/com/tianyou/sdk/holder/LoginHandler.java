@@ -118,7 +118,11 @@ public class LoginHandler {
 				LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
 				ResultBean result = info.getResult();
 				if (result.getCode() == 200) {
-					showTipDialog(result);
+					if (ConfigHolder.isOverseas || ConfigHolder.isUnion) {
+						doUserLogin(result.getUsername(), result.getPassword(), false);
+					} else {
+						showTipDialog(result);
+					}
 				} else {
 					ToastUtils.show(mActivity, result.getMsg());
 				}
@@ -350,7 +354,7 @@ public class LoginHandler {
  						info.put(LoginInfoHandler.USER_ACCOUNT, result.getString("username"));
  						info.put(LoginInfoHandler.USER_NICKNAME, result.getString("nickname"));
  						info.put(LoginInfoHandler.USER_PASSWORD, newPwd);
- 						info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
+ 						info.put(LoginInfoHandler.USER_SERVER, "Recently landed: " + ConfigHolder.gameName);
  						info.put(LoginInfoHandler.USER_LOGIN_WAY, "qq");
  						SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, false);
  						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
