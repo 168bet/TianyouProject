@@ -72,12 +72,13 @@
         android:text="@string/ty_query_result"
         android:textColor="@color/color_white"
         android:textSize="@dimen/text_size_title" />
-    
+
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/layout_space_little">
+        android:layout_marginTop="@dimen/layout_space_little"
+        android:visibility="gone">
         
         <TextView 
             android:layout_width="wrap_content"
@@ -104,7 +105,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/layout_space_little">
+        android:layout_marginTop="@dimen/layout_space_little"
+        android:visibility="gone">
         
         <TextView 
             android:layout_width="wrap_content"
@@ -120,5 +122,5 @@
             android:textColor="@color/color_jacinth"
             android:textSize="@dimen/text_size_common"/>
     </LinearLayout>
-
+    
 </LinearLayout>
