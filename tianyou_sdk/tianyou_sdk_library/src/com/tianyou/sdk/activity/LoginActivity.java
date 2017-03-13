@@ -7,6 +7,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -111,9 +112,9 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
 	}
 	
-	public void logoutFacebook() {
-		btnLogin.performClick();
-	}
+//	public void logoutFacebook() {
+//		btnLogin.performClick();
+//	}
 	
 	private LoginButton btnLogin;
 	
@@ -187,7 +188,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				switchFragment(AccountFragment.getInstance(isSwitchAccount), "AccountFragment");
 			}
 		}
-		if (isSwitchAccount && ConfigHolder.isOverseas) {
+		if (ConfigHolder.isOverseas) {
+			AccessToken token = AccessToken.getCurrentAccessToken();
+			if (token != null) {
+				LogUtils.d("token:" + token.getToken());
+			}
+		}
+		if (isSwitchAccount && ConfigHolder.isOverseas && AccessToken.getCurrentAccessToken() != null) {
 			clickFacebook();
 		}
 	}
