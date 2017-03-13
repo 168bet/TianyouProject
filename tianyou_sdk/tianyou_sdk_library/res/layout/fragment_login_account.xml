@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_bg_white_fill"
+            android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
             android:hint="@string/ty_phone_nomber"
-            android:inputType="textPhonetic"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
             android:textColor="@color/color_black"
@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0.5dp"
             android:background="@drawable/shape_bg_white_fill"
+            android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
             android:hint="@string/ty_password"
-            android:inputType="textPhonetic"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
             android:textColor="@color/color_black"
@@ -140,7 +140,7 @@
                 android:layout_marginLeft="@dimen/layout_space_small"
                 android:src="@drawable/ty_facebook"
                 android:visibility="gone" />
-            
+
             <ImageView
                 android:id="@+id/img_login_way_4"
                 android:layout_width="wrap_content"
