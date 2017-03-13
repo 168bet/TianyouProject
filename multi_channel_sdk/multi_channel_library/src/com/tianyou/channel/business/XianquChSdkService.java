@@ -24,6 +24,7 @@ import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
+import com.tianyou.channel.utils.CommenUtil;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
 
@@ -165,20 +166,23 @@ public class XianquChSdkService extends BaseSdkService{
 //				mRoleInfo.getBalance(), null);
 	}
 	
+	private String createTime;
 	@Override
 	public void doCreateRole(RoleInfo roleInfo) {
 		super.doCreateRole(roleInfo);
+		createTime = CommenUtil.getCurrentTime(mActivity, true);
 		joy2u.createRole(mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), mRoleInfo.getRoleLevel(), 
 				mRoleInfo.getServerId(), mRoleInfo.getServerName(), mRoleInfo.getBalance(), mRoleInfo.getVipLevel(),
-				mRoleInfo.getParty(), mRoleInfo.getCreateTime(), mRoleInfo.getRoleLevelUpTime());
+				mRoleInfo.getParty(),createTime, createTime);
 	}
 	
 	@Override
 	public void doUpdateRoleInfo(RoleInfo roleInfo) {
 		super.doUpdateRoleInfo(roleInfo);
+		String levelUpTime = CommenUtil.getCurrentTime(mActivity, true);
 		joy2u.levelUpRole(mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), mRoleInfo.getRoleLevel(), 
 				mRoleInfo.getServerId(), mRoleInfo.getServerName(), mRoleInfo.getBalance(), mRoleInfo.getVipLevel(),
-				mRoleInfo.getParty(), mRoleInfo.getCreateTime(), mRoleInfo. getRoleLevelUpTime());
+				mRoleInfo.getParty(), createTime, levelUpTime);
 	}
 	
 	@Override

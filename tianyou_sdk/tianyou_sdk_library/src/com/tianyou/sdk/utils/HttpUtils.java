@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
+import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.ConstantHolder;
 import com.tianyou.sdk.holder.ProgressHandler;
 
@@ -125,6 +126,8 @@ public class HttpUtils {
 	public static void post(final Activity activity, final String url, final Map<String, String> map, final HttpCallback callback) {
 		LogUtils.d("请求URL:" + url);
 //		createProgress(activity);
+		String language = (ConfigHolder.isOverseas ? "en" : "ch");
+		map.put("language", language);
 		LogUtils.d("请求参数:" + map);
 		Builder builder = new FormBody.Builder();
 		for (Entry<String, String> entry : map.entrySet()) {
