@@ -1,7 +1,6 @@
 package com.tianyou.sdk.fragment.login;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.tianyou.sdk.base.BaseLoginFragment;
@@ -13,7 +12,6 @@ public class RegisterFragment extends BaseLoginFragment {
 	private EditText mEditUsername;
 	private EditText mEditPassword;
 	private EditText mEditAgain;
-	private Button mBtnConfirm;
 
 	@Override
 	protected String setContentView() { return "fragment_login_register"; }
@@ -23,12 +21,11 @@ public class RegisterFragment extends BaseLoginFragment {
 		mEditUsername = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_username", "id"));
 		mEditPassword = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_password", "id"));
 		mEditAgain = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_again", "id"));
-		mBtnConfirm = (Button) mContentView.findViewById(ResUtils.getResById(mActivity, "btn_register_confirm", "id"));
-		mBtnConfirm.setOnClickListener(this);
+		mContentView.findViewById(ResUtils.getResById(mActivity, "btn_register_confirm", "id")).setOnClickListener(this);
 	}
 
 	@Override
-	protected void initData() { }
+	protected void initData() { mActivity.setFragmentTitle("工会注册"); }
 
 	@Override
 	public void onClick(View v) {
