@@ -31,6 +31,7 @@ import com.tianyou.channel.utils.ToastUtils;
 public class XianquChSdkService extends BaseSdkService{
 	
 	private Joy2uPlatform joy2u = Joy2uPlatform.getInstance();
+	private String mTid;
 	
 	@Override
 	public void doApplicationCreate(Context context, boolean island) {
@@ -166,14 +167,13 @@ public class XianquChSdkService extends BaseSdkService{
 //				mRoleInfo.getBalance(), null);
 	}
 	
-	private String createTime;
 	@Override
 	public void doCreateRole(RoleInfo roleInfo) {
+		
 		super.doCreateRole(roleInfo);
-		createTime = CommenUtil.getCurrentTime(mActivity, true);
 		joy2u.createRole(mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), mRoleInfo.getRoleLevel(), 
 				mRoleInfo.getServerId(), mRoleInfo.getServerName(), mRoleInfo.getBalance(), mRoleInfo.getVipLevel(),
-				mRoleInfo.getParty(),createTime, createTime);
+				mRoleInfo.getParty(),mRoleInfo.getCreateTime(), mRoleInfo.getCreateTime());
 	}
 	
 	@Override
@@ -182,7 +182,7 @@ public class XianquChSdkService extends BaseSdkService{
 		String levelUpTime = CommenUtil.getCurrentTime(mActivity, true);
 		joy2u.levelUpRole(mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), mRoleInfo.getRoleLevel(), 
 				mRoleInfo.getServerId(), mRoleInfo.getServerName(), mRoleInfo.getBalance(), mRoleInfo.getVipLevel(),
-				mRoleInfo.getParty(), createTime, levelUpTime);
+				mRoleInfo.getParty(), mRoleInfo.getCreateTime(), levelUpTime);
 	}
 	
 	@Override
