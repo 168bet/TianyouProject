@@ -31,6 +31,7 @@ import com.tianyou.sdk.fragment.login.BindingFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
 import com.tianyou.sdk.fragment.login.PerfectFragment;
 import com.tianyou.sdk.fragment.login.PhoneFragment;
+import com.tianyou.sdk.fragment.login.RegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginHandler.LogoutCallback;
@@ -181,7 +182,9 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		boolean isSwitchAccount = getIntent().getBooleanExtra("is_switch_account", false);
-		if (!ConfigHolder.isUnion && info1.size() == 0 && info2.size() == 0) {
+		if (ConfigHolder.isUnion) {
+			switchFragment(new RegisterFragment(), "RegisterFragment");
+		} else if (info1.size() == 0 && info2.size() == 0) {
 			switchFragment(new OneKeyFragment(), "OneKeyFragment");
 		} else {
 			if (SPHandler.getBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN)) {
