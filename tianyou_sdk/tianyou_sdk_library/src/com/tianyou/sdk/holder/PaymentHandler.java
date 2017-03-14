@@ -38,17 +38,11 @@ import com.tianyou.sdk.utils.ToastUtils;
  */
 public class PaymentHandler {
 
-    public static final int PAY_TYPE_WECHAT = 0;
-    public static final int PAY_TYPE_ALIPAY = 1;
-    public static final int PAY_TYPE_QQPAY = 2;
-    public static final int PAY_TYPE_UNION = 3;
-    public static final int PAY_TYPE_REMIT = 4;
-    public static final int PAY_TYPE_WALLET = 5;
-    public static final int PAY_TYPE_WXSCAN = 6;
-    public static final int PAY_TYPE_GOOGLE = 7;
-    public static final int PAY_TYPE_PAYPAL = 8;
+	public enum PayType {
+		WECHAT, ALIPAY, QQPAY, UNION, REMIT, WALLET, WXSCAN, GOOGLE, PAYPAL;
+	}
     
-    public int mPayType;				//当前支付类型
+    public PayType mPayType;				//当前支付类型
     public PayParamInfo mPayInfo;		//支付参数集
     public boolean PAY_FLAG;			//防止多次点击充值
     public boolean mIsShowChoose;		//是否有选择金额页面
@@ -71,26 +65,7 @@ public class PaymentHandler {
     // 创建订单
     public void createOrder() {
         LogUtils.d("mPayInfo:" + mPayInfo);
-        String payWay = "";
-        if (mPayType == PAY_TYPE_WECHAT) {
-            payWay = "WXPAY";
-        } else if (mPayType == PAY_TYPE_ALIPAY) {
-            payWay = "ALIPAY";
-        } else if (mPayType == PAY_TYPE_QQPAY) {
-            payWay = "HANDQ";
-        } else if (mPayType == PAY_TYPE_UNION) {
-            payWay = "UNPAY";
-        } else if (mPayType == PAY_TYPE_REMIT) {
-            payWay = "BANK_PAY";
-        } else if (mPayType == PAY_TYPE_WALLET) {
-            payWay = "QBPAY";
-        } else if (mPayType == PAY_TYPE_WXSCAN) {
-            payWay = "WXSCAN";
-        } else if (mPayType == PAY_TYPE_GOOGLE) {
-            payWay = "GOOGLEPAY";
-        } else if (mPayType == PAY_TYPE_PAYPAL) {
-        	payWay = "PAYPALPAY";
-        }
+        getPayWayName();
         String userId = ConfigHolder.userId;
         String appID = ConfigHolder.gameId;
         String serverID = mPayInfo.getServerId();
@@ -103,10 +78,10 @@ public class PaymentHandler {
         map.put("customInfo", mPayInfo.getCustomInfo());
         map.put("serverName", mPayInfo.getServerName());
         map.put("moNey", mPayInfo.getMoney());
-        map.put("Way", payWay);
+        map.put("Way", mPayWayCode);
         map.put("productId",mPayInfo.getProductId());
         map.put("sign", AppUtils.MD5(userId + serverID + serverID));
-        if (mPayType == PaymentHandler.PAY_TYPE_GOOGLE || mPayType == PaymentHandler.PAY_TYPE_PAYPAL) {
+        if (mPayType == PayType.GOOGLE || mPayType == PayType.PAYPAL) {
         	createOrderUrl = URLHolder.URL_CREATE_ORDER_OVERSEAS;
         } else {
         	createOrderUrl = URLHolder.URL_CREATE_ORDER;
@@ -137,7 +112,7 @@ public class PaymentHandler {
                         Log.d("TAG", "111111111111111111111111111111");
                     }
                     doPay();
-                } else if (mPayType == PAY_TYPE_WALLET) {
+                } else if (mPayType == PayType.WALLET) {
                     showWalletTip();
                 } else {
                     ToastUtils.show(mActivity, result.getMsg());
@@ -183,59 +158,53 @@ public class PaymentHandler {
         return money * mPayInfo.getScale() + mPayInfo.getCurrency();
     }
     
+    private String mPayWayCode = "WXPAY";
+    private String mPayWayName = "微信支付";
+    
     // 获取支付方式名称
-    public String getPayWayName() {
-        String payWayName = "微信支付";
+    public void getPayWayName() {
         switch (mPayType) {
-        case PAY_TYPE_WECHAT:
-            payWayName = "微信支付";
+        case WECHAT:
+        	mPayWayCode = "WXPAY";
+        	mPayWayName = "微信支付";
             break;
-        case PAY_TYPE_ALIPAY:
-            payWayName = "支付宝";
+        case ALIPAY:
+        	mPayWayCode = "ALIPAY";
+        	mPayWayName = "支付宝";
             break;
-        case PAY_TYPE_UNION:
-            payWayName = "银联支付";
+        case UNION:
+        	mPayWayCode = "UNPAY";
+        	mPayWayName = "银联支付";
             break;
-        case PAY_TYPE_REMIT:
-            payWayName = "汇款";
+        case REMIT:
+        	mPayWayCode = "BANK_PAY";
+        	mPayWayName = "汇款";
             break;
-        case PAY_TYPE_WALLET:
-            payWayName = "钱包支付";
+        case WALLET:
+        	mPayWayCode = "QBPAY";
+        	mPayWayName = "钱包支付";
             break;
-        case PAY_TYPE_QQPAY:
-            payWayName = "QQ钱包支付";
+        case QQPAY:
+        	mPayWayCode = "HANDQ";
+        	mPayWayName = "QQ钱包支付";
             break;
-        case PAY_TYPE_WXSCAN:
-            payWayName = "微信扫码支付方式";
+        case WXSCAN:
+        	mPayWayCode = "WXSCAN";
+        	mPayWayName = "微信扫码支付方式";
             break;
-        case PAY_TYPE_GOOGLE:
-        	payWayName = "Google Payment";
+        case GOOGLE:
+        	mPayWayCode = "GOOGLEPAY";
+        	mPayWayName = "Google Payment";
         	break;
-        case PAY_TYPE_PAYPAL:
-        	payWayName = "Paypal Payment";
+        case PAYPAL:
+        	mPayWayCode = "PAYPALPAY";
+        	mPayWayName = "Paypal Payment";
         	break;
         }
-        return payWayName;
     }
     
     // 创建钱包订单
     public void createWalletOrder() {
-        String payWay = "";
-        if (mPayType == PAY_TYPE_WECHAT) {
-            payWay = "WXPAY";
-        } else if (mPayType == PAY_TYPE_ALIPAY) {
-            payWay = "ALIPAY";
-        } else if (mPayType == PAY_TYPE_QQPAY) {
-            payWay = "HANDQ";
-        } else if (mPayType == PAY_TYPE_UNION) {
-            payWay = "UNPAY";
-        } else if (mPayType == PAY_TYPE_REMIT) {
-            payWay = "BANK_PAY";
-        } else if (mPayType == PAY_TYPE_WALLET) {
-            payWay = "QBPAY";
-        } else if (mPayType == PAY_TYPE_WXSCAN) {
-            payWay = "WXSCAN";
-        }
         String userId = ConfigHolder.userId;
         String appID = ConfigHolder.gameId;
         String serverID = mPayInfo.getServerId();
@@ -247,7 +216,7 @@ public class PaymentHandler {
         map.put("customInfo", mPayInfo.getCustomInfo());
         map.put("serverName", mPayInfo.getServerName());
         map.put("moNey", mPayInfo.getMoney());
-        map.put("Way", payWay);
+        map.put("Way", mPayWayCode);
         map.put("sign", AppUtils.MD5(userId + serverID + serverID));
         HttpUtils.post(mActivity, URLHolder.URL_PAY_WALLET, map, new HttpCallback() {
             @Override
@@ -287,33 +256,31 @@ public class PaymentHandler {
     // 开始支付
     private void doPay() {
         switch (mPayType) {
-            case PAY_TYPE_WECHAT:
+            case WECHAT:
                 new WechatPay(mActivity, true, mPayInfo,this).doWeChatPay();
                 break;
-            case PAY_TYPE_QQPAY:
+            case QQPAY:
                 new WechatPay(mActivity, false, mPayInfo,this).doWeChatPay();
                 break;
-            case PAY_TYPE_ALIPAY:
+            case ALIPAY:
                 new Alipay(mActivity, mHandler, mPayInfo).doAlipay();
                 break;
-            case PAY_TYPE_UNION:
+            case UNION:
                 new UnionPay(mActivity, mPayInfo.getTnnumber()).doUnionPay();
                 break;
-            case PAY_TYPE_REMIT:
+            case REMIT:
             	mHandler.sendEmptyMessage(6);
                 break;
-            case PAY_TYPE_WALLET:
+            case WALLET:
             	mHandler.sendEmptyMessage(3);
                 break;
-            case PAY_TYPE_WXSCAN:
+            case WXSCAN:
             	mHandler.sendEmptyMessage(7);
                 break;
-            case PAY_TYPE_GOOGLE:
-            	Log.d("TAG", "2222222222222222222222");
+            case GOOGLE:
             	mHandler.sendEmptyMessage(8);
-            	Log.d("TAG", "3333333333333333333333");
                 break;
-            case PAY_TYPE_PAYPAL:
+            case PAYPAL:
             	PayPalPayment payment = new PayPalPayment(new BigDecimal(mPayInfo.getMoney()), "USD", mPayInfo.getProductName(),
                         PayPalPayment.PAYMENT_INTENT_SALE);
                 Intent intent = new Intent(mActivity, PaymentActivity.class);

@@ -12,7 +12,7 @@ public class ConfigHolder {
 	// 是否是海外包
 	public static boolean isOverseas;
 	// 是否打开日志
-	public static boolean isOpenLog;
+	public static boolean isOpenLog = true;
 	// 是否是工会模式
 	public static boolean isUnion;
 	
