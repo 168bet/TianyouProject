@@ -4,14 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.MenuActivity;
 import com.tianyou.sdk.base.BaseFragment;
@@ -21,11 +13,19 @@ import com.tianyou.sdk.bean.ExitGame.ResultBean.ProductinfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class HomeFragment extends BaseFragment {
 
@@ -101,7 +101,7 @@ public class HomeFragment extends BaseFragment {
 			MobclickAgent.onProfileSignOff();
 			MobclickAgent.onKillProcess(mActivity);
 			mActivity.finish();
-			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
+			TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_exit_icon", "id")) {
 			mActivity.switchFragment(DownloadFragment.getInstall(bundle), "DownloadFragment");
 		}

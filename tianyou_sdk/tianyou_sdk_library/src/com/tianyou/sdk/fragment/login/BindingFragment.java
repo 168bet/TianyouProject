@@ -6,6 +6,18 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.tianyou.sdk.base.BaseLoginFragment;
+import com.tianyou.sdk.bean.PhoneCode;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,18 +26,6 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.tianyou.sdk.base.BaseLoginFragment;
-import com.tianyou.sdk.bean.PhoneCode;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.AppUtils;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.LogUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
 
 public class BindingFragment extends BaseLoginFragment {
 

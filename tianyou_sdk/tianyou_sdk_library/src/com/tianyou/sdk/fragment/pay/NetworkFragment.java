@@ -1,13 +1,13 @@
 package com.tianyou.sdk.fragment.pay;
 
-import android.app.ProgressDialog;
-import android.os.Handler;
-import android.view.View;
-
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
+
+import android.app.ProgressDialog;
+import android.os.Handler;
+import android.view.View;
 
 /**
  * Created by itstrong on 2016/7/2.

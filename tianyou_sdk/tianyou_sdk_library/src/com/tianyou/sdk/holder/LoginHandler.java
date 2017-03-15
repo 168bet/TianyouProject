@@ -14,7 +14,7 @@ import com.tianyou.sdk.activity.NotifyActivity;
 import com.tianyou.sdk.bean.LoginInfo;
 import com.tianyou.sdk.bean.LoginInfo.ResultBean;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
@@ -73,17 +73,42 @@ public class LoginHandler {
 		return getInstance(activity);
 	}
 	
-//	public static LoginHandler getInstance(Activity activity, Handler handler, LogoutCallback callback) {
-//		mLogoutCallback = callback;
-//		return getInstance(activity, handler);
-//	}
-	
 	// 1-1.账号密码登录接口
-	public void doUserLogin(String userName, String userPass, boolean isPhone) {
+	public void doUserLogin(String username, String password, boolean isPhone) {
+		SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE, isPhone);
+		if (ConfigHolder.isUnion) {
+			doUnionLogin(username, password, isPhone);
+		} else {
+			doCommonLogin(username, password, isPhone);
+		}
+    }
+	
+	private void doUnionLogin(String username, String password, boolean isPhone) {
 		ProgressHandler.getInstance().openProgressDialog(mActivity);
     	Map<String,String> map = new HashMap<String, String>();
-		map.put("username", userName);
-		map.put("verification", userPass);
+		map.put("username", username);
+		map.put("password", password);
+		map.put("appid", ConfigHolder.gameId);
+		map.put("token", ConfigHolder.gameToken);
+		map.put("channel", ConfigHolder.channelId);
+		map.put("type", "android");
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+		map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
+		map.put("signType", "md5");
+		String url = isPhone ? URLHolder.URL_UNION_PHONE_LOGIN : URLHolder.URL_UNION_ACCOUNT_LOGIN;
+		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				onLoginProcess(new Gson().fromJson(response, LoginInfo.class));
+			}
+		});
+	}
+	
+	private void doCommonLogin(String username, String password, boolean isPhone) {
+		ProgressHandler.getInstance().openProgressDialog(mActivity);
+    	Map<String,String> map = new HashMap<String, String>();
+		map.put("username", username);
+		map.put("verification", password);
 		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("appID", ConfigHolder.gameId);
 		map.put("type", "android");
@@ -94,12 +119,11 @@ public class LoginHandler {
 		HttpUtils.post(mActivity, URLHolder.URL_CODE_LOGIN, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
-				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
-				onLoginProcess(request);
+				onLoginProcess(new Gson().fromJson(response, LoginInfo.class));
 			}
 		});
-    }
-	
+	}
+
 	// 1-2.快速注册登陆接口
 	public void doQuickRegister() {
 		Map<String,String> map = new HashMap<String, String>();
@@ -110,8 +134,7 @@ public class LoginHandler {
 		map.put("channel", ConfigHolder.channelId);
 		map.put("ip", AppUtils.getIP());
 		map.put("type", "android");
-		String url = (ConfigHolder.isOverseas ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.URL_LOGIN_QUICK;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_QUICK, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
@@ -129,22 +152,42 @@ public class LoginHandler {
 		});
 	}
 	
-	// 1-3.QQ登陆接口
-	public void doQQLogin(final Activity activity, final String openid, final String access_token, final String nickname, final String imgUrl) {
-		Map<String, String> map = new HashMap<String, String>();
+	public void doQQLogin(Map<String, String> map) {
+		if (ConfigHolder.isUnion) {
+			doUnionQQLogin(map);
+		} else {
+			doCommonQQLogin(map);
+		}
+	}
+	
+	private void doUnionQQLogin(Map<String, String> map) {
+		map.put("appid", ConfigHolder.gameId);
+		map.put("token", ConfigHolder.gameToken);
+		map.put("channel", ConfigHolder.channelId);
+		map.put("type", "android");
 		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("openid", openid);
-		map.put("access_token", access_token);
+		map.put("sign", AppUtils.MD5(map.get("openid") + ConfigHolder.gameId + ConfigHolder.gameToken));
+		map.put("signtype", "md5");
+		HttpUtils.post(mActivity, URLHolder.URL_UNION_QQ_LOGIN, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				mActivity.finish();
+				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
+				onLoginProcess(request);
+		}});
+	}
+
+	// 1-3.QQ登陆接口
+	private void doCommonQQLogin(Map<String, String> map) {
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("ip", AppUtils.getIP());
 		map.put("appID", ConfigHolder.gameId);
 		map.put("channel", ConfigHolder.channelId);
 		map.put("type", "android");
-		map.put("nickname", nickname);
-		map.put("headimg", imgUrl);
 		HttpUtils.post(mActivity, URLHolder.URL_QQ_LOGIN, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
-				activity.finish();
+				mActivity.finish();
 				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
 				onLoginProcess(request);
 		}});
@@ -195,21 +238,20 @@ public class LoginHandler {
 	}
 	
 	// 2.登录逻辑处理
-	public void onLoginProcess(LoginInfo request) {
-		mResultBean = request.getResult();
-    	if (mResultBean.getCode() == 200) {
-    		mResultBean = request.getResult();
-    		new Handler().postDelayed(new Runnable() {
-    			@Override
-    			public void run() {
-    				doHandlerLoginInfo();
-    			} 
-    		}, 1500);
-		} else {
-			ProgressHandler.getInstance().closeProgressDialog();
-			ToastUtils.show(mActivity, mResultBean.getMsg());
-			Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, mResultBean.getMsg());
-		}
+	public void onLoginProcess(final LoginInfo request) {
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				if (request.getResult().getCode() == 200) {
+					mResultBean = request.getResult();
+					doHandlerLoginInfo();
+				} else {
+					ProgressHandler.getInstance().closeProgressDialog();
+					ToastUtils.show(mActivity, request.getResult().getMsg());
+					TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
+				}
+			} 
+		}, 1500);
     }
 	
 	// 3.登陆成功数据处理
@@ -217,7 +259,6 @@ public class LoginHandler {
 		if ("qq".equals(mResultBean.getRegistertype()) && "0".equals(mResultBean.getIsperfect())) {	//	QQ登陆且没有完善账号信息
 			mHandler.sendEmptyMessage(2);
 		} else {
-			LogUtils.d("doSaveUserInfo----------------");
 			doSaveUserInfo();
 		}
 	}
@@ -240,7 +281,7 @@ public class LoginHandler {
 		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
 		info.put(LoginInfoHandler.USER_LOGIN_WAY, mResultBean.getRegistertype() == null ? "" : mResultBean.getRegistertype());
 		//保存到手机登陆信息表
-		if ("1".equals(mResultBean.getIscode())) {
+		if (SPHandler.getBoolean(mActivity, SPHandler.SP_IS_PHONE)) {
 			LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE, info);
 			SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN, true);
 		//保存到账号登陆信息表
@@ -259,14 +300,14 @@ public class LoginHandler {
   	public void showWelComePopup() {
   		mActivity.finish();
 //  		ProgressBarHandler.getInstance().close();
-  		View mView = new View(Tianyouxi.mActivity);
-  		FrameLayout layout = new FrameLayout(Tianyouxi.mActivity);
+  		View mView = new View(TianyouSdk.getInstance().mActivity);
+  		FrameLayout layout = new FrameLayout(TianyouSdk.getInstance().mActivity);
   		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
   		layout.addView(mView);
-  		Tianyouxi.mActivity.addContentView(layout, params);
-  		View view = View.inflate(Tianyouxi.mActivity, ResUtils.getResById(Tianyouxi.mActivity, "popup_welcome", "layout"), null);
-  		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(Tianyouxi.mActivity, "text_welcome_user", "id"));
-  		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(Tianyouxi.mActivity, "text_welcome_switch", "id"));
+  		TianyouSdk.getInstance().mActivity.addContentView(layout, params);
+  		View view = View.inflate(TianyouSdk.getInstance().mActivity, ResUtils.getResById(TianyouSdk.getInstance().mActivity, "popup_welcome", "layout"), null);
+  		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_user", "id"));
+  		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_switch", "id"));
   		LogUtils.d("nickName= "+ConfigHolder.userNickname+",account= "+ConfigHolder.userName);
   		if (ConfigHolder.userNickname == null || ConfigHolder.userNickname.isEmpty()) {
   			textUser.setText(ResUtils.getString(mActivity, "ty_tianyou") + 
@@ -293,9 +334,9 @@ public class LoginHandler {
   			public void onClick(View arg0) {
   				handler.removeCallbacks(runnable);
   				popupWindow.dismiss();
-				Intent intent = new Intent(Tianyouxi.mActivity, LoginActivity.class);
+				Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
 				intent.putExtra("is_switch_account", true);
-				Tianyouxi.mActivity.startActivity(intent);
+				TianyouSdk.getInstance().mActivity.startActivity(intent);
   			}
   		});
   	}
@@ -304,12 +345,23 @@ public class LoginHandler {
 		void onSuccess(String response);
 	}
   	
-  	// 6.弹公告
-   	private void displayAnnouncement() {
+  	private void displayAnnouncement() {
+  		if (ConfigHolder.isUnion) {
+			unionAnnouncement();
+		} else {
+			commonAnnouncement();
+		}
+	}
+  	
+  	private void unionAnnouncement() {
    		Map<String, String> map = new HashMap<String, String>();
-   		map.put("appID", ConfigHolder.gameId);
-   		map.put("usertoken", ConfigHolder.userToken);
-   		HttpUtils.post(Tianyouxi.mActivity, URLHolder.URL_ANNOUNCE, map, new HttpsCallback() {
+   		map.put("appid", ConfigHolder.gameId);
+   		map.put("token", ConfigHolder.userToken);
+   		map.put("type", "android");
+   		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+   		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.userToken));
+   		map.put("signtype", "md5");
+   		HttpUtils.post(TianyouSdk.getInstance().mActivity, URLHolder.URL_UNION_ANNOUNCE, map, new HttpsCallback() {
    			@Override
    			public void onSuccess(String response) {
    				try {
@@ -318,9 +370,38 @@ public class LoginHandler {
    					if (result.getInt("code") == 200) {
    						String custominfo = result.getString("custominfo");
    						custominfo = URLDecoder.decode(custominfo, "utf-8");
-   						Intent intent = new Intent(Tianyouxi.mActivity, NotifyActivity.class);
+   						Intent intent = new Intent(TianyouSdk.getInstance().mActivity, NotifyActivity.class);
    						intent.putExtra("content", custominfo);
-   						Tianyouxi.mActivity.startActivity(intent);
+   						TianyouSdk.getInstance().mActivity.startActivity(intent);
+   					} else {
+   						onNoticeLoginSuccess();
+   					}
+   				} catch (JSONException e) {
+   					e.printStackTrace();
+   				} catch (UnsupportedEncodingException e) {
+   					e.printStackTrace();
+   				}
+   			}
+   		});
+   	}
+
+	// 6.弹公告
+   	private void commonAnnouncement() {
+   		Map<String, String> map = new HashMap<String, String>();
+   		map.put("appID", ConfigHolder.gameId);
+   		map.put("usertoken", ConfigHolder.userToken);
+   		HttpUtils.post(TianyouSdk.getInstance().mActivity, URLHolder.URL_ANNOUNCE, map, new HttpsCallback() {
+   			@Override
+   			public void onSuccess(String response) {
+   				try {
+   					JSONObject jsonObject = new JSONObject(response);
+   					JSONObject result = jsonObject.getJSONObject("result");
+   					if (result.getInt("code") == 200) {
+   						String custominfo = result.getString("custominfo");
+   						custominfo = URLDecoder.decode(custominfo, "utf-8");
+   						Intent intent = new Intent(TianyouSdk.getInstance().mActivity, NotifyActivity.class);
+   						intent.putExtra("content", custominfo);
+   						TianyouSdk.getInstance().mActivity.startActivity(intent);
    					} else {
    						onNoticeLoginSuccess();
    					}
@@ -413,7 +494,7 @@ public class LoginHandler {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
   	}
   	
 }

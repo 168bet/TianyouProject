@@ -4,11 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.widget.Toast;
-
 import com.switfpass.pay.MainApplication;
 import com.switfpass.pay.activity.PayPlugin;
 import com.switfpass.pay.bean.RequestMsg;
@@ -19,6 +14,11 @@ import com.switfpass.pay.utils.XmlUtils;
 import com.tianyou.sdk.bean.PayParamInfo;
 import com.tianyou.sdk.utils.LogUtils;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.widget.Toast;
+
 /**
  * 微信支付接口
  * Created by itstrong on 2016/7/1.
@@ -27,7 +27,7 @@ public class WechatPay {
 
     private Activity mActivity;
     private PayParamInfo mPayInfo;
-    private PaymentHandler mPayHandler;
+    private PayHandler mPayHandler;
     private String mch_id_wx = "6522000068";
     private String secret_key_wx = "149b9410afd8e8eafed59d3c104a5159";
     
@@ -35,7 +35,7 @@ public class WechatPay {
     private String secret_key_qq = "38ec112f5ae62d57c7919d09829373a5";
     private boolean isWechatPay;
 
-    public WechatPay(Activity context,boolean isWechatPay, PayParamInfo payInfo,PaymentHandler payHandler) {
+    public WechatPay(Activity context,boolean isWechatPay, PayParamInfo payInfo,PayHandler payHandler) {
         this.mActivity = context;
         this.isWechatPay = isWechatPay;
         this.mPayInfo = payInfo;

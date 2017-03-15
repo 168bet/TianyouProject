@@ -71,7 +71,7 @@ public class RegisterFragment extends BaseLoginFragment {
 				@Override
 				public void onSuccess(String response) {
 					LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
-					ToastUtils.show(mActivity, request.getResult().getMsg());
+					mLoginHandler.onLoginProcess(request);
 				}
 			});
 		}

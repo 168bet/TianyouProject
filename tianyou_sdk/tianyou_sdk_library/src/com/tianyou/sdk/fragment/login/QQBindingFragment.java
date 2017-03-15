@@ -3,6 +3,12 @@ package com.tianyou.sdk.fragment.login;
 import java.util.List;
 import java.util.Map;
 
+import com.tianyou.sdk.activity.WebViewAvtivity;
+import com.tianyou.sdk.base.BaseLoginFragment;
+import com.tianyou.sdk.holder.LoginInfoHandler;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.ResUtils;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
@@ -15,12 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
-import com.tianyou.sdk.activity.WebViewAvtivity;
-import com.tianyou.sdk.base.BaseLoginFragment;
-import com.tianyou.sdk.holder.LoginInfoHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.ResUtils;
 
 /**
  * QQ登陆绑定列表

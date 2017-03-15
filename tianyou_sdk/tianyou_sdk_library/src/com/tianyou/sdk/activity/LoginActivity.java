@@ -7,7 +7,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -21,7 +20,6 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.google.android.gms.plus.model.people.Person.Name;
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.bean.FacebookLogin;
@@ -39,14 +37,13 @@ import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
-import android.R.string;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,7 +65,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	private GoogleApiClient mApiClient;
 	private ConnectionResult mConnectionResult;
 	private LoginHandler mLoginHandler;
-	
 	private boolean isGoogleConnected = false;
 	
 	private static final int REQUEST_CODE_SIGN_IN = 1;
@@ -77,10 +73,8 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	
 	private Handler mHandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
-			
 			switch (msg.what) {
 				case 1:
-					Log.d("TAG","handler msg=1");
 					Bundle data = msg.getData();
 					checkGoogleLogin(data.getString("id"), data.getString("token"),data.getString("nickname"));
 					break;
@@ -119,73 +113,18 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 //		btnLogin.performClick();
 //	}
 	
-	private LoginButton btnLogin;
-	
-	public void clickFacebook() {
-		btnLogin.performClick();
-	}
-
-	//facebook登录
-	private void facebookLogin() {
-		FacebookSdk.sdkInitialize(this);
-		callbackManager = CallbackManager.Factory.create();
-		btnLogin = (LoginButton) findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id"));
-		btnLogin.setReadPermissions("email");
-		btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-			@Override
-			public void onSuccess(LoginResult loginResult) {
-				ToastUtils.show(mActivity, "facebook登陆成功");
-				final Map<String, String> map = new HashMap<String, String>();
-				map.put("uid", loginResult.getAccessToken().getUserId());
-				map.put("usertoken", loginResult.getAccessToken().getToken());
-				map.put("appID", ConfigHolder.gameId);
-				map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-				HttpUtils.post(mActivity, URLHolder.URL_FACEBOOK_LOGIN, map, new HttpUtils.HttpsCallback() {
-					@Override
-					public void onSuccess(String response) {
-						FacebookLogin login = new Gson().fromJson(response, FacebookLogin.class);
-						ResultBean result = login.getResult();
-						if (result.getCode() == 200) {
-							String username = result.getUsername();
-							int password = result.getPassword();
-							mLoginHandler.doUserLogin(username, password + "", false);
-						} else {
-							ToastUtils.show(mActivity, result.getMsg());
-						}
-					}
-				});
-			}
-
-			@Override
-			public void onCancel() { 
-				ToastUtils.show(mActivity, "facebook登陆取消");
-				LogUtils.d("onCancel:"); }
-
-			@Override
-			public void onError(FacebookException e) { 
-				ToastUtils.show(mActivity, "facebook登陆失败");
-				LogUtils.d("onError:"); }
-		});
-	}
-	
-	private LogoutCallback mLogoutCallback = new LogoutCallback() {
-		@Override
-		public void onSuccess(String response) {
-			ToastUtils.show(mActivity, "注销Facebook");
-			clickFacebook();
-		}
-	};
-
 	@Override
 	protected void initData() {
 		mLoginHandler = LoginHandler.getInstance(mActivity, mHandler);
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		boolean isSwitchAccount = getIntent().getBooleanExtra("is_switch_account", false);
-		if (ConfigHolder.isUnion) {
-			switchFragment(new RegisterFragment(), "RegisterFragment");
-		} else if (info1.size() == 0 && info2.size() == 0) {
-			switchFragment(new OneKeyFragment(), "OneKeyFragment");
+		if (info1.size() == 0 && info2.size() == 0) {
+			if (ConfigHolder.isUnion) {
+				switchFragment(new RegisterFragment(), "RegisterFragment");
+			} else {
+				switchFragment(new OneKeyFragment(), "OneKeyFragment");
+			}
 		} else {
 			if (SPHandler.getBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN)) {
 				switchFragment(PhoneFragment.getInstance(isSwitchAccount), "PhoneFragment");
@@ -214,12 +153,12 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 //			finish();
 		if (mFragmentTag.equals("AccountFragment")) {
 			if (!ConfigHolder.userIsLogin) {
-				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
+				TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
 			finish();
 		} if (mFragmentTag.equals("PhoneFragment")) {
 			if (!ConfigHolder.userIsLogin) {
-				Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
+				TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 			}
 			finish();
 		} else if (mFragmentTag.equals("PerfectFragment")) {
@@ -307,6 +246,63 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			}).start();
 		}
 	}
+	
+	private LoginButton btnLogin;
+	
+	public void clickFacebook() {
+		btnLogin.performClick();
+	}
+
+	//facebook登录
+	private void facebookLogin() {
+		FacebookSdk.sdkInitialize(this);
+		callbackManager = CallbackManager.Factory.create();
+		btnLogin = (LoginButton) findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id"));
+		btnLogin.setReadPermissions("email");
+		btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+			@Override
+			public void onSuccess(LoginResult loginResult) {
+				ToastUtils.show(mActivity, "facebook登陆成功");
+				final Map<String, String> map = new HashMap<String, String>();
+				map.put("uid", loginResult.getAccessToken().getUserId());
+				map.put("usertoken", loginResult.getAccessToken().getToken());
+				map.put("appID", ConfigHolder.gameId);
+				map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+				HttpUtils.post(mActivity, URLHolder.URL_FACEBOOK_LOGIN, map, new HttpUtils.HttpsCallback() {
+					@Override
+					public void onSuccess(String response) {
+						FacebookLogin login = new Gson().fromJson(response, FacebookLogin.class);
+						ResultBean result = login.getResult();
+						if (result.getCode() == 200) {
+							String username = result.getUsername();
+							int password = result.getPassword();
+							mLoginHandler.doUserLogin(username, password + "", false);
+						} else {
+							ToastUtils.show(mActivity, result.getMsg());
+						}
+					}
+				});
+			}
+
+			@Override
+			public void onCancel() { 
+				ToastUtils.show(mActivity, "facebook登陆取消");
+				LogUtils.d("onCancel:"); }
+
+			@Override
+			public void onError(FacebookException e) { 
+				ToastUtils.show(mActivity, "facebook登陆失败");
+				LogUtils.d("onError:"); }
+		});
+	}
+	
+	private LogoutCallback mLogoutCallback = new LogoutCallback() {
+		@Override
+		public void onSuccess(String response) {
+			ToastUtils.show(mActivity, "注销Facebook");
+			clickFacebook();
+		}
+	};
 	
 	private void checkGoogleLogin(String id,String token,String nickname) {
 		Map<String,String> googleParam = new HashMap<String, String>();

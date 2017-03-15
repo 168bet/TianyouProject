@@ -1,11 +1,5 @@
 package com.tianyou.sdk.fragment.pay;
 
-import android.content.Intent;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.TextView;
-
 import com.tianyou.sdk.activity.MenuActivity;
 import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.base.BaseFragment;
@@ -14,9 +8,15 @@ import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.ResUtils;
+
+import android.content.Intent;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * 支付失败界面
@@ -60,7 +60,7 @@ public class FailedFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "");
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "");
 		activity = (PayActivity) getActivity();
 		PayParamInfo payInfo = activity.mPayHandler.mPayInfo;
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){

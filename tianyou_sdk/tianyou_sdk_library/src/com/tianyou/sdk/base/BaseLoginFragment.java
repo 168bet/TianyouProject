@@ -22,15 +22,15 @@ import android.view.ViewGroup;
  */
 public abstract class BaseLoginFragment extends Fragment implements OnClickListener {
 
-    protected LoginActivity mActivity;
     protected View mContentView;
+    protected LoginActivity mActivity;
     protected LoginHandler mLoginHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mActivity = (LoginActivity)getActivity();
         mActivity.setFragmentTag(getTag());
-        mLoginHandler = LoginHandler.getInstance(mActivity,mActivity.getHandler());
+        mLoginHandler = LoginHandler.getInstance(mActivity, mActivity.getHandler());
         mContentView = inflater.inflate(ResUtils.getResById(mActivity, setContentView(), "layout"), container, false);
         initView();
         return mContentView;

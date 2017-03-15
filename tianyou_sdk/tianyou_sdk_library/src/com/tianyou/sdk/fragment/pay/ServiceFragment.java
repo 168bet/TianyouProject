@@ -1,17 +1,17 @@
 package com.tianyou.sdk.fragment.pay;
 
+import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.ResUtils;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.ResUtils;
 
 /**
  * 客服中心页面

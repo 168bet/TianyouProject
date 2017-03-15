@@ -7,15 +7,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.os.Handler;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PaymentActivity;
@@ -31,39 +22,114 @@ import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Handler;
+
 /**
  * 支付逻辑处理
  * @author itstrong
  *
  */
-public class PaymentHandler {
+public class PayHandler {
 
 	public enum PayType {
 		WECHAT, ALIPAY, QQPAY, UNION, REMIT, WALLET, WXSCAN, GOOGLE, PAYPAL;
 	}
     
-    public PayType mPayType;				//当前支付类型
-    public PayParamInfo mPayInfo;		//支付参数集
-    public boolean PAY_FLAG;			//防止多次点击充值
-    public boolean mIsShowChoose;		//是否有选择金额页面
-    
-    private static PaymentHandler mPaymentHandler;
+    private static PayHandler mPaymentHandler;
     private static Activity mActivity;
     private static Handler mHandler;
     
-    private PaymentHandler() {}
+    public PayType mPayType;			//当前支付类型
+    public PayParamInfo mPayInfo;		//支付参数集合
+    public boolean PAY_FLAG;			//防止多次点击充值
+    public boolean mIsShowChoose;		//是否有选择金额页面
     
-    public static PaymentHandler getInstance(Activity activity, Handler handler) {
+    private PayHandler() {}
+    
+    public static PayHandler getInstance(Activity activity, Handler handler) {
     	mHandler = handler;
 		mActivity = activity;
 		if (mPaymentHandler == null) {
-			mPaymentHandler = new PaymentHandler();
+			mPaymentHandler = new PayHandler();
 		}
 		return mPaymentHandler;
 	}
     
     // 创建订单
     public void createOrder() {
+    	LogUtils.d("mPayInfo:" + mPayInfo);
+    	getPayWayName();
+    	if (ConfigHolder.isUnion) {
+			doCreateUnionOrder();
+		} else {
+			createOrder();
+		}
+    }
+    
+    private void doCreateUnionOrder() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("appid", ConfigHolder.gameId);
+        map.put("token", ConfigHolder.gameToken);
+        map.put("userid", ConfigHolder.userId);
+        map.put("serverid", mPayInfo.getServerId());
+        map.put("servername", mPayInfo.getServerName());
+        map.put("roleid", mPayInfo.getRoleId());
+        map.put("productid", mPayInfo.getProductId());
+        map.put("productname", mPayInfo.getProductName());
+        map.put("money", mPayInfo.getMoney());
+        map.put("way", mPayWayCode);
+        map.put("custominfo", mPayInfo.getCustomInfo());
+        map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId + 
+        		mPayInfo.getServerId() + mPayInfo.getRoleId() + mPayInfo.getMoney() + mPayInfo.getProductId()));
+        map.put("signtype", "md5");
+        HttpUtils.post(mActivity, URLHolder.URL_UNION_CREATE_ORDER, map, new HttpCallback() {
+            @Override
+            public void onSuccess(String response) {
+                CreateOrder createOrder = new Gson().fromJson(response, CreateOrder.class);
+                ResultBean result = createOrder.getResult();
+                if (result.getCode() == 200) {
+                    OrderinfoBean orderinfo = result.getOrderinfo();
+                    mPayInfo.setOrderId(orderinfo.getOrderID());
+                    mPayInfo.setProductName(orderinfo.getProduct_name());
+                    mPayInfo.setPayMoney(orderinfo.getMoNey());
+                    if ("ALIPAY".equals(orderinfo.getWay())) {
+                        mPayInfo.setSELLER(result.getPayinfo().getSELLER());
+                        mPayInfo.setPARTNER(result.getPayinfo().getPARTNER());
+                        mPayInfo.setRSA_PRIVATE(result.getPayinfo().getRSA_PRIVATE());
+                        mPayInfo.setRSA_PUBLIC(result.getPayinfo().getRSA_PUBLIC());
+                    } else if ("UNPAY".equals(orderinfo.getWay())) {
+                        mPayInfo.setTnnumber(result.getPayinfo().getTnnumber());
+                    } else if ("WXSCAN".equals(orderinfo.getWay())){
+                        mPayInfo.setImgstr(result.getPayinfo().getImgstr());
+                        mPayInfo.setQqmember(result.getPayinfo().getQqmember());
+                    } else if ("GOOGLEPAY".equals(orderinfo.getWay())) {
+                    	LogUtils.d("ggproductid= "+result.getPayinfo().getGGproduct_id());
+                        mPayInfo.setGoogleProductID(result.getPayinfo().getGGproduct_id());
+                    }
+                    doPay();
+                } else if (mPayType == PayType.WALLET) {
+                    showWalletTip();
+                } else {
+                    ToastUtils.show(mActivity, result.getMsg());
+                    mHandler.sendEmptyMessage(4);
+                }
+            }
+            
+            @Override
+            public void onFailed() {
+            	mHandler.sendEmptyMessage(5);
+            }
+        });
+	}
+
+	// 创建订单
+    public void createCommonOrder() {
         LogUtils.d("mPayInfo:" + mPayInfo);
         getPayWayName();
         String userId = ConfigHolder.userId;
@@ -109,7 +175,6 @@ public class PaymentHandler {
                     } else if ("GOOGLEPAY".equals(orderinfo.getWay())) {
                     	LogUtils.d("ggproductid= "+result.getPayinfo().getGGproduct_id());
                         mPayInfo.setGoogleProductID(result.getPayinfo().getGGproduct_id());
-                        Log.d("TAG", "111111111111111111111111111111");
                     }
                     doPay();
                 } else if (mPayType == PayType.WALLET) {
@@ -159,7 +224,7 @@ public class PaymentHandler {
     }
     
     private String mPayWayCode = "WXPAY";
-    private String mPayWayName = "微信支付";
+    public String mPayWayName = "微信支付";
     
     // 获取支付方式名称
     public void getPayWayName() {
@@ -292,32 +357,69 @@ public class PaymentHandler {
     }
     
     // 查询订单
-    public void doQueryOrder(){
+    public void doQueryOrder() {
         AppUtils.showProgressDialog(mActivity, "查询订单", "正在查询订单，请稍后...", new DialogCallback() {
             public void onDismiss() {
-                Map<String, String> checkParam = new HashMap<String, String>();
-                checkParam.put("orderID", mPayInfo.getOrderId());
-                checkParam.put("appID",ConfigHolder.gameId);
-                checkParam.put("Token",ConfigHolder.gameToken);
-                HttpUtils.post(mActivity, URLHolder.URL_QUERY_ORDER, checkParam, new HttpsCallback() {
-                    @Override
-                    public void onSuccess(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONObject result = jsonObject.getJSONObject("result");
-                            if ("200".equals(result.getString("code"))) {
-                                mHandler.sendEmptyMessage(3);
-                            } else {
-                                mHandler.sendEmptyMessage(4);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                if (ConfigHolder.isUnion) {
+					doUnionQueryOrder();
+				} else {
+					doCommonQueryOrder();
+				}
             }
         });
     }
+    
+	private void doUnionQueryOrder() {
+		Map<String, String> checkParam = new HashMap<String, String>();
+        checkParam.put("orderid", mPayInfo.getOrderId());
+        checkParam.put("appid", ConfigHolder.gameId);
+        checkParam.put("token", ConfigHolder.gameToken);
+        checkParam.put("userid", ConfigHolder.userId);
+        checkParam.put("type", "android");
+        checkParam.put("imei", AppUtils.getPhoeIMEI(mActivity));
+        checkParam.put("sign", AppUtils.MD5(mPayInfo.getOrderId() + 
+        		ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
+        checkParam.put("signtype", "md5");
+        HttpUtils.post(mActivity, URLHolder.URL_UNION_CREATE_ORDER, checkParam, new HttpsCallback() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject result = jsonObject.getJSONObject("result");
+                    if ("200".equals(result.getString("code"))) {
+                        mHandler.sendEmptyMessage(3);
+                    } else {
+                        mHandler.sendEmptyMessage(4);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+	}
+    
+    private void doCommonQueryOrder() {
+		Map<String, String> checkParam = new HashMap<String, String>();
+        checkParam.put("orderID", mPayInfo.getOrderId());
+        checkParam.put("appID",ConfigHolder.gameId);
+        checkParam.put("Token",ConfigHolder.gameToken);
+        HttpUtils.post(mActivity, URLHolder.URL_QUERY_ORDER, checkParam, new HttpsCallback() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject result = jsonObject.getJSONObject("result");
+                    if ("200".equals(result.getString("code"))) {
+                        mHandler.sendEmptyMessage(3);
+                    } else {
+                        mHandler.sendEmptyMessage(4);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+	}
 
     public void receivePayParam(String paramInfo) {
         mPayInfo = new Gson().fromJson(paramInfo, PayParamInfo.class);

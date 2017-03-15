@@ -1,5 +1,9 @@
 package com.tianyou.sdk.activity;
 
+import com.tianyou.sdk.utils.ResUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
+
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
@@ -12,10 +16,6 @@ import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.tianyou.sdk.utils.ResUtils;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.PushAgent;
 
 public class SplashActivity extends Activity {
 

@@ -3,21 +3,41 @@ package com.tianyou.sdk.holder;
 public class URLHolder {
 
 	// 国内正式服
-	public static final String URL_BASE = "http://api.tianyouxi.com/index.php";
+	private static final String URL_BASE = "http://api.tianyouxi.com/index.php";
 	// 国内测试服
-	public static final String URL_TEST = "http://192.168.1.176/index.php";
+//	private static final String URL_BASE = "http://192.168.1.176/index.php";
 	// 海外正式服
-	public static final String URL_OVERSEAS = "http://testapi.tianyouxi.com/index.php";
+	private static final String URL_OVERSEAS = "http://testapi.tianyouxi.com/index.php";
 	// 海外测试服
-	public static final String URL_OVERSEAS_TEST = "http://vpntest.tianyouxi.com/index.php";
+//	private static final String URL_OVERSEAS = "http://vpntest.tianyouxi.com/index.php";
 	// 工会正式服
-	public static final String URL_UNION = "http://ghsdk.tianyouxi.com/api/";
+//	private static final String URL_UNION = "http://ghsdk.tianyouxi.com/api/";
 	// 工会测试服
-	public static final String URL_UNION_TEST = "http://192.168.1.169/tygh/api/";
+	public static final String URL_UNION = "http://192.168.1.169/tygh/api/";
 	
 	/** ------------------------- 工会接口 ------------------------- */
-	// 工会注册
-	public static final String URL_UNION_REGISTER = URL_UNION_TEST + "Register/register";
+	// 注册
+	public static final String URL_UNION_REGISTER = URL_UNION + "Register/register";
+	// 账号登陆
+	public static final String URL_UNION_ACCOUNT_LOGIN = URL_UNION + "login/login";
+	// 手机登陆
+	public static final String URL_UNION_PHONE_LOGIN = URL_UNION + "login/phonelogin";
+	// 获取验证码
+	public static final String URL_UNION_CODE = URL_UNION + "sms/sendmsg";
+	// QQ登录
+	public static final String URL_UNION_QQ_LOGIN = URL_UNION + "login/qqlogin";
+	// 创建订单
+	public static final String URL_UNION_CREATE_ORDER = URL_UNION + "order/creatorder";
+	// 公告
+	public static final String URL_UNION_ANNOUNCE = URL_UNION + "sdkinfo/getnotice";
+	// 客服信息
+	public static final String URL_UNION_SERVER_INFO = URL_UNION + "sdkinfo/getcustom";
+	// 支付方式
+	public static final String URL_UNION_PAY_WAY = URL_UNION + "sdkinfo/getpaytype";
+	// 登陆方式
+	public static final String URL_UNION_LOGIN_WAY = URL_UNION + "sdkinfo/getloginswitch";
+	// 创建角色
+	public static final String URL_UNION_CREATE_ROLE = URL_UNION + "role/createrole";
 	
 	/** ------------------------- 登录接口 ------------------------- */
 	// 获取登录方式
@@ -35,7 +55,7 @@ public class URLHolder {
 	// 用户登录
 	public static final String URL_CODE_LOGIN = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=NewLog&a=VerificationLog";
 	// 快速登录
-	public static final String URL_LOGIN_QUICK = "?c=NewReg&a=FastReg";
+	public static final String URL_LOGIN_QUICK = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=NewReg&a=FastReg";
 	// 完善用户信息
 	public static final String URL_LOGIN_PERFECT = URL_BASE + "?c=NewReg&a=perfect";
 	// 找回密码

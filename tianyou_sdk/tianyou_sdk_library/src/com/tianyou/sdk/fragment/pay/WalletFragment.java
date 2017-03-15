@@ -9,6 +9,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.tianyou.sdk.activity.PayActivity;
+import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.PayHandler;
+import com.tianyou.sdk.holder.PayHandler.PayType;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -24,19 +37,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
-
-import com.tianyou.sdk.activity.PayActivity;
-import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.bean.PayParamInfo;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.PaymentHandler;
-import com.tianyou.sdk.holder.PaymentHandler.PayType;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
-import com.tianyou.sdk.utils.LogUtils;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
 
 /**
  * 充值首页
@@ -62,7 +62,7 @@ public class WalletFragment extends BaseFragment {
 	private List<ImageView> mPayHeadList;	//支付金额集合
 	private List<Integer> mMoneyList;   	//供选择充值的金额集合
 	private int mMoneyIndex; 				//当前选中的金额
-	private PaymentHandler mPayHandler;
+	private PayHandler mPayHandler;
 	private PayParamInfo mPaymentInfo;
 	
 	@Override

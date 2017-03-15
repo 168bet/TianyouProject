@@ -4,19 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Fragment;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseLoginFragment;
 import com.tianyou.sdk.base.LoginAdapter;
@@ -34,6 +21,19 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
+
+import android.app.Fragment;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 /**
  * 手机登录页面
@@ -64,9 +64,7 @@ public class PhoneFragment extends BaseLoginFragment {
 	}
 	
 	@Override
-	protected String setContentView() {
-		return "fragment_login_phone";
-	}
+	protected String setContentView() { return "fragment_login_phone"; }
 	
 	@Override
 	protected void initView() {
@@ -152,7 +150,11 @@ public class PhoneFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_code", "id")) {
 			getVerificationCode();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {
-			mLoginHandler.doQuickRegister();
+			if (ConfigHolder.isUnion) {
+				ToastUtils.show(mActivity, "暂未开放");
+			} else {
+				mLoginHandler.doQuickRegister();
+			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_home_user_list", "id")) {
 			showPopupWindow();
 		}
@@ -230,8 +232,12 @@ public class PhoneFragment extends BaseLoginFragment {
             map.put("mobile", phone);
             map.put("send_code", AppUtils.MD5(phone));
             map.put("send_type", "verification");
+            map.put("type", "android");
+            map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+            map.put("sign", phone + "verification" + "android" + AppUtils.getPhoeIMEI(mActivity));
             map.put("appID", ConfigHolder.gameId);
-			HttpUtils.post(mActivity, URLHolder.URL_GET_CODE, map, new HttpsCallback() {
+            String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_CODE : URLHolder.URL_GET_CODE;
+			HttpUtils.post(mActivity, url, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {
 					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);

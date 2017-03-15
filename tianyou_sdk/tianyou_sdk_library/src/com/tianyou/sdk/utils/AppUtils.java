@@ -9,6 +9,13 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Locale;
 
+import com.tianyou.sdk.activity.MenuActivity;
+import com.tianyou.sdk.activity.PayActivity;
+import com.tianyou.sdk.activity.WebViewAvtivity;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.holder.URLHolder;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -24,13 +31,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-
-import com.tianyou.sdk.activity.MenuActivity;
-import com.tianyou.sdk.activity.PayActivity;
-import com.tianyou.sdk.activity.WebViewAvtivity;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.holder.URLHolder;
 
 public class AppUtils {
 

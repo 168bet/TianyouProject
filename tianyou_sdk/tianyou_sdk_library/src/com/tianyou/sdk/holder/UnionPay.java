@@ -5,13 +5,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import com.tianyou.sdk.utils.LogUtils;
+import com.unionpay.UPPayAssistEx;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Message;
-
-import com.tianyou.sdk.utils.LogUtils;
-import com.unionpay.UPPayAssistEx;
 
 /**
  * 银联支付接口

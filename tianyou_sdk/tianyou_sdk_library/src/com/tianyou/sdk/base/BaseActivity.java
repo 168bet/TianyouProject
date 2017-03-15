@@ -1,5 +1,10 @@
 package com.tianyou.sdk.base;
 
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.utils.ResUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,19 +14,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.utils.ResUtils;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.PushAgent;
 
 public abstract class BaseActivity extends FragmentActivity implements OnClickListener {
 

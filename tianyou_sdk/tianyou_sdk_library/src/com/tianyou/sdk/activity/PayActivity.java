@@ -6,21 +6,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Toast;
-
 import com.android.vending.billing.IInAppBillingService;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -36,14 +21,30 @@ import com.tianyou.sdk.fragment.pay.SuccessFragment;
 import com.tianyou.sdk.fragment.pay.WalletFragment;
 import com.tianyou.sdk.fragment.pay.WxScanFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.PaymentHandler;
+import com.tianyou.sdk.holder.PayHandler;
+import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.PayResult;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Toast;
 
 /**
  * 支付Activity
@@ -52,7 +53,7 @@ import com.tianyou.sdk.utils.ResUtils;
  */
 public class PayActivity extends BaseActivity {
 
-	public PaymentHandler mPayHandler;
+	public PayHandler mPayHandler;
 	
 	public  int ACTIVITY_FINISH = 1;
 	
@@ -75,7 +76,7 @@ public class PayActivity extends BaseActivity {
 				PayResult payResult = new PayResult((String) msg.obj);
 		        String resultStatus = payResult.getResultStatus();
 		        if (TextUtils.equals(resultStatus, "9000")) {
-		        	PaymentHandler.getInstance(mActivity, mHandler).doQueryOrder();
+		        	PayHandler.getInstance(mActivity, mHandler).doQueryOrder();
 		        	mPayHandler.doQueryOrder();
 		        } else {
 		            if (TextUtils.equals(resultStatus, "8000")) {
@@ -108,9 +109,6 @@ public class PayActivity extends BaseActivity {
 				break;
 			case 8:
 				try {
-//                	LogUtils.d("packageName= "+mActivity.getPackageName()+",ggproductid= "+getGoogleProductID()+",orderid= "+mPayInfo.getOrderId());
-//                	LogUtils.d("mBillingService= "+mBillingService);
-					Log.d("TAG", "4444444444444444444444");
                     Bundle buyIntentBundle = mBillingService.getBuyIntent(3,mActivity.getPackageName(),
                     		mPayHandler.mPayInfo.getGoogleProductID(),"inapp",mPayHandler.mPayInfo.getOrderId());
                     int code = buyIntentBundle.getInt("RESPONSE_CODE");
@@ -143,7 +141,7 @@ public class PayActivity extends BaseActivity {
 
 	@Override
 	protected void initData() {
-		
+//		getPayWay();
 		// 谷歌支付
 		mServiceConn = new ServiceConnection() {
 			@Override
@@ -163,7 +161,7 @@ public class PayActivity extends BaseActivity {
         startService(paypalIntent);
 		
 		Intent intent = getIntent();
-		mPayHandler = PaymentHandler.getInstance(mActivity, mHandler);
+		mPayHandler = PayHandler.getInstance(mActivity, mHandler);
 		mPayHandler.receivePayParam(intent.getStringExtra("payInfo"));
 		int money = intent.getIntExtra("money", -1);
 		mPayHandler.mIsShowChoose = money == -1;
@@ -173,6 +171,30 @@ public class PayActivity extends BaseActivity {
 			mPayHandler.mPayInfo.setProductDesc(intent.getStringExtra("productDesc"));
 		}
 		switchFragment(new HomeFragment(), "HomeFragment");
+	}
+	
+	// 支付方式控制
+	private void getPayWay() {
+		Map<String,String> map = new HashMap<String, String>();
+		if (ConfigHolder.isUnion) {
+			map.put("appid", ConfigHolder.gameId);
+			map.put("token", ConfigHolder.gameToken);
+			map.put("type", "android");
+			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
+			map.put("signtype", "md5");
+		} else {
+			map.put("appID", ConfigHolder.gameId);
+			map.put("usertoken", ConfigHolder.gameToken);
+			map.put("language", ConfigHolder.gameToken);
+		}
+		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_PAY_WAY : URLHolder.URL_PAY_WAY_CONTROL;
+		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_PAY_WAY, response);
+			}
+		});
 	}
 	
 	@Override

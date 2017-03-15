@@ -1,14 +1,14 @@
 package com.tianyou.sdk.base;
 
+import com.tianyou.sdk.activity.PayActivity;
+import com.tianyou.sdk.utils.ResUtils;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-
-import com.tianyou.sdk.activity.PayActivity;
-import com.tianyou.sdk.utils.ResUtils;
 
 /**
  * Created by itstrong on 2016/7/1.
