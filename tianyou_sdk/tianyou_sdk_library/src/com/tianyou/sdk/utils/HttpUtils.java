@@ -31,7 +31,6 @@ import okhttp3.Response;
 
 public class HttpUtils {
 
-//	private static ProgressBar progressBar;
 	private static final OkHttpClient mClient;
 	
 	static {
@@ -43,7 +42,6 @@ public class HttpUtils {
 	
 	// 图片加载
 	public static void imageLoad(final Activity activity, String url, final ImageView view) {
-//		createProgress(activity);
 		Request request = new Request.Builder().url(url).build();
 		mClient.newCall(request).enqueue(new Callback() {
 			@Override
@@ -52,7 +50,6 @@ public class HttpUtils {
 				activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-//						progressBar.setVisibility(View.GONE);
 						view.setImageBitmap(bitmap);
 					}
 				});
@@ -64,7 +61,6 @@ public class HttpUtils {
 					@Override
 					public void run() {
 						ToastUtils.show(activity, "网络连接失败，请检查网络~");
-//						progressBar.setVisibility(View.GONE);
 					}
 				});
 			}
@@ -73,7 +69,6 @@ public class HttpUtils {
 	
 	// 图片下载
 	public static void imageDown(final Activity activity, String url, final ImageView view,final String photoName){
-//		createProgress(activity);
 		Request request = new Request.Builder().url(url).build();
 		mClient.newCall(request).enqueue(new Callback() {
 			@Override
@@ -125,7 +120,6 @@ public class HttpUtils {
 	// post请求
 	public static void post(final Activity activity, final String url, final Map<String, String> map, final HttpCallback callback) {
 		LogUtils.d("请求URL:" + url);
-//		createProgress(activity);
 		String language = (ConfigHolder.isOverseas ? "en" : "ch");
 		map.put("language", language);
 		LogUtils.d("请求参数:" + map);
@@ -143,7 +137,6 @@ public class HttpUtils {
 					public void run() {
 						LogUtils.d("请求结果:" + result);
 						callback.onSuccess(result);
-//						progressBar.setVisibility(View.GONE);
 					}
 				});
 			}
@@ -156,7 +149,6 @@ public class HttpUtils {
 					public void run() {
 						ToastUtils.show(activity, "网络连接失败，请检查网络~");
 						ProgressHandler.getInstance().closeProgressDialog();
-//						progressBar.setVisibility(View.GONE);
 					}
 				});
 			}
@@ -166,7 +158,6 @@ public class HttpUtils {
 	// post请求
 	public static void post(final Activity activity, final String url, final Map<String, String> map, final HttpsCallback callback) {
 		LogUtils.d("请求URL:" + url);
-//		createProgress(activity);
 		Builder builder = new FormBody.Builder();
 		if (map != null) {
 			LogUtils.d("请求参数:" + map);
@@ -182,7 +173,6 @@ public class HttpUtils {
 				activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-//						progressBar.setVisibility(View.GONE);
 						LogUtils.d("请求结果:" + result);
 						callback.onSuccess(result);
 					}
@@ -195,13 +185,10 @@ public class HttpUtils {
 					@Override
 					public void run() {
 						activity.runOnUiThread(new Runnable() {
-							
 							@Override
 							public void run() {
-								// TODO Auto-generated method stub
 								ToastUtils.show(activity, "网络连接失败，请检查网络~");
 								ProgressHandler.getInstance().closeProgressDialog();
-//								progressBar.setVisibility(View.GONE);
 							}
 						});
 					}
@@ -213,7 +200,6 @@ public class HttpUtils {
 	// get请求
 	public static void get(final Activity activity, final String url, final HttpsCallback callback) {
 		LogUtils.d("请求URL:" + url);
-//		createProgress(activity);
 		Request request = new Request.Builder().url(url).build();
 		mClient.newCall(request).enqueue(new Callback() {
 			@Override
@@ -222,7 +208,6 @@ public class HttpUtils {
 				activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-//						progressBar.setVisibility(View.GONE);
 						LogUtils.d("请求结果:" + result);
 						callback.onSuccess(result);
 					}
@@ -233,25 +218,11 @@ public class HttpUtils {
 			public void onFailure(Call arg0, IOException arg1) {
 				activity.runOnUiThread(new Runnable() {
 					@Override
-					public void run() {
-//						progressBar.setVisibility(View.GONE);
-					}
+					public void run() { }
 				});
 			}
 		});
 	}
-
-	// 进度条
-//	private static void createProgress(Activity activity) {
-//		if (progressBar == null) {
-//			progressBar = new ProgressBar(activity);
-//			RelativeLayout layout = new RelativeLayout(activity);
-//			layout.addView(progressBar);
-//			layout.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-//			activity.addContentView(layout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-//		}
-//		progressBar.setVisibility(View.VISIBLE);
-//	}
 
 	/**
 	 * 请求回调接口

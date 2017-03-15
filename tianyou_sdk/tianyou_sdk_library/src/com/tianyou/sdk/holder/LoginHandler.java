@@ -50,7 +50,6 @@ import android.widget.TextView;
 public class LoginHandler {
 	
 	private static LoginHandler mLoginHandler;
-	private static LogoutCallback mLogoutCallback;
 	private static Activity mActivity;
 	private static Handler mHandler;
 	public ResultBean mResultBean;
@@ -74,10 +73,10 @@ public class LoginHandler {
 		return getInstance(activity);
 	}
 	
-	public static LoginHandler getInstance(Activity activity, Handler handler, LogoutCallback callback) {
-		mLogoutCallback = callback;
-		return getInstance(activity, handler);
-	}
+//	public static LoginHandler getInstance(Activity activity, Handler handler, LogoutCallback callback) {
+//		mLogoutCallback = callback;
+//		return getInstance(activity, handler);
+//	}
 	
 	// 1-1.账号密码登录接口
 	public void doUserLogin(String userName, String userPass, boolean isPhone) {

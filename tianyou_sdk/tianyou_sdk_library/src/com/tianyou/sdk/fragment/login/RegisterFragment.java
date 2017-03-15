@@ -1,12 +1,27 @@
 package com.tianyou.sdk.fragment.login;
 
-import android.view.View;
-import android.widget.EditText;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseLoginFragment;
+import com.tianyou.sdk.bean.LoginInfo;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
+import android.view.View;
+import android.widget.EditText;
+
+/**
+ * 工会注册页面
+ * @author itstrong
+ *
+ */
 public class RegisterFragment extends BaseLoginFragment {
 
 	private EditText mEditUsername;
@@ -41,7 +56,24 @@ public class RegisterFragment extends BaseLoginFragment {
 		} else if (!again.equals(password)) {
 			ToastUtils.show(mActivity, "2次密码输入不一致");
 		} else {
-			ToastUtils.show(mActivity, "注册成功");
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("username", username);
+			map.put("password", password);
+			map.put("repassword", password);
+			map.put("appid", ConfigHolder.gameId);
+			map.put("token", ConfigHolder.gameToken);
+			map.put("channel", ConfigHolder.channelId);
+			map.put("type", "android");
+			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+			map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
+			map.put("signtype", "md5");
+			HttpUtils.post(mActivity, URLHolder.URL_UNION_REGISTER, map, new HttpsCallback() {
+				@Override
+				public void onSuccess(String response) {
+					LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
+					ToastUtils.show(mActivity, request.getResult().getMsg());
+				}
+			});
 		}
 	}
 	

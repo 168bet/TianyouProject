@@ -2,11 +2,22 @@ package com.tianyou.sdk.holder;
 
 public class URLHolder {
 
-	// 服务器域名地址
+	// 国内正式服
 	public static final String URL_BASE = "http://api.tianyouxi.com/index.php";
-//	public static final String URL_BASE = "http://vpntest.tianyouxi.com/index.php";
+	// 国内测试服
+	public static final String URL_TEST = "http://192.168.1.176/index.php";
+	// 海外正式服
 	public static final String URL_OVERSEAS = "http://testapi.tianyouxi.com/index.php";
-//	public static final String URL_TEST = "http://192.168.1.176/index.php";
+	// 海外测试服
+	public static final String URL_OVERSEAS_TEST = "http://vpntest.tianyouxi.com/index.php";
+	// 工会正式服
+	public static final String URL_UNION = "http://ghsdk.tianyouxi.com/api/";
+	// 工会测试服
+	public static final String URL_UNION_TEST = "http://192.168.1.169/tygh/api/";
+	
+	/** ------------------------- 工会接口 ------------------------- */
+	// 工会注册
+	public static final String URL_UNION_REGISTER = URL_UNION_TEST + "Register/register";
 	
 	/** ------------------------- 登录接口 ------------------------- */
 	// 获取登录方式

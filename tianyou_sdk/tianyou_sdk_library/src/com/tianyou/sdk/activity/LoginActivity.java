@@ -178,7 +178,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 
 	@Override
 	protected void initData() {
-		mLoginHandler = LoginHandler.getInstance(mActivity, mHandler, mLogoutCallback);
+		mLoginHandler = LoginHandler.getInstance(mActivity, mHandler);
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		boolean isSwitchAccount = getIntent().getBooleanExtra("is_switch_account", false);
