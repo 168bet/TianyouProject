@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.text.format.Time;
 import android.util.Log;
 import cn.joy2u.common.model.PayChannelType;
 import cn.joy2u.common.service.OpenApiService;
@@ -126,15 +127,33 @@ public class XianquChSdkService extends BaseSdkService{
 	@Override
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
+		
 		joy2u.pay(orderInfo.getServerID(), orderInfo.getServerName(), orderInfo.getOrderID(),
 				Integer.parseInt(orderInfo.getMoNey()), MoneyType.CNY, Integer.parseInt(orderInfo.getRate()), 
 				orderInfo.getProduct_name(), orderInfo.getRoleId(), mRoleInfo.getRoleName(), 
 				mRoleInfo.getRoleLevel(), mRoleInfo.getVipLevel(), 
 				mRoleInfo.getParty(), mRoleInfo.getBalance(), null);
+		
 		Log.d("TAG", "serverID= "+orderInfo.getServerID()+",serverName= "+orderInfo.getServerName()+",orderID= "+orderInfo.getOrderID()
 				+",money= "+orderInfo.getMoNey()+",rate= "+orderInfo.getRate()+",productName= "+orderInfo.getProduct_name()
 				+"roleID= "+orderInfo.getRoleId()+",roleName= "+mRoleInfo.getRoleName()+",roleLevel= "+mRoleInfo.getRoleLevel()
 				+",vipLevel= "+mRoleInfo.getVipLevel()+",party= "+mRoleInfo.getParty()+",balance= "+mRoleInfo.getBalance());
+		
+		/**
+		 * 
+		 * serverID= 10070,
+		 * serverName= 37区,
+		 * orderID= 2017031416382845211,
+		 * money= 800,
+		 * rate= 10,
+		 * productName= 80钻石
+		 * roleID= 1007000007375,
+		 * roleName= 隆.巴菲特,
+		 * roleLevel= 4,
+		 * vipLevel= 0,
+		 * party= 无帮派,
+		 * balance= 0
+		 */
 	}
 	
 	@Override
@@ -179,10 +198,11 @@ public class XianquChSdkService extends BaseSdkService{
 	@Override
 	public void doUpdateRoleInfo(RoleInfo roleInfo) {
 		super.doUpdateRoleInfo(roleInfo);
-		String levelUpTime = CommenUtil.getCurrentTime(mActivity, true);
+		String levelUpTime = System.currentTimeMillis()+"";
+		LogUtils.d("levelUpTime= "+levelUpTime);
 		joy2u.levelUpRole(mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), mRoleInfo.getRoleLevel(), 
 				mRoleInfo.getServerId(), mRoleInfo.getServerName(), mRoleInfo.getBalance(), mRoleInfo.getVipLevel(),
-				mRoleInfo.getParty(), mRoleInfo.getCreateTime(), levelUpTime);
+				mRoleInfo.getParty(), mRoleInfo.getCreateTime(), levelUpTime);	
 	}
 	
 	@Override
