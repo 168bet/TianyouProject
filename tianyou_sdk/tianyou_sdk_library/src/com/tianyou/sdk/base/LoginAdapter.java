@@ -3,6 +3,9 @@ package com.tianyou.sdk.base;
 import java.util.List;
 import java.util.Map;
 
+import com.tianyou.sdk.holder.LoginInfoHandler;
+import com.tianyou.sdk.utils.ResUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -12,9 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.tianyou.sdk.holder.LoginInfoHandler;
-import com.tianyou.sdk.utils.ResUtils;
 
 public class LoginAdapter extends BaseAdapter {
 

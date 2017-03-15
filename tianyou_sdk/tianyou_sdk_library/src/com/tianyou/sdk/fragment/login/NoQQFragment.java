@@ -1,12 +1,12 @@
 package com.tianyou.sdk.fragment.login;
 
-import android.content.Intent;
-import android.view.View;
-
 import com.tianyou.sdk.activity.WebViewAvtivity;
 import com.tianyou.sdk.base.BaseLoginFragment;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.ResUtils;
+
+import android.content.Intent;
+import android.view.View;
 
 /**
  * 没有找到QQ绑定页面

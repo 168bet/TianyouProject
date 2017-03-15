@@ -5,7 +5,7 @@ import com.tianyou.sdk.base.FloatControl;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
@@ -221,7 +221,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 						intent.putExtra("menu_type", MenuActivity.POPUP_MENU_4);
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_5", "id")) {
 						ConfigHolder.userIsLogin = false;
-						Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+						TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
 						mMenupopupWindow.dismiss();
 						isShowFloat = true;
 						return;

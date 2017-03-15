@@ -3,12 +3,13 @@ package com.tianyou.sdk.demo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-import com.tianyouxi.lszg.bm.R;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -25,21 +26,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mActivity = this;
-		Tianyouxi.activityInit(this, mTianyouCallback);
 		findViewById(R.id.btn_login).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_pay_1).setOnClickListener(this);
-		findViewById(R.id.btn_entry_game).setOnClickListener(this);
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
 		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
+		TianyouSdk.getInstance().activityInit(this, mTianyouCallback);
 	}
 	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_login:
-			Tianyouxi.login();
+			TianyouSdk.getInstance().login();
 			break;
 		case R.id.btn_pay:
 			doPay();
@@ -48,13 +48,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			doFixPay(15, "超值大礼包");
 			break;
 		case R.id.btn_create_role:
-			Tianyouxi.createRole(getRoleInfo());
-			break;
-		case R.id.btn_entry_game:
-			Tianyouxi.enterGame(getRoleInfo());
+			doCreateRoleInfo();
 			break;
 		case R.id.btn_update_role_info:
-			Tianyouxi.updateRoleInfo(getRoleInfo());
+			doUpdateRoleInfo();
 			break;
 		case R.id.btn_switch:
 			ConfigHolder.isLandscape = !ConfigHolder.isLandscape;
@@ -64,6 +61,34 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	private void doUpdateRoleInfo() {
+		RoleInfo roleInfo = new RoleInfo();
+		roleInfo.setServerId("99990");
+		roleInfo.setServerName("测试一区");
+		roleInfo.setRoleId("13141654");
+		roleInfo.setRoleName("Jack");
+		roleInfo.setProfession("法师");
+		roleInfo.setLevel("50");
+		roleInfo.setVipLevel("8");
+		roleInfo.setBalance("500");
+		roleInfo.setAmount("1000");
+		TianyouSdk.getInstance().updateRoleInfo(roleInfo);
+	}
+
+	private void doCreateRoleInfo() {
+		RoleInfo roleInfo = new RoleInfo();
+		roleInfo.setServerId("99990");
+		roleInfo.setServerName("测试一区");
+		roleInfo.setRoleId("13141654");
+		roleInfo.setRoleName("Jack");
+		roleInfo.setProfession("法师");
+		roleInfo.setLevel("50");
+		roleInfo.setVipLevel("8");
+		roleInfo.setBalance("500");
+		roleInfo.setAmount("1000");
+		TianyouSdk.getInstance().createRole(roleInfo);
+	}
+
 	private void doFixPay(int money, String productDesc) {
 		try {
 			JSONObject payInfo = new JSONObject();
@@ -78,7 +103,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			payInfo.put("gameName", "寻龙剑");
 			payInfo.put("sign", AppUtils.MD5(roleId + serverId));
 			payInfo.put("signType", "MD5");
-			Tianyouxi.pay(payInfo.toString(), money, productDesc);
+			TianyouSdk.getInstance().pay(payInfo.toString(), money, productDesc);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -98,7 +123,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			payInfo.put("gameName", "寻龙剑");
 			payInfo.put("sign", AppUtils.MD5(roleId + serverId));
 			payInfo.put("signType", "MD5");
-			Tianyouxi.pay(payInfo.toString());
+			TianyouSdk.getInstance().pay(payInfo.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -115,7 +140,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_FAILED:
-				ToastUtils.show(mActivity, "登录失败：" + msg);
+				LogUtils.d("登录失败：" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_CANCEL:
 				ToastUtils.show(mActivity, "登录取消：" + msg);
@@ -143,24 +168,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	};
 
-	private String getRoleInfo() {
-		try {
-			JSONObject roleInfo = new JSONObject();
-			roleInfo.put("roleId", "13141654");
-			roleInfo.put("roleLevel", "35");
-			roleInfo.put("roleName", "Jack");
-			roleInfo.put("serverId", "99990");
-			roleInfo.put("serverName", "sName");
-			roleInfo.put("vipLevel", "5");
-			return roleInfo.toString();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	@Override
 	public void onBackPressed() {
-		Tianyouxi.exitGame();
+		TianyouSdk.getInstance().exitGame();
 	}
 }

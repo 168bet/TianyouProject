@@ -1,18 +1,18 @@
 package com.tianyou.sdk.fragment.pay;
 
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.PayParamInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.ResUtils;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * 支付成功界面
@@ -53,7 +53,7 @@ public class SuccessFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		Tianyouxi.mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
 		PayActivity activity = (PayActivity) getActivity();
 		PayParamInfo payInfo = activity.mPayHandler.mPayInfo;
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){

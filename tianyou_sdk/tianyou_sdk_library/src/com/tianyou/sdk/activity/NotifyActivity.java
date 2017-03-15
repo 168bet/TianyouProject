@@ -5,6 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+import com.tianyou.sdk.bean.ExitGame;
+import com.tianyou.sdk.bean.ExitGame.ResultBean;
+import com.tianyou.sdk.bean.ExitGame.ResultBean.ProductinfoBean;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.LoginHandler;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.ResUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -23,21 +36,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.tianyou.sdk.bean.ExitGame;
-import com.tianyou.sdk.bean.ExitGame.ResultBean;
-import com.tianyou.sdk.bean.ExitGame.ResultBean.ProductinfoBean;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.LoginHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.Tianyouxi;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
-import com.tianyou.sdk.utils.ResUtils;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.PushAgent;
 
 /**
  * 公告Activity

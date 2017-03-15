@@ -3,16 +3,16 @@ package com.tianyou.sdk.holder;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import com.alipay.sdk.app.PayTask;
+import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.utils.LogUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-
-import com.alipay.sdk.app.PayTask;
-import com.tianyou.sdk.bean.PayParamInfo;
-import com.tianyou.sdk.utils.LogUtils;
 
 /**
  * 支付宝支付接口

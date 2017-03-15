@@ -12,6 +12,7 @@ public class SPHandler {
 	public static final String SP_IMEI = "imei";						//创建IMEI
 	public static final String SP_IS_PHONE_LOGIN = "is_phone_login";	//创建IMEI
 	public static final String SP_IS_SWITCH_ACCOUNT = "is_switch_account";	//创建IMEI
+	public static final String SP_IS_PHONE = "is_phone";	//创建IMEI
 	
 	public static final String SP_URL_PHONE = "imag_url_phone";		// 客服电话图片
 	public static final String SP_URL_QQ = "imag_url_qq";			// 客服qq图片

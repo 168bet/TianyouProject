@@ -1,5 +1,8 @@
 package com.tianyou.sdk.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,9 +77,12 @@ public class WebViewAvtivity extends Activity implements OnClickListener {
 					JSONObject jsonObject = new JSONObject(response);
 					int ret = jsonObject.getInt("ret");
 					if (ret == 0) {
-						String nickname = jsonObject.getString("nickname");
-						String imgUrl = jsonObject.getString("figureurl_qq_1");
-						LoginHandler.getInstance().doQQLogin(mActivity, openid, access_token, nickname, imgUrl);;
+						Map<String,String> map = new HashMap<String, String>();
+						map.put("openid", openid);
+						map.put("access_token", access_token);
+						map.put("nickname", jsonObject.getString("nickname"));
+						map.put("headimg", jsonObject.getString("figureurl_qq_1"));
+						LoginHandler.getInstance().doQQLogin(map);;
 					} else {
 						ToastUtils.show(mActivity, "网络连接出错，请检查网络设置...");
 					}

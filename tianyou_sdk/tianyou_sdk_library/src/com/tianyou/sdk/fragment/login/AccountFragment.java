@@ -1,8 +1,21 @@
 package com.tianyou.sdk.fragment.login;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
+import com.tianyou.sdk.activity.MenuActivity;
+import com.tianyou.sdk.base.BaseLoginFragment;
+import com.tianyou.sdk.base.LoginAdapter;
+import com.tianyou.sdk.base.LoginAdapter.AdapterCallback;
+import com.tianyou.sdk.bean.LoginWay;
+import com.tianyou.sdk.bean.LoginWay.ResultBean;
+import com.tianyou.sdk.bean.LoginWay.ResultBean.CustominfoBean;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.LoginInfoHandler;
+import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -15,24 +28,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-
-import com.google.android.gms.internal.el;
-import com.google.gson.Gson;
-import com.tianyou.sdk.activity.MenuActivity;
-import com.tianyou.sdk.base.BaseLoginFragment;
-import com.tianyou.sdk.base.LoginAdapter;
-import com.tianyou.sdk.base.LoginAdapter.AdapterCallback;
-import com.tianyou.sdk.bean.LoginWay;
-import com.tianyou.sdk.bean.LoginWay.ResultBean;
-import com.tianyou.sdk.bean.LoginWay.ResultBean.CustominfoBean;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.LoginInfoHandler;
-import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
 
 /**
  * 账号登录页面
@@ -91,16 +86,16 @@ public class AccountFragment extends BaseLoginFragment {
 			loginWay4.setVisibility(View.VISIBLE);
 			loginWay4.setOnClickListener(this);
 		} else {
-			showLoginWay();
+//			showLoginWay();
 		}
 		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
 			Map<String, String> map = loginInfo.get(0);
-			String userName = map.get(LoginInfoHandler.USER_ACCOUNT);
-			String userPass = map.get(LoginInfoHandler.USER_PASSWORD);
-			mEditAccount.setText(userName);
-			mEditPassword.setText(userPass);
-			mLoginHandler.doUserLogin(userName, userPass, false);
+			String username = map.get(LoginInfoHandler.USER_ACCOUNT);
+			String password = map.get(LoginInfoHandler.USER_PASSWORD);
+			mEditAccount.setText(username);
+			mEditPassword.setText(password);
+			mLoginHandler.doUserLogin(username, password, false);
 			return;
 		}
 		mActivity.setFragmentTitle(getResources().getString(ResUtils.getResById(mActivity, "ty_account_login2", "string")));
@@ -132,11 +127,7 @@ public class AccountFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_1", "id")) {
 			// TODO	微信登陆
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_2", "id")) {
-			if (ConfigHolder.isUnion) {
-				ToastUtils.show(mActivity, "暂未开放");
-			} else {
-				mActivity.switchFragment(new PhoneFragment(), "PhoneFragment");
-			}
+			mActivity.switchFragment(new PhoneFragment(), "PhoneFragment");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_3", "id")) {
 			mActivity.clickFacebook();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_4", "id")) {
@@ -224,16 +215,16 @@ public class AccountFragment extends BaseLoginFragment {
 	}
 
 	// 显示隐藏登录方式
-	private void showLoginWay() {
-		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
-		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
-		ResultBean result = loginWay.getResult();
-		if (result.getCode() == 200) {
-			CustominfoBean custominfo = result.getCustominfo();
-			mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
-			mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
-		} else {
-			ToastUtils.show(mActivity, result.getMsg());
-		}
-	}
+//	private void showLoginWay() {
+//		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+//		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+//		ResultBean result = loginWay.getResult();
+//		if (result.getCode() == 200) {
+//			CustominfoBean custominfo = result.getCustominfo();
+//			mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
+//			mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
+//		} else {
+//			ToastUtils.show(mActivity, result.getMsg());
+//		}
+//	}
 }

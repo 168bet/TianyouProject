@@ -1,5 +1,12 @@
 package com.tianyou.sdk.activity;
 
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,13 +20,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.LogUtils;
-import com.tianyou.sdk.utils.ResUtils;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.PushAgent;
 
 /**
  * 悬浮菜单Activity

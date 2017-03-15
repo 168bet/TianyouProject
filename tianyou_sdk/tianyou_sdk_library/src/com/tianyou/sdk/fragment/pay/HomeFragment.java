@@ -17,8 +17,8 @@ import com.tianyou.sdk.bean.PayWayControl;
 import com.tianyou.sdk.bean.PayWayControl.ResultBean;
 import com.tianyou.sdk.bean.PayWayControl.ResultBean.CustominfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.PaymentHandler;
-import com.tianyou.sdk.holder.PaymentHandler.PayType;
+import com.tianyou.sdk.holder.PayHandler;
+import com.tianyou.sdk.holder.PayHandler.PayType;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.HttpUtils;
@@ -81,7 +81,7 @@ public class HomeFragment extends BaseFragment {
 	private List<ImageView> mPayHeadList;	//支付金额集合
 	private List<Integer> mMoneyList;   	//供选择充值的金额集合
 	private int mMoneyIndex; 				//当前选中的金额
-	private PaymentHandler mPayHandler;
+	private PayHandler mPayHandler;
 	private PayParamInfo mPaymentInfo;
 	
 	@Override

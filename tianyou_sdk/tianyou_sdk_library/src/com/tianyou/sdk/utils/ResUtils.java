@@ -1,6 +1,5 @@
 package com.tianyou.sdk.utils;
 
-import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 

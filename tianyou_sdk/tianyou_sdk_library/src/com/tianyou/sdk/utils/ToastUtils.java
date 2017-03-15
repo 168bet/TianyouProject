@@ -1,10 +1,6 @@
 package com.tianyou.sdk.utils;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.widget.Toast;
 
 public class ToastUtils {

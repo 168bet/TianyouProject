@@ -1,6 +1,6 @@
 package com.tianyou.sdk.demo;
 
-import com.tianyou.sdk.interfaces.Tianyouxi;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 
 import android.app.Application;
 
@@ -17,7 +17,7 @@ public class MyApplication extends Application {
 		 * gameToken：appkey
 		 * isLandscape：游戏横屏为true，竖屏为false
 		 */
-		Tianyouxi.applicationInit(this, gameId, gameToken, gameName, false);
+		TianyouSdk.getInstance().applicationInit(this, gameId, gameToken, gameName, false);
 	}
 	
 }

@@ -1,5 +1,9 @@
 package com.tianyou.sdk.fragment.exit;
 
+import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.ResUtils;
+
 import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,10 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.ResUtils;
 
 public class DownloadFragment extends BaseFragment {
 
