@@ -26,13 +26,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mActivity = this;
-		TianyouSdk.getInstance().activityInit(this, mTianyouCallback);
 		findViewById(R.id.btn_login).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_pay_1).setOnClickListener(this);
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
 		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
+		TianyouSdk.getInstance().activityInit(this, mTianyouCallback);
 	}
 	
 	@Override
