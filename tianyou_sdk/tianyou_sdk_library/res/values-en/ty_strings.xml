@@ -117,8 +117,8 @@
     <string name="ty_scan_wechat">Scan and add the WeChat of customer service</string>
     <string name="ty_query_result">Check payment results</string>
     <string name="ty_wechat_scan_pay2">(WeChat Scan payment)</string>
-    <string name="ty_welcome_back">TianYou users, welcome back home!</string>
-    <string name="ty_switch_account">Switch account</string>
+    <string name="ty_welcome_back">TianYou users, welcome back!</string>
+    <string name="ty_switch_account">Switch</string>
     <string name="ty_choose_pay_way">Choose payment way</string>
     
     <string name="ty_menu_account">Account</string>
@@ -144,6 +144,6 @@
     <string name="ty_qq_login2">qq login</string>
     <string name="ty_currency">$</string>
     <string name="ty_tianyou">tianyou</string>
-    <string name="ty_welcome_back2">,welcome back home!</string>
+    <string name="ty_welcome_back2">,welcome back!</string>
     
 </resources>
