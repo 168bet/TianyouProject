@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import com.alipay.sdk.app.PayTask;
-import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.utils.LogUtils;
 
 import android.app.Activity;
@@ -28,9 +28,9 @@ public class Alipay {
     public String RSA_PRIVATE; // 商户私钥，pkcs8格式
     public String RSA_PUBLIC;  // 支付宝公钥
     private final int SDK_PAY_FLAG = 1;
-    private PayParamInfo mPayInfo;
+    private PayInfo mPayInfo;
 
-    public Alipay(Activity activity, Handler handler, PayParamInfo payInfo) {
+    public Alipay(Activity activity, Handler handler, PayInfo payInfo) {
         this.mContext = activity;
         this.mHandler = handler;
         this.mPayInfo = payInfo;

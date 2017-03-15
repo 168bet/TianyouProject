@@ -141,7 +141,7 @@ public class PayActivity extends BaseActivity {
 
 	@Override
 	protected void initData() {
-//		getPayWay();
+		getPayWay();
 		// 谷歌支付
 		mServiceConn = new ServiceConnection() {
 			@Override
@@ -160,16 +160,7 @@ public class PayActivity extends BaseActivity {
         paypalIntent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(paypalIntent);
 		
-		Intent intent = getIntent();
 		mPayHandler = PayHandler.getInstance(mActivity, mHandler);
-		mPayHandler.receivePayParam(intent.getStringExtra("payInfo"));
-		int money = intent.getIntExtra("money", -1);
-		mPayHandler.mIsShowChoose = money == -1;
-		LogUtils.d("isChooseMoney:" + mPayHandler.mIsShowChoose);
-		if (!mPayHandler.mIsShowChoose) {
-			mPayHandler.mPayInfo.setMoney(money + "");
-			mPayHandler.mPayInfo.setProductDesc(intent.getStringExtra("productDesc"));
-		}
 		switchFragment(new HomeFragment(), "HomeFragment");
 	}
 	

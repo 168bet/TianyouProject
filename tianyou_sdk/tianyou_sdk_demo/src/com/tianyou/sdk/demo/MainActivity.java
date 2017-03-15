@@ -1,13 +1,10 @@
 package com.tianyou.sdk.demo;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
-import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
@@ -41,17 +38,17 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.btn_login:
 			TianyouSdk.getInstance().login();
 			break;
-		case R.id.btn_pay:
-			doPay();
-			break;
-		case R.id.btn_pay_1:
-			doFixPay(15, "超值大礼包");
-			break;
 		case R.id.btn_create_role:
 			doCreateRoleInfo();
 			break;
 		case R.id.btn_update_role_info:
 			doUpdateRoleInfo();
+			break;
+		case R.id.btn_pay:
+			doPay();
+			break;
+		case R.id.btn_pay_1:
+			doPayOne();
 			break;
 		case R.id.btn_switch:
 			ConfigHolder.isLandscape = !ConfigHolder.isLandscape;
@@ -89,44 +86,26 @@ public class MainActivity extends Activity implements OnClickListener {
 		TianyouSdk.getInstance().createRole(roleInfo);
 	}
 
-	private void doFixPay(int money, String productDesc) {
-		try {
-			JSONObject payInfo = new JSONObject();
-			String roleId = "13141654";
-			String serverId = "10281";
-			payInfo.put("roleId", roleId);
-			payInfo.put("serverId", serverId);
-			payInfo.put("serverName", "国内Android测试服");
-			payInfo.put("customInfo", "21689575c5284a334ca8f6630127915f9058");
-			payInfo.put("productId", "scom.tianyouxi.skszj.p1");
-			payInfo.put("productName", "60金钻");
-			payInfo.put("gameName", "寻龙剑");
-			payInfo.put("sign", AppUtils.MD5(roleId + serverId));
-			payInfo.put("signType", "MD5");
-			TianyouSdk.getInstance().pay(payInfo.toString(), money, productDesc);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void doPay() {
-		try {
-			JSONObject payInfo = new JSONObject();
-			String roleId = "13141654";
-			String serverId = "10281";
-			payInfo.put("roleId", roleId);
-			payInfo.put("serverId", serverId);
-			payInfo.put("serverName", "国内Android测试服");
-			payInfo.put("customInfo", "21689575c5284a334ca8f6630127915f9058");
-			payInfo.put("productId", "scom.tianyouxi.skszj.p1");
-			payInfo.put("productName", "60金钻");
-			payInfo.put("gameName", "寻龙剑");
-			payInfo.put("sign", AppUtils.MD5(roleId + serverId));
-			payInfo.put("signType", "MD5");
-			TianyouSdk.getInstance().pay(payInfo.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		PayInfo payInfo = new PayInfo();
+		payInfo.setRoleId("13141654");
+		payInfo.setServerId("10281");
+		payInfo.setServerName("国内Android测试服");
+		payInfo.setGameName("寻龙剑");
+		TianyouSdk.getInstance().pay(payInfo);
+	}
+	
+	private void doPayOne() {
+		PayInfo payInfo = new PayInfo();
+		payInfo.setRoleId("13141654");
+		payInfo.setServerId("10281");
+		payInfo.setServerName("国内Android测试服");
+		payInfo.setMoney("1");
+		payInfo.setProductId("scom.tianyouxi.skszj.p1");
+		payInfo.setProductName("10金钻");
+		payInfo.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
+		payInfo.setGameName("寻龙剑");
+		TianyouSdk.getInstance().pay(payInfo);
 	}
 
 	private TianyouCallback mTianyouCallback = new TianyouCallback() {

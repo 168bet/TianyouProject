@@ -21,12 +21,13 @@ import com.google.gson.Gson;
 import com.tianyou.sdk.activity.ExitActivity;
 import com.tianyou.sdk.activity.FloatMenu;
 import com.tianyou.sdk.activity.LoginActivity;
-import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.base.FloatControl;
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.bean.ServerInfo;
 import com.tianyou.sdk.bean.ServerInfo.ResultBean.CustominfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.PayHandler;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
@@ -195,29 +196,14 @@ public class TianyouSdk {
 	}
 	
 	// 支付接口
-	public void pay(String payInfo) {
+	public void pay(PayInfo payInfo) {
 		if (ConfigHolder.userIsLogin) {
-			Intent intent = new Intent(mActivity, PayActivity.class);
-			intent.putExtra("payInfo", payInfo);
-			mActivity.startActivity(intent);
+			PayHandler.getInstance(mActivity).doPay(payInfo);
 		} else {
 			ToastUtils.show(mActivity, "请先登录！");
 		}
 	}
 	
-	// 支付接口
-	public void pay(String payInfo, int money, String productDesc) {
-		if (ConfigHolder.userIsLogin) {
-			Intent intent = new Intent(mActivity, PayActivity.class);
-			intent.putExtra("payInfo", payInfo);
-			intent.putExtra("money", money);
-			intent.putExtra("productDesc", productDesc);
-			mActivity.startActivity(intent);
-		} else {
-			ToastUtils.show(mActivity, "请先登录！");
-		}
-	}
-
 	// 退出游戏接口
 	public void exitGame() {
 		mActivity.startActivity(new Intent(mActivity, ExitActivity.class));
