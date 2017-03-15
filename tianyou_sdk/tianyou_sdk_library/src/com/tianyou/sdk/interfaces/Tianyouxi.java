@@ -5,8 +5,17 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -27,7 +36,6 @@ import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-import com.tianyou.sdk.utils.XMLParser;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.EScenarioType;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
@@ -45,34 +53,28 @@ public class Tianyouxi {
 	public static TianyouCallback mTianyouCallback;
 	
 	// 初始化接口
-	@SuppressWarnings("unchecked")
 	public static void applicationInit(Context context, String gameId, String gameToken, String gameName, boolean isLandscape) {
 		LogUtils.d("appliction初始化");
-		ConfigHolder.isLandscape = isLandscape;
-		ConfigHolder.gameName = gameName;
-		InputStream is;
-		try {
-			is = context.getAssets().open("tianyou_config.xml");
-		} catch (IOException e) {
-			e.printStackTrace();
-			is = null;
-		}
-		if (is == null) LogUtils.e("没有找到配置文件");
-		Map<String, Object> mm = XMLParser.paraserXML(is);
-		ConfigHolder.channelId = (String) ((Map<String, Object>) mm.get("infos")).get("channel_id");
-		ConfigHolder.isOverseas = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("is_overseas"));
-		ConfigHolder.isOpenLog = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("log_switch"));
-		ConfigHolder.isUnion = "1".equals((String) ((Map<String, Object>) mm.get("infos")).get("union_mode"));
 		ConfigHolder.gameId = gameId;
+		ConfigHolder.gameName = gameName;
 		ConfigHolder.gameToken = gameToken;
-
+		ConfigHolder.isLandscape = isLandscape;
+		Map<String, String> configInfo = getAssetsConfigInfo(context);
+		if (configInfo != null) {
+			LogUtils.d("configInfo:" + configInfo.toString());
+			ConfigHolder.channelId = configInfo.get("channel_id");
+			ConfigHolder.isOverseas = "1".equals(configInfo.get("is_overseas"));
+			ConfigHolder.isOpenLog = "1".equals(configInfo.get("log_switch"));
+			ConfigHolder.isUnion = "1".equals(configInfo.get("union_mode"));
+		} else {
+			LogUtils.d("configInfo:" + "渠道信息解析异常");
+		}
 		// 友盟统计
 		MobclickAgent.setScenarioType(context, EScenarioType.E_UM_NORMAL);// 设置为普通统计场景类型
 		String umAppKey = AppUtils.getMetaDataValue(context, "UMENG_APPKEY");
 		String umChannel = AppUtils.getMetaDataValue(context, "UMENG_CHANNEL");
 		UMAnalyticsConfig umAnalyticsConfig = new UMAnalyticsConfig(context, umAppKey, umChannel);
 		MobclickAgent.startWithConfigure(umAnalyticsConfig);
-
 		// 友盟推送
 		PushAgent mPushAgent = PushAgent.getInstance(context);
 		mPushAgent.setDebugMode(false);
@@ -83,15 +85,41 @@ public class Tianyouxi {
 			@Override
 			public void onFailure(String s, String s1) { }
 		});
-		
+		//Facebook初始化
 		if (ConfigHolder.isOverseas) {
-			//facebook初始化
 			FacebookSdk.sdkInitialize(context);
 			AppEventsLogger.activateApp((Application)context);
 		}
-
 	}
 	
+	//获取assets配置信息
+	private static Map<String,String> getAssetsConfigInfo(Context context) {
+		try {
+			Map<String,String> map = new HashMap<String, String>();
+			InputStream open = context.getAssets().open("tianyou_config.xml");
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(open);
+			
+			Element root = document.getDocumentElement();
+			NodeList nodeList = root.getChildNodes();
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				Node node = nodeList.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					map.put(node.getNodeName(), node.getTextContent());
+				}
+			}
+			return map;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	// Activity初始化接口
 	public static void activityInit(Activity activity, TianyouCallback callback) {
 		mActivity = activity;

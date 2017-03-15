@@ -9,13 +9,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.tianyou.sdk.activity.PayActivity;
+import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.bean.PayWayControl;
+import com.tianyou.sdk.bean.PayWayControl.ResultBean;
+import com.tianyou.sdk.bean.PayWayControl.ResultBean.CustominfoBean;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.PaymentHandler;
+import com.tianyou.sdk.holder.PaymentHandler.PayType;
+import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,23 +46,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
-import com.tianyou.sdk.activity.PayActivity;
-import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.bean.PayParamInfo;
-import com.tianyou.sdk.bean.PayWayControl;
-import com.tianyou.sdk.bean.PayWayControl.ResultBean;
-import com.tianyou.sdk.bean.PayWayControl.ResultBean.CustominfoBean;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.PaymentHandler;
-import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
-import com.tianyou.sdk.utils.LogUtils;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
 
 /**
  * 充值首页
@@ -174,23 +174,23 @@ public class HomeFragment extends BaseFragment {
 		if (v.getId() == ResUtils.getResById(mActivity, "text_home_dopay", "id")) {
 			startPayment();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_0", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_WECHAT);
+			doPortPay(PayType.WECHAT);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_1", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_ALIPAY);
+			doPortPay(PayType.ALIPAY);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_2", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_QQPAY);
+			doPortPay(PayType.QQPAY);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_3", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_UNION);
+			doPortPay(PayType.UNION);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_4", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_REMIT);
+			doPortPay(PayType.REMIT);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_5", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_WALLET);
+			doPortPay(PayType.WALLET);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_6", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_WXSCAN);
+			doPortPay(PayType.WXSCAN);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_7", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_GOOGLE);
+			doPortPay(PayType.GOOGLE);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_way_8", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_PAYPAL);
+			doPortPay(PayType.PAYPAL);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "edit_choose_other", "id")) {
 			mEditOther.setText("");
 			setPayMoneyState(-1);
@@ -213,11 +213,11 @@ public class HomeFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_popup_close", "id")) {
 			mPopupWindow.dismiss();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_pay_way_0", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_WECHAT);
+			doPortPay(PayType.WECHAT);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_pay_way_1", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_ALIPAY);
+			doPortPay(PayType.ALIPAY);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_pay_way_2", "id")) {
-			doPortPay(PaymentHandler.PAY_TYPE_QQPAY);
+			doPortPay(PayType.QQPAY);
 		}
 	}
 	
@@ -241,9 +241,9 @@ public class HomeFragment extends BaseFragment {
 		}
 	};
 
-	private void doPortPay(int type) {
+	private void doPortPay(PayType type) {
 		setPayWayState(type);
-		if (ConfigHolder.isLandscape && mPayHandler.mPayType != PaymentHandler.PAY_TYPE_REMIT) return;
+		if (ConfigHolder.isLandscape && mPayHandler.mPayType != PayType.REMIT) return;
 		if (mPopupWindow != null) mPopupWindow.dismiss();
 		mPayHandler.mPayType = type;
 		startPayment();
@@ -356,8 +356,8 @@ public class HomeFragment extends BaseFragment {
 	}
 
 	// 设置支付方式状态
-	private void setPayWayState(int type) {
-		mLayoutWallet.setVisibility(type == PaymentHandler.PAY_TYPE_WALLET ? View.VISIBLE : View.GONE);
+	private void setPayWayState(PayType type) {
+		mLayoutWallet.setVisibility(type == PayType.WALLET ? View.VISIBLE : View.GONE);
 		mPayHandler.mPayType = type;
 		if (mPayWayList != null) {
 			for (TextView view : mPayWayList) {
@@ -367,9 +367,9 @@ public class HomeFragment extends BaseFragment {
 			for (ImageView view : mPayHeadList) {
 				view.setImageResource(ResUtils.getResById(mActivity, "ty_pay_right", "drawable"));
 			}
-			mPayHeadList.get(mPayHandler.mPayType).setImageResource(ResUtils.getResById(mActivity, "ty_pay_right_click", "drawable"));
-			mPayWayList.get(mPayHandler.mPayType).setBackgroundColor(Color.parseColor("#FE623F"));
-			mPayWayList.get(mPayHandler.mPayType).setTextColor(Color.WHITE);
+			mPayHeadList.get(mPayHandler.mPayType.ordinal()).setImageResource(ResUtils.getResById(mActivity, "ty_pay_right_click", "drawable"));
+			mPayWayList.get(mPayHandler.mPayType.ordinal()).setBackgroundColor(Color.parseColor("#FE623F"));
+			mPayWayList.get(mPayHandler.mPayType.ordinal()).setTextColor(Color.WHITE);
 		}
 	}
 	
@@ -409,9 +409,9 @@ public class HomeFragment extends BaseFragment {
 		}
 		mPaymentInfo.setPayMoney((mMoneyIndex == -1 ? Integer.parseInt(other) : mMoneyList.get(mMoneyIndex))
 				* mPayHandler.mPayInfo.getScale() + mPayHandler.mPayInfo.getCurrency());
-		if (mPayHandler.mPayType == PaymentHandler.PAY_TYPE_WECHAT && Integer.parseInt(mPaymentInfo.getMoney()) > 50000) {
+		if (mPayHandler.mPayType == PayType.WECHAT && Integer.parseInt(mPaymentInfo.getMoney()) > 50000) {
 			ToastUtils.show(mActivity, "充值金额不能大于50000");
-		} else if (mPayHandler.mPayType == PaymentHandler.PAY_TYPE_QQPAY && Integer.parseInt(mPaymentInfo.getMoney()) > 3000) {
+		} else if (mPayHandler.mPayType == PayType.QQPAY && Integer.parseInt(mPaymentInfo.getMoney()) > 3000) {
 			ToastUtils.show(mActivity, "充值金额不能大于3000");
 		} else if (mMoneyIndex == -1 && Integer.parseInt(mPaymentInfo.getMoney()) < 10) {
 			ToastUtils.show(mActivity, "充值金额不能低于10元");
