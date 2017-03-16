@@ -262,7 +262,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 			@Override
 			public void onSuccess(LoginResult loginResult) {
-				ToastUtils.show(mActivity, "facebook登陆成功");
+				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login successfully" : "Facebook登陆成功"));
 				final Map<String, String> map = new HashMap<String, String>();
 				map.put("uid", loginResult.getAccessToken().getUserId());
 				map.put("usertoken", loginResult.getAccessToken().getToken());
@@ -286,12 +286,12 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 
 			@Override
 			public void onCancel() { 
-				ToastUtils.show(mActivity, "facebook登陆取消");
+				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login cancel" : "Facebook登陆取消"));
 				LogUtils.d("onCancel:"); }
 
 			@Override
 			public void onError(FacebookException e) { 
-				ToastUtils.show(mActivity, "facebook登陆失败");
+				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login failed" : "Facebook登陆失败"));
 				LogUtils.d("onError:"); }
 		});
 	}
@@ -299,7 +299,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	private LogoutCallback mLogoutCallback = new LogoutCallback() {
 		@Override
 		public void onSuccess(String response) {
-			ToastUtils.show(mActivity, "注销Facebook");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Log out of Facebook" : "注销Facebook"));
 			clickFacebook();
 		}
 	};
@@ -328,7 +328,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-					ToastUtils.show(mActivity, "服务器好像开小差了...");
+					ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "The server seems deserted..." : "服务器好像开小差了..."));
 					LogUtils.d(e.getMessage());
 				}
 			}
@@ -336,7 +336,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			@Override
 			public void onFailed() {
 				LogUtils.d("login failed-------------");
-				ToastUtils.show(mActivity, "网络连接出错,请检查您的网络设置...");
+				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Network connection error, please check your network Settings..." : "网络连接出错,请检查您的网络设置..."));
 			}
 		});
 
