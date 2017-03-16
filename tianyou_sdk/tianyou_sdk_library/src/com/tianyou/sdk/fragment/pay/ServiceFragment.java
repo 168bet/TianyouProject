@@ -5,6 +5,7 @@ import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -54,10 +55,14 @@ public class ServiceFragment extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "layout_server_qq", "id")) {
-			String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + mTextQQNumber.getText().toString();  
-			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+			try {
+				String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + mTextQQNumber.getText().toString();  
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+			} catch (Exception e) {
+				ToastUtils.show(mActivity, "没有安装手机QQ");
+			}
 		} else {			
-			String phoneNum = mTextNumber.getText().toString();
+			String phoneNum = SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE);
 			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNum));
 			startActivity(intent);
 		}

@@ -74,10 +74,7 @@ public class AccountFragment extends BaseLoginFragment {
 		mImgUserList.setOnClickListener(this);
 		mImgWayQQ.setOnClickListener(this);
 		mImgWayWechat.setOnClickListener(this);
-	}
-
-	@Override
-	protected void initData() {
+		
 		if (ConfigHolder.isOverseas) {
 			View loginWay3 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_3", "id"));
 			loginWay3.setVisibility(View.VISIBLE);
@@ -86,19 +83,14 @@ public class AccountFragment extends BaseLoginFragment {
 			loginWay4.setVisibility(View.VISIBLE);
 			loginWay4.setOnClickListener(this);
 		} else {
-//			showLoginWay();
+			showLoginWay();
 		}
-		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
-		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
-			Map<String, String> map = loginInfo.get(0);
-			String username = map.get(LoginInfoHandler.USER_ACCOUNT);
-			String password = map.get(LoginInfoHandler.USER_PASSWORD);
-			mEditAccount.setText(username);
-			mEditPassword.setText(password);
-			mLoginHandler.doUserLogin(username, password, false);
-			return;
-		}
+	}
+
+	@Override
+	protected void initData() {
 		mActivity.setFragmentTitle(getResources().getString(ResUtils.getResById(mActivity, "ty_account_login2", "string")));
+		
 		mLoginInfos = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (mLoginInfos.size() == 0) {
 			mImgUserList.setVisibility(View.GONE);
@@ -110,6 +102,16 @@ public class AccountFragment extends BaseLoginFragment {
         mListView = new ListView(mActivity);
         mListView.setBackgroundResource(ResUtils.getResById(mActivity, "listview_background", "drawable"));
         mListView.setAdapter(new LoginAdapter(mActivity, mLoginInfos, mAdapterCallback));
+        
+		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
+		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
+			Map<String, String> map = loginInfo.get(0);
+			String username = map.get(LoginInfoHandler.USER_ACCOUNT);
+			String password = map.get(LoginInfoHandler.USER_PASSWORD);
+			mLoginHandler.doUserLogin(username, password, false);
+			return;
+		}
+		
         mEditPassword.setOnFocusChangeListener(new OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View arg0, boolean hasFocus) {
@@ -150,6 +152,19 @@ public class AccountFragment extends BaseLoginFragment {
 			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_home_user_list", "id")) {
 			showPopupWindow();
+		}
+	}
+	
+	private void showLoginWay() {
+		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+		ResultBean result = loginWay.getResult();
+		if (result.getCode() == 200) {
+			CustominfoBean custominfo = result.getCustominfo();
+			mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
+			mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
+		} else {
+			ToastUtils.show(mActivity, result.getMsg());
 		}
 	}
 	

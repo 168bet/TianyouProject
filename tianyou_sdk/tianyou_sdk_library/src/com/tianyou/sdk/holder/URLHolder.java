@@ -26,18 +26,25 @@ public class URLHolder {
 	public static final String URL_UNION_CODE = URL_UNION + "sms/sendmsg";
 	// QQ登录
 	public static final String URL_UNION_QQ_LOGIN = URL_UNION + "login/qqlogin";
+	
 	// 创建订单
-	public static final String URL_UNION_CREATE_ORDER = URL_UNION + "order/creatorder";
+	public static final String URL_CREATE_ORDER = URL_UNION + "order/creatorder";
+	// 创建钱包订单
+	public static final String URL_CREATE_WALLET_ORDER = URL_UNION + "walletorder/creatorder";
 	// 公告
 	public static final String URL_UNION_ANNOUNCE = URL_UNION + "sdkinfo/getnotice";
 	// 客服信息
 	public static final String URL_UNION_SERVER_INFO = URL_UNION + "sdkinfo/getcustom";
-	// 支付方式
+	// 支付方式控制
 	public static final String URL_UNION_PAY_WAY = URL_UNION + "sdkinfo/getpaytype";
-	// 登陆方式
+	// 登陆方式控制
 	public static final String URL_UNION_LOGIN_WAY = URL_UNION + "sdkinfo/getloginswitch";
+	// 悬浮窗控制
+	public static final String URL_UNION_FLOAT_CONTROL = URL_UNION + "sdkinfo/getframe";
 	// 创建角色
 	public static final String URL_UNION_CREATE_ROLE = URL_UNION + "role/createrole";
+	// 完善用户信息
+	public static final String URL_UNION_PERFECT = URL_UNION + "member/updateuser";
 	
 	/** ------------------------- 登录接口 ------------------------- */
 	// 获取登录方式
@@ -80,8 +87,6 @@ public class URLHolder {
 	/** ------------------------- 支付接口 ------------------------- */
 	// 产品信息接口
 	public static String URL_GET_PRODUCT_INFO = URL_BASE + "?c=GameProduct&a=GetProduct";
-	// 创建订单
-	public static String URL_CREATE_ORDER = URL_BASE + "?c=Order&a=CreatOrder";
 	// 获取金额数值
 	public static String URL_MONEY_VALUE = URL_BASE + "?c=Order&a=getRecharge";
 	// 获取金额数值

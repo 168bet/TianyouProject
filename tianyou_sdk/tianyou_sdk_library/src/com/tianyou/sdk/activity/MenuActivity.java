@@ -1,6 +1,10 @@
 package com.tianyou.sdk.activity;
 
+import com.google.gson.Gson;
+import com.tianyou.sdk.base.FloatControl;
+import com.tianyou.sdk.base.FloatControl.ResultBean.CustominfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -94,34 +98,37 @@ public class MenuActivity extends Activity implements OnClickListener {
 	}
 	
 	private void showWebView() {
+		String response = SPHandler.getString(this, SPHandler.SP_FLOAT_CONTROL);
+		FloatControl control = new Gson().fromJson(response, FloatControl.class);
+		CustominfoBean info = control.getResult().getCustominfo();
 		switch (getIntent().getIntExtra("menu_type", 0)) {
 		case POPUP_MENU_0:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_index"));
-			mWebView.loadUrl(getURL(URLHolder.URL_CENTER));
+			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getAccount().getUrl()) : getURL(URLHolder.URL_CENTER));
 			break;
 		case POPUP_MENU_1:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_more"));
-			mWebView.loadUrl(getURL(URLHolder.URL_HOT_GAME));
+			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getMore().getUrl()) : getURL(URLHolder.URL_HOT_GAME));
 			break;
 		case POPUP_MENU_2:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_gift"));
-			mWebView.loadUrl(getURL(URLHolder.URL_GIFT));
+			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getGift().getUrl()) : getURL(URLHolder.URL_GIFT));
 			break;
 		case POPUP_MENU_3:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_bbs"));
-			mWebView.loadUrl(getURL(URLHolder.URL_BBS));
+			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getBbs().getUrl()) : getURL(URLHolder.URL_BBS));
 			break;
 		case POPUP_MENU_4:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_help"));
-			mWebView.loadUrl(URLHolder.URL_MENU_HELP);
+			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getHelp().getUrl()) : getURL(URLHolder.URL_MENU_HELP));
 			break;
 		case POPUP_MENU_5:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_hot_game2"));
-			mWebView.loadUrl(URLHolder.URL_HOT_GAME);
+			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getMore().getUrl()) : getURL(URLHolder.URL_HOT_GAME));
 			break;
 		case POPUP_MENU_6:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_forget_password"));
-			mWebView.loadUrl(URLHolder.URL_FORGET_PASS);
+			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getGift().getUrl()) : getURL(URLHolder.URL_FORGET_PASS));
 			break;
 		case POPUP_MENU_7:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_platform_pay2"));

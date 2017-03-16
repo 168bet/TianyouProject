@@ -2,6 +2,7 @@ package com.tianyou.sdk.activity;
 
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.FloatControl;
+import com.tianyou.sdk.base.FloatControl.ResultBean.CustominfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.interfaces.TianyouCallback;
@@ -121,13 +122,13 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 			String response = SPHandler.getString(mActivity, SPHandler.SP_FLOAT_CONTROL);
 			LogUtils.d("response:" + response);
 			FloatControl control = new Gson().fromJson(response, FloatControl.class);
-			FloatControl.ResultBean.FrameinfoBean frameinfo = control.getResult().getFrameinfo();
-			menu0.setVisibility(frameinfo.getAccount() == 1 ? View.VISIBLE : View.GONE);
-			menu1.setVisibility(frameinfo.getMore() == 1 ? View.VISIBLE : View.GONE);
-			menu2.setVisibility(frameinfo.getGift() == 1 ? View.VISIBLE : View.GONE);
-			menu3.setVisibility(frameinfo.getBbs() == 1 ? View.VISIBLE : View.GONE);
-			menu4.setVisibility(frameinfo.getHelp() == 1 ? View.VISIBLE : View.GONE);
-			menu5.setVisibility(frameinfo.getLogout() == 1 ? View.VISIBLE : View.GONE);
+			CustominfoBean custominfo = control.getResult().getCustominfo();
+			menu0.setVisibility(custominfo.getAccount().getStatus() == 1 ? View.VISIBLE : View.GONE);
+			menu1.setVisibility(custominfo.getMore().getStatus() == 1 ? View.VISIBLE : View.GONE);
+			menu2.setVisibility(custominfo.getGift().getStatus() == 1 ? View.VISIBLE : View.GONE);
+			menu3.setVisibility(custominfo.getBbs().getStatus() == 1 ? View.VISIBLE : View.GONE);
+			menu4.setVisibility(custominfo.getHelp().getStatus() == 1 ? View.VISIBLE : View.GONE);
+			menu5.setVisibility(custominfo.getLogout().getStatus() == 1 ? View.VISIBLE : View.GONE);
 			
 			mMenupopupWindow.setWidth(LayoutParams.WRAP_CONTENT);
 			mMenupopupWindow.setHeight(LayoutParams.WRAP_CONTENT);

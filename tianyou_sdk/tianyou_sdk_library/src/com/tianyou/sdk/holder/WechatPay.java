@@ -95,14 +95,11 @@ public class WechatPay {
             // 统一预下单接口
             String url = "https://pay.swiftpass.cn/pay/gateway";
             String entity = getParams();
-            LogUtils.d("doInBackground, url = " + url);
-            LogUtils.d("doInBackground, entity = " + entity);
             byte[] buf = Util.httpPost(url, entity);
             if (buf == null || buf.length == 0) {
                 return null;
             }
             String content = new String(buf);
-            LogUtils.d("doInBackground, content = " + content);
             try {
                 return XmlUtils.parse(content);
             } catch (Exception e) {

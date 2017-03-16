@@ -23,6 +23,7 @@ public class LoginAdapter extends BaseAdapter {
 	private List<Map<String, String>> mLoginInfos;
 	
 	public LoginAdapter(Activity activity, List<Map<String, String>> infos, AdapterCallback callback) {
+		super();
 		this.mActivity = activity;
 		this.mCallback = callback;
 		this.mLoginInfos = infos;

@@ -188,7 +188,6 @@ public class HttpUtils {
 							@Override
 							public void run() {
 								ToastUtils.show(activity, "网络连接失败，请检查网络~");
-								ProgressHandler.getInstance().closeProgressDialog();
 							}
 						});
 					}

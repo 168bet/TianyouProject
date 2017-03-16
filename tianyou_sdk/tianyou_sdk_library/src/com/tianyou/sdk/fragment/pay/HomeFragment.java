@@ -153,13 +153,14 @@ public class HomeFragment extends BaseFragment {
 		PayActivity activity = (PayActivity) getActivity();
 		mPayHandler = activity.mPayHandler;
 		mPaymentInfo = mPayHandler.mPayInfo;
+		LogUtils.d("mPaymentInfo:" + mPaymentInfo);
 		mPayHandler.PAY_FLAG = false;
 		LogUtils.d("mPayHandler.mIsShowChoose:" + mPayHandler.mIsShowChoose);
 		mLayoutMenu0.setVisibility(mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu1.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu2.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu3.setVisibility(mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
-		mLayoutMenu2.setText(mPaymentInfo.getProductDesc());
+		mLayoutMenu2.setText(mPaymentInfo.getProductName());
 		mTextPayMoney.setText(mPaymentInfo.getMoney() + ResUtils.getString(mActivity,"ty_currency"));
 		mMoneyList = new ArrayList<Integer>();
 		mTextAccount.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_account", "string")) + ConfigHolder.userName);
@@ -302,6 +303,42 @@ public class HomeFragment extends BaseFragment {
 		}
 		mPopupWindow.showAtLocation(mTextMoney, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
 	}
+	
+	private void getPayMoneyValue() {
+		try {
+			String response = SPHandler.getString(mActivity, SPHandler.SP_PAY_MONEY);
+            JSONObject root = new JSONObject(response);
+            JSONObject result = root.getJSONObject("result");
+            int code = result.getInt("code");
+            if (code == 200) {
+                JSONArray list = result.getJSONArray("list");
+                for (int i = 0; i < list.length(); i++)
+                	mMoneyList.add(list.getInt(i));
+                if (mPayHandler.mIsShowChoose) {
+                	mPaymentInfo.setMoney(mMoneyList.get(0) + "");
+                	LogUtils.d("2" + mPaymentInfo.getMoney());
+                }
+                mPayHandler.mPayInfo.setScale(result.getInt("exchange"));
+                mPayHandler.mPayInfo.setCurrency(result.getString("currency"));
+                for (int i = 0; i < mPayMoneyList.size(); i++) {
+                	mPayMoneyList.get(i).setText(mMoneyList.get(i) + ResUtils.getString(mActivity, "ty_money_sign"));
+                }
+                mTextScale.setText(mActivity.getString(ResUtils.getResById(mActivity, "ty_scale", "string")) + "1:" + mPayHandler.mPayInfo.getScale());
+                setPayMoneyState(mMoneyIndex);
+                String payMoney = mPayHandler.mPayInfo.getPayMoney();
+                if (!payMoney.isEmpty()) {
+                	LogUtils.d("payMoney:" + payMoney);
+                	mTextMoney.setText("(" + mActivity.getString(ResUtils.getResById(mActivity, "ty_get", "string")) + payMoney + ")");
+				} else {
+					mTextMoney.setText("(" + mActivity.getString(ResUtils.getResById(mActivity, "ty_get", "string")) + mPayHandler.getCurrencyValue(mMoneyList.get(0)) + ")");
+				}
+            } else {
+                LogUtils.e("创建订单失败！");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+	}
 
 	private void initViewData(View popupView) {
 		mPayWayList = new ArrayList<TextView>();
@@ -423,56 +460,6 @@ public class HomeFragment extends BaseFragment {
 		}
 	}
 	
-	// 充值金额数值
-    private void getPayMoneyValue() {
-    	Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-		map.put("usertoken", ConfigHolder.gameToken);
-        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpCallback() {
-			@Override
-			public void onSuccess(String response) {
-				try {
-                    JSONObject root = new JSONObject(response);
-                    JSONObject result = root.getJSONObject("result");
-                    int code = result.getInt("code");
-                    if (code == 200) {
-                        JSONArray list = result.getJSONArray("list");
-                        for (int i = 0; i < list.length(); i++)
-                        	mMoneyList.add(list.getInt(i));
-                        if (mPayHandler.mIsShowChoose) {
-                        	mPaymentInfo.setMoney(mMoneyList.get(0) + "");
-                        	LogUtils.d("2" + mPaymentInfo.getMoney());
-                        }
-                        mPayHandler.mPayInfo.setScale(result.getInt("exchange"));
-                        mPayHandler.mPayInfo.setCurrency(result.getString("currency"));
-                        for (int i = 0; i < mPayMoneyList.size(); i++) {
-                        	mPayMoneyList.get(i).setText(mMoneyList.get(i) + 
-                        			getResources().getString(ResUtils.getResById(mActivity, "ty_money_sign", "string")));
-                        }
-                        mTextScale.setText(mActivity.getString(ResUtils.getResById(mActivity, "ty_scale", "string")) + "1:" + mPayHandler.mPayInfo.getScale());
-                        setPayMoneyState(mMoneyIndex);
-                        String payMoney = mPayHandler.mPayInfo.getPayMoney();
-                        if (!payMoney.isEmpty()) {
-                        	LogUtils.d("payMoney:" + payMoney);
-                        	mTextMoney.setText("(" + mActivity.getString(ResUtils.getResById(mActivity, "ty_get", "string")) + payMoney + ")");
-						} else {
-							mTextMoney.setText("(" + mActivity.getString(ResUtils.getResById(mActivity, "ty_get", "string")) + mPayHandler.getCurrencyValue(mMoneyList.get(0)) + ")");
-						}
-                    } else {
-                        LogUtils.e("创建订单失败！");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-			}
-			
-			@Override
-			public void onFailed() {
-				mActivity.switchFragment(new FailedFragment(), "PayfailedFragment");
-			}
-		});
-    }
-    
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);

@@ -417,11 +417,24 @@ public class LoginHandler {
   	// 1-3-1.完善QQ账号信息
  	public void doPerfectAccountInfo(String newName,final String newPwd) {
  		Map<String, String> map = new HashMap<String, String>();
- 		map.put("password", newPwd);
- 		map.put("newname", newName);
- 		map.put("username", mResultBean.getUsername());
- 		map.put("userid", mResultBean.getUserid());
- 		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_PERFECT, map, new HttpsCallback() {
+ 		if (ConfigHolder.isUnion) {
+			map.put("appid", ConfigHolder.gameId);
+			map.put("token", ConfigHolder.gameToken);
+			map.put("userid", mResultBean.getUserid());
+			map.put("newname", newName);
+			map.put("password", newPwd);
+			map.put("username", mResultBean.getUsername());
+			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + 
+					ConfigHolder.gameToken + mResultBean.getUserid() + newName));
+			map.put("signtype", "md5");
+		} else {
+			map.put("password", newPwd);
+			map.put("newname", newName);
+			map.put("username", mResultBean.getUsername());
+			map.put("userid", mResultBean.getUserid());
+		}
+ 		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_PERFECT : URLHolder.URL_LOGIN_PERFECT;
+ 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
  			@Override
  			public void onSuccess(String response) {
  				try {

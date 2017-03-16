@@ -86,21 +86,14 @@ public class PhoneFragment extends BaseLoginFragment {
 		mTextCode.setOnClickListener(this);
 		mImgWayQQ.setOnClickListener(this);
 		mImgWayWechat.setOnClickListener(this);
+		
+		showLoginWay();
 	}
 
 	@Override
 	protected void initData() {
-		showLoginWay();
-		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
-		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
-			Map<String, String> map = loginInfo.get(0);
-			String userName = map.get(LoginInfoHandler.USER_ACCOUNT);
-			String userPass = map.get(LoginInfoHandler.USER_PASSWORD);
-			mLoginHandler.doUserLogin(userName, userPass, true);
-			return;
-		}
 		mActivity.setFragmentTitle(getResources().getString(ResUtils.getResById(mActivity, "ty_phone_login", "string")));
-		mLayoutQuick.setVisibility(SPHandler.getBoolean(mActivity, SPHandler.SP_IS_SHOW_KEY) ? View.GONE : View.VISIBLE);
+		
 		mLoginInfos = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		if (mLoginInfos.size() == 0) {
 			mImgUserList.setVisibility(View.GONE);
@@ -109,9 +102,21 @@ public class PhoneFragment extends BaseLoginFragment {
 			mEditPhone.setText(mLoginInfos.get(0).get(LoginInfoHandler.USER_ACCOUNT));
 			mEditCode.setText(mLoginInfos.get(0).get(LoginInfoHandler.USER_PASSWORD));
 		}
-        mListView = new ListView(mActivity);
+		
+		mListView = new ListView(mActivity);
         mListView.setBackgroundResource(ResUtils.getResById(mActivity, "listview_background", "drawable"));
         mListView.setAdapter(new LoginAdapter(mActivity, mLoginInfos, mAdapterCallback));
+        
+		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
+		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
+			Map<String, String> map = loginInfo.get(0);
+			String userName = map.get(LoginInfoHandler.USER_ACCOUNT);
+			String userPass = map.get(LoginInfoHandler.USER_PASSWORD);
+			mLoginHandler.doUserLogin(userName, userPass, true);
+			return;
+		}
+		
+		mLayoutQuick.setVisibility(SPHandler.getBoolean(mActivity, SPHandler.SP_IS_SHOW_KEY) ? View.GONE : View.VISIBLE);
         mEditCode.setOnFocusChangeListener(new OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View arg0, boolean hasFocus) {

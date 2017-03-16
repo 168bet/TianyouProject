@@ -5,125 +5,279 @@ package com.tianyou.sdk.base;
  */
 public class FloatControl {
 
-    /**
-     * code : 200
-     * status : 0
-     * msg : 悬浮框开关已获取
-     * frameinfo : {"account":1,"more":0,"gift":1,"bbs":0,"help":1,"logout":0}
-     */
+	/**
+	 * result :
+	 * {"code":200,"msg":"登录方式已获取","custominfo":{"lockstatus":1,"account":{"status":1,"url":"www.baidu.com"},"more":{"status":1,"url":"www.baidu.com"},"gift":{"status":1,"url":"www.baidu.com"},"bbs":{"status":1,"url":"www.baidu.com"},"help":{"status":1,"url":"www.baidu.com"},"logout":{"status":1,"url":"www.baidu.com"}}}
+	 */
 
-    private ResultBean result;
+	private ResultBean result;
 
-    public ResultBean getResult() {
-        return result;
-    }
+	public ResultBean getResult() {
+		return result;
+	}
 
-    public void setResult(ResultBean result) {
-        this.result = result;
-    }
+	public void setResult(ResultBean result) {
+		this.result = result;
+	}
 
-    public static class ResultBean {
-        private int code;
-        private int status;
-        private String msg;
-        /**
-         * account : 1
-         * more : 0
-         * gift : 1
-         * bbs : 0
-         * help : 1
-         * logout : 0
-         */
+	public static class ResultBean {
+		/**
+		 * code : 200 msg : 登录方式已获取 custominfo :
+		 * {"lockstatus":1,"account":{"status":1,"url":"www.baidu.com"},"more":{"status":1,"url":"www.baidu.com"},"gift":{"status":1,"url":"www.baidu.com"},"bbs":{"status":1,"url":"www.baidu.com"},"help":{"status":1,"url":"www.baidu.com"},"logout":{"status":1,"url":"www.baidu.com"}}
+		 */
 
-        private FrameinfoBean frameinfo;
+		private int code;
+		private String msg;
+		private CustominfoBean custominfo;
 
-        public int getCode() {
-            return code;
-        }
+		public int getCode() {
+			return code;
+		}
 
-        public void setCode(int code) {
-            this.code = code;
-        }
+		public void setCode(int code) {
+			this.code = code;
+		}
 
-        public int getStatus() {
-            return status;
-        }
+		public String getMsg() {
+			return msg;
+		}
 
-        public void setStatus(int status) {
-            this.status = status;
-        }
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
 
-        public String getMsg() {
-            return msg;
-        }
+		public CustominfoBean getCustominfo() {
+			return custominfo;
+		}
 
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
+		public void setCustominfo(CustominfoBean custominfo) {
+			this.custominfo = custominfo;
+		}
 
-        public FrameinfoBean getFrameinfo() {
-            return frameinfo;
-        }
+		public static class CustominfoBean {
+			/**
+			 * lockstatus : 1 account : {"status":1,"url":"www.baidu.com"} more
+			 * : {"status":1,"url":"www.baidu.com"} gift :
+			 * {"status":1,"url":"www.baidu.com"} bbs :
+			 * {"status":1,"url":"www.baidu.com"} help :
+			 * {"status":1,"url":"www.baidu.com"} logout :
+			 * {"status":1,"url":"www.baidu.com"}
+			 */
 
-        public void setFrameinfo(FrameinfoBean frameinfo) {
-            this.frameinfo = frameinfo;
-        }
+			private int lockstatus;
+			private AccountBean account;
+			private MoreBean more;
+			private GiftBean gift;
+			private BbsBean bbs;
+			private HelpBean help;
+			private LogoutBean logout;
 
-        public static class FrameinfoBean {
-            private int account;
-            private int more;
-            private int gift;
-            private int bbs;
-            private int help;
-            private int logout;
+			public int getLockstatus() {
+				return lockstatus;
+			}
 
-            public int getAccount() {
-                return account;
-            }
+			public void setLockstatus(int lockstatus) {
+				this.lockstatus = lockstatus;
+			}
 
-            public void setAccount(int account) {
-                this.account = account;
-            }
+			public AccountBean getAccount() {
+				return account;
+			}
 
-            public int getMore() {
-                return more;
-            }
+			public void setAccount(AccountBean account) {
+				this.account = account;
+			}
 
-            public void setMore(int more) {
-                this.more = more;
-            }
+			public MoreBean getMore() {
+				return more;
+			}
 
-            public int getGift() {
-                return gift;
-            }
+			public void setMore(MoreBean more) {
+				this.more = more;
+			}
 
-            public void setGift(int gift) {
-                this.gift = gift;
-            }
+			public GiftBean getGift() {
+				return gift;
+			}
 
-            public int getBbs() {
-                return bbs;
-            }
+			public void setGift(GiftBean gift) {
+				this.gift = gift;
+			}
 
-            public void setBbs(int bbs) {
-                this.bbs = bbs;
-            }
+			public BbsBean getBbs() {
+				return bbs;
+			}
 
-            public int getHelp() {
-                return help;
-            }
+			public void setBbs(BbsBean bbs) {
+				this.bbs = bbs;
+			}
 
-            public void setHelp(int help) {
-                this.help = help;
-            }
+			public HelpBean getHelp() {
+				return help;
+			}
 
-            public int getLogout() {
-                return logout;
-            }
+			public void setHelp(HelpBean help) {
+				this.help = help;
+			}
 
-            public void setLogout(int logout) {
-                this.logout = logout;
-            }
-        }
-    }
+			public LogoutBean getLogout() {
+				return logout;
+			}
+
+			public void setLogout(LogoutBean logout) {
+				this.logout = logout;
+			}
+
+			public static class AccountBean {
+				/**
+				 * status : 1 url : www.baidu.com
+				 */
+
+				private int status;
+				private String url;
+
+				public int getStatus() {
+					return status;
+				}
+
+				public void setStatus(int status) {
+					this.status = status;
+				}
+
+				public String getUrl() {
+					return url;
+				}
+
+				public void setUrl(String url) {
+					this.url = url;
+				}
+			}
+
+			public static class MoreBean {
+				/**
+				 * status : 1 url : www.baidu.com
+				 */
+
+				private int status;
+				private String url;
+
+				public int getStatus() {
+					return status;
+				}
+
+				public void setStatus(int status) {
+					this.status = status;
+				}
+
+				public String getUrl() {
+					return url;
+				}
+
+				public void setUrl(String url) {
+					this.url = url;
+				}
+			}
+
+			public static class GiftBean {
+				/**
+				 * status : 1 url : www.baidu.com
+				 */
+
+				private int status;
+				private String url;
+
+				public int getStatus() {
+					return status;
+				}
+
+				public void setStatus(int status) {
+					this.status = status;
+				}
+
+				public String getUrl() {
+					return url;
+				}
+
+				public void setUrl(String url) {
+					this.url = url;
+				}
+			}
+
+			public static class BbsBean {
+				/**
+				 * status : 1 url : www.baidu.com
+				 */
+
+				private int status;
+				private String url;
+
+				public int getStatus() {
+					return status;
+				}
+
+				public void setStatus(int status) {
+					this.status = status;
+				}
+
+				public String getUrl() {
+					return url;
+				}
+
+				public void setUrl(String url) {
+					this.url = url;
+				}
+			}
+
+			public static class HelpBean {
+				/**
+				 * status : 1 url : www.baidu.com
+				 */
+
+				private int status;
+				private String url;
+
+				public int getStatus() {
+					return status;
+				}
+
+				public void setStatus(int status) {
+					this.status = status;
+				}
+
+				public String getUrl() {
+					return url;
+				}
+
+				public void setUrl(String url) {
+					this.url = url;
+				}
+			}
+
+			public static class LogoutBean {
+				/**
+				 * status : 1 url : www.baidu.com
+				 */
+
+				private int status;
+				private String url;
+
+				public int getStatus() {
+					return status;
+				}
+
+				public void setStatus(int status) {
+					this.status = status;
+				}
+
+				public String getUrl() {
+					return url;
+				}
+
+				public void setUrl(String url) {
+					this.url = url;
+				}
+			}
+		}
+	}
+
 }

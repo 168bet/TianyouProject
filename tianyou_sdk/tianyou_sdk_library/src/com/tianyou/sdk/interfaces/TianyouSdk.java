@@ -108,7 +108,21 @@ public class TianyouSdk {
 		createFloatMenu();
 		getServiceInfo();
 		showLoginWay();
+		getPayMoneyValue();
 	}
+	
+	// 充值金额数值
+    private void getPayMoneyValue() {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
+        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_PAY_MONEY, response);
+			}
+		});
+    }
 	
 	// 登陆接口
 	public void login() {
@@ -262,17 +276,28 @@ public class TianyouSdk {
 
 	// 创建悬浮球接口
 	private void createFloatMenu() {
-		final Map<String, String> map = new HashMap<String, String>();
-		map.put("appID", ConfigHolder.gameId);
-		map.put("usertoken", ConfigHolder.gameToken);
-		map.put("language", AppUtils.getLanguageSort(mActivity));
-		HttpUtils.post(mActivity, URLHolder.URL_FLOAT_CONTROL, map, new HttpUtils.HttpsCallback() {
+		Map<String, String> map = new HashMap<String, String>();
+		if (ConfigHolder.isUnion) {
+			map.put("appid", ConfigHolder.gameId);
+			map.put("token", ConfigHolder.gameToken);
+			map.put("type", "android");
+			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
+			map.put("signtype", "md5");
+		} else {
+			map.put("appID", ConfigHolder.gameId);
+			map.put("usertoken", ConfigHolder.gameToken);
+			map.put("language", AppUtils.getLanguageSort(mActivity));
+		}
+		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_FLOAT_CONTROL : URLHolder.URL_FLOAT_CONTROL;
+		HttpUtils.post(mActivity, url, map, new HttpUtils.HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				FloatControl control = new Gson().fromJson(response, FloatControl.class);
 				if (control.getResult().getCode() == 200) {
-					SPHandler.putString(mActivity, SPHandler.SP_FLOAT_CONTROL, response);
-					if (control.getResult().getStatus() != 0) {
+					com.tianyou.sdk.base.FloatControl.ResultBean.CustominfoBean custominfo = control.getResult().getCustominfo();
+					if (custominfo.getLockstatus() == 1) {
+						SPHandler.putString(mActivity, SPHandler.SP_FLOAT_CONTROL, response);
 						new FloatMenu(mActivity).createLogoPopupWindow();
 					}
 				} else {

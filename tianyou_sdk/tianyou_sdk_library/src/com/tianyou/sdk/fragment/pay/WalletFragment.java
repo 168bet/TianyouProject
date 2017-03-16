@@ -337,7 +337,7 @@ public class WalletFragment extends BaseFragment {
 //			if (mPayHandler.mPayType == PayHandler.PAY_TYPE_UNION) {
 				if (!mPayHandler.PAY_FLAG) {
 					mPayHandler.PAY_FLAG = true;
-					mPayHandler.createWalletOrder();
+//					mPayHandler.createWalletOrder();
 				}
 //			} else {
 //				mPayHandler.createWalletOrder(mActivity);

@@ -78,7 +78,11 @@ public class OneKeyFragment extends BaseLoginFragment {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "layout_one_key_quick", "id")) {
-			mLoginHandler.doQuickRegister();
+			if (ConfigHolder.isUnion) {
+				mActivity.switchFragment(new RegisterFragment(), "RegisterFragment");
+			} else {
+				mLoginHandler.doQuickRegister();
+			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_msm", "id")) {
 			mLoginHandler.doOneKeyLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_qq", "id")) {

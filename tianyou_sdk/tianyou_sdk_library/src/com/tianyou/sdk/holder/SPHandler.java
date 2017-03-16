@@ -25,6 +25,7 @@ public class SPHandler {
 	public static final String SP_FLOAT_CONTROL = "sp_float_control";	// 悬浮球控制
 	public static final String SP_LOGIN_WAY = "sp_login_way";	// 登陆方式
 	public static final String SP_PAY_WAY = "sp_pay_way";	// 支付方式控制
+	public static final String SP_PAY_MONEY = "sp_pay_money";	// 支付金额
 	
     public static String getString(Context context, String key) {
     	return context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).getString(key, UUID.randomUUID().toString());
