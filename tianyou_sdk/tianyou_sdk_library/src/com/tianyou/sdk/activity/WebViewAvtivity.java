@@ -83,7 +83,7 @@ public class WebViewAvtivity extends Activity implements OnClickListener {
 						map.put("access_token", access_token);
 						map.put("nickname", jsonObject.getString("nickname"));
 						map.put("headimg", jsonObject.getString("figureurl_qq_1"));
-						LoginHandler.getInstance().doQQLogin(map);;
+						LoginHandler.getInstance().doQQLogin(mActivity, map);;
 					} else {
 						ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Network connection error, please check your network Settings..." : "网络连接出错,请检查您的网络设置..."));
 					}

@@ -29,7 +29,6 @@ import com.tianyou.sdk.fragment.login.BindingFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
 import com.tianyou.sdk.fragment.login.PerfectFragment;
 import com.tianyou.sdk.fragment.login.PhoneFragment;
-import com.tianyou.sdk.fragment.login.RegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginHandler.LogoutCallback;

@@ -67,8 +67,9 @@ public class PayHandler {
 	}
     
     // 执行支付
-    public void doPay(PayInfo payInfo) {
+    public void doPay(PayInfo payInfo, boolean isShowChooseMoney) {
     	mPayInfo = payInfo;
+    	mIsShowChoose = isShowChooseMoney;
         if (checkoutPayInfo().equals("OK")) {
         	mIsShowChoose = (payInfo.getMoney() == null || payInfo.getMoney().isEmpty());
         	Intent intent = new Intent(mActivity, PayActivity.class);

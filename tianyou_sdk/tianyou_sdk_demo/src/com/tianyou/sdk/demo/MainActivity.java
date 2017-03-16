@@ -45,10 +45,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			doUpdateRoleInfo();
 			break;
 		case R.id.btn_pay:
-			doPay();
+			TianyouSdk.getInstance().pay(getPayInfo(), true);
 			break;
 		case R.id.btn_pay_1:
-			doPayOne();
+			TianyouSdk.getInstance().pay(getPayInfo());
 			break;
 		case R.id.btn_switch:
 			ConfigHolder.isLandscape = !ConfigHolder.isLandscape;
@@ -69,33 +69,26 @@ public class MainActivity extends Activity implements OnClickListener {
 		roleInfo.setVipLevel("8");
 		roleInfo.setBalance("500");
 		roleInfo.setAmount("1000");
+		roleInfo.setSociaty("阴阳寮");
 		TianyouSdk.getInstance().updateRoleInfo(roleInfo);
 	}
 
 	private void doCreateRoleInfo() {
 		RoleInfo roleInfo = new RoleInfo();
-		roleInfo.setServerId("99990");
-		roleInfo.setServerName("测试一区");
 		roleInfo.setRoleId("13141654");
 		roleInfo.setRoleName("Jack");
+		roleInfo.setServerId("99990");
+		roleInfo.setServerName("测试一区");
 		roleInfo.setProfession("法师");
 		roleInfo.setLevel("50");
 		roleInfo.setVipLevel("8");
 		roleInfo.setBalance("500");
 		roleInfo.setAmount("1000");
+		roleInfo.setSociaty("阴阳寮");
 		TianyouSdk.getInstance().createRole(roleInfo);
 	}
 
-	private void doPay() {
-		PayInfo payInfo = new PayInfo();
-		payInfo.setRoleId("13141654");
-		payInfo.setServerId("10281");
-		payInfo.setServerName("OverSeas Android TestServer");
-		payInfo.setGameName("寻龙剑");
-		TianyouSdk.getInstance().pay(payInfo);
-	}
-	
-	private void doPayOne() {
+	private PayInfo getPayInfo() {
 		PayInfo payInfo = new PayInfo();
 		payInfo.setRoleId("13141654");
 		payInfo.setServerId("10281");
@@ -105,16 +98,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		payInfo.setProductName("10金钻");
 		payInfo.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
 		payInfo.setGameName("寻龙剑");
-		TianyouSdk.getInstance().pay(payInfo);
+		return payInfo;
 	}
 
 	private TianyouCallback mTianyouCallback = new TianyouCallback() {
 		@Override
 		public void onResult(int code, String msg) {
 			switch (code) {
-			case TianyouCallback.CODE_INIT:
-				ToastUtils.show(mActivity, "初始化：" + msg);
-				break;
 			case TianyouCallback.CODE_LOGIN_SUCCESS:
 				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
 				break;

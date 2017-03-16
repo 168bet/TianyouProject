@@ -111,19 +111,6 @@ public class TianyouSdk {
 		getPayMoneyValue();
 	}
 	
-	// 充值金额数值
-    private void getPayMoneyValue() {
-    	Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-		map.put("usertoken", ConfigHolder.gameToken);
-        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				SPHandler.putString(mActivity, SPHandler.SP_PAY_MONEY, response);
-			}
-		});
-    }
-	
 	// 登陆接口
 	public void login() {
 		if (ConfigHolder.userIsLogin) {
@@ -140,30 +127,19 @@ public class TianyouSdk {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		if (ConfigHolder.isUnion) {
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
-			map.put("userid", ConfigHolder.userId);
-			map.put("serverid", roleInfo.getServerId());
-			map.put("servername", roleInfo.getServerName());
-			map.put("roleid", roleInfo.getRoleId());
-			map.put("rolename", roleInfo.getRoleName());
-			map.put("profession", roleInfo.getProfession());
-			map.put("level", roleInfo.getLevel());
-			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + 
-					ConfigHolder.userId + roleInfo.getServerId() + roleInfo.getRoleId()));
-		} else {
-			map.put("appID", ConfigHolder.gameId);
-			map.put("userID", ConfigHolder.userId);
-			map.put("channel", ConfigHolder.channelId);
-			map.put("roleID", roleInfo.getRoleId());
-			map.put("roleName", roleInfo.getRoleName());
-			map.put("serverID", roleInfo.getServerId());
-			map.put("serverName", roleInfo.getServerName());
-			map.put("profession", roleInfo.getProfession());
-		}
-		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_CREATE_ROLE : URLHolder.URL_CREATE_ROLE;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+		map.put("appid", ConfigHolder.gameId);
+		map.put("token", ConfigHolder.gameToken);
+		map.put("userid", ConfigHolder.userId);
+		map.put("serverid", roleInfo.getServerId());
+		map.put("servername", roleInfo.getServerName());
+		map.put("roleid", roleInfo.getRoleId());
+		map.put("rolename", roleInfo.getRoleName());
+		map.put("profession", roleInfo.getProfession());
+		map.put("level", roleInfo.getLevel());
+		map.put("sociaty", roleInfo.getSociaty());
+		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + 
+				ConfigHolder.userId + roleInfo.getServerId() + roleInfo.getRoleId()));
+		HttpUtils.post(mActivity, URLHolder.URL_UNION_CREATE_ROLE, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) { }
 		});
@@ -176,34 +152,23 @@ public class TianyouSdk {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		if (ConfigHolder.isUnion) {
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
-			map.put("userid", ConfigHolder.userId);
-			map.put("serverid", roleInfo.getServerId());
-			map.put("servername", roleInfo.getServerName());
-			map.put("roleid", roleInfo.getRoleId());
-			map.put("rolename", roleInfo.getRoleName());
-			map.put("profession", roleInfo.getProfession());
-			map.put("level", roleInfo.getLevel());
-			map.put("viplevel", roleInfo.getVipLevel());
-			map.put("balance", roleInfo.getVipLevel());
-			map.put("amount", roleInfo.getAmount());
-			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + 
-					ConfigHolder.userId + roleInfo.getServerId() + roleInfo.getRoleId()));
-			map.put("signtype", "md5");
-		} else {
-			map.put("appID", ConfigHolder.gameId);
-			map.put("userID", ConfigHolder.userId);
-			map.put("channel", ConfigHolder.channelId);
-			map.put("roleId", roleInfo.getRoleId());
-			map.put("roleLevel", roleInfo.getLevel());
-			map.put("roleName", roleInfo.getRoleName());
-			map.put("serverId", roleInfo.getServerId());
-			map.put("serverName", roleInfo.getServerName());
-			map.put("vipLevel", roleInfo.getVipLevel());
-		}
-		HttpUtils.post(mActivity, URLHolder.URL_UPDATE_ROLE_INFO, map, new HttpsCallback() {
+		map.put("appid", ConfigHolder.gameId);
+		map.put("token", ConfigHolder.gameToken);
+		map.put("userid", ConfigHolder.userId);
+		map.put("serverid", roleInfo.getServerId());
+		map.put("servername", roleInfo.getServerName());
+		map.put("roleid", roleInfo.getRoleId());
+		map.put("rolename", roleInfo.getRoleName());
+		map.put("profession", roleInfo.getProfession());
+		map.put("level", roleInfo.getLevel());
+		map.put("viplevel", roleInfo.getVipLevel());
+		map.put("balance", roleInfo.getVipLevel());
+		map.put("amount", roleInfo.getAmount());
+		map.put("sociaty", roleInfo.getSociaty());
+		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + 
+				ConfigHolder.userId + roleInfo.getServerId() + roleInfo.getRoleId()));
+		map.put("signtype", "md5");
+		HttpUtils.post(mActivity, URLHolder.URL_UNION_UPDATE_ROLE, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) { }
 		});
@@ -212,7 +177,16 @@ public class TianyouSdk {
 	// 支付接口
 	public void pay(PayInfo payInfo) {
 		if (ConfigHolder.userIsLogin) {
-			PayHandler.getInstance(mActivity).doPay(payInfo);
+			PayHandler.getInstance(mActivity).doPay(payInfo, false);
+		} else {
+			ToastUtils.show(mActivity, "请先登录！");
+		}
+	}
+	
+	// 支付接口
+	public void pay(PayInfo payInfo, boolean isShowChooseMoney) {
+		if (ConfigHolder.userIsLogin) {
+			PayHandler.getInstance(mActivity).doPay(payInfo, isShowChooseMoney);
 		} else {
 			ToastUtils.show(mActivity, "请先登录！");
 		}
@@ -250,6 +224,19 @@ public class TianyouSdk {
 		}
 		return null;
 	}
+	
+	// 充值金额数值
+    private void getPayMoneyValue() {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("appID", ConfigHolder.gameId);
+		map.put("usertoken", ConfigHolder.gameToken);
+        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_PAY_MONEY, response);
+			}
+		});
+    }
 
 	// 显示隐藏登录方式
 	private void showLoginWay() {

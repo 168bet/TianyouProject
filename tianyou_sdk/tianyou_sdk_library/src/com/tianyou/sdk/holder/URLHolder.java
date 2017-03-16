@@ -43,6 +43,8 @@ public class URLHolder {
 	public static final String URL_UNION_FLOAT_CONTROL = URL_UNION + "sdkinfo/getframe";
 	// 创建角色
 	public static final String URL_UNION_CREATE_ROLE = URL_UNION + "role/createrole";
+	// 更新角色信息
+	public static final String URL_UNION_UPDATE_ROLE = URL_UNION + "role/updaterole";
 	// 完善用户信息
 	public static final String URL_UNION_PERFECT = URL_UNION + "member/updateuser";
 	
