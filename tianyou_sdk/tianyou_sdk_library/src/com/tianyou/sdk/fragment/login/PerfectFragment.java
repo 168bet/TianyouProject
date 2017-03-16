@@ -1,6 +1,7 @@
 package com.tianyou.sdk.fragment.login;
 
 import com.tianyou.sdk.base.BaseLoginFragment;
+import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
@@ -95,9 +96,9 @@ public class PerfectFragment extends BaseLoginFragment {
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle("完善账号信息");
+		mActivity.setFragmentTitle((ConfigHolder.isOverseas? "Perfect the account information":"完善账号信息"));
 		mEditName.setText(mLoginHandler.mResultBean.getUsername());
-		mTextText.setText("亲爱的" + mLoginHandler.mResultBean.getNickname() + "，请完善以下账号信息");
+		mTextText.setText((ConfigHolder.isOverseas? "Dear":"亲爱的") + mLoginHandler.mResultBean.getNickname() + (ConfigHolder.isOverseas ? ",Please complete the following account information":"，请完善以下账号信息"));
 	}
 
 	@Override
@@ -105,16 +106,16 @@ public class PerfectFragment extends BaseLoginFragment {
 		final String password = mEditPass.getText().toString();
 		final String nickname = mEditNick.getText().toString();
 		if (nickname.length() < 6 || nickname.length() > 16) {
-			ToastUtils.show(mActivity, "用户名长度不能小于6位或大于16位！");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "User name length cannot be less than 6 or more than 16!":"用户名长度不能小于6位或大于16位！"));
 			return;
 		} else if (!nickname.matches("^[A-Za-z0-9]+$")) {
-			ToastUtils.show(mActivity, "用户名只能为字母或数字！");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "User name can only be letters or Numbers!":"用户名只能为字母或数字！"));
 			return;
 		} else if (password.isEmpty() || nickname.isEmpty()) {
-			ToastUtils.show(mActivity, "用户名或密码不能为空！");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "The user name or password cannot be empty!":"用户名或密码不能为空！"));
 			return;
 		} else if (password.length() < 6 || password.length() > 20) {
-			ToastUtils.show(mActivity, "密码长度不能小于6位或大于20位！");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Password length cannot be less than 6 or more than 12!":"密码长度不能小于6位或大于20位！"));
 			return;
 		}
 		if (v.getId() == ResUtils.getResById(mActivity, "btn_perfect_entry", "id")) {

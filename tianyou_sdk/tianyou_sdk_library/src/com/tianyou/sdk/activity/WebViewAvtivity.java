@@ -6,6 +6,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
@@ -84,7 +85,7 @@ public class WebViewAvtivity extends Activity implements OnClickListener {
 						map.put("headimg", jsonObject.getString("figureurl_qq_1"));
 						LoginHandler.getInstance().doQQLogin(map);;
 					} else {
-						ToastUtils.show(mActivity, "网络连接出错，请检查网络设置...");
+						ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Network connection error, please check your network Settings..." : "网络连接出错,请检查您的网络设置..."));
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
