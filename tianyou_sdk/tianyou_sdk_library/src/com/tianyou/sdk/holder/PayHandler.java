@@ -10,10 +10,11 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PaymentActivity;
+import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.bean.CreateOrder;
 import com.tianyou.sdk.bean.CreateOrder.ResultBean;
 import com.tianyou.sdk.bean.CreateOrder.ResultBean.OrderinfoBean;
-import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.AppUtils.DialogCallback;
 import com.tianyou.sdk.utils.HttpUtils;
@@ -46,20 +47,36 @@ public class PayHandler {
     private static Handler mHandler;
     
     public PayType mPayType;			//当前支付类型
-    public PayParamInfo mPayInfo;		//支付参数集合
+    public PayInfo mPayInfo;		//支付参数集合
     public boolean PAY_FLAG;			//防止多次点击充值
     public boolean mIsShowChoose;		//是否有选择金额页面
     
     private PayHandler() {}
     
-    public static PayHandler getInstance(Activity activity, Handler handler) {
-    	mHandler = handler;
+    public static PayHandler getInstance(Activity activity) {
 		mActivity = activity;
 		if (mPaymentHandler == null) {
 			mPaymentHandler = new PayHandler();
 		}
 		return mPaymentHandler;
 	}
+    
+    public static PayHandler getInstance(Activity activity, Handler handler) {
+    	mHandler = handler;
+		return getInstance(activity);
+	}
+    
+    // 执行支付
+    public void doPay(PayInfo payInfo) {
+    	mPayInfo = payInfo;
+        if (checkoutPayInfo().equals("OK")) {
+        	mIsShowChoose = (payInfo.getMoney() == null || payInfo.getMoney().isEmpty());
+        	Intent intent = new Intent(mActivity, PayActivity.class);
+    		mActivity.startActivity(intent);
+        } else {
+        	ToastUtils.show(mActivity, checkoutPayInfo() + "不能为空");
+		}
+    }
     
     // 创建订单
     public void createOrder() {
@@ -99,20 +116,20 @@ public class PayHandler {
                     mPayInfo.setProductName(orderinfo.getProduct_name());
                     mPayInfo.setPayMoney(orderinfo.getMoNey());
                     if ("ALIPAY".equals(orderinfo.getWay())) {
-                        mPayInfo.setSELLER(result.getPayinfo().getSELLER());
-                        mPayInfo.setPARTNER(result.getPayinfo().getPARTNER());
-                        mPayInfo.setRSA_PRIVATE(result.getPayinfo().getRSA_PRIVATE());
-                        mPayInfo.setRSA_PUBLIC(result.getPayinfo().getRSA_PUBLIC());
+                    	mPayInfo.setSELLER(result.getPayinfo().getSELLER());
+                    	mPayInfo.setPARTNER(result.getPayinfo().getPARTNER());
+                    	mPayInfo.setRSA_PRIVATE(result.getPayinfo().getRSA_PRIVATE());
+                    	mPayInfo.setRSA_PUBLIC(result.getPayinfo().getRSA_PUBLIC());
                     } else if ("UNPAY".equals(orderinfo.getWay())) {
-                        mPayInfo.setTnnumber(result.getPayinfo().getTnnumber());
+                    	mPayInfo.setTnnumber(result.getPayinfo().getTnnumber());
                     } else if ("WXSCAN".equals(orderinfo.getWay())){
-                        mPayInfo.setImgstr(result.getPayinfo().getImgstr());
-                        mPayInfo.setQqmember(result.getPayinfo().getQqmember());
+                    	mPayInfo.setImgstr(result.getPayinfo().getImgstr());
+                    	mPayInfo.setQqmember(result.getPayinfo().getQqmember());
                     } else if ("GOOGLEPAY".equals(orderinfo.getWay())) {
                     	LogUtils.d("ggproductid= "+result.getPayinfo().getGGproduct_id());
-                        mPayInfo.setGoogleProductID(result.getPayinfo().getGGproduct_id());
+                    	mPayInfo.setGoogleProductID(result.getPayinfo().getGGproduct_id());
                     }
-                    doPay();
+                    doStartPay();
                 } else if (mPayType == PayType.WALLET) {
                     showWalletTip();
                 } else {
@@ -176,7 +193,7 @@ public class PayHandler {
                     	LogUtils.d("ggproductid= "+result.getPayinfo().getGGproduct_id());
                         mPayInfo.setGoogleProductID(result.getPayinfo().getGGproduct_id());
                     }
-                    doPay();
+                    doStartPay();
                 } else if (mPayType == PayType.WALLET) {
                     showWalletTip();
                 } else {
@@ -304,7 +321,7 @@ public class PayHandler {
                         mPayInfo.setImgstr(result.getPayinfo().getImgstr());
                         mPayInfo.setQqmember(result.getPayinfo().getQqmember());
                     }
-                    doPay();
+                    doStartPay();
                 } else {
                     ToastUtils.show(mActivity, result.getMsg());
                     mHandler.sendEmptyMessage(4);
@@ -319,7 +336,7 @@ public class PayHandler {
     }
     
     // 开始支付
-    private void doPay() {
+    private void doStartPay() {
         switch (mPayType) {
             case WECHAT:
                 new WechatPay(mActivity, true, mPayInfo,this).doWeChatPay();
@@ -420,20 +437,9 @@ public class PayHandler {
             }
         });
 	}
-
-    public void receivePayParam(String paramInfo) {
-        mPayInfo = new Gson().fromJson(paramInfo, PayParamInfo.class);
-        LogUtils.d("支付参数信息：" + mPayInfo);
-        LogUtils.d("mPayInfo.getMoney().isEmpty():" + mPayInfo.getMoney().isEmpty());
-//		mIsShowChoose = mPayInfo.getMoney().isEmpty();
-        String result = payParamInfoCheckout();
-        if (!result.equals("OK")) {
-            ToastUtils.show(mActivity, result + "不能为空");
-        }
-    }
     
     // 支付参数校验
-    private String payParamInfoCheckout() {
+    private String checkoutPayInfo() {
         if (mPayInfo.getRoleId() == null || mPayInfo.getRoleId().isEmpty()) {
             return "roleId";
         } else if (mPayInfo.getServerId() == null || mPayInfo.getServerId().isEmpty()) {
@@ -442,13 +448,8 @@ public class PayHandler {
             return "gameName";
         } else if (mPayInfo.getServerName() == null || mPayInfo.getServerName().isEmpty()) {
             return "serverName";
-        } else if (mPayInfo.getSign() == null || mPayInfo.getSign().isEmpty()) {
-            return "sign";
-        } else if (mPayInfo.getSignType() == null || mPayInfo.getSignType().isEmpty())
-            return "signType";
-        else if (mPayInfo.getProductId() == null || mPayInfo.getProductId().isEmpty()) {	// customInfo验证
-            return "productId";
         }
         return "OK";
     }
+    
 }

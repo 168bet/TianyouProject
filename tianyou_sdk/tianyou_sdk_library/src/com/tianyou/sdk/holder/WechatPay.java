@@ -11,7 +11,7 @@ import com.switfpass.pay.utils.MD5;
 import com.switfpass.pay.utils.SignUtils;
 import com.switfpass.pay.utils.Util;
 import com.switfpass.pay.utils.XmlUtils;
-import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.utils.LogUtils;
 
 import android.app.Activity;
@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class WechatPay {
 
     private Activity mActivity;
-    private PayParamInfo mPayInfo;
+    private PayInfo mPayInfo;
     private PayHandler mPayHandler;
     private String mch_id_wx = "6522000068";
     private String secret_key_wx = "149b9410afd8e8eafed59d3c104a5159";
@@ -35,7 +35,7 @@ public class WechatPay {
     private String secret_key_qq = "38ec112f5ae62d57c7919d09829373a5";
     private boolean isWechatPay;
 
-    public WechatPay(Activity context,boolean isWechatPay, PayParamInfo payInfo,PayHandler payHandler) {
+    public WechatPay(Activity context,boolean isWechatPay, PayInfo payInfo,PayHandler payHandler) {
         this.mActivity = context;
         this.isWechatPay = isWechatPay;
         this.mPayInfo = payInfo;

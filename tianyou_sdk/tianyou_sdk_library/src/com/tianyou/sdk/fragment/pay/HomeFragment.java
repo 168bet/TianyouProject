@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.PayWayControl;
 import com.tianyou.sdk.bean.PayWayControl.ResultBean;
 import com.tianyou.sdk.bean.PayWayControl.ResultBean.CustominfoBean;
@@ -82,7 +82,7 @@ public class HomeFragment extends BaseFragment {
 	private List<Integer> mMoneyList;   	//供选择充值的金额集合
 	private int mMoneyIndex; 				//当前选中的金额
 	private PayHandler mPayHandler;
-	private PayParamInfo mPaymentInfo;
+	private PayInfo mPaymentInfo;
 	
 	@Override
 	protected String setContentView() {

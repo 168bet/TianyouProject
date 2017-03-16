@@ -3,7 +3,7 @@ package com.tianyou.sdk.fragment.pay;
 import com.tianyou.sdk.activity.MenuActivity;
 import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
@@ -92,7 +92,7 @@ public class WxScanFragment extends BaseFragment{
 	@Override
 	protected void initData() {
 		activity = (PayActivity) getActivity();
-		PayParamInfo payInfo = activity.mPayHandler.mPayInfo;
+		PayInfo payInfo = activity.mPayHandler.mPayInfo;
 		
 		if (flag) {
 			Log.d("TAG", "url= "+activity.mPayHandler.mPayInfo.getImgstr());

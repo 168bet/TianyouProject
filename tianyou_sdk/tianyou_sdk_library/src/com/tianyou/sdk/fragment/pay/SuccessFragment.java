@@ -2,7 +2,7 @@ package com.tianyou.sdk.fragment.pay;
 
 import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.bean.PayParamInfo;
+import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.interfaces.TianyouCallback;
@@ -55,7 +55,7 @@ public class SuccessFragment extends BaseFragment {
 	protected void initData() {
 		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
 		PayActivity activity = (PayActivity) getActivity();
-		PayParamInfo payInfo = activity.mPayHandler.mPayInfo;
+		PayInfo payInfo = activity.mPayHandler.mPayInfo;
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){
 			mTextOrder.setVisibility(View.GONE);
 		} else {
