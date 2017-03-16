@@ -24,7 +24,7 @@
     <string name="ty_download_game">Download the game</string>
     <string name="ty_hot_game">Hot recommendation of the game</string>
     <string name="ty_exit_game">leave the game</string>
-    <string name="ty_phone_nomber">Phone number/account</string>
+    <string name="ty_phone_nomber">account</string>
     <string name="ty_password">password</string>
     <string name="ty_forget_password">Forgot password</string>
     <string name="ty_switch_login">Switch login</string>

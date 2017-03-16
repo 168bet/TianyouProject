@@ -90,14 +90,14 @@ public class BindingFragment extends BaseLoginFragment {
 	private void doEntryGame() {
 		String phone = mEditPhone.getText().toString();
 		if (!AppUtils.isMobileNO(phone)) {
-			ToastUtils.show(mActivity, "手机号格式错误");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number format error":"手机号格式错误"));
 			return;
 		}
 		String code = mEditCode.getText().toString();
 		if (code.isEmpty()) {
-			ToastUtils.show(mActivity, "请输入验证码");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Please enter the verification code":"请输入验证码"));
 		} else if (mLoginCode == null || !code.equals(mLoginCode)) {
-			ToastUtils.show(mActivity, "验证码输入有误");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Verification code input error":"验证码输入有误"));
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("mobile", phone);
@@ -127,9 +127,9 @@ public class BindingFragment extends BaseLoginFragment {
 	private void getVerificationCode() {
 		String phone = mEditPhone.getText().toString();
 		if (phone.isEmpty()) {
-			ToastUtils.show(mActivity, "手机号不能为空");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number can not be empty":"手机号不能为空"));
 		} else if (!AppUtils.isMobileNO(phone)) {
-			ToastUtils.show(mActivity, "手机号格式错误");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number format error":"手机号格式错误"));
 		} else {
 			Map<String, String> map = new HashMap<String, String>();
             map.put("mobile", phone);

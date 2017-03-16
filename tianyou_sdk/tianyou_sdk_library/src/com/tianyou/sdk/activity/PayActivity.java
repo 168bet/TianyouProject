@@ -81,7 +81,7 @@ public class PayActivity extends BaseActivity {
 		        } else {
 		            if (TextUtils.equals(resultStatus, "8000")) {
 		            	switchFragment(new SuccessFragment(), "SuccessFragment");
-		                Toast.makeText(mActivity, "支付结果确认中", Toast.LENGTH_SHORT).show();
+		                Toast.makeText(mActivity, (ConfigHolder.isOverseas? "Confirmation of payment":"支付结果确认中"), Toast.LENGTH_SHORT).show();
 		            } else {
 		            	switchFragment(new FailedFragment(), "FailedFragment");
 		            }

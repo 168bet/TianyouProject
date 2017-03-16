@@ -212,14 +212,14 @@ public class PhoneFragment extends BaseLoginFragment {
 	// 登录游戏
 	private void doEntryGame() {
 		if (!AppUtils.isMobileNO(mEditPhone.getText().toString())) {
-			ToastUtils.show(mActivity, "手机号格式错误");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number format error":"手机号格式错误"));
 			return;
 		}
 		String code = mEditCode.getText().toString();
 		if (code.isEmpty()) {
-			ToastUtils.show(mActivity, "请输入验证码");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Please enter the verification code":"请输入验证码"));
 		} else if (loginCode != null && !code.equals(loginCode)) {
-			ToastUtils.show(mActivity, "验证码输入有误");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Verification code input error":"验证码输入有误"));
 		} else {
 			mLoginHandler.doUserLogin(mEditPhone.getText().toString(), mEditCode.getText().toString(), true);
 		}
@@ -229,9 +229,9 @@ public class PhoneFragment extends BaseLoginFragment {
 	private void getVerificationCode() {
 		String phone = mEditPhone.getText().toString();
 		if (phone.isEmpty()) {
-			ToastUtils.show(mActivity, "手机号不能为空");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number can not be empty":"手机号不能为空"));
 		} else if (!AppUtils.isMobileNO(phone)) {
-			ToastUtils.show(mActivity, "手机号格式错误");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number format error":"手机号格式错误"));
 		} else {
 			Map<String, String> map = new HashMap<String, String>();
             map.put("mobile", phone);
@@ -272,10 +272,10 @@ public class PhoneFragment extends BaseLoginFragment {
 			@Override
 			public void run() {
 				if (time != 0) {
-					mTextCode.setText("重新发送(" + time-- + ")");
+					mTextCode.setText((ConfigHolder.isOverseas? "To resend(":"重新发送(") + time-- + ")");
 					handler.postDelayed(this, 1000);
 				} else {
-					mTextCode.setText("获取验证码");
+					mTextCode.setText((ConfigHolder.isOverseas? "Get verification code":"获取验证码"));
 					mTextCode.setTextColor(Color.parseColor("#FE623F"));
 					mTextCode.setClickable(true);
 					mTextCode.setBackgroundResource(ResUtils.getResById(mActivity, "shape_bg_jacinth_2", "drawable"));

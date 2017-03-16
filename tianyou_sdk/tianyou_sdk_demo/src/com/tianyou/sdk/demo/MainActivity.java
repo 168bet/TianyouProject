@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		PayInfo payInfo = new PayInfo();
 		payInfo.setRoleId("13141654");
 		payInfo.setServerId("10281");
-		payInfo.setServerName("国内Android测试服");
+		payInfo.setServerName("OverSeas Android TestServer");
 		payInfo.setGameName("寻龙剑");
 		TianyouSdk.getInstance().pay(payInfo);
 	}
@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		PayInfo payInfo = new PayInfo();
 		payInfo.setRoleId("13141654");
 		payInfo.setServerId("10281");
-		payInfo.setServerName("国内Android测试服");
+		payInfo.setServerName("OverSeas Android TestServer");
 		payInfo.setMoney("1");
 		payInfo.setProductId("scom.tianyouxi.skszj.p1");
 		payInfo.setProductName("10金钻");

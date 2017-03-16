@@ -76,6 +76,8 @@ public class AccountFragment extends BaseLoginFragment {
 		mImgWayWechat.setOnClickListener(this);
 		
 		if (ConfigHolder.isOverseas) {
+			View loginWay2 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_2", "id"));
+			loginWay2.setVisibility(View.GONE);
 			View loginWay3 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_3", "id"));
 			loginWay3.setVisibility(View.VISIBLE);
 			loginWay3.setOnClickListener(this);
@@ -172,7 +174,7 @@ public class AccountFragment extends BaseLoginFragment {
 		String username = mEditAccount.getText().toString();
 		String password = mEditPassword.getText().toString();
 		if (username.isEmpty() || password.isEmpty()) {
-			ToastUtils.show(mActivity, "用户名或密码不能为空");
+			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "The user name or password cannot be empty":"用户名或密码不能为空"));
 		} else {
 			mLoginHandler.doUserLogin(username, password, false);
 		}

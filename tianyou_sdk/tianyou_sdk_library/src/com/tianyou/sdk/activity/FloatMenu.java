@@ -207,7 +207,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 		} else {
 			if (id != ResUtils.getResById(mActivity, "item_menu_logo", "id")) {
 				if (!ConfigHolder.userIsLogin) {
-					ToastUtils.show(mActivity, "请先登录");
+					ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Please login first" : "请先登录"));
 				} else {
 					Intent intent = new Intent(mActivity, MenuActivity.class);
 					if (id == ResUtils.getResById(mActivity, "popup_menu_0", "id")) {
