@@ -120,12 +120,17 @@ public class HttpUtils {
 	// post请求
 	public static void post(final Activity activity, final String url, final Map<String, String> map, final HttpCallback callback) {
 		LogUtils.d("请求URL:" + url);
-		String language = (ConfigHolder.isOverseas ? "en" : "ch");
-		map.put("language", language);
-		LogUtils.d("请求参数:" + map);
 		Builder builder = new FormBody.Builder();
-		for (Entry<String, String> entry : map.entrySet()) {
-			builder.add(entry.getKey(), entry.getValue());
+		if (map != null) {
+			map.put("appid", ConfigHolder.gameId);
+			map.put("token", ConfigHolder.gameToken);
+			map.put("imei", AppUtils.getPhoeIMEI(activity));
+			map.put("type", "android");
+			map.put("signtype", "md5");
+			LogUtils.d("请求参数:" + map);
+			for (Entry<String, String> entry : map.entrySet()) {
+				builder.add(entry.getKey(), entry.getValue());
+			}
 		}
 		Request request = new Request.Builder().url(url).post(builder.build()).build();
 		mClient.newCall(request).enqueue(new Callback() {
@@ -160,6 +165,11 @@ public class HttpUtils {
 		LogUtils.d("请求URL:" + url);
 		Builder builder = new FormBody.Builder();
 		if (map != null) {
+			map.put("appid", ConfigHolder.gameId);
+			map.put("token", ConfigHolder.gameToken);
+			map.put("imei", AppUtils.getPhoeIMEI(activity));
+			map.put("type", "android");
+			map.put("signtype", "md5");
 			LogUtils.d("请求参数:" + map);
 			for (Entry<String, String> entry : map.entrySet()) {
 				builder.add(entry.getKey(), entry.getValue());

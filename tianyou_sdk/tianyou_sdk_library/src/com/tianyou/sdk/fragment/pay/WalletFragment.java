@@ -14,10 +14,13 @@ import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.PayHandler;
+import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.PayHandler.PayType;
 import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
@@ -214,10 +217,9 @@ public class WalletFragment extends BaseFragment {
 	// 获取钱包余额
 	private void getWalletMoney() {
 		Map<String,String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-		map.put("usertoken", ConfigHolder.userToken);
 		map.put("userid", ConfigHolder.userId);
-    	HttpUtils.post(mActivity, URLHolder.URL_PAY_WALLET_REMAIN, map, new HttpCallback() {
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId);
+    	HttpUtils.post(mActivity, URLHolder.URL_WALLET_REMAIN, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
 				try {
@@ -337,10 +339,10 @@ public class WalletFragment extends BaseFragment {
 //			if (mPayHandler.mPayType == PayHandler.PAY_TYPE_UNION) {
 				if (!mPayHandler.PAY_FLAG) {
 					mPayHandler.PAY_FLAG = true;
-//					mPayHandler.createWalletOrder();
+					mPayHandler.createWalletOrder();
 				}
 //			} else {
-//				mPayHandler.createWalletOrder(mActivity);
+				mPayHandler.createWalletOrder();
 //			}
 		}
 	}
@@ -348,47 +350,48 @@ public class WalletFragment extends BaseFragment {
 	// 充值金额数值
     private void getPayMoneyValue() {
     	Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-		map.put("usertoken", ConfigHolder.gameToken);
-        HttpUtils.post(mActivity, URLHolder.URL_WALLET_MONEY_VALUE, map, new HttpCallback() {
+    	map.put("paytype", "game");
+		map.put("userid", ConfigHolder.userId);
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId);
+        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				try {
-                    JSONObject root = new JSONObject(response);
-                    JSONObject result = root.getJSONObject("result");
-                    int code = result.getInt("code");
-                    if (code == 200) {
-                        JSONArray list = result.getJSONArray("list");
-                        for (int i = 0; i < list.length(); i++)
-                        	mMoneyList.add(list.getInt(i));
-                        mPaymentInfo.setMoney(mMoneyList.get(0) + "");
-                        mPayHandler.mPayInfo.setScale(result.getInt("exchange"));
-                        mPayHandler.mPayInfo.setCurrency(result.getString("currency"));
-                        for (int i = 0; i < mPayMoneyList.size(); i++) {
-                        	mPayMoneyList.get(i).setText(mMoneyList.get(i) + "￥");
-                        }
-                        setPayMoneyState(mMoneyIndex);
-                        String money = mPayHandler.mPayInfo.getMoney();
-                        if (!money.isEmpty()) {
-                        	LogUtils.d("payMoney:" + money);
-                        	mTextMoney.setText("(获得" + money + "天游币)");
-						} else {
-							mTextMoney.setText("(获得" + mMoneyList.get(mMoneyIndex) + "天游币）");
-						}
-                    } else {
-                        LogUtils.e("创建订单失败！");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-			}
-			
-			@Override
-			public void onFailed() {
-				mActivity.switchFragment(new FailedFragment(), "PayfailedFragment");
+		            JSONObject root = new JSONObject(response);
+		            JSONObject result = root.getJSONObject("result");
+		            int code = result.getInt("code");
+		            if (code == 200) {
+		                JSONArray list = result.getJSONArray("list");
+		                for (int i = 0; i < list.length(); i++)
+		                	mMoneyList.add(list.getInt(i));
+		                if (mPayHandler.mIsShowChoose) {
+		                	mPaymentInfo.setMoney(mMoneyList.get(0) + "");
+		                	LogUtils.d("2" + mPaymentInfo.getMoney());
+		                }
+		                mPayHandler.mPayInfo.setScale(result.getInt("exchange"));
+		                mPayHandler.mPayInfo.setCurrency(result.getString("currency"));
+		                for (int i = 0; i < mPayMoneyList.size(); i++) {
+		                	mPayMoneyList.get(i).setText(mMoneyList.get(i) + ResUtils.getString(mActivity, "ty_money_sign"));
+		                }
+		                mTextScale.setText(mActivity.getString(ResUtils.getResById(mActivity, "ty_scale", "string")) + "1:" + mPayHandler.mPayInfo.getScale());
+		                setPayMoneyState(mMoneyIndex);
+		                String payMoney = mPayHandler.mPayInfo.getPayMoney();
+//		                if (!payMoney.isEmpty()) {
+//		                	LogUtils.d("payMoney:" + payMoney);
+//		                	mTextMoney.setText("(" + mActivity.getString(ResUtils.getResById(mActivity, "ty_get", "string")) + payMoney + "天游币)");
+//						} else {
+							mTextMoney.setText("(" + mActivity.getString(ResUtils.getResById(mActivity, "ty_get", "string")) + mPayHandler.getCurrencyValue(mMoneyList.get(0)) + ")");
+//						}
+		            } else {
+		                LogUtils.e("创建订单失败！");
+		            }
+		        } catch (JSONException e) {
+		            e.printStackTrace();
+		        }
 			}
 		});
-    }
+	}
     
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

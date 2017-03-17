@@ -108,7 +108,6 @@ public class TianyouSdk {
 		createFloatMenu();
 		getServiceInfo();
 		showLoginWay();
-		getPayMoneyValue();
 	}
 	
 	// 登陆接口
@@ -127,8 +126,6 @@ public class TianyouSdk {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("appid", ConfigHolder.gameId);
-		map.put("token", ConfigHolder.gameToken);
 		map.put("userid", ConfigHolder.userId);
 		map.put("serverid", roleInfo.getServerId());
 		map.put("servername", roleInfo.getServerName());
@@ -152,8 +149,6 @@ public class TianyouSdk {
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("appid", ConfigHolder.gameId);
-		map.put("token", ConfigHolder.gameToken);
 		map.put("userid", ConfigHolder.userId);
 		map.put("serverid", roleInfo.getServerId());
 		map.put("servername", roleInfo.getServerName());
@@ -167,7 +162,6 @@ public class TianyouSdk {
 		map.put("sociaty", roleInfo.getSociaty());
 		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + 
 				ConfigHolder.userId + roleInfo.getServerId() + roleInfo.getRoleId()));
-		map.put("signtype", "md5");
 		HttpUtils.post(mActivity, URLHolder.URL_UNION_UPDATE_ROLE, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) { }
@@ -225,33 +219,10 @@ public class TianyouSdk {
 		return null;
 	}
 	
-	// 充值金额数值
-    private void getPayMoneyValue() {
-    	Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-		map.put("usertoken", ConfigHolder.gameToken);
-        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				SPHandler.putString(mActivity, SPHandler.SP_PAY_MONEY, response);
-			}
-		});
-    }
-
 	// 显示隐藏登录方式
 	private void showLoginWay() {
 		Map<String,String> map = new HashMap<String, String>();
-		if (ConfigHolder.isUnion) {
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
-			map.put("type", "android");
-			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-			map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
-			map.put("signtype", "md5");
-		} else {
-			map.put("appID", ConfigHolder.gameId);
-			map.put("usertoken", ConfigHolder.gameToken);
-		}
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
 		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_LOGIN_WAY : URLHolder.URL_LOGIN_WAY;
 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
 			@Override
@@ -264,18 +235,7 @@ public class TianyouSdk {
 	// 创建悬浮球接口
 	private void createFloatMenu() {
 		Map<String, String> map = new HashMap<String, String>();
-		if (ConfigHolder.isUnion) {
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
-			map.put("type", "android");
-			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
-			map.put("signtype", "md5");
-		} else {
-			map.put("appID", ConfigHolder.gameId);
-			map.put("usertoken", ConfigHolder.gameToken);
-			map.put("language", AppUtils.getLanguageSort(mActivity));
-		}
+		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
 		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_FLOAT_CONTROL : URLHolder.URL_FLOAT_CONTROL;
 		HttpUtils.post(mActivity, url, map, new HttpUtils.HttpsCallback() {
 			@Override
@@ -297,17 +257,7 @@ public class TianyouSdk {
 	// 获取客户服务信息
 	private void getServiceInfo() {
 		Map<String, String> map = new HashMap<String, String>();
-		if (ConfigHolder.isUnion) {
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
-			map.put("type", "android");
-			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-			map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
-			map.put("signtype", "md5");
-		} else {
-			map.put("appID", ConfigHolder.gameId);
-			map.put("usertoken", ConfigHolder.gameToken);
-		}
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
 		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_SERVER_INFO : URLHolder.URL_SERVER_IMG;
 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
 			@Override

@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_bg_white_fill"
         android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
-        android:hint="账号：6-18位字母或数字"
+        android:hint="密码：6-18位字母或数字"
         android:padding="@dimen/layout_space_small"
         android:singleLine="true"
         android:textColor="@color/color_black"

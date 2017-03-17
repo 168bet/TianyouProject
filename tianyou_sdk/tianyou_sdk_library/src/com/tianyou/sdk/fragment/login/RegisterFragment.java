@@ -55,18 +55,15 @@ public class RegisterFragment extends BaseLoginFragment {
 			ToastUtils.show(mActivity, "请输入6-18位长度密码");
 		} else if (!again.equals(password)) {
 			ToastUtils.show(mActivity, "2次密码输入不一致");
+		} else if (username.equals(password)) {
+			ToastUtils.show(mActivity, "用户名和密码不能相同");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("username", username);
 			map.put("password", password);
 			map.put("repassword", password);
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
 			map.put("channel", ConfigHolder.channelId);
-			map.put("type", "android");
-			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 			map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
-			map.put("signtype", "md5");
 			HttpUtils.post(mActivity, URLHolder.URL_UNION_REGISTER, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {

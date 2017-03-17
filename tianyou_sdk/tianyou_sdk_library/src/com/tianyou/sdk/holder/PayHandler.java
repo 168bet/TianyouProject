@@ -71,7 +71,6 @@ public class PayHandler {
     	mPayInfo = payInfo;
     	mIsShowChoose = isShowChooseMoney;
         if (checkoutPayInfo().equals("OK")) {
-        	mIsShowChoose = (payInfo.getMoney() == null || payInfo.getMoney().isEmpty());
         	Intent intent = new Intent(mActivity, PayActivity.class);
     		mActivity.startActivity(intent);
         } else {
@@ -83,8 +82,6 @@ public class PayHandler {
     public void createOrder() {
         getPayWayName();
         Map<String, String> map = new HashMap<String, String>();
-        map.put("appid", ConfigHolder.gameId);
-        map.put("token", ConfigHolder.gameToken);
         map.put("userid", ConfigHolder.userId);
         map.put("serverid", mPayInfo.getServerId());
         map.put("servername", mPayInfo.getServerName());
@@ -96,7 +93,6 @@ public class PayHandler {
         map.put("custominfo", mPayInfo.getCustomInfo());
         map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId + 
         		mPayInfo.getServerId() + mPayInfo.getRoleId() + mPayInfo.getMoney() + mPayInfo.getProductId()));
-        map.put("signtype", "md5");
         HttpUtils.post(mActivity, URLHolder.URL_CREATE_ORDER, map, new HttpCallback() {
             @Override
             public void onSuccess(String response) {
@@ -215,54 +211,49 @@ public class PayHandler {
     }
     
     // 创建钱包订单
-//    public void createWalletOrder() {
-//        String userId = ConfigHolder.userId;
-//        String appID = ConfigHolder.gameId;
-//        String serverID = mPayInfo.getServerId();
-//        Map<String, String> map = new HashMap<String, String>();
-//        map.put("userId", userId);
-//        map.put("roleId", mPayInfo.getRoleId());
-//        map.put("appID", appID);
-//        map.put("serverID", serverID);
-//        map.put("customInfo", mPayInfo.getCustomInfo());
-//        map.put("serverName", mPayInfo.getServerName());
-//        map.put("moNey", mPayInfo.getMoney());
-//        map.put("Way", mPayWayCode);
-//        map.put("sign", AppUtils.MD5(userId + serverID + serverID));
-//        HttpUtils.post(mActivity, URLHolder.URL_PAY_WALLET, map, new HttpCallback() {
-//            @Override
-//            public void onSuccess(String response) {
-//                CreateOrder createOrder = new Gson().fromJson(response, CreateOrder.class);
-//                ResultBean result = createOrder.getResult();
-//                if (result.getCode() == 200) {
-//                    OrderinfoBean orderinfo = result.getOrderinfo();
-//                    mPayInfo.setOrderId(orderinfo.getOrderID());
-//                    mPayInfo.setProductName(orderinfo.getProduct_name());
-//                    mPayInfo.setPayMoney(orderinfo.getMoNey());
-//                    if ("ALIPAY".equals(orderinfo.getWay())) {
-//                        mPayInfo.setSELLER(result.getPayinfo().getSELLER());
-//                        mPayInfo.setPARTNER(result.getPayinfo().getPARTNER());
-//                        mPayInfo.setRSA_PRIVATE(result.getPayinfo().getRSA_PRIVATE());
-//                        mPayInfo.setRSA_PUBLIC(result.getPayinfo().getRSA_PUBLIC());
-//                    } else if ("UNPAY".equals(orderinfo.getWay())) {
-//                        mPayInfo.setTnnumber(result.getPayinfo().getTnnumber());
-//                    } else if ("WXSCAN".equals(orderinfo.getWay())){
-//                        mPayInfo.setImgstr(result.getPayinfo().getImgstr());
-//                        mPayInfo.setQqmember(result.getPayinfo().getQqmember());
-//                    }
-//                    doStartPay();
-//                } else {
-//                    ToastUtils.show(mActivity, result.getMsg());
-//                    mHandler.sendEmptyMessage(4);
-//                }
-//            }
-//            
-//            @Override
-//            public void onFailed() {
-//            	mHandler.sendEmptyMessage(5);
-//            }
-//        });
-//    }
+    public void createWalletOrder() {
+    	getPayWayName();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("userid", ConfigHolder.userId);
+        map.put("productname", mPayInfo.getProductName());
+        map.put("money", mPayInfo.getMoney());
+        map.put("way", mPayWayCode);
+        map.put("custominfo", mPayInfo.getCustomInfo());
+        map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId + mPayInfo.getMoney());
+        HttpUtils.post(mActivity, URLHolder.URL_PAY_WALLET, map, new HttpCallback() {
+            @Override
+            public void onSuccess(String response) {
+                CreateOrder createOrder = new Gson().fromJson(response, CreateOrder.class);
+                ResultBean result = createOrder.getResult();
+                if (result.getCode() == 200) {
+                    OrderinfoBean orderinfo = result.getOrderinfo();
+                    mPayInfo.setOrderId(orderinfo.getOrderid());
+                    mPayInfo.setProductName(orderinfo.getProductname());
+                    mPayInfo.setPayMoney(orderinfo.getMoney());
+                    if ("ALIPAY".equals(orderinfo.getWay())) {
+                        mPayInfo.setSELLER(result.getPayinfo().getSELLER());
+                        mPayInfo.setPARTNER(result.getPayinfo().getPARTNER());
+                        mPayInfo.setRSA_PRIVATE(result.getPayinfo().getRSA_PRIVATE());
+                        mPayInfo.setRSA_PUBLIC(result.getPayinfo().getRSA_PUBLIC());
+                    } else if ("UNPAY".equals(orderinfo.getWay())) {
+                        mPayInfo.setTnnumber(result.getPayinfo().getTnnumber());
+                    } else if ("WXSCAN".equals(orderinfo.getWay())){
+                        mPayInfo.setImgstr(result.getPayinfo().getImgstr());
+                        mPayInfo.setQqmember(result.getPayinfo().getQqmember());
+                    }
+                    doStartPay();
+                } else {
+                    ToastUtils.show(mActivity, result.getMsg());
+                    mHandler.sendEmptyMessage(4);
+                }
+            }
+            
+            @Override
+            public void onFailed() {
+            	mHandler.sendEmptyMessage(5);
+            }
+        });
+    }
     
     // 开始支付
     private void doStartPay() {
@@ -284,7 +275,7 @@ public class PayHandler {
             	mHandler.sendEmptyMessage(6);
                 break;
             case WALLET:
-            	mHandler.sendEmptyMessage(3);
+            	mHandler.sendEmptyMessage(2);
                 break;
             case WXSCAN:
             	mHandler.sendEmptyMessage(7);
@@ -309,15 +300,10 @@ public class PayHandler {
             public void onDismiss() {
             	Map<String, String> checkParam = new HashMap<String, String>();
                 checkParam.put("orderid", mPayInfo.getOrderId());
-                checkParam.put("appid", ConfigHolder.gameId);
-                checkParam.put("token", ConfigHolder.gameToken);
                 checkParam.put("userid", ConfigHolder.userId);
-                checkParam.put("type", "android");
-                checkParam.put("imei", AppUtils.getPhoeIMEI(mActivity));
                 checkParam.put("sign", AppUtils.MD5(mPayInfo.getOrderId() + 
                 		ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
-                checkParam.put("signtype", "md5");
-                HttpUtils.post(mActivity, URLHolder.URL_CREATE_ORDER, checkParam, new HttpsCallback() {
+                HttpUtils.post(mActivity, URLHolder.URL_QUERY_ORDER, checkParam, new HttpsCallback() {
                     @Override
                     public void onSuccess(String response) {
                         try {

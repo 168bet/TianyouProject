@@ -54,6 +54,7 @@ public class LoginWay {
 			private int wx_quick;
 			private int mb_quick;
 			private int sm_quick;
+			private int reg_quick;
 
 			public int getQq_quick() {
 				return qq_quick;
@@ -85,6 +86,14 @@ public class LoginWay {
 
 			public void setSm_quick(int sm_quick) {
 				this.sm_quick = sm_quick;
+			}
+
+			public int getReg_quick() {
+				return reg_quick;
+			}
+
+			public void setReg_quick(int reg_quick) {
+				this.reg_quick = reg_quick;
 			}
 		}
 	}

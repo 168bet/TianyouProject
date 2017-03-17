@@ -147,16 +147,12 @@ public class AccountFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_home_entry", "id")) {
 			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {
-			if (ConfigHolder.isUnion) {
-				ToastUtils.show(mActivity, "暂未开放");
-			} else {
-				mLoginHandler.doQuickRegister();
-			}
+			quickRegisterSwitch();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_home_user_list", "id")) {
 			showPopupWindow();
 		}
 	}
-	
+
 	private void showLoginWay() {
 		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
 		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);

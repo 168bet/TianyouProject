@@ -11,9 +11,9 @@ public class URLHolder {
 	// 海外测试服
 //	private static final String URL_OVERSEAS = "http://vpntest.tianyouxi.com/index.php";
 	// 工会正式服
-//	private static final String URL_UNION = "http://ghsdk.tianyouxi.com/api/";
+	private static final String URL_UNION = "http://ghsdk.tianyouxi.com/api/";
 	// 工会测试服
-	public static final String URL_UNION = "http://192.168.1.169/tygh/api/";
+//	public static final String URL_UNION = "http://192.168.1.169/tygh/api/";
 	
 	/** ------------------------- 工会接口 ------------------------- */
 	// 注册
@@ -31,6 +31,8 @@ public class URLHolder {
 	public static final String URL_CREATE_ORDER = URL_UNION + "order/creatorder";
 	// 创建钱包订单
 	public static final String URL_CREATE_WALLET_ORDER = URL_UNION + "walletorder/creatorder";
+	// 查询订单
+	public static final String URL_QUERY_ORDER = URL_UNION + "order/getorderstatus";
 	// 公告
 	public static final String URL_UNION_ANNOUNCE = URL_UNION + "sdkinfo/getnotice";
 	// 客服信息
@@ -47,6 +49,16 @@ public class URLHolder {
 	public static final String URL_UNION_UPDATE_ROLE = URL_UNION + "role/updaterole";
 	// 完善用户信息
 	public static final String URL_UNION_PERFECT = URL_UNION + "member/updateuser";
+	// 获取金额数值
+	public static final String URL_MONEY_VALUE = URL_UNION + "walletorder/getpaymoney";
+	// 钱包余额
+	public static final String URL_WALLET_REMAIN = URL_UNION + "walletorder/getwallet";
+	// 一键登录
+	public static final String URL_KEY_LOGIN = URL_UNION + "login/keylogin";
+	// 游戏推荐
+	public static final String URL_GAME_RECOMMEND = URL_UNION + "sdkinfo/getgames";
+	// 钱包支付
+	public static final String URL_PAY_WALLET = URL_UNION + "walletorder/creatorder";
 	
 	/** ------------------------- 登录接口 ------------------------- */
 	// 获取登录方式
@@ -59,8 +71,6 @@ public class URLHolder {
 	public static final String URL_QQ_LOGIN = URL_BASE + "?c=register&a=QQQuick";
 	// QQ WebView URL
 	public static final String URL_QQ_WEB = "https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101322155&daid=383&pt_skey_valid=1&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&auth_time=1470121319621&client_id=101322155&src=1&state=&response_type=token&scope=add_share%2Cadd_topic%2Clist_album%2Cupload_pic%2Cget_simple_userinfo&redirect_uri=auth%3A%2F%2Ftauth.qq.com%2F";
-	// 一键登录
-	public static final String URL_KEY_LOGIN = URL_BASE + "?c=NewReg&a=ShortMessageReg";
 	// 用户登录
 	public static final String URL_CODE_LOGIN = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=NewLog&a=VerificationLog";
 	// 快速登录
@@ -90,17 +100,9 @@ public class URLHolder {
 	// 产品信息接口
 	public static String URL_GET_PRODUCT_INFO = URL_BASE + "?c=GameProduct&a=GetProduct";
 	// 获取金额数值
-	public static String URL_MONEY_VALUE = URL_BASE + "?c=Order&a=getRecharge";
-	// 获取金额数值
 	public static String URL_WALLET_MONEY_VALUE = URL_BASE + "?c=Order&a=getWalletRecharge";
-	// 钱包余额
-	public static String URL_PAY_WALLET_REMAIN = URL_BASE + "?c=Order&a=getWallet";
-	// 钱包支付
-	public static String URL_PAY_WALLET = URL_BASE + "?c=OrderWallet&a=CreatOrder";
 	// 客服图片接口
 	public static String URL_SERVER_IMG = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=Member&a=GetCustom";
-	// 查询订单接口
-	public static String URL_QUERY_ORDER = URL_BASE + "?c=Order&a=GetOrderStatus";
 	// 支付方式控制
 	public static String URL_PAY_WAY_CONTROL = (ConfigHolder.isOverseas ? URL_OVERSEAS : URL_BASE) + "?c=Member&a=GetPayType";
 	// 创建订单海外接口
@@ -121,8 +123,6 @@ public class URLHolder {
 	public static String URL_GIFT = "http://www.tianyouxi.com/svnonethink/mobilesdk.php?s=/CheckSdk/sdkgift";
 	// 帮助游戏
 	public static String URL_MENU_HELP = "http://www.tianyouxi.com/svnonethink/mobilesdk.php?s=/CustomService/index.html";
-	// 退出游戏
-	public static String URL_EXIT_MORE = URL_BASE + "?c=Game&a=GetAndroidGames";
 	// 热门游戏推荐
 	public static String URL_HOT_GAME = "http://www.tianyouxi.com/svnonethink/mobilesdk.php?s=/GameCentre/index.html";
 	// 忘记密码

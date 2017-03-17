@@ -76,7 +76,6 @@ public class PayActivity extends BaseActivity {
 				PayResult payResult = new PayResult((String) msg.obj);
 		        String resultStatus = payResult.getResultStatus();
 		        if (TextUtils.equals(resultStatus, "9000")) {
-		        	PayHandler.getInstance(mActivity, mHandler).doQueryOrder();
 		        	mPayHandler.doQueryOrder();
 		        } else {
 		            if (TextUtils.equals(resultStatus, "8000")) {
@@ -142,6 +141,7 @@ public class PayActivity extends BaseActivity {
 	@Override
 	protected void initData() {
 		getPayWay();
+		getPayValue();
 		// 谷歌支付
 		mServiceConn = new ServiceConnection() {
 			@Override
@@ -164,23 +164,27 @@ public class PayActivity extends BaseActivity {
 		switchFragment(new HomeFragment(), "HomeFragment");
 	}
 	
+	// 充值金额数值
+    private void getPayValue() {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("paytype", "game");
+		map.put("userid", ConfigHolder.userId);
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId);
+        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_PAY_MONEY, response);
+			}
+		});
+    }
+
 	// 支付方式控制
 	private void getPayWay() {
 		Map<String,String> map = new HashMap<String, String>();
-		if (ConfigHolder.isUnion) {
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
-			map.put("type", "android");
-			map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
-			map.put("signtype", "md5");
-		} else {
-			map.put("appID", ConfigHolder.gameId);
-			map.put("usertoken", ConfigHolder.gameToken);
-			map.put("language", ConfigHolder.gameToken);
-		}
-		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_PAY_WAY : URLHolder.URL_PAY_WAY_CONTROL;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
+		HttpUtils.post(mActivity, URLHolder.URL_UNION_PAY_WAY, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				SPHandler.putString(mActivity, SPHandler.SP_PAY_WAY, response);
@@ -296,7 +300,6 @@ public class PayActivity extends BaseActivity {
 		param.put("sign", AppUtils.MD5(ConfigHolder.userName+ConfigHolder.gameId+mPayHandler.mPayInfo.getServerId()));
 		param.put("payment_id", paymentId);
 		HttpUtils.post(mActivity, URLHolder.URL_CHECK_ORDER_PAYPAL, param, new HttpUtils.HttpsCallback() {
-			
 			@Override
 			public void onSuccess(String response) {
 				Log.d("TAG", "paypal success = "+response);

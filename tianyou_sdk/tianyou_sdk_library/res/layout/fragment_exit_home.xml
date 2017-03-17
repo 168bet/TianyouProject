@@ -13,13 +13,28 @@
         android:fillViewport="true"
         android:scrollbars="none" >
 
-        <LinearLayout
-            android:id="@+id/layout_exit_game_list"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:showDividers="middle"
-            android:weightSum="4" />
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:id="@+id/layout_exit_game_list"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:weightSum="4" />
+
+            <TextView
+                android:id="@+id/text_exit_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/color_gray_3"
+                android:text="呵呵"
+                android:textSize="@dimen/text_size_title" />
+        </RelativeLayout>
     </HorizontalScrollView>
 
     <LinearLayout
@@ -34,8 +49,8 @@
             android:background="@color/color_red"
             android:gravity="center"
             android:padding="@dimen/layout_space_small"
-            android:text="@string/ty_hot_game"
             android:singleLine="true"
+            android:text="@string/ty_hot_game"
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_size_small" />
 
@@ -47,8 +62,8 @@
             android:layout_weight="1"
             android:background="@color/color_blue"
             android:gravity="center"
-            android:singleLine="true"
             android:padding="@dimen/layout_space_small"
+            android:singleLine="true"
             android:text="@string/ty_exit_game"
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_size_small" />

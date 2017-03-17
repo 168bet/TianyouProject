@@ -92,7 +92,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		PayInfo payInfo = new PayInfo();
 		payInfo.setRoleId("13141654");
 		payInfo.setServerId("10281");
-		payInfo.setServerName("OverSeas Android TestServer");
+		payInfo.setServerName("测试一区");
 		payInfo.setMoney("1");
 		payInfo.setProductId("scom.tianyouxi.skszj.p1");
 		payInfo.setProductName("10金钻");

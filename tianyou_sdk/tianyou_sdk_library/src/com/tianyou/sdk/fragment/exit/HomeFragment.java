@@ -31,6 +31,7 @@ public class HomeFragment extends BaseFragment {
 
 	private LinearLayout mLayoutList;
 	private Bundle bundle;
+	private TextView mTextTips;
 
 	@Override
 	protected String setContentView() {
@@ -41,6 +42,7 @@ public class HomeFragment extends BaseFragment {
 	protected void initView() {
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_recommend", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_exit_game", "id")).setOnClickListener(this);
+		mTextTips = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_exit_tips", "id"));
 		mLayoutList = (LinearLayout) mContentView.findViewById(ResUtils.getResById(mActivity, "layout_exit_game_list", "id"));
 	}
 
@@ -48,14 +50,13 @@ public class HomeFragment extends BaseFragment {
 	protected void initData() {
 		bundle = new Bundle();
 		Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-    	map.put("usertoken", ConfigHolder.gameToken);
-		HttpUtils.post(mActivity, URLHolder.URL_EXIT_MORE, map, new HttpsCallback() {
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
+		HttpUtils.post(mActivity, URLHolder.URL_GAME_RECOMMEND, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				ExitGame exitGame = new Gson().fromJson(response, ExitGame.class);
 				ResultBean result = exitGame.getResult();
-				if (result.getCode() == 200) {
+				if (result.getCode() == 200 && result.getStatus() != 0) {
 					List<ProductinfoBean> gameInfo = result.getProductinfo();
 					for (ProductinfoBean game : gameInfo) {
 						View view =  View.inflate(mActivity, ResUtils.getResById(mActivity, "item_exit_game", "layout"), null);
@@ -68,6 +69,8 @@ public class HomeFragment extends BaseFragment {
 						textCount.setText("下载量:" + game.getDownload());
 						mLayoutList.addView(view);
 					}
+				} else {
+					mTextTips.setText(result.getMsg());
 				}
 			}
 		});

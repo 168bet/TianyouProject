@@ -3,12 +3,19 @@ package com.tianyou.sdk.base;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
+import com.tianyou.sdk.bean.LoginWay;
+import com.tianyou.sdk.bean.LoginWay.ResultBean;
 import com.tianyou.sdk.fragment.login.NoQQFragment;
 import com.tianyou.sdk.fragment.login.QQBindingFragment;
+import com.tianyou.sdk.fragment.login.RegisterFragment;
+import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginInfoHandler;
+import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -65,6 +72,21 @@ public abstract class BaseLoginFragment extends Fragment implements OnClickListe
 			mActivity.switchFragment(new NoQQFragment(), "NoQQFragment");
 		} else {
 			mActivity.switchFragment(new QQBindingFragment(), "QQBindingFragment");
+		}
+	}
+	
+	protected void quickRegisterSwitch() {
+		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+		ResultBean result = loginWay.getResult();
+		if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 1) {
+			if (ConfigHolder.isUnion) {
+				mActivity.switchFragment(new RegisterFragment(), "RegisterFragment");
+			} else {
+				mLoginHandler.doQuickRegister();
+			}
+		} else {
+			ToastUtils.show(mActivity, "暂未开放");
 		}
 	}
 }

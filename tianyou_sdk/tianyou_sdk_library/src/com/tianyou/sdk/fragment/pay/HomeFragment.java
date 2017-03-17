@@ -118,7 +118,6 @@ public class HomeFragment extends BaseFragment {
 		}
 		
 		mEditOther.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent ev) {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -164,7 +163,8 @@ public class HomeFragment extends BaseFragment {
 		mTextPayMoney.setText(mPaymentInfo.getMoney() + ResUtils.getString(mActivity,"ty_currency"));
 		mMoneyList = new ArrayList<Integer>();
 		mTextAccount.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_account", "string")) + ConfigHolder.userName);
-		mTextServer.setText(getResources().getString(ResUtils.getResById(mActivity, "ty_server", "string")) + mPaymentInfo.getServerName());
+		
+		mTextServer.setText(ResUtils.getString(mActivity, "ty_server") + mPaymentInfo.getServerName());
 		setPayWayState(mPayHandler.mPayType);
 		getPayMoneyValue();
 		getWalletMoney();
@@ -253,10 +253,9 @@ public class HomeFragment extends BaseFragment {
 	// 获取钱包余额
 	private void getWalletMoney() {
 		Map<String,String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-		map.put("usertoken", ConfigHolder.userToken);
-		map.put("userid", ConfigHolder.userId);
-    	HttpUtils.post(mActivity, URLHolder.URL_PAY_WALLET_REMAIN, map, new HttpCallback() {
+    	map.put("userId", ConfigHolder.userId);
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId);
+    	HttpUtils.post(mActivity, URLHolder.URL_WALLET_REMAIN, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
 				try {

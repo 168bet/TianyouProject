@@ -69,8 +69,8 @@ public class PhoneFragment extends BaseLoginFragment {
 	@Override
 	protected void initView() {
 		mContentView.findViewById(ResUtils.getResById(mActivity, "btn_home_entry", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_quick", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_2", "id")).setOnClickListener(this);
+		mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_quick", "id")).setOnClickListener(this);
 		
 		mEditPhone = (EditText)mContentView.findViewById(ResUtils.getResById(mActivity, "edit_home_phone", "id"));
 		mEditCode = (EditText)mContentView.findViewById(ResUtils.getResById(mActivity, "edit_home_code", "id"));
@@ -155,11 +155,7 @@ public class PhoneFragment extends BaseLoginFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_code", "id")) {
 			getVerificationCode();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {
-			if (ConfigHolder.isUnion) {
-				ToastUtils.show(mActivity, "暂未开放");
-			} else {
-				mLoginHandler.doQuickRegister();
-			}
+			quickRegisterSwitch();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_home_user_list", "id")) {
 			showPopupWindow();
 		}
@@ -240,9 +236,7 @@ public class PhoneFragment extends BaseLoginFragment {
             map.put("type", "android");
             map.put("imei", AppUtils.getPhoeIMEI(mActivity));
             map.put("sign", phone + "verification" + "android" + AppUtils.getPhoeIMEI(mActivity));
-            map.put("appID", ConfigHolder.gameId);
-            String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_CODE : URLHolder.URL_GET_CODE;
-			HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+			HttpUtils.post(mActivity, URLHolder.URL_UNION_CODE, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {
 					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);

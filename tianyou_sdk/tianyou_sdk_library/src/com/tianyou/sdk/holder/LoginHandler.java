@@ -76,25 +76,12 @@ public class LoginHandler {
 	// 1-1.账号密码登录接口
 	public void doUserLogin(String username, String password, boolean isPhone) {
 		SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE, isPhone);
-		if (ConfigHolder.isUnion) {
-			doUnionLogin(username, password, isPhone);
-		} else {
-			doCommonLogin(username, password, isPhone);
-		}
-    }
-	
-	private void doUnionLogin(String username, String password, boolean isPhone) {
 		ProgressHandler.getInstance().openProgressDialog(mActivity);
     	Map<String,String> map = new HashMap<String, String>();
 		map.put("username", username);
 		map.put("password", password);
-		map.put("appid", ConfigHolder.gameId);
-		map.put("token", ConfigHolder.gameToken);
 		map.put("channel", ConfigHolder.channelId);
-		map.put("type", "android");
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
-		map.put("signType", "md5");
 		String url = isPhone ? URLHolder.URL_UNION_PHONE_LOGIN : URLHolder.URL_UNION_ACCOUNT_LOGIN;
 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
 			@Override
@@ -102,28 +89,8 @@ public class LoginHandler {
 				onLoginProcess(new Gson().fromJson(response, LoginInfo.class));
 			}
 		});
-	}
+    }
 	
-	private void doCommonLogin(String username, String password, boolean isPhone) {
-		ProgressHandler.getInstance().openProgressDialog(mActivity);
-    	Map<String,String> map = new HashMap<String, String>();
-		map.put("username", username);
-		map.put("verification", password);
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("appID", ConfigHolder.gameId);
-		map.put("type", "android");
-		map.put("ispass", isPhone == true ? "0" : "1");
-		map.put("ip", AppUtils.getIP());
-		map.put("channel", ConfigHolder.channelId);
-		Log.d("TAG", "login map= "+map);
-		HttpUtils.post(mActivity, URLHolder.URL_CODE_LOGIN, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				onLoginProcess(new Gson().fromJson(response, LoginInfo.class));
-			}
-		});
-	}
-
 	// 1-2.快速注册登陆接口
 	public void doQuickRegister() {
 		Map<String,String> map = new HashMap<String, String>();
@@ -154,13 +121,8 @@ public class LoginHandler {
 	
 	// 1-3.QQ登陆接口
 	public void doQQLogin(final Activity activity, Map<String, String> map) {
-		map.put("appid", ConfigHolder.gameId);
-		map.put("token", ConfigHolder.gameToken);
 		map.put("channel", ConfigHolder.channelId);
-		map.put("type", "android");
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("sign", AppUtils.MD5(map.get("openid") + ConfigHolder.gameId + ConfigHolder.gameToken));
-		map.put("signtype", "md5");
 		HttpUtils.post(mActivity, URLHolder.URL_UNION_QQ_LOGIN, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -197,11 +159,8 @@ public class LoginHandler {
 				} else {
 					Map<String,String> map = new HashMap<String, String>();
 					map.put("username", number);
-					map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-					map.put("ip", AppUtils.getIP());
 					map.put("channel", ConfigHolder.channelId);
-					map.put("appID", ConfigHolder.gameId);
-					map.put("type", "android");
+					map.put("sign", number + ConfigHolder.gameId + ConfigHolder.gameToken);
 					HttpUtils.post(mActivity, URLHolder.URL_KEY_LOGIN, map, new HttpsCallback() {
 						@Override
 						public void onSuccess(String response) {
@@ -327,22 +286,10 @@ public class LoginHandler {
 		void onSuccess(String response);
 	}
   	
+  	// 6.弹公告
   	private void displayAnnouncement() {
-  		if (ConfigHolder.isUnion) {
-			unionAnnouncement();
-		} else {
-			commonAnnouncement();
-		}
-	}
-  	
-  	private void unionAnnouncement() {
    		Map<String, String> map = new HashMap<String, String>();
-   		map.put("appid", ConfigHolder.gameId);
-   		map.put("token", ConfigHolder.userToken);
-   		map.put("type", "android");
-   		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
    		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.userToken));
-   		map.put("signtype", "md5");
    		HttpUtils.post(TianyouSdk.getInstance().mActivity, URLHolder.URL_UNION_ANNOUNCE, map, new HttpsCallback() {
    			@Override
    			public void onSuccess(String response) {
@@ -367,54 +314,15 @@ public class LoginHandler {
    		});
    	}
 
-	// 6.弹公告
-   	private void commonAnnouncement() {
-   		Map<String, String> map = new HashMap<String, String>();
-   		map.put("appID", ConfigHolder.gameId);
-   		map.put("usertoken", ConfigHolder.userToken);
-   		HttpUtils.post(TianyouSdk.getInstance().mActivity, URLHolder.URL_ANNOUNCE, map, new HttpsCallback() {
-   			@Override
-   			public void onSuccess(String response) {
-   				try {
-   					JSONObject jsonObject = new JSONObject(response);
-   					JSONObject result = jsonObject.getJSONObject("result");
-   					if (result.getInt("code") == 200) {
-   						String custominfo = result.getString("custominfo");
-   						custominfo = URLDecoder.decode(custominfo, "utf-8");
-   						Intent intent = new Intent(TianyouSdk.getInstance().mActivity, NotifyActivity.class);
-   						intent.putExtra("content", custominfo);
-   						TianyouSdk.getInstance().mActivity.startActivity(intent);
-   					} else {
-   						onNoticeLoginSuccess();
-   					}
-   				} catch (JSONException e) {
-   					e.printStackTrace();
-   				} catch (UnsupportedEncodingException e) {
-   					e.printStackTrace();
-   				}
-   			}
-   		});
-   	}
-  	
   	// 1-3-1.完善QQ账号信息
  	public void doPerfectAccountInfo(String newName,final String newPwd) {
  		Map<String, String> map = new HashMap<String, String>();
- 		if (ConfigHolder.isUnion) {
-			map.put("appid", ConfigHolder.gameId);
-			map.put("token", ConfigHolder.gameToken);
-			map.put("userid", mResultBean.getUserid());
-			map.put("newname", newName);
-			map.put("password", newPwd);
-			map.put("username", mResultBean.getUsername());
-			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + 
-					ConfigHolder.gameToken + mResultBean.getUserid() + newName));
-			map.put("signtype", "md5");
-		} else {
-			map.put("password", newPwd);
-			map.put("newname", newName);
-			map.put("username", mResultBean.getUsername());
-			map.put("userid", mResultBean.getUserid());
-		}
+		map.put("userid", mResultBean.getUserid());
+		map.put("newname", newName);
+		map.put("password", newPwd);
+		map.put("username", mResultBean.getUsername());
+		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + 
+				ConfigHolder.gameToken + mResultBean.getUserid() + newName));
  		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_PERFECT : URLHolder.URL_LOGIN_PERFECT;
  		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
  			@Override

@@ -55,6 +55,7 @@ public class NotifyActivity extends Activity implements OnClickListener {
 	private Activity mActivity;
 	private String content;
 	private List<ProductinfoBean> mGameInfo;
+	private View mLayoutMenu1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,9 @@ public class NotifyActivity extends Activity implements OnClickListener {
 	private void initFindViewById() {
 		findViewById(ResUtils.getResById(mActivity, "img_announce_close", "id")).setOnClickListener(this);
 		findViewById(ResUtils.getResById(mActivity, "layout_announce_menu_0", "id")).setOnClickListener(this);
-		findViewById(ResUtils.getResById(mActivity, "layout_announce_menu_1", "id")).setOnClickListener(this);
+		findViewById(ResUtils.getResById(mActivity, "view_notify_line", "id")).setVisibility(View.GONE);;
+		mLayoutMenu1 = findViewById(ResUtils.getResById(mActivity, "layout_announce_menu_1", "id"));
+		mLayoutMenu1.setOnClickListener(this);
 		
 		mImgIcon = (ImageView) findViewById(ResUtils.getResById(mActivity, "img_announce_icon", "id"));
 		mTextName = (TextView) findViewById(ResUtils.getResById(mActivity, "text_announce_name", "id"));
@@ -110,17 +113,21 @@ public class NotifyActivity extends Activity implements OnClickListener {
 				mActivity.startActivity(intent);
 			}
 		});
+		getGameRecommend();
+	}
+
+	private void getGameRecommend() {
 		Map<String, String> map = new HashMap<String, String>();
-    	map.put("appID", ConfigHolder.gameId);
-    	map.put("usertoken", ConfigHolder.gameToken);
-		HttpUtils.post(mActivity, URLHolder.URL_EXIT_MORE, map, new HttpsCallback() {
+    	map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
+		HttpUtils.post(mActivity, URLHolder.URL_GAME_RECOMMEND, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				ExitGame exitGame = new Gson().fromJson(response, ExitGame.class);
 				ResultBean result = exitGame.getResult();
-				if (result.getCode() == 200) {
+				if (result.getCode() == 200 && result.getStatus() != 0) {
 					mGameInfo = result.getProductinfo();
 					for (final ProductinfoBean game : mGameInfo) {
+						mLayoutMenu1.setVisibility(View.VISIBLE);
 						View view =  View.inflate(mActivity, ResUtils.getResById(mActivity, "item_exit_game", "layout"), null);
 						ImageView imgIcon = (ImageView) view.findViewById(ResUtils.getResById(mActivity, "img_exit_icon", "id"));
 						TextView textName = (TextView) view.findViewById(ResUtils.getResById(mActivity, "text_exit_name", "id"));
@@ -137,6 +144,8 @@ public class NotifyActivity extends Activity implements OnClickListener {
 						textName.setText(game.getName());
 						textCount.setText("下载量:" + game.getDownload());
 					}
+				} else {
+					mLayoutMenu1.setVisibility(View.GONE);
 				}
 			}
 		});
