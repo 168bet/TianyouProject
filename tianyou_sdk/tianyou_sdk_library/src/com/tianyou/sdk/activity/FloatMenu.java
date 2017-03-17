@@ -223,6 +223,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_5", "id")) {
 						ConfigHolder.userIsLogin = false;
 						TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+						mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
 						mMenupopupWindow.dismiss();
 						isShowFloat = true;
 						return;
