@@ -152,15 +152,8 @@ public class LoginHandler {
 		});
 	}
 	
-	public void doQQLogin(Map<String, String> map) {
-		if (ConfigHolder.isUnion) {
-			doUnionQQLogin(map);
-		} else {
-			doCommonQQLogin(map);
-		}
-	}
-	
-	private void doUnionQQLogin(Map<String, String> map) {
+	// 1-3.QQ登陆接口
+	public void doQQLogin(final Activity activity, Map<String, String> map) {
 		map.put("appid", ConfigHolder.gameId);
 		map.put("token", ConfigHolder.gameToken);
 		map.put("channel", ConfigHolder.channelId);
@@ -171,25 +164,14 @@ public class LoginHandler {
 		HttpUtils.post(mActivity, URLHolder.URL_UNION_QQ_LOGIN, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
-				mActivity.finish();
 				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
-				onLoginProcess(request);
-		}});
-	}
-
-	// 1-3.QQ登陆接口
-	private void doCommonQQLogin(Map<String, String> map) {
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("ip", AppUtils.getIP());
-		map.put("appID", ConfigHolder.gameId);
-		map.put("channel", ConfigHolder.channelId);
-		map.put("type", "android");
-		HttpUtils.post(mActivity, URLHolder.URL_QQ_LOGIN, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				mActivity.finish();
-				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
-				onLoginProcess(request);
+				if ("0".equals(request.getResult().getIsperfect())) {	//	QQ登陆且没有完善账号信息
+					mResultBean = request.getResult();
+					activity.finish();
+					mHandler.sendEmptyMessage(2);
+				} else {
+					onLoginProcess(request);
+				}
 		}});
 	}
 	

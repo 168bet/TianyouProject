@@ -31,17 +31,6 @@ public class PerfectFragment extends BaseLoginFragment {
 
 	@Override
 	protected String setContentView() { return "fragment_login_perfect"; }
-	
-//	public static Fragment getInstall(String userName, String userPass, String userId, String nickName) {
-//		PerfectFragment fragment = new PerfectFragment();
-//		Bundle bundle = new Bundle();
-//		bundle.putString("user_name", userName);
-//		bundle.putString("user_pass", userPass);
-//		bundle.putString("user_id", userId);
-//		bundle.putString("user_nickname", nickName);
-//		fragment.setArguments(bundle);
-//		return fragment;
-//	}
 
 	@Override
 	protected void initView() {

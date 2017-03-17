@@ -11,6 +11,7 @@ public class RoleInfo {
 	private String vipLevel;
 	private String balance;
 	private String amount;
+	private String sociaty;
 	
 	public String getServerId() {
 		return serverId;
@@ -65,6 +66,12 @@ public class RoleInfo {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	public String getSociaty() {
+		return sociaty;
+	}
+	public void setSociaty(String sociaty) {
+		this.sociaty = sociaty;
 	}
 
 }

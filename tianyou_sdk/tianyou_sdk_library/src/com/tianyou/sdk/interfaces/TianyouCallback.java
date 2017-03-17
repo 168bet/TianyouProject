@@ -2,8 +2,6 @@ package com.tianyou.sdk.interfaces;
 
 public interface TianyouCallback {
 
-	public static final int CODE_INIT = 0;
-	
 	public static final int CODE_LOGIN_SUCCESS = 1;	// 登录成功
 	public static final int CODE_LOGIN_FAILED = 2;	// 登录失败
 	public static final int CODE_LOGIN_CANCEL = 3;	// 登录取消
