@@ -106,7 +106,7 @@ public class AccountFragment extends BaseLoginFragment {
         mListView.setAdapter(new LoginAdapter(mActivity, mLoginInfos, mAdapterCallback));
         
 		List<Map<String, String>> loginInfo = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
-		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount")) {
+		if (loginInfo.size() != 0 && getArguments() != null && !getArguments().getBoolean("isSwitchAccount") && !mActivity.mIsLogout) {
 			Map<String, String> map = loginInfo.get(0);
 			String username = map.get(LoginInfoHandler.USER_ACCOUNT);
 			String password = map.get(LoginInfoHandler.USER_PASSWORD);

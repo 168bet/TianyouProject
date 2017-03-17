@@ -22,10 +22,12 @@ import com.tianyou.sdk.activity.ExitActivity;
 import com.tianyou.sdk.activity.FloatMenu;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.FloatControl;
+import com.tianyou.sdk.bean.LoginWay;
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.bean.ServerInfo;
 import com.tianyou.sdk.bean.ServerInfo.ResultBean.CustominfoBean;
+import com.tianyou.sdk.fragment.login.RegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.PayHandler;
 import com.tianyou.sdk.holder.SPHandler;
@@ -109,6 +111,19 @@ public class TianyouSdk {
 		createFloatMenu();
 		getServiceInfo();
 		showLoginWay();
+	}
+	
+	// 显示隐藏登录方式
+	private void showLoginWay() {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
+		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_LOGIN_WAY : URLHolder.URL_LOGIN_WAY;
+		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_LOGIN_WAY, response);
+			}
+		});
 	}
 	
 	// 登陆接口
@@ -220,19 +235,6 @@ public class TianyouSdk {
 		return null;
 	}
 	
-	// 显示隐藏登录方式
-	private void showLoginWay() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
-		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_LOGIN_WAY : URLHolder.URL_LOGIN_WAY;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				SPHandler.putString(mActivity, SPHandler.SP_LOGIN_WAY, response);
-			}
-		});
-	}
-
 	// 创建悬浮球接口
 	private void createFloatMenu() {
 		Map<String, String> map = new HashMap<String, String>();

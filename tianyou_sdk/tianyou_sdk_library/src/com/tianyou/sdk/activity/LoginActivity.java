@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.bean.FacebookLogin;
 import com.tianyou.sdk.bean.FacebookLogin.ResultBean;
+import com.tianyou.sdk.bean.LoginWay;
 import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.BindingFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
@@ -65,6 +66,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	private ConnectionResult mConnectionResult;
 	private LoginHandler mLoginHandler;
 	private boolean isGoogleConnected = false;
+	public boolean mIsLogout;
 	
 	private static final int REQUEST_CODE_SIGN_IN = 1;
 	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
@@ -114,12 +116,14 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	
 	@Override
 	protected void initData() {
+		mIsLogout = getIntent().getBooleanExtra("is_logout", false);
 		mLoginHandler = LoginHandler.getInstance(mActivity, mHandler);
+		
 		List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
 		boolean isSwitchAccount = getIntent().getBooleanExtra("is_switch_account", false);
 		if (info1.size() == 0 && info2.size() == 0) {
-			switchFragment(new OneKeyFragment(), "OneKeyFragment");
+			showHideControl();
 		} else {
 			if (SPHandler.getBoolean(mActivity, SPHandler.SP_IS_PHONE_LOGIN)) {
 				switchFragment(PhoneFragment.getInstance(isSwitchAccount), "PhoneFragment");
@@ -127,17 +131,19 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				switchFragment(AccountFragment.getInstance(isSwitchAccount), "AccountFragment");
 			}
 		}
-//		if (ConfigHolder.isOverseas) {
-//			AccessToken token = AccessToken.getCurrentAccessToken();
-//			if (token != null) {
-//				LogUtils.d("token:" + token.getToken());
-//			}
-//		}
-//		if (isSwitchAccount && ConfigHolder.isOverseas && AccessToken.getCurrentAccessToken() != null) {
-//			clickFacebook();
-//		}
 	}
 	
+	private void showHideControl() {
+		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+		com.tianyou.sdk.bean.LoginWay.ResultBean result = loginWay.getResult();
+		if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 1) {
+			switchFragment(new OneKeyFragment(), "OneKeyFragment");
+		} else {
+			switchFragment(new AccountFragment(), "AccountFragment");
+		}
+	}
+
 	@Override
 	public void onClick(View v) { }
 	
