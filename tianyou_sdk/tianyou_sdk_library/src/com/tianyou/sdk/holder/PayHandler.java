@@ -96,6 +96,7 @@ public class PayHandler {
         map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId + 
         		mPayInfo.getServerId() + mPayInfo.getRoleId() + mPayInfo.getMoney() + mPayInfo.getProductId()));
         map.put("signtype", "md5");
+        
         HttpUtils.post(mActivity, URLHolder.URL_CREATE_ORDER, map, new HttpCallback() {
             @Override
             public void onSuccess(String response) {
