@@ -9,8 +9,8 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		String gameId = "1113";
-		String gameToken = "9c3b1830513cc3b8fc4b76635d32e692";
+		String gameId = "11000";
+		String gameToken = "33d6548e48d4318ceb0e3916a79afc84";
 		String gameName = "测试";
 		/**
 		 * gameId：app唯一标识，非常重要，请认真填写，确保正确
