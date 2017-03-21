@@ -298,7 +298,7 @@
         <!-- Umeng analysis set start -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="58455f4365b6d624220006e9" />
+            android:value="57a0690c67e58e1f0300323b" />
         <!-- android:value="5805886d67e58e943a000454" /> -->
         <meta-data
             android:name="UMENG_CHANNEL"
@@ -309,7 +309,7 @@
         <!-- Umeng push set start -->
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="12404a015b1c2a574ad937be2face5d1" />
+            android:value="4887035f80ac28aa425cc0dd9fba83bd" />
         <!-- android:value="12404a015b1c2a574ad937be2face5d1" /> -->
         <!-- Umeng push set end -->
         

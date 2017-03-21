@@ -12,6 +12,7 @@ import com.snowfish.cn.ganga.helper.SFOnlineInitListener;
 import com.snowfish.cn.ganga.helper.SFOnlineLoginListener;
 import com.snowfish.cn.ganga.helper.SFOnlinePayResultListener;
 import com.snowfish.cn.ganga.helper.SFOnlineUser;
+import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
@@ -19,7 +20,7 @@ import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.LogUtils;
 
-public class MiaoleYijieSdkService extends BaseSdkService{
+public class YijieSdkService extends BaseSdkService{
 
 	// Activity初始化
 	@Override
@@ -48,7 +49,13 @@ public class MiaoleYijieSdkService extends BaseSdkService{
 			@Override
 			public void onLoginSuccess(SFOnlineUser user, Object customParams) {
 				// 登录成功
-				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "登录成功");
+//				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "登录成功");
+				LoginInfo loginParam = new LoginInfo();
+				loginParam.setChannelUserId(user.getChannelUserId());
+				loginParam.setUserToken(user.getToken());
+				loginParam.setIsGuest(user.getChannelId());
+				loginParam.setNickname(user.getUserName());
+				checkLogin(loginParam);
 				LogUtils.d("login success id= "+user.getId()+",channelId= "+user.getChannelId()+
 						",channelUserId= "+user.getChannelUserId()+",productCode= "+user.getProductCode()+
 						",token= "+user.getToken()+",userName= "+user.getUserName()+",custom= "+customParams);
@@ -130,15 +137,16 @@ public class MiaoleYijieSdkService extends BaseSdkService{
 	
 	// 支付
 	@Override
-	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
-		SFOnlineHelper.pay(mActivity, Integer.parseInt(orderInfo.getMoNey()), orderInfo.getProduct_name(), 1, "", orderInfo.getNotifyurl(), 
+		SFOnlineHelper.pay(mActivity, Integer.parseInt(orderInfo.getMoNey()), orderInfo.getProduct_name(), 1, orderInfo.getOrderID(), orderInfo.getNotifyurl(), 
 				new SFOnlinePayResultListener() {
 					
 					@Override
 					public void onSuccess(String msg) {
 						// 支付成功
-						mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "支付成功");
+//						mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "支付成功");
+						checkOrder(orderInfo.getOrderID());
 						LogUtils.d("pay success msg= "+msg);
 					}
 					
