@@ -83,7 +83,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     	if ("HomeFragment".equals(mFragmentTag) || "OneKeyFragment".equals(mFragmentTag)) {
 			finish();
 		} else {
-			super.onBackPressed();
+			getFragmentManager().popBackStack();
 		}
     }
     

@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- 竖版大屏幕 -->
+    <dimen name="pay_way_width">350dp</dimen>
+    <dimen name="splash_text_left">240dp</dimen>
+    <dimen name="notify_title_height">80dp</dimen>
+    
+    <!-- 对话框宽高 -->
+    <dimen name="dialog_login_width">520dp</dimen>
+    <dimen name="dialog_exit_width">640dp</dimen>
+    <dimen name="dialog_exit_height">400dp</dimen>
+    <dimen name="dialog_announce_width">720dp</dimen>
+    <dimen name="dialog_announce_height">600dp</dimen>
+    <dimen name="dialog_login_tip">500dp</dimen>
+    
+    <dimen name="icon_size">80dp</dimen>
+    <dimen name="icon_space">14dp</dimen>
+    
+    <!-- 文字大小 -->
+    <dimen name="text_size_little">10sp</dimen>
+    <dimen name="text_size_small">15sp</dimen>
+    <dimen name="text_size_common">20sp</dimen>
+    <dimen name="text_size_title">25sp</dimen>
+    <dimen name="text_size_super">30sp</dimen>
+    
+    <!-- 布局间距 -->
+    <dimen name="layout_space_line">4dp</dimen>
+    <dimen name="layout_space_little">10dp</dimen>
+    <dimen name="layout_space_small">20dp</dimen>
+    <dimen name="layout_space_big">30dp</dimen>
+    <dimen name="layout_space_super">50dp</dimen>
+
+</resources>
