@@ -194,6 +194,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	 * @param payInfo
 	 */
 	protected void createOrder(final PayParam payInfo) {
+		LogUtils.d("createOrder---------------");
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("userId", mLoginInfo.getTianyouUserId());
 		param.put("appID", mChannelInfo.getGameId());
@@ -209,6 +210,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		param.put("playerid", mLoginInfo.getChannelUserId());
 		param.put("roleName", mRoleInfo.getRoleName());
 		String url = (mIsOverseas ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CREATE_ORDER_URL;
+		LogUtils.d("url= "+url);
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
