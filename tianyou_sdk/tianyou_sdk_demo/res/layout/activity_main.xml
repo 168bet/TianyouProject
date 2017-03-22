@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_blue"
+    android:background="#3399fe"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -14,48 +14,36 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/layout_space_little"
-        android:text="登陆"
-        android:textSize="@dimen/text_size_title" />
+        android:text="登陆" />
 
     <Button
         android:id="@+id/btn_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/layout_space_little"
-        android:text="支付"
-        android:textSize="@dimen/text_size_title" />
+        android:text="支付" />
 
     <Button
         android:id="@+id/btn_pay_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/layout_space_little"
-        android:text="支付一元"
-        android:textSize="@dimen/text_size_title" />
+        android:text="支付一元" />
 
     <Button
         android:id="@+id/btn_create_role"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/layout_space_little"
-        android:text="创建角色"
-        android:textSize="@dimen/text_size_title" />
+        android:text="创建角色" />
 
     <Button
         android:id="@+id/btn_update_role_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/layout_space_little"
-        android:text="更新角色信息"
-        android:textSize="@dimen/text_size_title" />
+        android:text="更新角色信息" />
 
     <Button
         android:id="@+id/btn_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/layout_space_little"
-        android:text="横竖屏切换"
-        android:textSize="@dimen/text_size_title" />
+        android:text="横竖屏切换" />
 
 </LinearLayout>

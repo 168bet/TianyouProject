@@ -3,18 +3,16 @@
     package="com.tianyou.sdk.demo"
     android:versionCode="1"
     android:versionName="1.0" >
-    <!-- package="com.tianyou.sdk.demo" -->
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <application
         android:name="com.tianyou.sdk.demo.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ty_logo"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name" >
         <activity
             android:name="com.tianyou.sdk.activity.SplashActivity"
             android:configChanges="keyboard|screenSize|orientation|layoutDirection"
@@ -32,14 +30,6 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
-        
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1026966590741849"
-            android:name="com.facebook.FacebookContentProvider"
-            android:exported="true" />
     </application>
 
 </manifest>

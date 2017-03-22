@@ -374,7 +374,6 @@ public class HomeFragment extends BaseFragment {
 	}
 	
 	private void getPayWayControl() {
-		
 		PayWayControl control = new Gson().fromJson(SPHandler.getString(mActivity, SPHandler.SP_PAY_WAY), PayWayControl.class);
 		ResultBean result = control.getResult();
 		if (result.getCode() == 200) {
@@ -403,6 +402,7 @@ public class HomeFragment extends BaseFragment {
 			for (ImageView view : mPayHeadList) {
 				view.setImageResource(ResUtils.getResById(mActivity, "ty_pay_right", "drawable"));
 			}
+			LogUtils.d("mPayWayList is null:" + (mPayHandler.mPayType == null));
 			mPayHeadList.get(mPayHandler.mPayType.ordinal()).setImageResource(ResUtils.getResById(mActivity, "ty_pay_right_click", "drawable"));
 			mPayWayList.get(mPayHandler.mPayType.ordinal()).setBackgroundColor(Color.parseColor("#FE623F"));
 			mPayWayList.get(mPayHandler.mPayType.ordinal()).setTextColor(Color.WHITE);
