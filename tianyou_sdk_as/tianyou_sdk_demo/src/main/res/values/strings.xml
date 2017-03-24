@@ -1,4 +1,0 @@
-<resources>
-    <string name="app_name">天游SdkDemo</string>
-    <string name="ty_main_activity">com.tianyou.sdk.demo.MainActivity</string>
-</resources>

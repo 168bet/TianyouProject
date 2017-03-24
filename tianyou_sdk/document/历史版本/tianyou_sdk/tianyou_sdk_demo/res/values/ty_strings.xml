@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="ty_main_activity">com.tianyou.sdk.demo.MainActivity</string>
+    <string name="facebook_app_id">1026966590741849</string>
+    
+    <string name="ty_company_name">天游戏</string>
+    <string name="ty_company_name2">[天游戏]</string>
+    <string name="ty_phone_login">手机登录</string>
+    <string name="ty_no_register">(无需注册)</string>
+    <string name="ty_tianyou_notice">天游公告</string>
+    <string name="ty_game_recommend">游戏推荐</string>
+    <string name="ty_pay_center">充值中心</string>
+    <string name="ty_pay_failed_tip">交易失败，是否确认退出？</string>
+    <string name="ty_confirm_exit">确认退出</string>
+    <string name="ty_platform_pay">去平台充值</string>
+    <string name="ty_quick_title">将以快速注册账号进入游戏</string>
+    <string name="ty_quick_content">为了保证账号安全，建议尽快绑定手机号，将手机号作为登录账号，方便您使用账号</string>
+    <string name="ty_binding_phone">绑定手机</string>
+    
+    <string name="ty_entry_game">进入游戏</string>
+    <string name="ty_game_name">游戏名称：</string>
+    <string name="ty_game_size">游戏大小：</string>
+    <string name="ty_download_game">下载游戏</string>
+    <string name="ty_hot_game">热门游戏推荐</string>
+    <string name="ty_exit_game">离开游戏</string>
+    <string name="ty_phone_nomber">手机号/账号</string>
+    <string name="ty_password">密码</string>
+    <string name="ty_forget_password">忘记密码</string>
+    <string name="ty_switch_login">切换登录</string>
+    <string name="ty_quick_register">快速注册</string>
+    <string name="ty_input_phone">请输入手机号</string>
+    <string name="ty_entry_load">正在登陆...</string>
+    
+    <string name="ty_send_code">发送验证码</string>
+    <string name="ty_input_code">请输入验证码</string>
+    <string name="ty_account_login">已有账号登录</string>
+    <string name="ty_server_info">《天游戏服务条款》</string>
+    <string name="ty_no_binding_history">亲爱的玩家，\r\n没有找到您的QQ绑定历史~</string>
+    <string name="ty_add_qq">添加新的QQ号</string>
+    <string name="ty_quick_start">快速开始游戏</string>
+    <string name="ty_sms_login">手机短信登录</string>
+    <string name="ty_google_login">登录</string>
+    
+    <string name="ty_qq_login">QQ账号登录</string>
+    <string name="ty_agree_server">注册即同意《天游戏服务条款》</string>
+    <string name="ty_account">账号：</string>
+    <string name="ty_username">用户名</string>
+    <string name="ty_letter_number">6-16位字母、数字</string>
+    <string name="ty_little_char">6-20位字符</string>
+    <string name="ty_phone_number">手机号</string>
+    <string name="ty_sms_code">短信验证码</string>
+    <string name="ty_get_code">获取验证码</string>
+    <string name="ty_one_key_login">一键登录</string>
+    <string name="ty_send_sms">发送短信完成验证</string>
+    <string name="ty_add_new_qq">添加新QQ号</string>
+    <string name="ty_password_info">密码（6~20位数字/字母）</string>
+    <string name="ty_pay_fail">对不起 支付失败</string>
+    <string name="ty_pay_order">充值订单</string>
+    <string name="ty_pay_order2">充值订单：</string>
+    <string name="ty_pay_server">充值区服</string>
+    <string name="ty_pay_server2">充值区服：</string>
+    <string name="ty_pay_money">充值金额</string>
+    <string name="ty_pay_money2">充值金额：</string>
+    <string name="ty_merry_play">天游戏祝您游戏愉快</string>
+    <string name="ty_server_qq">客服QQ：</string>
+    <string name="ty_server_phone">客服电话：</string>
+    <string name="ty_wechat_code">关注微信公众号：</string>
+    <string name="ty_quick_get_help">快速获取帮助</string>
+    <string name="ty_back_game">返回游戏</string>
+    <string name="ty_sorry_pay_fail">对不起 支付失败</string>
+    <string name="ty_otner_money">其他金额</string>
+    <string name="ty_money">金额：</string>
+    <string name="ty_immediately_pay">立即支付</string>
+    <string name="ty_tianyou_balance">天游币余额：</string>
+    <string name="ty_pay_way">付款方式</string>
+    <string name="ty_switch_pay_way">切换支付方式</string>
+    
+    <string name="ty_wechat_pay">微信支付</string>
+    <string name="ty_alipay_pay">支付宝支付</string>
+    <string name="ty_qq_pay">QQ钱包支付</string>
+    <string name="ty_wechat_scan_pay">微信扫码支付</string>
+    <string name="ty_union_pay">银联支付</string>
+    <string name="ty_remit_pay">汇款支付</string>
+    <string name="ty_tianyou_pay">天游币支付</string>
+    <string name="ty_google_pay">谷歌支付</string>
+    <string name="ty_paypal_pay">PayPal支付</string>
+    
+    <string name="ty_no_network">网络无连接</string>
+    <string name="ty_link_network">请重新连接网络</string>
+    <string name="ty_flush">刷 新</string>
+    <string name="ty_remit_server">汇款服务</string>
+    <string name="ty_contact_server">（付款成功后，请联系天游戏客服）</string>
+    <string name="ty_tianyou_server_phone">天游戏客服电话：</string>
+    <string name="ty_save_photo">二维码自动保存到相册</string>
+    <string name="ty_wechat_scan">使用微信扫一扫，扫描相册支付二维码进行付款</string>
+    <string name="ty_concern_code">关注公众号：</string>
+    <string name="ty_get_help">联系客服获取帮助</string>
+    <string name="ty_wechat_scan_remit">（微信扫一扫汇款）</string>
+    <string name="ty_pay_tip">付款成功后，请联系天游戏客服：</string>
+    <string name="ty_pay_success">充值成功</string>
+    <string name="ty_congrats_pay_success">恭喜你充值成功</string>
+    <string name="ty_continue_pay">继续充值</string>
+    <string name="ty_server_center">客服中心</string>
+    <string name="ty_server_content">以下服务均为7*24小时,随时为您服务</string>
+    <string name="ty_server_content2">（7x24小时服务）</string>
+    <string name="ty_call_phone">点击拨打电话</string>
+    <string name="ty_add_server_qq">添加客服QQ</string>
+    <string name="ty_tianyou_server">天游戏客服</string>
+    <string name="ty_wechat_server">微信：天游戏客服01</string>
+    <string name="ty_wechat_server2">搜索：天游客服01</string>
+    <string name="ty_scan_wechat">扫描添加客服微信</string>
+    <string name="ty_query_result">查询支付结果</string>
+    <string name="ty_wechat_scan_pay2">（微信扫一扫支付）</string>
+    <string name="ty_welcome_back">天游用户，欢迎回来</string>
+    <string name="ty_switch_account">切换账号</string>
+    <string name="ty_choose_pay_way">选择付款方式</string>
+    
+    <string name="ty_menu_account">账户</string>
+    <string name="ty_menu_more">更多</string>
+    <string name="ty_menu_gift">礼包</string>
+    <string name="ty_menu_bbs">论坛</string>
+    <string name="ty_menu_help">帮助</string>
+    <string name="ty_menu_logout">注销</string>
+    
+    <string name="ty_money_sign">￥</string>
+    <string name="ty_account_login2">账号登录</string>
+    <string name="ty_server">区服：</string>
+    <string name="ty_scale">比例：</string>
+    <string name="ty_get">获得</string>
+    <string name="ty_confirm_delete">确定要删除账号</string>
+    <string name="ty_confirm">确定</string>
+    <string name="ty_confirm_cancel">取消</string>
+    
+    <string name="ty_menu_index">首页</string>
+    <string name="ty_hot_game2">热门游戏</string>
+    <string name="ty_platform_pay2">平台支付</string>
+    <string name="ty_server_info2">服务条款</string>
+    <string name="ty_qq_login2">QQ登录</string>
+    <string name="ty_currency">元</string>
+    <string name="ty_tianyou">天游</string>
+    <string name="ty_welcome_back2">，欢迎回来</string>
+    
+</resources>

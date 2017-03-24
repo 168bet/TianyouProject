@@ -1,11 +1,12 @@
 package com.tianyou.sdk.holder;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Handler;
 
 import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -18,18 +19,17 @@ import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.AppUtils.DialogCallback;
 import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.os.Handler;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 支付逻辑处理
