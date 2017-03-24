@@ -33,7 +33,7 @@ public class PayParam {
 	@Override
 	public String toString() {
 		return "PayParam [customInfo=" + customInfo + ", buyAmount="
-				+ amount + "]";
+				+ amount + "payCode= "+payCode+"]";
 	}
 
 }

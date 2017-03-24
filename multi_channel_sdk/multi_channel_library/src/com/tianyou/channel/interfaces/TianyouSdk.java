@@ -20,7 +20,7 @@ import com.tianyou.channel.business.LenovoSdkService;
 import com.tianyou.channel.business.LeshiSdkService;
 import com.tianyou.channel.business.M4399SdkService;
 import com.tianyou.channel.business.MeizuSdkService;
-import com.tianyou.channel.business.MiaoleYijieSdkService;
+import com.tianyou.channel.business.YijieSdkService;
 import com.tianyou.channel.business.MoguSdkService;
 import com.tianyou.channel.business.OppoSdkService;
 import com.tianyou.channel.business.PYWSdkService;
@@ -129,8 +129,8 @@ public class TianyouSdk {
 			sdkService = new PangGooglepaySdkService();
 		} else if ("ty039".equals(channelInfo.getChannelId()) || "ty040".equals(channelInfo.getChannelId())) {
 			sdkService = new XianquChSdkService();
-		} else if ("ty041".equals(channelInfo.getChannelId())) {
-			sdkService = new MiaoleYijieSdkService();
+		} else if ("ty052".equals(channelInfo.getChannelId())) {
+			sdkService = new YijieSdkService();
 		}
 		return sdkService;
 	}

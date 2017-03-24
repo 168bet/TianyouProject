@@ -259,7 +259,7 @@ public class PangGooglepaySdkService extends BaseSdkService {
 		this.pgmp2Sdk.useFirstAgree();
 //		String versionCode = CommenUtil.getMetaDataValue(mActivity, "google_version");
 //		LogUtils.d("versionCode= "+versionCode);
-		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 2, "2.5", 
+		int pgmp2SdkInitGameResultCode  = this.pgmp2Sdk.initGame(33, "iii9934022021004", 2, "2.6", 
 				mActivity, eventListener, pgmp2NaverCafeListener);
 		
 		if (pgmp2SdkInitGameResultCode == 1) {
@@ -464,6 +464,14 @@ public class PangGooglepaySdkService extends BaseSdkService {
             Log.d("TAG", "purchaseData= " + purchaseData + ",dataSignature= " + dataSignature);
             
             Log.d("TAG", "result code= " + resultCode);
+            
+            try {
+				JSONObject jsonObject = new JSONObject(purchaseData);
+				googelOrderID = jsonObject.getString("orderId");
+				LogUtils.d("googleOrderID= "+googelOrderID);
+			} catch (Exception e) {
+				Log.d("TAG", "consumePurchase= "+e.getMessage());
+			}
  
             if (resultCode == mActivity.RESULT_OK) {
             	Log.d("TAG", "mActivity.RESULT_OK---------------");
@@ -481,14 +489,6 @@ public class PangGooglepaySdkService extends BaseSdkService {
         				} catch (Exception e) {
         					e.printStackTrace();
         				}
-        				try {
-        					if (dataObject != null) {
-        						googelOrderID = dataObject.getString("orderId");
-        						LogUtils.d("googleOrderID= "+googelOrderID);
-        					}
-						} catch (Exception e) {
-							Log.d("TAG", "consumePurchase= "+e.getMessage());
-						}
         			}
         		}).start();
             }
