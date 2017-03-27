@@ -57,7 +57,7 @@ public class TianyouSdk {
 			sdkService = new BaseSdkService();
 		} else if ("ty000".equals(channelInfo.getChannelId())) {
 			sdkService = new TianyouSdkService();
-		} else if ("ty001".equals(channelInfo.getChannelId())) {
+		} else if ("ty001".equals(channelInfo.getChannelId()) || "ty055".equals(channelInfo.getChannelId())) {
 			sdkService = new XiaoMiSdkService();
 		} else if ("ty002".equals(channelInfo.getChannelId())) {
 			sdkService = new HuaWeiSdkService();
