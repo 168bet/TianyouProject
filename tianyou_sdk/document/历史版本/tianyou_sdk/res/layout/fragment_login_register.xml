@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/edit_register_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bg_white_fill"
+        android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
+        android:hint="账号：6-18位字母或数字"
+        android:padding="@dimen/layout_space_small"
+        android:singleLine="true"
+        android:textColor="@color/color_black"
+        android:textColorHint="@color/color_gray_1"
+        android:textSize="@dimen/text_size_title" />
+
+    <EditText
+        android:id="@+id/edit_register_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_white_fill"
+        android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
+        android:hint="密码：6-18位字母或数字"
+        android:padding="@dimen/layout_space_small"
+        android:singleLine="true"
+        android:textColor="@color/color_black"
+        android:textColorHint="@color/color_gray_1"
+        android:textSize="@dimen/text_size_title" />
+
+    <EditText
+        android:id="@+id/edit_register_again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_white_fill"
+        android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
+        android:hint="再次输入密码"
+        android:inputType="textPhonetic"
+        android:padding="@dimen/layout_space_small"
+        android:singleLine="true"
+        android:textColor="@color/color_black"
+        android:textColorHint="@color/color_gray_1"
+        android:textSize="@dimen/text_size_title" />
+
+    <Button
+        android:id="@+id/btn_register_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_jacinth_fill"
+        android:gravity="center"
+        android:padding="@dimen/layout_space_small"
+        android:text="注册进入游戏"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/text_size_title" />
+
+</LinearLayout>

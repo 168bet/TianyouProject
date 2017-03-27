@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dialog_announce_width"
+    android:layout_height="@dimen/dialog_announce_height"
+    android:background="@color/color_white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_title_height" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RelativeLayout
+                android:id="@+id/layout_announce_menu_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5" >
+
+                <TextView
+                    android:id="@+id/text_announce_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/ty_logo"
+                    android:drawablePadding="@dimen/layout_space_little"
+                    android:gravity="center"
+                    android:text="@string/ty_tianyou_notice"
+                    android:textColor="@color/color_jacinth"
+                    android:textSize="@dimen/text_size_common" />
+
+                <View
+                    android:id="@+id/view_announce_line_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_gray_1"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_notify_line"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_gray_1" />
+
+            <RelativeLayout
+                android:id="@+id/layout_announce_menu_1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/notify_title_height"
+                android:visibility="gone"
+                android:layout_weight="6" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center" >
+
+                        <ImageView
+                            android:id="@+id/img_announce_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ty_game_icon_2" />
+
+                        <TextView
+                            android:id="@+id/layout_announce_game"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/layout_space_little"
+                            android:gravity="center"
+                            android:text="@string/ty_game_recommend"
+                            android:textColor="@color/color_gray_3"
+                            android:textSize="@dimen/text_size_common" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_announce_line_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_gray_1" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_announce_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ty_anounce_close" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <WebView
+            android:id="@+id/web_view_announce"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/layout_space_small" />
+
+        <GridView
+            android:id="@+id/grid_view_announce_land"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/layout_space_small"
+            android:numColumns="4"
+            android:visibility="gone" />
+
+        <GridView
+            android:id="@+id/grid_view_announce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/layout_space_small"
+            android:numColumns="2"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>
