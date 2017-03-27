@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{C2749960-1DBD-4E2F-AAD9-E3D60872F1D7}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TianyouTools/form/MainForm.Designer.cs">
+    <Files>
+      <File FileName="TianyouTools/form/MainForm.cs" Line="13" Column="5" />
+      <File FileName="TianyouTools/utils/ChannelInfo.cs" Line="1" Column="1" />
+      <File FileName="TianyouTools/utils/ApkUtils.cs" Line="1" Column="1" />
+      <File FileName="TianyouTools/utils/ChannelList.cs" Line="1" Column="1" />
+      <File FileName="TianyouTools/form/MainForm.Designer.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TianyouTools PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

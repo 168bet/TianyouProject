@@ -1,10 +1,19 @@
 package com.tianyou.sdk.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
@@ -22,29 +31,18 @@ import com.tianyou.sdk.fragment.pay.WalletFragment;
 import com.tianyou.sdk.fragment.pay.WxScanFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.PayHandler;
-import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.PayResult;
 import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 
-import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Toast;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 支付Activity
@@ -140,8 +138,6 @@ public class PayActivity extends BaseActivity {
 
 	@Override
 	protected void initData() {
-		getPayWay();
-		getPayValue();
 		// 谷歌支付
 		mServiceConn = new ServiceConnection() {
 			@Override
@@ -162,34 +158,6 @@ public class PayActivity extends BaseActivity {
 		
 		mPayHandler = PayHandler.getInstance(mActivity, mHandler);
 		switchFragment(new HomeFragment(), "HomeFragment");
-	}
-	
-	// 充值金额数值
-    private void getPayValue() {
-    	Map<String, String> map = new HashMap<String, String>();
-    	map.put("paytype", "game");
-		map.put("userid", ConfigHolder.userId);
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId);
-        HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				SPHandler.putString(mActivity, SPHandler.SP_PAY_MONEY, response);
-			}
-		});
-    }
-
-	// 支付方式控制
-	private void getPayWay() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
-		HttpUtils.post(mActivity, URLHolder.URL_UNION_PAY_WAY, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				SPHandler.putString(mActivity, SPHandler.SP_PAY_WAY, response);
-			}
-		});
 	}
 	
 	@Override

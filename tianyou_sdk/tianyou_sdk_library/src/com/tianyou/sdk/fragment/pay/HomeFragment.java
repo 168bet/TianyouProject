@@ -1,32 +1,5 @@
 package com.tianyou.sdk.fragment.pay;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.google.gson.Gson;
-import com.tianyou.sdk.activity.PayActivity;
-import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.bean.PayInfo;
-import com.tianyou.sdk.bean.PayWayControl;
-import com.tianyou.sdk.bean.PayWayControl.ResultBean;
-import com.tianyou.sdk.bean.PayWayControl.ResultBean.CustominfoBean;
-import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.PayHandler;
-import com.tianyou.sdk.holder.PayHandler.PayType;
-import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.utils.HttpUtils;
-import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
-import com.tianyou.sdk.utils.LogUtils;
-import com.tianyou.sdk.utils.ResUtils;
-import com.tianyou.sdk.utils.ToastUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -46,6 +19,33 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.tianyou.sdk.activity.PayActivity;
+import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.bean.PayInfo;
+import com.tianyou.sdk.bean.PayWayControl;
+import com.tianyou.sdk.bean.PayWayControl.ResultBean;
+import com.tianyou.sdk.bean.PayWayControl.ResultBean.CustominfoBean;
+import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.PayHandler;
+import com.tianyou.sdk.holder.PayHandler.PayType;
+import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
+import com.tianyou.sdk.utils.LogUtils;
+import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 充值首页
@@ -154,6 +154,7 @@ public class HomeFragment extends BaseFragment {
 		mPaymentInfo = mPayHandler.mPayInfo;
 		LogUtils.d("mPaymentInfo:" + mPaymentInfo);
 		mPayHandler.PAY_FLAG = false;
+		mPayHandler.mPayType = PayType.WECHAT;
 		LogUtils.d("mPayHandler.mIsShowChoose:" + mPayHandler.mIsShowChoose);
 		mLayoutMenu0.setVisibility(mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu1.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);

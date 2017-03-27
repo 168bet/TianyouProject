@@ -1,19 +1,9 @@
 package com.tianyou.sdk.interfaces;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -22,12 +12,10 @@ import com.tianyou.sdk.activity.ExitActivity;
 import com.tianyou.sdk.activity.FloatMenu;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.FloatControl;
-import com.tianyou.sdk.bean.LoginWay;
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.bean.ServerInfo;
 import com.tianyou.sdk.bean.ServerInfo.ResultBean.CustominfoBean;
-import com.tianyou.sdk.fragment.login.RegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.PayHandler;
 import com.tianyou.sdk.holder.SPHandler;
@@ -43,10 +31,20 @@ import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class TianyouSdk {
 
@@ -111,6 +109,35 @@ public class TianyouSdk {
 		createFloatMenu();
 		getServiceInfo();
 		showLoginWay();
+		getPayWay();
+		getPayValue();
+	}
+
+	// 充值金额数值
+	private void getPayValue() {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("paytype", "game");
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId);
+		HttpUtils.post(mActivity, URLHolder.URL_MONEY_VALUE, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_PAY_MONEY, response);
+			}
+		});
+	}
+
+	// 支付方式控制
+	private void getPayWay() {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
+		HttpUtils.post(mActivity, URLHolder.URL_UNION_PAY_WAY, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				SPHandler.putString(mActivity, SPHandler.SP_PAY_WAY, response);
+			}
+		});
 	}
 	
 	// 显示隐藏登录方式
