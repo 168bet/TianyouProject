@@ -43,11 +43,12 @@ public class SuccessFragment extends BaseFragment {
     	mTextOrder = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_order", "id"));
     	mTextQQ = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_service_qq", "id"));
     	mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_backgame", "id")).setOnClickListener(this);
-    	mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_continuepay", "id")).setOnClickListener(this);
     	if (ConfigHolder.isLandscape) {
     		mBtnCallService = (Button) mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_call_service", "id"));
     		mBtnCallService.setText("客服电话："+SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
     		mBtnCallService.setOnClickListener(this);
+		} else {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_continuepay", "id")).setOnClickListener(this);
 		}
     	mTextQQ.setOnClickListener(this);
 	}
@@ -78,6 +79,8 @@ public class SuccessFragment extends BaseFragment {
 			AppUtils.callServerPhone(mActivity);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_success_service_qq", "id")) {
 			AppUtils.getQQTalk(mActivity);
-		} 
+		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_success_continuepay", "id")) {
+			mActivity.switchFragment(new HomeFragment(), "HomeFragment");
+		}
 	}
 }
