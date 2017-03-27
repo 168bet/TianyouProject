@@ -378,7 +378,7 @@ public class LoginHandler {
  	}
  	
  	// 1-2-2
- 	private void setDialogWindowAttr(Dialog dlg,Context ctx){
+ 	private void setDialogWindowAttr(Dialog dlg,Context ctx) {
          Window window = dlg.getWindow();
          WindowManager.LayoutParams lp = window.getAttributes();
          lp.gravity = Gravity.CENTER;

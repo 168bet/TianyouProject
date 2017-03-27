@@ -129,8 +129,8 @@ public class WechatPay {
         params.put("nonce_str", genNonceStr()); // 随机数
         params.put("out_trade_no", mPayInfo.getOrderId()); //订单号
         params.put("mch_create_ip", "127.0.0.1"); // 机器ip地址
-//        params.put("total_fee", Integer.parseInt(mPayInfo.getMoney()) * 100 + ""); // 总金额
-        params.put("total_fee", 1 + ""); // 总金额
+        params.put("total_fee", Integer.parseInt(mPayInfo.getMoney()) * 100 + ""); // 总金额
+//        params.put("total_fee", 1 + ""); // 总金额
         params.put("limit_credit_pay", "0"); // 是否限制信用卡支付， 0：不限制（默认），1：限制
         if (isWechatPay){
         	params.put("mch_id", mch_id_wx); // 威富通商户号
