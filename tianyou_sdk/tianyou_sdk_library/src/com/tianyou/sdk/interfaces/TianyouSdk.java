@@ -84,7 +84,7 @@ public class TianyouSdk {
 		String umChannel = AppUtils.getMetaDataValue(context, "UMENG_CHANNEL");
 		UMAnalyticsConfig umAnalyticsConfig = new UMAnalyticsConfig(context, umAppKey, umChannel);
 		MobclickAgent.startWithConfigure(umAnalyticsConfig);
-		MobclickAgent.setSecret(mActivity, "");
+//		MobclickAgent.setSecret(mActivity, "");
 		// 友盟推送
 		PushAgent mPushAgent = PushAgent.getInstance(context);
 		mPushAgent.setDebugMode(false);

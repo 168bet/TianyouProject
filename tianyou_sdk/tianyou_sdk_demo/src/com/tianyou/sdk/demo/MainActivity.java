@@ -1,5 +1,11 @@
 package com.tianyou.sdk.demo;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
@@ -7,12 +13,6 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-
-import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
 
