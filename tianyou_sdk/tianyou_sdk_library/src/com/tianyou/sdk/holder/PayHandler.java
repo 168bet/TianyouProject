@@ -275,7 +275,7 @@ public class PayHandler {
             	mHandler.sendEmptyMessage(6);
                 break;
             case WALLET:
-            	mHandler.sendEmptyMessage(2);
+            	mHandler.sendEmptyMessage(3);
                 break;
             case WXSCAN:
             	mHandler.sendEmptyMessage(7);

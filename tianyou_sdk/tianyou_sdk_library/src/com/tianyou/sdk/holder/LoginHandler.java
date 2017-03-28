@@ -323,8 +323,7 @@ public class LoginHandler {
 		map.put("username", mResultBean.getUsername());
 		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + 
 				ConfigHolder.gameToken + mResultBean.getUserid() + newName));
- 		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_PERFECT : URLHolder.URL_LOGIN_PERFECT;
- 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+ 		HttpUtils.post(mActivity, URLHolder.URL_UNION_PERFECT, map, new HttpsCallback() {
  			@Override
  			public void onSuccess(String response) {
  				try {
@@ -333,6 +332,12 @@ public class LoginHandler {
  					ToastUtils.show(mActivity, result.getString("msg"));
  					if (result.getInt("code") == 200) {
  						ConfigHolder.userName = result.getString("username");
+ 						ConfigHolder.userId = result.getString("userid");
+ 						ConfigHolder.userToken = result.getString("token");
+ 						ConfigHolder.userPassword = result.getString("password");
+ 						ConfigHolder.userNickname = result.getString("nickname");
+ 						MobclickAgent.onProfileSignIn(ConfigHolder.userId);
+ 						
  						Map<String, String> info = new HashMap<String, String>();
  						info.put(LoginInfoHandler.USER_ACCOUNT, result.getString("username"));
  						info.put(LoginInfoHandler.USER_NICKNAME, result.getString("nickname"));

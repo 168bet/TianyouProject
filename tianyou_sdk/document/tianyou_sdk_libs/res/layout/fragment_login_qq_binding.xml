@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layouyt_binding_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_bg_white_fill"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/text_binding_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="@dimen/text_size_title" />
+
+            <TextView
+                android:id="@+id/text_binding_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_gray_2"
+                android:textSize="@dimen/text_size_common" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_binding_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/layout_space_line"
+            android:src="@drawable/ty_login_pull" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_binding_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_bg_jacinth_fill"
+        android:text="@string/ty_entry_game"
+        android:padding="@dimen/layout_space_little"
+        android:textSize="@dimen/text_size_title" />
+
+    <TextView
+        android:id="@+id/btn_binding_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space_big"
+        android:background="@drawable/shape_bg_white"
+        android:drawableRight="@drawable/ty_pay_right"
+        android:paddingBottom="@dimen/layout_space_little"
+        android:paddingLeft="@dimen/layout_space_small"
+        android:paddingRight="@dimen/layout_space_small"
+        android:paddingTop="@dimen/layout_space_little"
+        android:layout_gravity="right"
+        android:textSize="@dimen/text_size_common"
+        android:text="@string/ty_add_new_qq" />
+
+</LinearLayout>
