@@ -267,7 +267,7 @@ public class PayActivity extends BaseActivity {
 		param.put("appID", ConfigHolder.gameId);
 		param.put("sign", AppUtils.MD5(ConfigHolder.userName+ConfigHolder.gameId+mPayHandler.mPayInfo.getServerId()));
 		param.put("payment_id", paymentId);
-		HttpUtils.post(mActivity, URLHolder.URL_CHECK_ORDER_PAYPAL, param, new HttpUtils.HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_CHECK_PAYPAL, param, new HttpUtils.HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {  
 				Log.d("TAG", "paypal success = "+response);
@@ -294,7 +294,7 @@ public class PayActivity extends BaseActivity {
 		param.put("inapp_data_signature",dataSignature);
 		LogUtils.d("google pay param= "+param);
 
-		HttpUtils.post(mActivity, URLHolder.URL_CHECK_ORDER_GOOGLE, param, new HttpUtils.HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_CHECK_GOOGLE, param, new HttpUtils.HttpsCallback() {
 			@Override
 			public void onSuccess(String data) {
 				Log.d("TAG","pay success data= "+data);
