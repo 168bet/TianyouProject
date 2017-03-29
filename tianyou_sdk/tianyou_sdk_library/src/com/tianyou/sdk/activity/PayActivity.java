@@ -2,6 +2,7 @@ package com.tianyou.sdk.activity;
 
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +12,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
@@ -37,6 +42,7 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.PayResult;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.AppUtils.DialogCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -265,17 +271,23 @@ public class PayActivity extends BaseActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	private void checkPaypalOrder(String paymentId) {
+//	public interface DialogCallback {
+//		void onDismiss();
+//	}
+	
+	private void checkPaypalOrder(final String paymentId) {
+		getProgressDialog(mActivity, "check order", "checking orders,please wait...");
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("orderid",mPayHandler.mPayInfo.getOrderId());
-//		param.put("appID", ConfigHolder.gameId);
-//		param.put("sign", AppUtils.MD5(ConfigHolder.userName+ConfigHolder.gameId+mPayHandler.mPayInfo.getServerId()));
+//				param.put("appID", ConfigHolder.gameId);
+//				param.put("sign", AppUtils.MD5(ConfigHolder.userName+ConfigHolder.gameId+mPayHandler.mPayInfo.getServerId()));
 		param.put("sign", AppUtils.MD5(ConfigHolder.gameId+mPayHandler.mPayInfo.getOrderId()+ConfigHolder.gameToken));
 		param.put("payment_id", paymentId);
 		param.put("channel", ConfigHolder.channelId);
 		HttpUtils.post(mActivity, URLHolder.URL_CHECK_PAYPAL, param, new HttpUtils.HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {  
+				if (progressDialog != null) progressDialog.dismiss();
 				Log.d("TAG", "paypal success = "+response);
 				try {
 					JSONObject jsonObject = new JSONObject(response);
@@ -291,8 +303,22 @@ public class PayActivity extends BaseActivity {
 			}
 		});
 	}
+	private ProgressDialog progressDialog;
+	// 进度条
+	public void getProgressDialog(final Activity mActivity, String title, String message) {
+		progressDialog = new ProgressDialog(mActivity);
+		progressDialog.setTitle(title);
+		progressDialog.setMessage(message);
+		progressDialog.setIndeterminate(false);
+		progressDialog.setMax(100);
+		progressDialog.incrementProgressBy(30);
+		progressDialog.incrementSecondaryProgressBy(70);
+		progressDialog.setCancelable(false);
+		progressDialog.show();
+	}
 	
-	private void checkGoogleOrder(String purchaseData,String dataSignature){
+	private void checkGoogleOrder(final String purchaseData,final String dataSignature){
+		getProgressDialog(mActivity, "check order", "checking orders,please wait...");
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("appID", ConfigHolder.gameId);
 		param.put("sign",AppUtils.MD5(ConfigHolder.gameId+mPayHandler.mPayInfo.getOrderId()+ConfigHolder.gameToken));
@@ -305,6 +331,7 @@ public class PayActivity extends BaseActivity {
 		HttpUtils.post(mActivity, URLHolder.URL_CHECK_GOOGLE, param, new HttpUtils.HttpsCallback() {
 			@Override
 			public void onSuccess(String data) {
+				if (progressDialog != null) progressDialog.dismiss();
 				Log.d("TAG","pay success data= "+data);
 				try {
 					JSONObject jsonObject = new JSONObject(data);
@@ -322,6 +349,7 @@ public class PayActivity extends BaseActivity {
 				}
 			}
 		});
+				
 	}
 	
 	@Override
