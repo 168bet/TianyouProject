@@ -107,14 +107,30 @@ public class HomeFragment extends BaseFragment {
 				setPayMoneyState(-1);
 			}
 		});
+		
 		if (ConfigHolder.isLandscape) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_dopay", "id")).setOnClickListener(this);
 			initViewData(mContentView);
 		} else {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_switch", "id")).setOnClickListener(this);
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_0", "id")).setOnClickListener(this);
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_1", "id")).setOnClickListener(this);
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_2", "id")).setOnClickListener(this);
+			
+			View payWay0 = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_0", "id"));
+			View payWay1 = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_1", "id"));
+			View payWay2 = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_2", "id"));
+			View payWay3 = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_3", "id"));
+			View payWay4 = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_4", "id"));
+			if (ConfigHolder.isOverseas) {
+				payWay0.setVisibility(View.GONE);
+				payWay1.setVisibility(View.GONE);
+				payWay2.setVisibility(View.GONE);
+				payWay3.setVisibility(View.VISIBLE);
+				payWay4.setVisibility(View.VISIBLE);
+			}
+			payWay0.setOnClickListener(this);
+			payWay1.setOnClickListener(this);
+			payWay2.setOnClickListener(this);
+			payWay3.setOnClickListener(this);
+			payWay4.setOnClickListener(this);
 		}
 		
 		mEditOther.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -220,6 +236,10 @@ public class HomeFragment extends BaseFragment {
 			doPortPay(PayType.ALIPAY);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_pay_way_2", "id")) {
 			doPortPay(PayType.QQPAY);
+		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_pay_way_3", "id")) {
+			doPortPay(PayType.GOOGLE);
+		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_pay_way_4", "id")) {
+			doPortPay(PayType.PAYPAL);
 		}
 	}
 	
