@@ -30,7 +30,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,13 +93,8 @@ public class LoginHandler {
 	// 1-2.快速注册登陆接口
 	public void doQuickRegister() {
 		Map<String,String> map = new HashMap<String, String>();
-		String phoeImei = AppUtils.getPhoeIMEI(mActivity);
-		map.put("appID", ConfigHolder.gameId);
-		map.put("imei", phoeImei);
-		map.put("isgenerate", "1");
 		map.put("channel", ConfigHolder.channelId);
-		map.put("ip", AppUtils.getIP());
-		map.put("type", "android");
+		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
 		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_QUICK, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {

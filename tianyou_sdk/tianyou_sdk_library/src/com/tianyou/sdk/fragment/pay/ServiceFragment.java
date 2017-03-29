@@ -9,7 +9,6 @@ import com.tianyou.sdk.utils.ToastUtils;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,7 +48,6 @@ public class ServiceFragment extends BaseFragment {
 		HttpUtils.imageLoad(mActivity, SPHandler.getString(mActivity, SPHandler.SP_URL_WX), mImgCode);
 		mTextNumber.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
 		mTextQQNumber.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_QQ));
-		Log.d("TAG", "service phone= "+SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
 	}
 
 	@Override

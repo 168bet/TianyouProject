@@ -104,31 +104,31 @@ public class MenuActivity extends Activity implements OnClickListener {
 		switch (getIntent().getIntExtra("menu_type", 0)) {
 		case POPUP_MENU_0:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_index"));
-			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getAccount().getUrl()) : getURL(URLHolder.URL_CENTER));
+			mWebView.loadUrl(getURL(info.getAccount().getUrl()));
 			break;
 		case POPUP_MENU_1:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_more"));
-			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getMore().getUrl()) : getURL(URLHolder.URL_HOT_GAME));
+			mWebView.loadUrl(getURL(info.getMore().getUrl()));
 			break;
 		case POPUP_MENU_2:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_gift"));
-			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getGift().getUrl()) : getURL(URLHolder.URL_GIFT));
+			mWebView.loadUrl(getURL(info.getGift().getUrl()));
 			break;
 		case POPUP_MENU_3:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_bbs"));
-			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getBbs().getUrl()) : getURL(URLHolder.URL_BBS));
+			mWebView.loadUrl(getURL(info.getBbs().getUrl()));
 			break;
 		case POPUP_MENU_4:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_help"));
-			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getHelp().getUrl()) : getURL(URLHolder.URL_MENU_HELP));
+			mWebView.loadUrl(getURL(info.getHelp().getUrl()));
 			break;
 		case POPUP_MENU_5:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_hot_game2"));
-			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getMore().getUrl()) : getURL(URLHolder.URL_HOT_GAME));
+			mWebView.loadUrl(getURL(info.getMore().getUrl()));
 			break;
 		case POPUP_MENU_6:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_forget_password"));
-			mWebView.loadUrl(ConfigHolder.isUnion ? getURL(info.getGift().getUrl()) : getURL(URLHolder.URL_FORGET_PASS));
+			mWebView.loadUrl(getURL(URLHolder.URL_FORGET_PASS));
 			break;
 		case POPUP_MENU_7:
 			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_platform_pay2"));
@@ -141,11 +141,10 @@ public class MenuActivity extends Activity implements OnClickListener {
 	}
 
 	private String getURL(String url) {
-		String getUrl = url + "&username=" + ConfigHolder.userName + "&appID=" + 
-				ConfigHolder.gameId + "&usertoken=" + ConfigHolder.gameToken + "&type=sdk";
+		String getUrl = url + "&username=" + ConfigHolder.userName + "&appid=" + ConfigHolder.gameId
+				+ "&token=" + ConfigHolder.gameToken + "&type=sdk" + "&uid=" + ConfigHolder.userId;
 		LogUtils.d("url:" + getUrl);
-		return url + "&username=" + ConfigHolder.userName + "&appID=" + 
-				ConfigHolder.gameId + "&usertoken=" + ConfigHolder.gameToken + "&type=sdk";
+		return getUrl;
 	}
 
 	@Override

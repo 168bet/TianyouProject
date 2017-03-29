@@ -132,10 +132,12 @@ public class BindingFragment extends BaseLoginFragment {
 			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number format error":"手机号格式错误"));
 		} else {
 			Map<String, String> map = new HashMap<String, String>();
-            map.put("mobile", phone);
+			map.put("mobile", phone);
             map.put("send_code", AppUtils.MD5(phone));
-            map.put("send_type", "verification");
-            map.put("appID", ConfigHolder.gameId);
+            map.put("send_type", "bindphone");
+            map.put("type", "android");
+            map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+            map.put("sign", phone + "verification" + "android" + AppUtils.getPhoeIMEI(mActivity));
 			HttpUtils.post(mActivity, URLHolder.URL_GET_CODE, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {

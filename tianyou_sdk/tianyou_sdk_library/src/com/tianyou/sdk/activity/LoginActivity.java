@@ -110,10 +110,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
 	}
 	
-//	public void logoutFacebook() {
-//		btnLogin.performClick();
-//	}
-	
 	@Override
 	protected void initData() {
 		mIsLogout = getIntent().getBooleanExtra("is_logout", false);
@@ -150,8 +146,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	@Override
 	public void onBackPressed() {
 		LogUtils.d("mFragmentTag:" + mFragmentTag);
-//		if (mFragmentTag.equals("NoQQFragment")) {
-//			finish();
 		if (mFragmentTag.equals("AccountFragment")) {
 			if (!ConfigHolder.userIsLogin) {
 				TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
@@ -218,7 +212,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	public void onConnected(Bundle connectionHint) {
 		if (isGoogleConnected) {
 			isGoogleConnected = false;
-			Log.d("TAG","onConnected------------");
 			final String accountName = Plus.AccountApi.getAccountName(mApiClient);
 			Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
 			final String nickname = person.getDisplayName();
@@ -264,12 +257,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 			@Override
 			public void onSuccess(LoginResult loginResult) {
 				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login successfully" : "Facebook登陆成功"));
-				final Map<String, String> map = new HashMap<String, String>();
-				map.put("uid", loginResult.getAccessToken().getUserId());
+				String userId = loginResult.getAccessToken().getUserId();
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("uid", userId);
 				map.put("usertoken", loginResult.getAccessToken().getToken());
-				map.put("appID", ConfigHolder.gameId);
-				map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-				HttpUtils.post(mActivity, URLHolder.URL_FACEBOOK_LOGIN, map, new HttpUtils.HttpsCallback() {
+				map.put("channel", ConfigHolder.channelId);
+				map.put("sign", AppUtils.MD5(userId + ConfigHolder.gameId + ConfigHolder.gameToken));
+				HttpUtils.post(mActivity, URLHolder.URL_PAY_FACEBOOK, map, new HttpUtils.HttpsCallback() {
 					@Override
 					public void onSuccess(String response) {
 						FacebookLogin login = new Gson().fromJson(response, FacebookLogin.class);
@@ -287,23 +281,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 
 			@Override
 			public void onCancel() { 
-				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login cancel" : "Facebook登陆取消"));
 				LogUtils.d("onCancel:"); }
 
 			@Override
 			public void onError(FacebookException e) { 
-				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login failed" : "Facebook登陆失败"));
 				LogUtils.d("onError:"); }
 		});
 	}
-	
-	private LogoutCallback mLogoutCallback = new LogoutCallback() {
-		@Override
-		public void onSuccess(String response) {
-			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Log out of Facebook" : "注销Facebook"));
-			clickFacebook();
-		}
-	};
 	
 	private void checkGoogleLogin(String id,String token,String nickname) {
 		Map<String,String> googleParam = new HashMap<String, String>();
@@ -313,7 +297,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		googleParam.put("GGappid", AppUtils.getMetaDataValue(mActivity,"google_client_id"));
 		googleParam.put("appID",ConfigHolder.gameId);
 		googleParam.put("imei",AppUtils.getPhoeIMEI(mActivity));
-		HttpUtils.post(mActivity, URLHolder.URL_GOOGLE_LOGIN, googleParam, new HttpUtils.HttpCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_PAY_GOOGLE, googleParam, new HttpUtils.HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
 				LogUtils.d("login success response= "+response);

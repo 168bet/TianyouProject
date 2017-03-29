@@ -236,7 +236,7 @@ public class PhoneFragment extends BaseLoginFragment {
             map.put("type", "android");
             map.put("imei", AppUtils.getPhoeIMEI(mActivity));
             map.put("sign", phone + "verification" + "android" + AppUtils.getPhoeIMEI(mActivity));
-			HttpUtils.post(mActivity, URLHolder.URL_UNION_CODE, map, new HttpsCallback() {
+			HttpUtils.post(mActivity, URLHolder.URL_GET_CODE, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {
 					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);

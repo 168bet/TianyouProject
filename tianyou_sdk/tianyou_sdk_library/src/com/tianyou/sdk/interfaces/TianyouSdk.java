@@ -132,7 +132,7 @@ public class TianyouSdk {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
-		HttpUtils.post(mActivity, URLHolder.URL_UNION_PAY_WAY, map, new HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_PAY_WAY, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				SPHandler.putString(mActivity, SPHandler.SP_PAY_WAY, response);
@@ -144,8 +144,7 @@ public class TianyouSdk {
 	private void showLoginWay() {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
-		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_LOGIN_WAY : URLHolder.URL_LOGIN_WAY;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_WAY, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				SPHandler.putString(mActivity, SPHandler.SP_LOGIN_WAY, response);
@@ -266,8 +265,7 @@ public class TianyouSdk {
 	private void createFloatMenu() {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
-		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_FLOAT_CONTROL : URLHolder.URL_FLOAT_CONTROL;
-		HttpUtils.post(mActivity, url, map, new HttpUtils.HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_FLOAT_CONTROL, map, new HttpUtils.HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				FloatControl control = new Gson().fromJson(response, FloatControl.class);
@@ -288,8 +286,7 @@ public class TianyouSdk {
 	private void getServiceInfo() {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("sign", ConfigHolder.gameId + ConfigHolder.gameToken);
-		String url = ConfigHolder.isUnion ? URLHolder.URL_UNION_SERVER_INFO : URLHolder.URL_SERVER_IMG;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_SERVER_INFO, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
 				ServerInfo serverInfo = new Gson().fromJson(response, ServerInfo.class);

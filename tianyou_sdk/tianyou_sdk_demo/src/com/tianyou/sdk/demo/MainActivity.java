@@ -1,12 +1,5 @@
 package com.tianyou.sdk.demo;
 
-import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
@@ -14,6 +7,12 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
+
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -30,7 +29,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
 		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
-		mlayoutBg = findViewById(R.id.layout_main_bg);
 		TianyouSdk.getInstance().activityInit(this, mTianyouCallback);
 	}
 	
@@ -117,7 +115,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				ToastUtils.show(mActivity, "登录取消：" + msg);
 				break;
 			case TianyouCallback.CODE_LOGOUT:
-				mlayoutBg.setBackgroundColor(Color.YELLOW);
 				ToastUtils.show(mActivity, "注销：" + msg);
 				break;
 			case TianyouCallback.CODE_PAY_SUCCESS:
@@ -139,7 +136,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-	private View mlayoutBg;
 
 	@Override
 	public void onBackPressed() {
