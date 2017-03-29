@@ -106,7 +106,8 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		
 		mApiClient = new GoogleApiClient.Builder(this)
 		.addApi(Plus.API,Plus.PlusOptions.builder()
-				.setServerClientId("775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com").build())
+				.setServerClientId(AppUtils.getMetaDataValue(LoginActivity.this, "google_client_id"))//"775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com")
+				.build())
 		.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
 	}
 	
@@ -222,7 +223,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 				@Override
 				public void run() {
 					try {
-						String token = GoogleAuthUtil.getToken(mActivity, accountName, "audience:server:client_id:775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com");
+						String token = GoogleAuthUtil.getToken(mActivity, accountName, "audience:server:client_id:"+AppUtils.getMetaDataValue(mActivity, "google_client_id"));//775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com");
 						Log.d("TAG", ",token= "+token);
 	//					checkGoogleLogin(id,token);
 						Bundle bundle = new Bundle();
@@ -294,9 +295,9 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 		googleParam.put("id_token",token);
 		googleParam.put("id",id);
 		googleParam.put("nickname",nickname);
-		googleParam.put("GGappid", AppUtils.getMetaDataValue(mActivity,"google_client_id"));
-		googleParam.put("appID",ConfigHolder.gameId);
-		googleParam.put("imei",AppUtils.getPhoeIMEI(mActivity));
+		googleParam.put("googleappid", AppUtils.getMetaDataValue(mActivity,"google_client_id"));
+		googleParam.put("channel", ConfigHolder.channelId);
+		googleParam.put("sign", AppUtils.MD5(id+ConfigHolder.gameId+ConfigHolder.gameToken));
 		HttpUtils.post(mActivity, URLHolder.URL_PAY_GOOGLE, googleParam, new HttpUtils.HttpCallback() {
 			@Override
 			public void onSuccess(String response) {

@@ -131,8 +131,12 @@ public class PayActivity extends BaseActivity {
 	
 	@Override
 	protected void initView() {
+		if (ConfigHolder.isOverseas) {
+			findViewById(ResUtils.getResById(this, "img_pay_question", "id")).setVisibility(View.GONE);
+		} else {
+			findViewById(ResUtils.getResById(this, "img_pay_question", "id")).setOnClickListener(this);
+		}
 		findViewById(ResUtils.getResById(this, "img_pay_last", "id")).setOnClickListener(this);
-        findViewById(ResUtils.getResById(this, "img_pay_question", "id")).setOnClickListener(this);
         findViewById(ResUtils.getResById(this, "img_pay_close", "id")).setOnClickListener(this);
 	}
 
@@ -264,9 +268,11 @@ public class PayActivity extends BaseActivity {
 	private void checkPaypalOrder(String paymentId) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("orderid",mPayHandler.mPayInfo.getOrderId());
-		param.put("appID", ConfigHolder.gameId);
-		param.put("sign", AppUtils.MD5(ConfigHolder.userName+ConfigHolder.gameId+mPayHandler.mPayInfo.getServerId()));
+//		param.put("appID", ConfigHolder.gameId);
+//		param.put("sign", AppUtils.MD5(ConfigHolder.userName+ConfigHolder.gameId+mPayHandler.mPayInfo.getServerId()));
+		param.put("sign", AppUtils.MD5(ConfigHolder.gameId+mPayHandler.mPayInfo.getOrderId()+ConfigHolder.gameToken));
 		param.put("payment_id", paymentId);
+		param.put("channel", ConfigHolder.channelId);
 		HttpUtils.post(mActivity, URLHolder.URL_CHECK_PAYPAL, param, new HttpUtils.HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {  
@@ -289,9 +295,11 @@ public class PayActivity extends BaseActivity {
 	private void checkGoogleOrder(String purchaseData,String dataSignature){
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("appID", ConfigHolder.gameId);
-		param.put("sign",AppUtils.MD5(ConfigHolder.gameId+mPayHandler.mPayInfo.getOrderId()));
+		param.put("sign",AppUtils.MD5(ConfigHolder.gameId+mPayHandler.mPayInfo.getOrderId()+ConfigHolder.gameToken));
 		param.put("inapp_purchase_data",purchaseData);
 		param.put("inapp_data_signature",dataSignature);
+		param.put("channel", ConfigHolder.channelId);
+		param.put("orderid", mPayHandler.mPayInfo.getOrderId());
 		LogUtils.d("google pay param= "+param);
 
 		HttpUtils.post(mActivity, URLHolder.URL_CHECK_GOOGLE, param, new HttpUtils.HttpsCallback() {

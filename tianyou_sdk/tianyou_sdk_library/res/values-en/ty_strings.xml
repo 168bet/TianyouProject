@@ -97,7 +97,7 @@
     <string name="ty_wechat_scan_remit">(Pay by the WeChat scan)</string>
     <string name="ty_pay_tip">Please contact TianYou customer service under payment success:</string>
     <string name="ty_pay_success">Succeeded to pay</string>
-    <string name="ty_congrats_pay_success">Congraluate you on payment!</string>
+    <string name="ty_congrats_pay_success">Succeeded to pay</string>
     <string name="ty_continue_pay">Continue to pay</string>
     <string name="ty_server_center">Center of the customer service</string>
     <string name="ty_server_content">The following services are 72*24 hours,we will always serve you!</string>

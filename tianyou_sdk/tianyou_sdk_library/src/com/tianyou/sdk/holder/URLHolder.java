@@ -76,7 +76,7 @@ public class URLHolder {
 	public static final String URL_PAY_WALLET = getHostAddrs() + "walletorder/creatorder";
 	
 	// PayPal支付查单
-	public static final String URL_CHECK_PAYPAL = URL_OVERSEAS + "Payorder/googleupdateorder";
+	public static final String URL_CHECK_PAYPAL = URL_OVERSEAS + "Payorder/paypalupdateorder";
 	// Google支付查单
 	public static final String URL_CHECK_GOOGLE = URL_OVERSEAS + "Payorder/googleupdateorder";
 	

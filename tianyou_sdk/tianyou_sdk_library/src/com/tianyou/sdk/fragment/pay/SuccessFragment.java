@@ -36,6 +36,10 @@ public class SuccessFragment extends BaseFragment {
 		}
 	}
 
+	public SuccessFragment() {
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
+	}
+	
 	@Override
 	protected void initView() {
 		mTextServer = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_server", "id"));
@@ -70,7 +74,6 @@ public class SuccessFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
 		PayActivity activity = (PayActivity) getActivity();
 		PayInfo payInfo = activity.mPayHandler.mPayInfo;
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){

@@ -42,6 +42,10 @@ public class FailedFragment extends BaseFragment {
 			return "fragment_pay_faliure";
 		}
 	}
+	
+	public FailedFragment(){
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "");
+	}
 
 	@Override
 	protected void initView() {
@@ -69,7 +73,6 @@ public class FailedFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "");
 		activity = (PayActivity) getActivity();
 		PayInfo payInfo = activity.mPayHandler.mPayInfo;
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){
