@@ -29,7 +29,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/layout_space_small"
                 android:text="@string/ty_pay_fail"
-                android:textSize="@dimen/text_size_common" />
+                android:textSize="@dimen/text_size_common"
+                android:textColor="@color/color_gray_2" />
         </LinearLayout>
 
         <View
@@ -54,23 +55,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ty_pay_order"
-                android:textSize="@dimen/text_size_common" />
+                android:textSize="@dimen/text_size_common" 
+                android:textColor="@color/color_gray_2"/>
 
             <TextView
                 android:id="@+id/text_failed_server"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ty_pay_server"
-                android:textSize="@dimen/text_size_common" />
+                android:textSize="@dimen/text_size_common"
+                android:textColor="@color/color_gray_2" />
 
             <TextView
                 android:id="@+id/text_failed_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ty_pay_money"
-                android:textSize="@dimen/text_size_common" />
+                android:textSize="@dimen/text_size_common" 
+                android:textColor="@color/color_gray_2"/>
 
             <TextView
+                android:id="@+id/tv_wish_payfaile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_big"
@@ -79,6 +84,7 @@
                 android:textSize="@dimen/text_size_common" />
 
             <LinearLayout
+                android:id="@+id/lv_servcieqq_payfaile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_little"
@@ -108,6 +114,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lv_servicephone_payfaile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_little"
@@ -137,6 +144,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lv_servicewechat_payfaile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_little"
@@ -187,6 +195,7 @@
             android:textSize="@dimen/text_size_title" />
 
         <RelativeLayout
+            android:id="@+id/rl_payplat_payfaile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_space_small"

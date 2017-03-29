@@ -44,13 +44,28 @@ public class SuccessFragment extends BaseFragment {
     	mTextQQ = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_service_qq", "id"));
     	mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_backgame", "id")).setOnClickListener(this);
     	if (ConfigHolder.isLandscape) {
-    		mBtnCallService = (Button) mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_call_service", "id"));
-    		mBtnCallService.setText("客服电话："+SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
-    		mBtnCallService.setOnClickListener(this);
+    		if (ConfigHolder.isOverseas) {
+    			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_call_service", "id")).setVisibility(View.GONE);
+    		} else {
+    			mBtnCallService = (Button) mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_call_service", "id"));
+    			mBtnCallService.setText("客服电话："+SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
+    			mBtnCallService.setOnClickListener(this);
+    		}
 		} else {
-			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_continuepay", "id")).setOnClickListener(this);
+			if (ConfigHolder.isOverseas) {
+				mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_continuepay", "id")).setVisibility(View.GONE);
+			} else {
+				mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_continuepay", "id")).setOnClickListener(this);
+			}
 		}
-    	mTextQQ.setOnClickListener(this);
+    	if (ConfigHolder.isOverseas) {
+    		mContentView.findViewById(ResUtils.getResById(mActivity, "tv_wish_paysuccess", "id")).setVisibility(View.GONE);
+    		mContentView.findViewById(ResUtils.getResById(mActivity, "lv_serviceqq_paysuccess", "id")).setVisibility(View.GONE);
+    		mContentView.findViewById(ResUtils.getResById(mActivity, "lv_servicephone_paysuccess", "id")).setVisibility(View.GONE);
+    		mContentView.findViewById(ResUtils.getResById(mActivity, "lv_servicewhechat_paysuccess", "id")).setVisibility(View.GONE);
+    	} else {
+    		mTextQQ.setOnClickListener(this);
+    	}
 	}
 
 	@Override
@@ -65,8 +80,9 @@ public class SuccessFragment extends BaseFragment {
 		}
     	mTextServer.setText(ResUtils.getString(mActivity, "ty_pay_server2") + payInfo.getServerName());
     	mTextMoney.setText(ResUtils.getString(mActivity, "ty_pay_money2") + Integer.parseInt(payInfo.getMoney()) * payInfo.getScale()+payInfo.getCurrency());
-    	
-    	mTextQQ.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_QQ));
+    	if (!ConfigHolder.isOverseas) {
+    		mTextQQ.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_QQ));
+    	}
 	}
 
 	@Override

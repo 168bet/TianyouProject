@@ -48,14 +48,23 @@ public class FailedFragment extends BaseFragment {
 		mTextOrder = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_failed_order", "id"));
 		mTextServer = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_failed_server", "id"));
 		mTextMoney = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_failed_money", "id"));
-		mTextQQ = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_failed_service_qq", "id"));
-		mTextPhone = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_failed_service_phone", "id"));
+		if (ConfigHolder.isOverseas) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "tv_wish_payfaile", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "lv_servcieqq_payfaile", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "lv_servicephone_payfaile", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "lv_servicewechat_payfaile", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "rl_payplat_payfaile", "id")).setVisibility(View.GONE);
+		} else {
+			mTextQQ = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_failed_service_qq", "id"));
+			mTextPhone = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_failed_service_phone", "id"));
+			
+			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_failed_backgame", "id")).setOnClickListener(this);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_failed_pay_onplat", "id")).setOnClickListener(this);
+			
+			mTextQQ.setOnClickListener(this);
+			mTextPhone.setOnClickListener(this);
+		}
 		
-		mContentView.findViewById(ResUtils.getResById(mActivity, "btn_failed_backgame", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "btn_failed_pay_onplat", "id")).setOnClickListener(this);
-		
-		mTextQQ.setOnClickListener(this);
-		mTextPhone.setOnClickListener(this);
 	}
 
 	@Override
@@ -70,8 +79,10 @@ public class FailedFragment extends BaseFragment {
 		}
 		mTextServer.setText(ResUtils.getString(mActivity, "ty_pay_server2")+payInfo.getServerName());
 		mTextMoney.setText(ResUtils.getString(mActivity, "ty_pay_money2")+Integer.parseInt(payInfo.getMoney()) * payInfo.getScale()+payInfo.getCurrency());
-		mTextQQ.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_QQ));
-		mTextPhone.setText(SPHandler.getString(mActivity,SPHandler.SP_TEXT_PHONE));
+		if (!ConfigHolder.isOverseas) {
+			mTextQQ.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_QQ));
+			mTextPhone.setText(SPHandler.getString(mActivity,SPHandler.SP_TEXT_PHONE));
+		}
 	}
 
 	@Override
