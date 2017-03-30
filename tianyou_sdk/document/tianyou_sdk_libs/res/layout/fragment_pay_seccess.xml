@@ -67,6 +67,7 @@
         android:background="@color/color_line_seprator" />
 
     <TextView
+        android:id="@+id/tv_wish_paysuccess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/layout_space_small"
@@ -75,6 +76,7 @@
         android:textSize="@dimen/text_size_common" />
 
     <LinearLayout
+        android:id="@+id/lv_serviceqq_paysuccess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/layout_space_small"
@@ -106,6 +108,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lv_servicephone_paysuccess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/layout_space_small"
@@ -137,6 +140,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lv_servicewhechat_paysuccess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/layout_space_small"

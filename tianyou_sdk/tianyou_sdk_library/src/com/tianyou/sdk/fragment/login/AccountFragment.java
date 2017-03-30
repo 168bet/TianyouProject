@@ -64,6 +64,9 @@ public class AccountFragment extends BaseLoginFragment {
 		mContentView.findViewById(ResUtils.getResById(mActivity, "btn_home_entry", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_quick", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_code", "id")).setOnClickListener(this);
+		if (ConfigHolder.isOverseas) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_code", "id")).setVisibility(View.GONE);
+		}
 		mContentView.findViewById(ResUtils.getResById(mActivity, "img_login_way_2", "id")).setOnClickListener(this);
 		
 		mEditAccount = (EditText)mContentView.findViewById(ResUtils.getResById(mActivity, "edit_home_phone", "id"));

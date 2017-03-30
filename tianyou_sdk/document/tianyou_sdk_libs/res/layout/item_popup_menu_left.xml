@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="@drawable/ty_float_bg"
-        android:paddingLeft="@dimen/layout_space_big" >
+        android:paddingLeft="@dimen/layout_space_small" >
 
         <TextView
             android:id="@+id/popup_menu_0"

@@ -107,6 +107,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		public void onResult(int code, String msg) {
 			switch (code) {
 			case TianyouCallback.CODE_LOGIN_SUCCESS:
+				// 登陆成功返回uid+token的json串，解析即可获取uid和token数据，格式：{"uid":47814,"userToken":"fhadklfa234"}
 				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_FAILED:

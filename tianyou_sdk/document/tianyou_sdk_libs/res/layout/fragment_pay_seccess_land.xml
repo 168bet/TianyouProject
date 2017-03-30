@@ -75,6 +75,7 @@
                 android:textSize="@dimen/text_size_common" />
 
             <TextView
+                android:id="@+id/tv_wish_paysuccess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_big"
@@ -83,6 +84,7 @@
                 android:textSize="@dimen/text_size_common" />
 
             <LinearLayout
+                android:id="@+id/lv_serviceqq_paysuccess"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_little"
@@ -110,8 +112,41 @@
                     android:textColor="@color/color_green"
                     android:textSize="@dimen/text_size_common" />
             </LinearLayout>
+            
+            <LinearLayout
+		        android:id="@+id/lv_servicephone_paysuccess"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="@dimen/layout_space_small"
+		        android:layout_marginRight="@dimen/layout_space_small"
+		        android:layout_marginTop="@dimen/layout_space_little"
+		        android:orientation="horizontal" >
+		
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="@string/ty_server_phone"
+		            android:textColor="@color/color_gray_2"
+		            android:textSize="@dimen/text_size_common" />
+		
+		        <ImageView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="center_vertical"
+		            android:layout_marginRight="@dimen/layout_space_little"
+		            android:src="@drawable/ty_pay_result_phone" />
+		
+		        <TextView
+		            android:id="@+id/text_success_service_phone"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="123456789"
+		            android:textColor="@color/color_jacinth"
+		            android:textSize="@dimen/text_size_common" />
+		    </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lv_servicewhechat_paysuccess"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_little"

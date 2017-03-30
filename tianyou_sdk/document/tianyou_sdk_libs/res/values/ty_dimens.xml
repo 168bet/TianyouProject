@@ -17,6 +17,7 @@
     <dimen name="icon_space">14dp</dimen>
     
     <!-- 文字大小 -->
+    <dimen name="text_size_micro">6sp</dimen>
     <dimen name="text_size_little">9sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_common">15sp</dimen>
