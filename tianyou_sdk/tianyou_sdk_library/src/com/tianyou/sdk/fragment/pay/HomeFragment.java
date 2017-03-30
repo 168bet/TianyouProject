@@ -1,24 +1,13 @@
 package com.tianyou.sdk.fragment.pay;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.PayActivity;
@@ -38,14 +27,28 @@ import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
+import android.widget.TextView;
 
 /**
  * 充值首页
@@ -112,7 +115,8 @@ public class HomeFragment extends BaseFragment {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_dopay", "id")).setOnClickListener(this);
 			initViewData(mContentView);
 		} else {
-			mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_switch", "id")).setOnClickListener(this);
+			mPaySwitch = mContentView.findViewById(ResUtils.getResById(mActivity, "text_home_switch", "id"));
+			mPaySwitch.setOnClickListener(this);
 			
 			View payWay0 = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_0", "id"));
 			View payWay1 = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_1", "id"));
@@ -262,6 +266,7 @@ public class HomeFragment extends BaseFragment {
 			}
 		}
 	};
+	private View mPaySwitch;
 
 	private void doPortPay(PayType type) {
 		setPayWayState(type);
@@ -298,15 +303,16 @@ public class HomeFragment extends BaseFragment {
 	}
 	
 	private void showPayWayPupup() {
-		if (mPopupWindow == null) {
+//		if (mPopupWindow == null) {
 			mPopupWindow = new PopupWindow();
 			View popupView = mActivity.getLayoutInflater().inflate(ResUtils.getResById(mActivity, "pupup_pay_way", "layout"), null);
 			mPopupWindow.setContentView(popupView);
 			mPopupWindow.setWidth(LayoutParams.MATCH_PARENT);
 			mPopupWindow.setHeight(LayoutParams.WRAP_CONTENT);
+			mPopupWindow.setOutsideTouchable(true);
 			mPopupWindow.setFocusable(true);
 			mPopupWindow.setAnimationStyle(ResUtils.getResById(mActivity, "style_popup_pay", "style"));
-			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0x09000000));
+			mPopupWindow.setBackgroundDrawable(new ColorDrawable());
 			WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();  
 	        lp.alpha = 0.5f;  
 	        mActivity.getWindow().setAttributes(lp);  
@@ -320,8 +326,8 @@ public class HomeFragment extends BaseFragment {
 	        });
 	        initViewData(popupView);
 	        popupView.findViewById(ResUtils.getResById(mActivity, "img_popup_close", "id")).setOnClickListener(this);
-		}
-		mPopupWindow.showAtLocation(mTextMoney, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+//		}
+		mPopupWindow.showAsDropDown(mPaySwitch, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
 	}
 	
 	private void getPayMoneyValue() {
