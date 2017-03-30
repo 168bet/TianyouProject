@@ -178,13 +178,21 @@ public class PayActivity extends BaseActivity {
 			}
         } else if (v.getId() == ResUtils.getResById(this, "img_pay_close", "id")) {
         	if ("FailedFragment".equals(mFragmentTag)){
-        		AppUtils.showFinishPayDialog(this,true);
+        		if (ConfigHolder.isOverseas) {
+        			finish();
+        		} else {
+        			AppUtils.showFinishPayDialog(this,true);
+        		}
         	} else {
         		finish();
         	}
         } else if (v.getId() == ResUtils.getResById(this, "img_pay_last", "id"))
         	if ("FailedFragment".equals(mFragmentTag)){
-        		AppUtils.showFinishPayDialog(this, false);
+        		if (ConfigHolder.isOverseas) {
+        			finish();
+        		} else {
+        			AppUtils.showFinishPayDialog(this,true);
+        		}
         	} else {
         		onBackPressed();
         	}

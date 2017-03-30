@@ -55,7 +55,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/btn_pay_pay_onplat"
@@ -71,7 +71,8 @@
                 android:singleLine="true"
                 android:text="@string/ty_platform_pay"
                 android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_common" />
+                android:textSize="@dimen/text_size_common"
+                />
 
             <ImageView
                 android:layout_width="wrap_content"

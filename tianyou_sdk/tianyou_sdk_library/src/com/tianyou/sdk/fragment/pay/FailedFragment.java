@@ -110,7 +110,9 @@ public class FailedFragment extends BaseFragment {
 	
 	public static boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	AppUtils.showFinishPayDialog(activity,false);
+        	if (!ConfigHolder.isOverseas) {
+        		AppUtils.showFinishPayDialog(activity,false);
+        	}
         }
         return true;
     }
