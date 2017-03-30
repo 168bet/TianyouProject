@@ -95,10 +95,10 @@
                 android:id="@+id/edit_choose_other"
                 style="@style/style_btn_pay_money"
                 android:hint="@string/ty_otner_money"
-                android:textColorHint="@color/color_gray_2"
                 android:inputType="number"
                 android:maxLength="6"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColorHint="@color/color_gray_2" />
 
             <View
                 android:layout_width="0dp"
@@ -207,27 +207,15 @@
             android:layout_marginLeft="@dimen/layout_space_small"
             android:src="@drawable/ty_pay_way_0" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_wechat_pay"
-                android:textColor="@color/color_gray_3"
-                android:textSize="@dimen/text_size_common" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_pay_way"
-                android:textColor="@color/color_gray_2"
-                android:textSize="@dimen/text_size_common" />
-        </LinearLayout>
+            android:layout_gravity="center_vertical"
+            android:text="@string/ty_wechat_pay"
+            android:textColor="@color/color_gray_3"
+            android:textSize="@dimen/text_size_common" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -252,28 +240,16 @@
             android:layout_marginLeft="@dimen/layout_space_small"
             android:src="@drawable/ty_pay_way_1" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_alipay_pay"
-                android:textColor="@color/color_gray_3"
-                android:textSize="@dimen/text_size_common" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_pay_way"
-                android:textColor="@color/color_gray_2"
-                android:textSize="@dimen/text_size_common" />
-        </LinearLayout>
-
+            android:layout_gravity="center_vertical"
+            android:text="@string/ty_alipay_pay"
+            android:textColor="@color/color_gray_3"
+            android:textSize="@dimen/text_size_common" />
+        
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -297,28 +273,16 @@
             android:layout_marginLeft="@dimen/layout_space_small"
             android:src="@drawable/ty_pay_way_2" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_qq_pay"
-                android:textColor="@color/color_gray_3"
-                android:textSize="@dimen/text_size_common" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_pay_way"
-                android:textColor="@color/color_gray_2"
-                android:textSize="@dimen/text_size_common" />
-        </LinearLayout>
-
+            android:layout_gravity="center_vertical"
+            android:text="@string/ty_qq_pay"
+            android:textColor="@color/color_gray_3"
+            android:textSize="@dimen/text_size_common" />
+        
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -343,28 +307,16 @@
             android:layout_marginLeft="@dimen/layout_space_small"
             android:src="@drawable/ty_pay_way_7" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_google_pay"
-                android:textColor="@color/color_gray_3"
-                android:textSize="@dimen/text_size_common" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_pay_way"
-                android:textColor="@color/color_gray_2"
-                android:textSize="@dimen/text_size_common" />
-        </LinearLayout>
-
+            android:layout_gravity="center_vertical"
+            android:text="@string/ty_google_pay"
+            android:textColor="@color/color_gray_3"
+            android:textSize="@dimen/text_size_common" />
+        
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -389,28 +341,16 @@
             android:layout_marginLeft="@dimen/layout_space_small"
             android:src="@drawable/ty_pay_way_8" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_paypal_pay"
-                android:textColor="@color/color_gray_3"
-                android:textSize="@dimen/text_size_common" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ty_pay_way"
-                android:textColor="@color/color_gray_2"
-                android:textSize="@dimen/text_size_common" />
-        </LinearLayout>
-
+            android:layout_gravity="center_vertical"
+            android:text="@string/ty_paypal_pay"
+            android:textColor="@color/color_gray_3"
+            android:textSize="@dimen/text_size_common" />
+        
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
