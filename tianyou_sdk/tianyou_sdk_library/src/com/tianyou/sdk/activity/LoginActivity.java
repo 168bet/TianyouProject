@@ -19,6 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.PlusClient;
 import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseActivity;
@@ -39,6 +40,7 @@ import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.GoogleSignIn;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -57,13 +59,13 @@ import android.widget.TextView;
  * @author itstrong
  * 
  */
-public class LoginActivity extends BaseActivity implements ConnectionCallbacks, OnConnectionFailedListener  {
+public class LoginActivity extends BaseActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 
 	private TextView mTextTitle2;
 	private CallbackManager callbackManager;
 	
 	private GoogleApiClient mApiClient;
-	private ConnectionResult mConnectionResult;
+	public ConnectionResult mConnectionResult;
 	private LoginHandler mLoginHandler;
 	private boolean isGoogleConnected = false;
 	public boolean mIsLogout;
@@ -99,16 +101,22 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 
 	@Override
 	protected void initView() {
+		LogUtils.d("initView-------------");
+		mConnectionResult = null;
+		mApiClient = null;
+		mApiClient = new GoogleApiClient.Builder(this)
+		.addApi(Plus.API,Plus.PlusOptions.builder()
+				.setServerClientId(AppUtils.getMetaDataValue(LoginActivity.this, "google_client_id"))//"775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com")
+				.build())
+				.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this)
+				.build();
+//		mApiClient.registerConnectionCallbacks(this);
+//		mApiClient.registerConnectionFailedListener(this);
 		mTextTitle2 = (TextView) findViewById(ResUtils.getResById(mActivity, "text_title_2", "id"));
 		if (ConfigHolder.isOverseas) {
 			facebookLogin();
 		}
 		
-		mApiClient = new GoogleApiClient.Builder(this)
-		.addApi(Plus.API,Plus.PlusOptions.builder()
-				.setServerClientId(AppUtils.getMetaDataValue(LoginActivity.this, "google_client_id"))//"775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com")
-				.build())
-		.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
 	}
 	
 	@Override
@@ -175,14 +183,19 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 	
 	@Override
 	protected void onStart() {
+		LogUtils.d("onstart-----------");
 		mApiClient.connect();
 		super.onStart();
 	}
 	
 	@Override
 	protected void onStop() {
+		LogUtils.d("onstop-----------");
 		if (mApiClient.isConnected()) {
+			LogUtils.d("disconnect-----------");
+			Plus.AccountApi.clearDefaultAccount(mApiClient);
 			mApiClient.disconnect();
+			mApiClient.connect();
 		}
 		super.onStop();
 	}
@@ -206,6 +219,12 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks, 
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
+		LogUtils.d("onConnecton failed-------------");
+		if (result == null) {
+			LogUtils.d("----------------");
+		} else {
+			LogUtils.d("=============");
+		}
 		mConnectionResult = result;
 	}
 	

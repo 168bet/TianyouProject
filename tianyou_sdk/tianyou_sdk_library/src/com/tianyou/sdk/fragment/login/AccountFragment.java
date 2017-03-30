@@ -3,6 +3,7 @@ package com.tianyou.sdk.fragment.login;
 import java.util.List;
 import java.util.Map;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.MenuActivity;
 import com.tianyou.sdk.base.BaseLoginFragment;
@@ -14,6 +15,7 @@ import com.tianyou.sdk.bean.LoginWay.ResultBean.CustominfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
@@ -134,16 +136,35 @@ public class AccountFragment extends BaseLoginFragment {
 			mActivity.switchFragment(new PhoneFragment(), "PhoneFragment");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_3", "id")) {
 			mActivity.clickFacebook();
-		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_4", "id")) {
+		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_way_4", "id") && !mActivity.getGoogleApiClient().isConnected()) {
 			mActivity.setIsGoogleConnected(true);
-			try {
-				mActivity.getConnectionResult().startResolutionForResult(mActivity, 1);
-			} catch (SendIntentException e) {
-				if (mActivity.getGoogleApiClient() != null){ 
-					mActivity.getGoogleApiClient().connect(); 
+			ConnectionResult connectionResult = mActivity.getConnectionResult();
+			if (connectionResult == null) {
+				LogUtils.d("connection == null");
+			} else {
+				try {
+					connectionResult.startResolutionForResult(mActivity, 1);
+				} catch (SendIntentException e) {
+					connectionResult = null;
+					mActivity.getGoogleApiClient().connect();
+					e.printStackTrace();
 				}
-				e.printStackTrace();
 			}
+//			try {
+//				ConnectionResult connectionResult = mActivity.getConnectionResult();
+//				if (mActivity.mConnectionResult != null) {
+//					mActivity.mConnectionResult.startResolutionForResult(mActivity, 1);
+//				} else {
+//					if (mActivity.getGoogleApiClient() != null){ 
+//						mActivity.getGoogleApiClient().connect(); 
+//					}
+//				}
+//			} catch (SendIntentException e) {
+//				if (mActivity.getGoogleApiClient() != null){ 
+//					mActivity.getGoogleApiClient().connect(); 
+//				}
+//				e.printStackTrace();
+//			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_home_entry", "id")) {
 			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_quick", "id")) {

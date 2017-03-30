@@ -1,10 +1,12 @@
 package com.tianyou.sdk.fragment.login;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.tianyou.sdk.activity.WebViewAvtivity;
 import com.tianyou.sdk.base.BaseLoginFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 
 import android.content.Intent;
@@ -94,17 +96,33 @@ public class OneKeyFragment extends BaseLoginFragment {
 			mActivity.switchFragment(new AccountFragment(), "AccountFragment");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_server", "id")) {
 			AppUtils.openServerTerms(mActivity);
-		} else if (v.getId() == ResUtils.getResById(mActivity,"btn_google_login","id")) {
+		} else if (v.getId() == ResUtils.getResById(mActivity,"btn_google_login","id") && !mActivity.getGoogleApiClient().isConnected()) {
 //			mGoogleSignIn.signIn();
 			mActivity.setIsGoogleConnected(true);
-			try {
-				mActivity.getConnectionResult().startResolutionForResult(mActivity, 1);
-			} catch (SendIntentException e) {
-				if (mActivity.getGoogleApiClient() != null){ 
-					mActivity.getGoogleApiClient().connect(); 
-				} 
-				e.printStackTrace();
+			ConnectionResult connectionResult = mActivity.getConnectionResult();
+			if (connectionResult == null) {
+				LogUtils.d("connection == null");
+			} else {
+				try {
+					connectionResult.startResolutionForResult(mActivity, 1);
+				} catch (SendIntentException e) {
+					connectionResult = null;
+					mActivity.getGoogleApiClient().connect();
+					e.printStackTrace();
+				}
 			}
+//			mActivity.setIsGoogleConnected(true);
+//			try {
+//				ConnectionResult connectionResult = mActivity.getConnectionResult();//.startResolutionForResult(mActivity, 1);
+//				if (mActivity.mConnectionResult != null) {
+//					mActivity.mConnectionResult.startResolutionForResult(mActivity, 1);
+//				}
+//			} catch (SendIntentException e) {
+//				if (mActivity.getGoogleApiClient() != null){ 
+//					mActivity.getGoogleApiClient().connect(); 
+//				} 
+//				e.printStackTrace();
+//			}
 		}
 	}
 	
