@@ -66,6 +66,7 @@ public class HomeFragment extends BaseFragment {
 	private View mLayoutWallet;
 	private View mLayoutMenu0;
 	private View mLayoutMenu1;
+	private View mLayoutHome;
 	private TextView mLayoutMenu2;
 	private View mLayoutMenu3;
 	private TextView mTextPayMoney;
@@ -94,6 +95,7 @@ public class HomeFragment extends BaseFragment {
 	
 	@Override
 	protected void initView() {
+		mLayoutHome = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_pay_home", "id"));
 		mTextAccount = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_pay_account", "id"));
 		mTextServer = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_pay_server", "id"));
 		mTextScale = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_pay_scale", "id"));
@@ -309,10 +311,10 @@ public class HomeFragment extends BaseFragment {
 			mPopupWindow.setContentView(popupView);
 			mPopupWindow.setWidth(LayoutParams.MATCH_PARENT);
 			mPopupWindow.setHeight(LayoutParams.WRAP_CONTENT);
-			mPopupWindow.setOutsideTouchable(true);
 			mPopupWindow.setFocusable(true);
 			mPopupWindow.setAnimationStyle(ResUtils.getResById(mActivity, "style_popup_pay", "style"));
-			mPopupWindow.setBackgroundDrawable(new ColorDrawable());
+			mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+			mPopupWindow.setOutsideTouchable(true);
 			WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();  
 	        lp.alpha = 0.5f;  
 	        mActivity.getWindow().setAttributes(lp);  

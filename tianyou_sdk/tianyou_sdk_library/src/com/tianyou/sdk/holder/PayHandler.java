@@ -212,7 +212,7 @@ public class PayHandler {
     
     // 创建钱包订单
     public void createWalletOrder() {
-    	getPayWayName();
+    		getPayWayName();
         Map<String, String> map = new HashMap<String, String>();
         map.put("userid", ConfigHolder.userId);
         map.put("productname", mPayInfo.getProductName());
@@ -250,7 +250,7 @@ public class PayHandler {
             
             @Override
             public void onFailed() {
-            	mHandler.sendEmptyMessage(5);
+            		mHandler.sendEmptyMessage(5);
             }
         });
     }

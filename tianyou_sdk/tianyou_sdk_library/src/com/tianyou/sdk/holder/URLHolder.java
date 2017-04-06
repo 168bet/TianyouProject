@@ -46,8 +46,8 @@ public class URLHolder {
 	/** ------------------------- 支付接口 ------------------------- */
 	// 创建订单
 	public static final String URL_CREATE_ORDER = getHostAddrs() + "order/creatorder";
-	// 创建钱包订单
-	public static final String URL_CREATE_WALLET_ORDER = getHostAddrs() + "walletorder/creatorder";
+	// 钱包支付
+	public static final String URL_PAY_WALLET = getHostAddrs() + "walletorder/creatorder";
 	// 查询订单
 	public static final String URL_QUERY_ORDER = getHostAddrs() + "order/getorderstatus";
 	// 客服信息
@@ -72,8 +72,6 @@ public class URLHolder {
 	public static final String URL_WALLET_REMAIN = getHostAddrs() + "walletorder/getwallet";
 	// 游戏推荐
 	public static final String URL_GAME_RECOMMEND = getHostAddrs() + "sdkinfo/getgames";
-	// 钱包支付
-	public static final String URL_PAY_WALLET = getHostAddrs() + "walletorder/creatorder";
 	
 	// PayPal支付查单
 	public static final String URL_CHECK_PAYPAL = URL_OVERSEAS + "Payorder/paypalupdateorder";

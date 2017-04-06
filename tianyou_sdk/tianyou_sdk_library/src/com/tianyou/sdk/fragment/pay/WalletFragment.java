@@ -342,7 +342,6 @@ public class WalletFragment extends BaseFragment {
 					mPayHandler.createWalletOrder();
 				}
 //			} else {
-				mPayHandler.createWalletOrder();
 //			}
 		}
 	}
