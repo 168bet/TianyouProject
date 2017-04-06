@@ -3,6 +3,7 @@ package com.tianyou.channel.business;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.bool;
 import android.app.Activity;
 import android.util.Log;
 
@@ -39,7 +40,6 @@ public class YijieSdkService extends BaseSdkService{
 				} else if (tag.equalsIgnoreCase("fail")) {
 					// 初始化失败
 					LogUtils.d("init failed value= "+value);
-					
 				}
 			}
 		});
@@ -111,7 +111,7 @@ public class YijieSdkService extends BaseSdkService{
 	// 退出游戏
 	@Override
 	public void doExitGame() {
-		super.doExitGame();
+//		super.doExitGame();
 		SFOnlineHelper.exit(mActivity, new SFOnlineExitListener() {
 			
 			@Override
@@ -131,8 +131,22 @@ public class YijieSdkService extends BaseSdkService{
 				// SDK没有退出界面时，这里通知游戏
 				LogUtils.d("on No Exiter Provide------------");
 				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "退出游戏——无界面");
+				
 			}
 		});
+	}
+	
+	@Override
+	public boolean isShowExitGame() {
+		return true;
+//		SFOnlineHelper.exit(mActivity, new SFOnlineExitListener() {
+//			
+//			@Override
+//			public void onSDKExit(boolean flag) { }
+//			
+//			@Override
+//			public void onNoExiterProvide() { }
+//		});
 	}
 	
 	// 支付
