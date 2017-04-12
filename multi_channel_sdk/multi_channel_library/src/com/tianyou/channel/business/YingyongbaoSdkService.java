@@ -8,11 +8,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.tencent.ysdk.api.YSDKApi;
@@ -24,8 +26,8 @@ import com.tencent.ysdk.module.user.UserListener;
 import com.tencent.ysdk.module.user.UserLoginRet;
 import com.tencent.ysdk.module.user.UserRelationRet;
 import com.tencent.ysdk.module.user.WakeupRet;
-import com.tianyou.channel.bean.OrderInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.CommenUtil;
@@ -33,7 +35,6 @@ import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ResUtils;
-import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.channel.utils.URLHolder;
 
 public class YingyongbaoSdkService extends BaseSdkService {
@@ -80,7 +81,7 @@ public class YingyongbaoSdkService extends BaseSdkService {
 	}
 	
 	@Override
-	public void doChannelPay(OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
 		Log.d("TAG", "channel pay-----------");
 		String zoneId = mRoleInfo.getServerId();
 		String saveValue = orderInfo.getMoNey();
@@ -257,7 +258,7 @@ public class YingyongbaoSdkService extends BaseSdkService {
 		param.put("promotion", mChannelInfo.getChannelId());
 		param.put("signature", CommenUtil.MD5("session=" + token + "&uid=" + uid + "&appid=" + gameId));
 		LogUtils.d("loginParam:" + param);
-		HttpUtils.post(mActivity, URLHolder.CHECK_LOGIN_URL, param, new HttpCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_BASE+URLHolder.CHECK_LOGIN_URL, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
 				try {
@@ -265,8 +266,8 @@ public class YingyongbaoSdkService extends BaseSdkService {
 					JSONObject result = (JSONObject) jsonObject.get("result");
 					String code = result.getString("code");
 					if ("200".equals(code)) {
-						mUserId = result.getString("uid");
-						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, mUserId);
+						String tyUserId = result.getString("uid");
+						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, tyUserId);
 						Log.d("TAG", "登录成功");
 					} else {
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登陆失败");
@@ -281,5 +282,15 @@ public class YingyongbaoSdkService extends BaseSdkService {
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, code);
 			}
 		});
+	}
+	
+	private void showDialog(Activity activity){
+		View dialogView = View.inflate(activity, ResUtils.getResById(activity, "dialog_exit_pay", "layout"), null);
+		final AlertDialog dialog = new AlertDialog.Builder(activity)
+        .create();
+		dialog.setView(dialogView);
+		dialog.show();
+		
+		dialog.setCanceledOnTouchOutside(false);
 	}
 }

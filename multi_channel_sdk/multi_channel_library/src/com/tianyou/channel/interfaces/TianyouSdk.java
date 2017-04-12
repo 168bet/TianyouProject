@@ -20,6 +20,7 @@ import com.tianyou.channel.business.LenovoSdkService;
 import com.tianyou.channel.business.LeshiSdkService;
 import com.tianyou.channel.business.M4399SdkService;
 import com.tianyou.channel.business.MeizuSdkService;
+import com.tianyou.channel.business.TestYingyongbaoSdkService;
 import com.tianyou.channel.business.YijieSdkService;
 import com.tianyou.channel.business.MoguSdkService;
 import com.tianyou.channel.business.OppoSdkService;
@@ -105,7 +106,7 @@ public class TianyouSdk {
 			sdkService = new SogouSdkService();
 		} else if ("ty025".equals(channelInfo.getChannelId())) {
 			sdkService = new M4399SdkService();
-		} else if ("ty026".equals(channelInfo.getChannelId())) {
+		} else if ("ty026".equals(channelInfo.getChannelId()) || "ty060".equals(channelInfo.getChannelId())) {
 			sdkService = new YingyongbaoSdkService();
 		} else if ("ty027".equals(channelInfo.getChannelId())) {
 			sdkService = new HSZSdkService();
@@ -131,6 +132,8 @@ public class TianyouSdk {
 			sdkService = new XianquChSdkService();
 		} else if ("ty052".equals(channelInfo.getChannelId())) {
 			sdkService = new YijieSdkService();
+		} else if ("ty100".equals(channelInfo.getChannelId())) {
+			sdkService = new TestYingyongbaoSdkService();
 		}
 		return sdkService;
 	}
