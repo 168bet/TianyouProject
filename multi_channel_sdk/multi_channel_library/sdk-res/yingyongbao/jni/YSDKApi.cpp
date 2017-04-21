@@ -373,7 +373,6 @@ void YSDKApi::recharge(unsigned char* cZoneId, unsigned char* cSaveValue, bool c
 	JNIEnv *env;
 	mPVM->AttachCurrentThread(&env, NULL);
 
-	//TODO hardy 这里待确认，回调会覆盖
 	if (pListener == NULL) {
 		LOGI("pListener is NULL%s", "");
 		return;
@@ -407,7 +406,6 @@ void YSDKApi::buyGoods(unsigned char* cZoneId, unsigned char* cGoodsTokenUrl, un
 	JNIEnv *env;
 	mPVM->AttachCurrentThread(&env, NULL);
 
-	//TODO hardy 这里待确认，回调会覆盖
 	if (pListener == NULL) {
 		LOGI("pListener is NULL%s", "");
 		return;
