@@ -3,9 +3,9 @@ package com.tianyou.sdk.holder;
 public class URLHolder {
 
 	// 国内正式服
-	private static final String URL_BASE = "http://api.tianyouxi.com/index.php";
+//	private static final String URL_BASE = "http://api.tianyouxi.com/index.php";
 	// 国内测试服
-//	private static final String URL_BASE = "http://192.168.1.176/index.php";
+	private static final String URL_BASE = " http://newsdk.tianyouxi.com/api/";
 	// 海外正式服
 //	private static final String URL_OVERSEAS = "http://testapi.tianyouxi.com/index.php";
 	// 海外测试服
@@ -17,21 +17,21 @@ public class URLHolder {
 	
 	/** ------------------------- 登陆接口 ------------------------- */
 	// 注册
-	public static final String URL_UNION_REGISTER = URL_UNION + "Register/register";
+	public static final String URL_UNION_REGISTER = getHostAddrs() + "Register/register";
 	// 快速注册
 	public static final String URL_LOGIN_QUICK = getHostAddrs() + "register/quickregister";
 	// 账号登陆
 	public static final String URL_UNION_ACCOUNT_LOGIN = getHostAddrs() + "login/login";
 	// 手机登陆
-	public static final String URL_UNION_PHONE_LOGIN = URL_UNION + "login/phonelogin";
+	public static final String URL_UNION_PHONE_LOGIN = getHostAddrs() + "login/phonelogin";
 	// 获取验证码
 	public static final String URL_GET_CODE = getHostAddrs() + "sms/sendmsg";
 	// 公告
 	public static final String URL_UNION_ANNOUNCE = getHostAddrs() + "sdkinfo/getnotice";
 	// 绑定手机
-	public static final String URL_BINDING_PHONE = URL_BASE + "?c=login&a=BindPhone";
+	public static final String URL_BINDING_PHONE = URL_BASE + "login/bindphone";
 	// QQ登录
-	public static final String URL_UNION_QQ_LOGIN = URL_UNION + "login/qqlogin";
+	public static final String URL_UNION_QQ_LOGIN = getHostAddrs() + "login/qqlogin";
 	// 谷歌登陆
 	public static final String URL_PAY_GOOGLE = URL_OVERSEAS + "Google/googlesdk";
 	// Facebook登陆
@@ -39,9 +39,9 @@ public class URLHolder {
 	// QQ WebView URL
 	public static final String URL_QQ_WEB = "https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=716027609&pt_3rd_aid=101322155&daid=383&pt_skey_valid=1&style=35&s_url=http%3A%2F%2Fconnect.qq.com&refer_cgi=authorize&which=&auth_time=1470121319621&client_id=101322155&src=1&state=&response_type=token&scope=add_share%2Cadd_topic%2Clist_album%2Cupload_pic%2Cget_simple_userinfo&redirect_uri=auth%3A%2F%2Ftauth.qq.com%2F";
 	// 一键登录
-	public static final String URL_KEY_LOGIN = URL_UNION + "login/keylogin";
+	public static final String URL_KEY_LOGIN = getHostAddrs() + "login/keylogin";
 	// 忘记密码
-	public static final String URL_FORGET_PASS = "http://www.tianyouxi.com/svnonethink/mobilesdk.php?s=/Public/getBackPassword.html";
+	public static final String URL_FORGET_PASS = "http://newsdk.tianyouxi.com/api/commonality/getBackPassword";
 		
 	/** ------------------------- 支付接口 ------------------------- */
 	// 创建订单
@@ -58,6 +58,14 @@ public class URLHolder {
 	public static final String URL_LOGIN_WAY = getHostAddrs() + "sdkinfo/getloginswitch";
 	// 悬浮窗控制
 	public static final String URL_FLOAT_CONTROL = getHostAddrs() + "sdkinfo/getframe";
+	// PayPal支付查单
+	public static final String URL_CHECK_PAYPAL = URL_OVERSEAS + "Payorder/paypalupdateorder";
+	// Google支付查单
+	public static final String URL_CHECK_GOOGLE = URL_OVERSEAS + "Payorder/googleupdateorder";
+	// 支付宝回调地址
+	public static final String URL_NOTIFY_ALIPAY = "http://www.tianyouxi.com/tianyousdk/index.php/Home/AliPay/notifyurl";
+	// 微信回调地址
+	public static final String URL_NOTIFY_WECHAT = "http://www.tianyouxi.com/tianyousdk/weixin/notify.php";
 	
 	/** ------------------------- 其他接口 ------------------------- */
 	// 创建角色
@@ -72,21 +80,10 @@ public class URLHolder {
 	public static final String URL_WALLET_REMAIN = getHostAddrs() + "walletorder/getwallet";
 	// 游戏推荐
 	public static final String URL_GAME_RECOMMEND = getHostAddrs() + "sdkinfo/getgames";
-	
-	// PayPal支付查单
-	public static final String URL_CHECK_PAYPAL = URL_OVERSEAS + "Payorder/paypalupdateorder";
-	// Google支付查单
-	public static final String URL_CHECK_GOOGLE = URL_OVERSEAS + "Payorder/googleupdateorder";
-	
 	// 获取汇款二维码
 	public static final String URL_GET_REMIT_CODE = "http://www.tianyouxi.com/Public/tyx/shewm.png";
 	// 去品台支付
 	public static final String URL_PAY_ONPLAT = "http://www.tianyouxi.com/svnonethink/mobilesdk.php?s=/CheckSdk/sdkpayCentre&";
-	
-	// 支付宝回调地址
-	public static final String URL_NOTIFY_ALIPAY = "http://www.tianyouxi.com/tianyousdk/index.php/Home/AliPay/notifyurl";
-	// 微信回调地址
-	public static final String URL_NOTIFY_WECHAT = "http://www.tianyouxi.com/tianyousdk/weixin/notify.php";
 	
 	private static String getHostAddrs() {
 		if (ConfigHolder.isOverseas) {

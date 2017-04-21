@@ -309,11 +309,19 @@ public class BaseSdkService implements SdkServiceInterface {
 	@Override
 	public void doBackPressed() { }
 
+	/**
+	 * @exception 是否显示游戏的退出界面
+	 * @return true是显示，false不显示，默认不显示游戏的退出界面
+	 */
 	@Override
 	public boolean isShowExitGame() { return false; }
 
+	/**
+	 * @exception 是否显示游戏的注销按钮
+	 * @return true是显示，false不显示，默认不显示游戏的注销按钮
+	 */
 	@Override
-	public boolean isShowLogout() { return true; }
+	public boolean isShowLogout() { return false; }
 
 	public interface LoginCallback { void onSuccess(String data); }
 

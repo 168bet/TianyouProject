@@ -179,14 +179,16 @@ public class AccountFragment extends BaseLoginFragment {
 
 	private void showLoginWay() {
 		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
-		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
-		ResultBean result = loginWay.getResult();
-		if (result.getCode() == 200) {
-			CustominfoBean custominfo = result.getCustominfo();
-			mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
-			mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
-		} else {
-			ToastUtils.show(mActivity, result.getMsg());
+		if (!response.isEmpty()) {
+			LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+			ResultBean result = loginWay.getResult();
+			if (result.getCode() == 200) {
+				CustominfoBean custominfo = result.getCustominfo();
+				mImgWayQQ.setVisibility(custominfo.getQq_quick() == 1 ? View.VISIBLE : View.GONE);
+				mImgWayWechat.setVisibility(custominfo.getWx_quick() == 1 ? View.VISIBLE : View.GONE);
+			} else {
+				ToastUtils.show(mActivity, result.getMsg());
+			}
 		}
 	}
 	

@@ -80,7 +80,8 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 	 */
     @Override
     public void onBackPressed() {
-    	if ("HomeFragment".equals(mFragmentTag) || "OneKeyFragment".equals(mFragmentTag)) {
+    	if ("HomeFragment".equals(mFragmentTag) || "WxScanFragment".equals(mFragmentTag) ||
+    			"SuccessFragment".equals(mFragmentTag) || "OneKeyFragment".equals(mFragmentTag)) {
 			finish();
 		} else {
 			getFragmentManager().popBackStack();

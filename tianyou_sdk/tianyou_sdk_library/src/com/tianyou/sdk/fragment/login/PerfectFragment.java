@@ -94,7 +94,10 @@ public class PerfectFragment extends BaseLoginFragment {
 	public void onClick(View v) {
 		final String password = mEditPass.getText().toString();
 		final String nickname = mEditNick.getText().toString();
-		if (nickname.length() < 6 || nickname.length() > 16) {
+		if (password.isEmpty() || nickname.isEmpty()) {
+			ToastUtils.show(mActivity, "用户名或密码不能为空！");
+			return;
+		} else if (nickname.length() < 6 || nickname.length() > 16) {
 			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "User name length cannot be less than 6 or more than 16!":"用户名长度不能小于6位或大于16位！"));
 			return;
 		} else if (!nickname.matches("^[A-Za-z0-9]+$")) {

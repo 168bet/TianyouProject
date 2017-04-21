@@ -18,7 +18,7 @@ public class MyApplication extends Application {
 		 * gameName: 游戏名
 		 * isLandscape：游戏横屏为true，竖屏为false
 		 */
-		TianyouSdk.getInstance().applicationInit(this, gameId, gameToken, gameName, false);
+		TianyouSdk.getInstance().applicationInit(this, gameId, gameToken, gameName, true);
 	}
 	
 }

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff2f2f2"
+    android:orientation="vertical" >
+
+    <ScrollView
+        style="@android:style/Widget.ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15.0dip"
+                android:layout_marginRight="15.0dip"
+                android:layout_marginTop="20.0dip"
+                android:background="@drawable/xlistview_corner_bg"
+                android:orientation="vertical"
+                android:padding="0.5dip" >
+
+                <com.mchsdk.paysdk.view.xlist.XListView
+                    android:id="@+id/xlistview_mch_record"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="#00000000"
+                    android:clickable="false"
+                    android:divider="#ffe4e4e4"
+                    android:dividerHeight="0.30000007dip"
+                    android:listSelector="#00000000"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:transcriptMode="alwaysScroll" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20.0dip"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/dialogfragment_ptbPayRecord_btn_previous"
+                    android:layout_width="80.0dip"
+                    android:layout_height="40.0dip"
+                    android:layout_marginRight="15.0dip"
+                    android:background="@drawable/xlistview_corner_bg"
+                    android:text="上一页" />
+
+                <Button
+                    android:id="@+id/dialogfragment_ptbPayRecord_btn_next"
+                    android:layout_width="80.0dip"
+                    android:layout_height="40.0dip"
+                    android:background="@drawable/xlistview_corner_bg"
+                    android:text="下一页" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

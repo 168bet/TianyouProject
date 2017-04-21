@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="280dp"
+
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="129dp"
+        android:layout_height="29dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/login_logo" />
+
+    <LinearLayout
+       
+        android:layout_width="242dp"
+        android:layout_height="83dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/login_input_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_inputaccount"
+            android:layout_width="242dp"
+            android:layout_height="41dp"
+
+
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/edt_mc_platform_login_account"
+                style="?android:attr/textViewStyle"
+                android:layout_width="207dp"
+                android:layout_height="41dp"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:hint="请输入账号/手机号"
+                android:paddingLeft="08dp"
+                android:singleLine="true"
+        android:textColor="#444444"
+     
+                android:textColorHint="#bbbbbb"
+                android:textSize="13sp">
+
+                <!--  <requestFocus />-->
+            </EditText>
+
+            <ImageView
+                android:id="@+id/iv_mc_platform_login_accountlist"
+                android:layout_width="35dp"
+                android:layout_height="38dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="01dp"
+                android:layout_toRightOf="@+id/edt_mc_platform_login_account"
+                android:background="@drawable/login_input_arrow" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="01dp"
+            android:background="#c4c4c4"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:layout_gravity="center"
+
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/edt_mc_platform_login_password"
+                style="?android:attr/textViewStyle"
+                android:layout_width="match_parent"
+
+                android:layout_height="41dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入密码"
+                android:paddingLeft="08dp"
+                android:password="true"
+                android:singleLine="true"
+          android:textColor="#444444"
+                android:textColorHint="#bbbbbb"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="29dp"
+        android:layout_marginRight="29dp"
+        android:layout_marginTop="12dp">
+
+
+        <CheckBox
+            android:id="@+id/cb_mc_save_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+android:drawableLeft="@drawable/checkbox_style"
+
+            android:button="@null"
+            android:checked="true"
+            android:drawablePadding="05dp"
+            android:text="记住我"
+            android:textColor="#a0a0a0"
+            android:textSize="11sp" />
+<!--        <TextView
+            android:id="@+id/txt_mc_save_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/cb_mc_save_password"
+            android:text="记住我"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="05"
+            android:textColor="#a0a0a0"
+            android:textSize="12sp" />-->
+        <Button
+            android:id="@+id/btn_mc_platform_forgment_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:text="忘记密码?"
+            android:textColor="#7e93b4"
+            android:textSize="11sp" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_mc_platform_login"
+        android:layout_width="242dp"
+
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="29dp"
+        android:layout_marginRight="29dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/mch_button_selector"
+        android:text="登录"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="29dp"
+        android:layout_marginRight="29dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btn_mc_platform_quick"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_login_register_quick_selector" />
+
+        <Button
+            android:id="@+id/btn_mc_platform_toregister"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_login_register_phone_selector" />
+
+        <Button
+            android:id="@+id/btn_mc_platform_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_login_register_contact_selector" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

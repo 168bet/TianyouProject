@@ -61,7 +61,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 	@Override
 	public void doEntryGame() {
 		super.doEntryGame();
-		SDKInstace.InGame(mRoleInfo.getServerId(), mRoleInfo.getServerName(), 
+		SDKInstace.InGame(mRoleInfo.getServerId(), mRoleInfo.getServerName(), mRoleInfo.getServerId(),
 				mRoleInfo.getRoleId(), mRoleInfo.getRoleName(), new HttpDataCallBack() {
 			@Override
 			public void HttpSuccess(String arg0) { LogUtils.d("SDKInstace.InGame：" + arg0); }
@@ -97,7 +97,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 				money, money * rate, orderInfo.getCurrency(), false, rate, new MemberPayCallBack() {
 			@Override
 			public void PaySuccess(PayOrderModel model) {
-				checkOrder(model.OutPayNo);
+				checkOrder(model.getOrderNo());
 			}
 		});
 	}

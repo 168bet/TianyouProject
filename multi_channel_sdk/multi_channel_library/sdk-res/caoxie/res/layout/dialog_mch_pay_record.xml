@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mchsdk.paysdk.view.fractiontranslatelayout.FractionTranslateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/util_mch_header" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffeaeaea"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/dialog_mch_pay_record_rel_ptb"
+            android:layout_width="0.0dip"
+            android:layout_height="50.0dip"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="平台币"
+                android:textColor="#ff505050"
+                android:textSize="15.0sp" />
+
+            <View
+                android:id="@+id/dialog_mch_pay_record_viewline_ptb"
+                android:layout_width="fill_parent"
+                android:layout_height="2.0dip"
+                android:layout_alignParentBottom="true"
+                android:background="#fffe5965" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dialog_mch_pay_record_rel_game"
+            android:layout_width="0.0dip"
+            android:layout_height="50.0dip"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="游戏充值"
+                android:textColor="#ff505050"
+                android:textSize="15.0sp" />
+
+            <View
+                android:id="@+id/dialog_mch_pay_record_viewline_game"
+                android:layout_width="fill_parent"
+                android:layout_height="2.0dip"
+                android:layout_alignParentBottom="true"
+                android:background="#fffe5965"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/record_fragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</com.mchsdk.paysdk.view.fractiontranslatelayout.FractionTranslateLayout>
