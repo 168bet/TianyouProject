@@ -195,6 +195,10 @@ public interface SdkServiceInterface {
 	void doRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grantResults);
 	
 	void doConfigurationChanged(Configuration newConfig);
+	
+	void doRegisterPhone();
+	
+	void doRegisterGenerate();
 
 }
 

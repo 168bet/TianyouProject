@@ -9,6 +9,7 @@ import com.tianyou.channel.business.AnzhiSdkService;
 import com.tianyou.channel.business.AyxSdkService;
 import com.tianyou.channel.business.BaiduSdkService;
 import com.tianyou.channel.business.CCSdkService;
+import com.tianyou.channel.business.DouquSdkService;
 import com.tianyou.channel.business.DownJoySdkService;
 import com.tianyou.channel.business.ErWuOUSdkService;
 import com.tianyou.channel.business.HSZSdkService;
@@ -120,7 +121,7 @@ public class TianyouSdk {
 			sdkService = new MoguSdkService();
 		} else if ("ty034".equals(channelInfo.getChannelId())  || "ty044".equals(channelInfo.getChannelId())  || 
 				"ty045".equals(channelInfo.getChannelId())  || "ty046".equals(channelInfo.getChannelId())  || 
-				"ty051".equals(channelInfo.getChannelId())) { 
+				"ty051".equals(channelInfo.getChannelId()) || "ty062".equals(channelInfo.getChannelId())) { 
 			sdkService = new WuyouwanSdkService();
 		} else if ("ty035".equals(channelInfo.getChannelId())) {
 			sdkService = new ShanyouSdkService();
@@ -132,9 +133,11 @@ public class TianyouSdk {
 			sdkService = new XianquChSdkService();
 		} else if ("ty052".equals(channelInfo.getChannelId())) {
 			sdkService = new YijieSdkService();
-		} else if ("ty100".equals(channelInfo.getChannelId())) {
-			sdkService = new TestYingyongbaoSdkService();
-		}
+		} else if ("ty063".equals(channelInfo.getChannelId())) {
+			sdkService = new DouquSdkService();
+		} else if ("ty111".equals(channelInfo.getChannelId())) {
+			sdkService = new DouquSdkService();
+		} 
 		return sdkService;
 	}
 

@@ -326,4 +326,10 @@ public class BaseSdkService implements SdkServiceInterface {
 	@Override
 	public void doConfigurationChanged(Configuration newConfig) { }
 
+	@Override
+	public void doRegisterPhone() {LogUtils.d("调用手机号注册接口...");}
+
+	@Override
+	public void doRegisterGenerate() {LogUtils.d("调用一键注册接口...");}
+
 }

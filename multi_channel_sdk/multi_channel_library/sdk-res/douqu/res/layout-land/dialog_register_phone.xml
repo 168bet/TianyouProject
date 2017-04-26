@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/title_bg">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="逗趣游戏手机注册"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/body_bg"
+
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_name"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="10dp"
+                android:padding="8dp"
+                android:src="@drawable/phone"
+                />
+
+            <EditText
+                android:id="@+id/edt_user_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_name"
+                android:layout_alignTop="@+id/iv_name"
+                android:layout_toRightOf="@+id/iv_name"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:textSize="14sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/iv_name"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/darker_gray" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/iv_pasdword"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="8dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_password" />
+
+            <EditText
+                android:id="@+id/edt_pasdword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_pasdword"
+                android:layout_alignTop="@+id/iv_pasdword"
+                android:layout_toRightOf="@+id/iv_pasdword"
+                android:background="@null"
+                android:inputType="textPassword"
+                android:hint="请输入密码"
+                android:textSize="14sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/iv_pasdword"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/darker_gray" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/iv_repasdword"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="8dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_password" />
+
+            <EditText
+                android:id="@+id/edt_repasdword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:layout_alignBottom="@+id/iv_repasdword"
+                android:layout_alignTop="@+id/iv_repasdword"
+                android:layout_toRightOf="@+id/iv_repasdword"
+                android:background="@null"
+                android:hint="请再次输入密码"
+                android:textSize="14sp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/iv_repasdword"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/darker_gray" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/edt_key"
+                android:layout_width="120dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="30dp"
+                android:background="@null"
+                android:hint="请输入手机验证码"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/bt_key"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:background="@drawable/button_bg"
+                android:layout_alignBottom="@+id/edt_key"
+                android:layout_alignTop="@+id/edt_key"
+                android:layout_toRightOf="@+id/edt_key"
+                android:layout_marginLeft="20dp"
+                android:text="获取验证码"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@+id/edt_key"
+                android:background="@android:color/darker_gray" />
+        </RelativeLayout>
+        <Button
+            android:id="@+id/bt_login"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/button_bg"
+            android:text="注册"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

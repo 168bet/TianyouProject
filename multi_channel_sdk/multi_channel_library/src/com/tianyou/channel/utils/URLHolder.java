@@ -22,6 +22,9 @@ public class URLHolder {
 
 	//校验应用宝订单地址
 	public static String CHECK_ORDER_URL_YYB = URL_BASE + "?c=Ysdk&a=GetPayInfo";
+	
+	// 秒乐猎妖应用宝校验订单地址
+	public static String CHECK_ORDER_ML_LY_YYB = "http://channel.tianyouxi.com/index.php/MLyyb/GetPayInfo";
 	//获取时间戳
 	public static String GET_TIME = "http://channel.tianyouxi.com/index.php/MoreChannel/gettimeinfo";
 
