@@ -2,20 +2,17 @@ package com.tianyou.channel.business;
 
 import java.util.HashMap;
 
-import android.app.Activity;
-import android.util.Log;
-
 import com.le.legamesdk.LeGameSDK;
-import com.le.legamesdk.LeGameSDK.ExitCallback;
-import com.le.legamesdk.LeGameSDK.InitCallback;
-import com.le.legamesdk.LeGameSDK.LoginCallback;
-import com.le.legamesdk.LeGameSDK.PayCallback;
-import com.letv.lepaysdk.smart.LePayInfo;
+import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.LogUtils;
+
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 
 public class LeshiSdkService extends BaseSdkService{
 	
@@ -24,8 +21,15 @@ public class LeshiSdkService extends BaseSdkService{
 	private String session;
 	
 	@Override
+	public void doApplicationCreate(Context context, boolean island) {
+		super.doApplicationCreate(context, island);
+		LeGameSDK.init(context);
+	}
+	
+	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
+		letvGameSDK.doLogin
 		mLeGameSDK = LeGameSDK.init(mActivity, new InitCallback() {
 			@Override
 			public void onSdkInitResult(String status, String errorMsg) {
@@ -41,24 +45,26 @@ public class LeshiSdkService extends BaseSdkService{
 
 	@Override
 	public void doLogin() {
-		mLeGameSDK.login(mActivity, new LoginCallback() {
+		mLeGameSDK.login(mActivity, new com.le.legamesdk.LeGameSDK.LoginCallback() {
 			@Override
 			public void onLoginResult(HashMap<String, Object> userInfo) {
 				if (userInfo == null) {
-//					ToastUtils.showToast(mActivity, "CODE_LOGIN_FAILED-登陆失败");
-//					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登陆失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登陆失败");
 				} else {
+					LogUtils.d("userInfo:" + userInfo);
+					userInfo.get
 					sid = (String) userInfo.get("letv_uid");
 					session = (String) userInfo.get("access_token");
-					Log.d("TAG", "sid= "+sid+",session= "+session);
-//					checkLogin(sid, session);
+					LoginInfo loginInfo = new LoginInfo();
+					loginInfo.setChannelUserId(sid);
+					loginInfo.setUserToken(session);
+					checkLogin(loginInfo);
 				}
- 			}
-
+			}
+			
 			@Override
 			public void onLoginQuit() {
-//				ToastUtils.showToast(mActivity, "CODE_LOGIN_FAILED-用户取消登录");
-				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_CANCEL, "用户取消登录");
+				
 			}
 		}, false);
 	}

@@ -40,7 +40,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	protected boolean mIsOverseas;
 	
 	@Override
-	public void doApplicationCreate(Context context, boolean island) { }
+	public void doApplicationCreate(Context context, boolean island) { LogUtils.d("调用Application onCreate"); }
 
 	@Override
 	public void doApplicationAttach(Context base) { }
