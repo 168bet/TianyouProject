@@ -329,7 +329,7 @@ public class HomeFragment extends BaseFragment {
 	        initViewData(popupView);
 	        popupView.findViewById(ResUtils.getResById(mActivity, "img_popup_close", "id")).setOnClickListener(this);
 //		}
-		mPopupWindow.showAsDropDown(mPaySwitch, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+		mPopupWindow.showAtLocation(mPaySwitch, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
 	}
 	
 	private void getPayMoneyValue() {

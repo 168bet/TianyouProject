@@ -28,7 +28,7 @@ public class SPHandler {
 	public static final String SP_PAY_MONEY = "sp_pay_money";	// 支付金额
 	
     public static String getString(Context context, String key) {
-    	return context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).getString(key, UUID.randomUUID().toString());
+    	return context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).getString(key, "");
 	}
     
     public static void putString(Context context, String key, String value) {

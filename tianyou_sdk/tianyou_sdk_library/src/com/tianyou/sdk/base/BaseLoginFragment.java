@@ -76,17 +76,21 @@ public abstract class BaseLoginFragment extends Fragment implements OnClickListe
 	}
 	
 	protected void quickRegisterSwitch() {
-		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
-		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
-		ResultBean result = loginWay.getResult();
-		if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 1) {
-			if (ConfigHolder.isUnion) {
-				mActivity.switchFragment(new RegisterFragment(), "RegisterFragment");
+		if (ConfigHolder.isOverseas || ConfigHolder.isUnion) {
+			String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+			LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+			ResultBean result = loginWay.getResult();
+			if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 1) {
+				if (ConfigHolder.isUnion) {
+					mActivity.switchFragment(new RegisterFragment(), "RegisterFragment");
+				} else {
+					mLoginHandler.doQuickRegister();
+				}
 			} else {
-				mLoginHandler.doQuickRegister();
+				ToastUtils.show(mActivity, "暂未开放");
 			}
 		} else {
-			ToastUtils.show(mActivity, "暂未开放");
+			mLoginHandler.doQuickRegister();
 		}
 	}
 }

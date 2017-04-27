@@ -10,6 +10,7 @@ import com.tianyou.channel.business.AyxSdkService;
 import com.tianyou.channel.business.BaiduSdkService;
 import com.tianyou.channel.business.CCSdkService;
 import com.tianyou.channel.business.DouquSdkService;
+import com.tianyou.channel.business.CaoxieSdkService;
 import com.tianyou.channel.business.DownJoySdkService;
 import com.tianyou.channel.business.ErWuOUSdkService;
 import com.tianyou.channel.business.HSZSdkService;
@@ -135,9 +136,11 @@ public class TianyouSdk {
 			sdkService = new YijieSdkService();
 		} else if ("ty063".equals(channelInfo.getChannelId())) {
 			sdkService = new DouquSdkService();
-		} else if ("ty111".equals(channelInfo.getChannelId())) {
-			sdkService = new DouquSdkService();
-		} 
+		} else if ("ty057".equals(channelInfo.getChannelId())) {
+			sdkService = new CaoxieSdkService();
+		} else if ("ty100".equals(channelInfo.getChannelId())) {
+			sdkService = new TestYingyongbaoSdkService();
+		}
 		return sdkService;
 	}
 

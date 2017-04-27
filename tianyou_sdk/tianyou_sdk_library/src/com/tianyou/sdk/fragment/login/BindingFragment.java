@@ -100,11 +100,10 @@ public class BindingFragment extends BaseLoginFragment {
 			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Verification code input error":"验证码输入有误"));
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
-			map.put("mobile", phone);
 			map.put("userid", getArguments().getString("userId"));
+			map.put("mobile", phone);
 			map.put("mobile_code", mLoginCode);
-			map.put("usertoken", getArguments().getString("usertoken"));
-			map.put("appID", ConfigHolder.gameId);
+			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + phone));
 			HttpUtils.post(mActivity, URLHolder.URL_BINDING_PHONE, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {
@@ -113,7 +112,7 @@ public class BindingFragment extends BaseLoginFragment {
 						JSONObject result = jsonObject.getJSONObject("result");
 						ToastUtils.show(mActivity, result.getString("msg"));
 						if (result.getInt("code") == 200) {
-							mLoginHandler.doUserLogin(getArguments().getString("username"), getArguments().getString("password"), false);
+							mLoginHandler.doUserLogin(mEditPhone.getText().toString(), getArguments().getString("password"), false);
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -137,7 +136,7 @@ public class BindingFragment extends BaseLoginFragment {
             map.put("send_type", "bindphone");
             map.put("type", "android");
             map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-            map.put("sign", phone + "verification" + "android" + AppUtils.getPhoeIMEI(mActivity));
+            map.put("sign", AppUtils.MD5(phone + "bindphone" + "android" + AppUtils.getPhoeIMEI(mActivity)));
 			HttpUtils.post(mActivity, URLHolder.URL_GET_CODE, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {

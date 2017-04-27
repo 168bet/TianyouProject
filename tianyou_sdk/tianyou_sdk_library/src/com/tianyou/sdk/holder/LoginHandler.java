@@ -114,16 +114,18 @@ public class LoginHandler {
 	}
 	
 	// 1-3.QQ登陆接口
-	public void doQQLogin(final Activity activity, Map<String, String> map) {
+	public void doQQLogin(final Activity activity, final Map<String, String> map) {
+		SPHandler.putBoolean(mActivity, SPHandler.SP_IS_PHONE, false);
 		map.put("channel", ConfigHolder.channelId);
 		map.put("sign", AppUtils.MD5(map.get("openid") + ConfigHolder.gameId + ConfigHolder.gameToken));
 		HttpUtils.post(mActivity, URLHolder.URL_UNION_QQ_LOGIN, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
+				activity.finish();
 				LoginInfo request = new Gson().fromJson(response, LoginInfo.class);
+				request.getResult().setNickname(map.get("nickname"));
 				if ("0".equals(request.getResult().getIsperfect())) {	//	QQ登陆且没有完善账号信息
 					mResultBean = request.getResult();
-					activity.finish();
 					mHandler.sendEmptyMessage(2);
 				} else {
 					onLoginProcess(request);
@@ -211,7 +213,7 @@ public class LoginHandler {
 		//保存到文件
 		Map<String, String> info = new HashMap<String, String>();
 		info.put(LoginInfoHandler.USER_ACCOUNT, mResultBean.getUsername());
-		info.put(LoginInfoHandler.USER_NICKNAME, mResultBean.getNickname() == null ? "" : mResultBean.getNickname());
+		info.put(LoginInfoHandler.USER_NICKNAME, (mResultBean.getNickname() == null || mResultBean.getNickname().isEmpty()) ? "" : mResultBean.getNickname());
 		info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword() == null ? mResultBean.getVerification() : mResultBean.getPassword());
 		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
 		info.put(LoginInfoHandler.USER_LOGIN_WAY, mResultBean.getRegistertype() == null ? "" : mResultBean.getRegistertype());

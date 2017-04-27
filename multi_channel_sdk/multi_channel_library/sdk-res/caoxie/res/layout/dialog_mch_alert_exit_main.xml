@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="272dp"
+        android:layout_height="176dp"
+
+  
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="23dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/info" />
+
+            <TextView
+                android:id="@+id/dialog_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_vertical"
+                android:text="提示"
+                android:textColor="#ff5d5d5d"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dialog_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginBottom="23dp"
+
+            android:maxLines="2"
+            android:text="检测到您暂未绑定手机，为了您的账号安全，建议您马上绑定!"    
+                android:gravity="center_horizontal"
+            android:textColor="#a7a7a7"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+          
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="104dp"
+                android:layout_height="37dp"
+
+         android:layout_marginRight="6dp"
+                android:background="@drawable/mch_button_selector"
+                android:text="取消"
+                android:textSize="13sp"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/ok"
+                android:layout_width="104dp"
+                android:layout_height="37dp"
+
+            android:layout_marginLeft="6dp"
+                android:background="@drawable/mch_button_e7e7e7_selector"
+                android:text="确定"
+                android:textSize="13sp"
+                android:textColor="#797979" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
