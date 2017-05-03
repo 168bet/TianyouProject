@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.tencent.ysdk.api.YSDKApi;
+import com.tencent.ysdk.framework.common.eFlag;
 import com.tencent.ysdk.framework.common.ePlatform;
 import com.tencent.ysdk.module.bugly.BuglyListener;
 import com.tencent.ysdk.module.pay.PayListener;
@@ -54,6 +55,8 @@ public class YingyongbaoSdkService extends BaseSdkService {
 	private String pfKey;
 	private int platForm;
 	
+	private String tyUserId;
+	
 	@Override
 	public void doActivityInit(Activity activity,
 			TianyouCallback tianyouCallback) {
@@ -67,17 +70,30 @@ public class YingyongbaoSdkService extends BaseSdkService {
 	
 	@Override
 	public void doLogin() {
-		YSDKApi.login(ePlatform.QQ);
+		if (tyUserId == null) {
+			YSDKApi.login(ePlatform.QQ);
+		} else {
+			mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, tyUserId);
+		}
 	}
 	
 	@Override
 	public void doLoginWechat() {
-		YSDKApi.login(ePlatform.WX);
+		if (tyUserId == null) {
+			YSDKApi.login(ePlatform.WX);
+		} else {
+			mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, tyUserId);
+		}
 	}
 	
 	@Override
 	public boolean isShowLogout() {
-		return false;
+		return true;
+	}
+	
+	@Override
+	public boolean isShowExitGame() {
+		return true;
 	}
 	
 	@Override
@@ -111,6 +127,7 @@ public class YingyongbaoSdkService extends BaseSdkService {
 	
 	@Override
 	public void doLogout() {
+		tyUserId = null;
 		YSDKApi.logout();
 		super.doLogout();
 	}
@@ -135,7 +152,7 @@ public class YingyongbaoSdkService extends BaseSdkService {
 		checkParam.put("platform", platForm+"");
 		checkParam.put("zoneid", mRoleInfo.getServerId());
 		Log.d("TAG", "checkParam= "+checkParam);
-		HttpUtils.post(mActivity, URLHolder.CHECK_ORDER_URL_YYB,checkParam, new HttpCallback() {
+		HttpUtils.post(mActivity, URLHolder.CHECK_ORDER_ML_LY_YYB,checkParam, new HttpCallback() {
 					@Override
 					public void onSuccess(String data) {
 						Log.d("TAG", "yyb check success data= "+data);
@@ -202,7 +219,6 @@ public class YingyongbaoSdkService extends BaseSdkService {
 	
 	
 	private class MyUserListener implements UserListener {
-		
 		@Override
 		public void OnLoginNotify( UserLoginRet loginRet) {
 			Log.d("TAG", "loginRet= "+loginRet.toString());
@@ -266,7 +282,7 @@ public class YingyongbaoSdkService extends BaseSdkService {
 					JSONObject result = (JSONObject) jsonObject.get("result");
 					String code = result.getString("code");
 					if ("200".equals(code)) {
-						String tyUserId = result.getString("uid");
+						tyUserId = result.getString("uid");
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, tyUserId);
 						Log.d("TAG", "登录成功");
 					} else {
@@ -283,6 +299,15 @@ public class YingyongbaoSdkService extends BaseSdkService {
 			}
 		});
 	}
+	
+	public ePlatform getPlatform() {
+        UserLoginRet ret = new UserLoginRet();
+        YSDKApi.getLoginRecord(ret);
+        if (ret.flag == eFlag.Succ) {
+            return ePlatform.getEnum(ret.platform);
+        }
+        return ePlatform.None;
+    }
 	
 	private void showDialog(Activity activity){
 		View dialogView = View.inflate(activity, ResUtils.getResById(activity, "dialog_exit_pay", "layout"), null);

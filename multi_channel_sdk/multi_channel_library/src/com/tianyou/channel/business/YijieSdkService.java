@@ -6,6 +6,11 @@ import org.json.JSONObject;
 import android.R.bool;
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
+
+import cn.beecloud.dankal.Lequ;
+import cn.beecloud.dankal.callback.RegisterGenerateCallBack;
+import cn.beecloud.dankal.callback.RegisterPhoneCallBack;
 
 import com.snowfish.cn.ganga.helper.SFOnlineExitListener;
 import com.snowfish.cn.ganga.helper.SFOnlineHelper;
@@ -77,11 +82,56 @@ public class YijieSdkService extends BaseSdkService{
 		});
 	}
 	
+	// 手机号注册
+	@Override
+	public void doRegisterPhone() {
+		super.doRegisterPhone();
+		Lequ.register_phone(mActivity, new RegisterPhoneCallBack() {
+			@Override
+			public void sendSMSOrRegisterPhoneSuccess(String phone, String password,
+					String type) {
+				LogUtils.d("手机号注册成功, phone= "+phone+",password= "+password+",type= "+type);
+//				doLogin();
+			}
+			
+			@Override
+			public void sendSMSOrRegisterPhoneFail(String errorCode, String msg) {
+				LogUtils.d("手机号注册失败,errorCode= "+errorCode+",msg= "+msg);
+				mActivity.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						Toast.makeText(mActivity, "手机号注册失败", Toast.LENGTH_SHORT).show();
+					}
+				});
+			}
+		});
+	}
+	
+	@Override
+	public void doRegisterGenerate() {
+		super.doRegisterGenerate();
+		Lequ.register_generate(mActivity, new RegisterGenerateCallBack() {
+			
+			@Override
+			public void registerGenerateSuccess() {
+				LogUtils.d("一键注册成功....");
+				doLogin();
+			}
+			
+			@Override
+			public void registerGenerateFail(String errorCode, String msg) {
+				LogUtils.d("一键注册失败, errorCode= "+errorCode+",msg= "+msg);
+				Toast.makeText(mActivity, "一键注册失败", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
+	
 	// 登录
 	@Override
 	public void doLogin() {
 		super.doLogin();
 		SFOnlineHelper.login(mActivity, "Login");
+		
 	}
 	
 	// 登出
@@ -193,6 +243,7 @@ public class YijieSdkService extends BaseSdkService{
 	}
 	
 	private String getDataValue(RoleInfo info){
+		String levelUpTime = (System.currentTimeMillis()/1000)+"";
 		JSONObject data = new JSONObject();
 		try {
 			data.put("roleId", info.getRoleId());
@@ -204,7 +255,8 @@ public class YijieSdkService extends BaseSdkService{
 			data.put("vip", info.getVipLevel());
 			data.put("partyName", info.getParty());
 			data.put("roleCTime", info.getCreateTime());
-			data.put("roleLevelMTime", info.getRoleLevelUpTime());
+			data.put("roleLevelMTime", levelUpTime);//info.getRoleLevelUpTime());
+			Log.d("TAG", levelUpTime);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
