@@ -67,9 +67,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		roleInfo.setRoleName("Jack");
 		roleInfo.setProfession("法师");
 		roleInfo.setLevel("50");
-		roleInfo.setVipLevel("8");
-		roleInfo.setBalance("500");
-		roleInfo.setAmount("1000");
 		roleInfo.setSociaty("阴阳寮");
 		TianyouSdk.getInstance().updateRoleInfo(roleInfo);
 	}
@@ -82,9 +79,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		roleInfo.setServerName("测试一区");
 		roleInfo.setProfession("法师");
 		roleInfo.setLevel("50");
-		roleInfo.setVipLevel("8");
-		roleInfo.setBalance("500");
-		roleInfo.setAmount("1000");
 		roleInfo.setSociaty("阴阳寮");
 		TianyouSdk.getInstance().createRole(roleInfo);
 	}
