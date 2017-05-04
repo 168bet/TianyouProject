@@ -18,7 +18,9 @@ import com.sogou.gamecenter.sdk.listener.PayCallbackListener;
 import com.sogou.gamecenter.sdk.listener.SwitchUserListener;
 import com.sogou.gamecenter.sdk.views.FloatMenu;
 import com.tianyou.channel.bean.ChannelInfo;
+import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
@@ -70,7 +72,10 @@ public class SogouSdkService extends BaseSdkService {
 						new Handler().postDelayed(new Runnable() {
 							@Override
 							public void run() {
-								checkLogin(userInfo.getUserId()+"", userInfo.getSessionKey());
+								LoginInfo loginParam = new LoginInfo();
+								loginParam.setChannelUserId(userInfo.getUserId()+"");
+								loginParam.setUserToken(userInfo.getSessionKey());
+								checkLogin(loginParam);
 							}
 						}, 2000);
 					}
@@ -99,7 +104,10 @@ public class SogouSdkService extends BaseSdkService {
 			public void loginSuccess(int code, UserInfo userInfo) {
 				mFloatMenu.show();
 				Log.d("TAG", "sid= "+userInfo.getUserId()+",session= "+userInfo.getSessionKey());
-				checkLogin(userInfo.getUserId()+"", userInfo.getSessionKey());
+				LoginInfo loginParam = new LoginInfo();
+				loginParam.setChannelUserId(userInfo.getUserId()+"");
+				loginParam.setUserToken(userInfo.getSessionKey());
+				checkLogin(loginParam);
 			}
 			
 			@Override
@@ -110,8 +118,8 @@ public class SogouSdkService extends BaseSdkService {
 	}
 	
 	@Override
-	public void doChannelPay( OrderinfoBean orderInfo) {
-		super.doChannelPay(orderInfo);
+	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
 		Map<String, Object> optionData = new HashMap<String, Object>();
 		
 		optionData.put("currency",orderInfo.getCurrency());
@@ -135,7 +143,6 @@ public class SogouSdkService extends BaseSdkService {
 				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");
 			}
 		});
-		
 	}
 	
 	@Override

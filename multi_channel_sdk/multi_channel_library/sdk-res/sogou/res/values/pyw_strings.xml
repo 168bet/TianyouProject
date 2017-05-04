@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pyw_sdk_type">3</string>
+    <string name="app_name">PengyouwanSDK</string>
     <string name="pyw_login_account_hint">请输入账号</string>
     <string name="pyw_login_psw_hint">请输入密码</string>
     <string name="pyw_regex_code">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>

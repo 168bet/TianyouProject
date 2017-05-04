@@ -5,7 +5,8 @@
         <item name="android:textColor">@color/sogou_game_sdk_white</item>
     </style>
 
-    <style name="Activity_MyDialog" parent="@android:style/Theme.Dialog">
+    <!-- 4.0以下只能用:Theme.Dialog ，4.0以上推荐使用 :Theme.Holo.Light.Dialog -->
+    <style name="Activity_MyDialog" parent="@android:style/Theme.Holo.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -131,6 +132,7 @@
         <item name="android:textSize">13.5sp</item>
         <item name="android:textColor">@color/sogou_game_sdk_color_3d3d3d</item>
     </style>
+
     <style name="sogou_game_sdk_pay_bonus_balance" parent="@android:style/Widget.TextView">
         <item name="android:textSize">14.5sp</item>
         <item name="android:textColor">@color/sogou_game_sdk_color_3d3d3d</item>
@@ -172,6 +174,7 @@
         <item name="android:textSize">13.5sp</item>
         <item name="android:textColor">@color/sogou_game_sdk_white</item>
     </style>
+
     <style name="sogou_game_sdk_game_info_screen" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">113dp</item>
         <item name="android:layout_height">173dp</item>
@@ -227,6 +230,17 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowBackground">@drawable/sogou_game_sdk_exit_dialog_bg</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <style name="sogou_game_sdk_base_dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
 
@@ -286,11 +300,9 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
-    
+
     <!-- 游戏猫 -->
-      <style name="gamecat_Widget"></style>
-
-
+    <style name="gamecat_Widget"></style>
 
     <style name="gamecat_button_common_orange">
         <item name="android:layout_width">match_parent</item>
@@ -312,6 +324,19 @@
         <item name="android:textColor">@color/gamecat_color_333</item>
         <item name="android:textColorHint">@color/gamecat_hint_color</item>
         <item name="android:textSize">11dp</item>
+    </style>
+
+    <style name="sogou_game_sdk_recharge_record_cb_theme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/sogou_game_sdk_recharge_record_cb</item>
+    </style>
+
+    <style name="sogou_game_sdk_auto_sign_in_cb_theme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/sogou_game_sdk_auto_sign_in_cb</item>
+    </style>
+
+    <style name="sogou_game_sdk_bottom_dialog_animation" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/sogou_game_sdk_bottom_dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/sogou_game_sdk_bottom_dialog_exit</item>
     </style>
 
 </resources>

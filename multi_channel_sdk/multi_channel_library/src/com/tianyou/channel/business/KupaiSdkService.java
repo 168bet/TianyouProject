@@ -26,12 +26,14 @@ import com.iapppay.sdk.main.CoolPadPay;
 import com.iapppay.utils.RSAHelper;
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.PayInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.CommenUtil;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
+import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.URLHolder;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 
@@ -188,13 +190,14 @@ public class KupaiSdkService extends BaseSdkService{
 	}
 	
 	@Override
-	public void doPay(String payCode) {
+	public void doPay(final PayParam payInfo) {
+		LogUtils.d("调用支付接口");
 		
-		PayInfo payInfo = ConfigHolder.getPayInfo(mActivity, payCode);
-		String productDesc = payInfo.getProductDesc();
-		String productID = payInfo.getProductId();
-		String productName = payInfo.getProductName();
-		String money = payInfo.getMoney();
+		PayInfo productInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
+		String productDesc = productInfo.getProductDesc();
+		String productID = productInfo.getProductId();
+		String productName = productInfo.getProductName();
+		String money = productInfo.getMoney();
 		
 		Map<String, String> payParam = new HashMap<String, String>();
 		payParam.put("userId", uid);
@@ -202,7 +205,7 @@ public class KupaiSdkService extends BaseSdkService{
 		payParam.put("roleId", mRoleInfo.getRoleId());
 		payParam.put("serverID", mRoleInfo.getServerId());
 		payParam.put("serverName", mRoleInfo.getServerName());
-		payParam.put("customInfo", mRoleInfo.getCustomInfo());
+		payParam.put("customInfo", payInfo.getCustomInfo());
 		payParam.put("productId",productID);
 		payParam.put("productName", productName);
 		payParam.put("productDesc", productDesc);
@@ -224,7 +227,7 @@ public class KupaiSdkService extends BaseSdkService{
 						int waresid = result.getJSONObject("orderinfo").getInt("waresid");
 						Log.d("TAG", "access_token= "+access_token+",appID= "+appID+",openID= "+openID);
 						AccountBean account = CoolPadPay.buildAccount(mActivity, access_token, appID, openID);
-						String params = genUrl(appID, uid, mRoleInfo.getCustomInfo(), 
+						String params = genUrl(appID, uid, payInfo.getCustomInfo(), 
 								payPrivate, waresid, price, orderID);
 						doKuPaiPay(params, account,orderID);
 					} else {

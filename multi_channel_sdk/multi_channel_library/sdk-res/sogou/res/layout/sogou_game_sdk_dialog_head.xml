@@ -3,7 +3,7 @@
     android:id="@+id/sogou_game_sdk_head_rl"
     android:layout_width="fill_parent"
     android:layout_height="43dp"
-    android:background="@drawable/sogou_game_sdk_dialog_common_top"
+    android:background="@drawable/sogou_game_sdk_base_dialog_top_bg"
     android:orientation="horizontal" >
 
     <TextView
@@ -26,14 +26,16 @@
         android:singleLine="true"
         android:text="@string/sogou_game_sdk_head_title"
         android:textSize="17sp" />
-	<ImageView 
-	    android:id="@+id/sogou_game_sdk_iv_close"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_centerVertical="true"
-	    android:src="@drawable/sogou_game_sdk_close"
-	    android:layout_alignParentRight="true"
-	    android:padding="10dp"
-	    android:clickable="true"
-	    android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/sogou_game_sdk_iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:padding="10dp"
+        android:src="@drawable/sogou_game_sdk_close"
+        android:visibility="gone" />
+
 </RelativeLayout>

@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f1f1f1"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp" >
+            android:layout_height="120dp">
 
-            <ImageView
+            <com.le.legamesdk.widget.LeImageView
                 android:id="@+id/banner_imageview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -30,8 +30,7 @@
                 android:layout_marginRight="7dp"
                 android:layout_marginTop="7dp"
                 android:text=""
-                android:textColor="@color/lepay_white"
-                 />
+                android:textColor="@color/lepay_white" />
         </RelativeLayout>
 
         <View
@@ -44,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:weightSum="2.0" >
+            android:weightSum="2.0">
 
             <Button
                 android:id="@+id/close_button"

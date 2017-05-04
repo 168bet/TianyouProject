@@ -14,7 +14,6 @@
         android:text="@string/sogou_game_sdk_giftcenter_view_bag_item_getgift"
         android:textSize="12sp" />
 
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="61dp"
@@ -28,7 +27,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="9dp"
-            android:background="@drawable/sogou_game_sdk_app_default_icon"
             android:scaleType="centerCrop" />
 
         <LinearLayout

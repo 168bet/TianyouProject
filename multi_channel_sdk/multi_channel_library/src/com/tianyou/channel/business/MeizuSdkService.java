@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.meizu.gamesdk.model.callback.MzExitListener;
 import com.meizu.gamesdk.model.callback.MzLoginListener;
 import com.meizu.gamesdk.model.callback.MzPayListener;
 import com.meizu.gamesdk.model.model.LoginResultCode;
@@ -20,6 +21,8 @@ import com.meizu.gamesdk.online.core.MzGameBarPlatform;
 import com.meizu.gamesdk.online.core.MzGameCenterPlatform;
 import com.meizu.gamesdk.online.model.model.MzBuyInfo;
 import com.tianyou.channel.bean.ChannelInfo;
+import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -71,7 +74,10 @@ public class MeizuSdkService extends BaseSdkService {
 				switch (code) {
 				case LoginResultCode.LOGIN_SUCCESS:
 					sid = accountInfo.getUid();
-					checkLogin(sid, accountInfo.getSession());
+					LoginInfo loginParam = new LoginInfo();
+					loginParam.setChannelUserId(sid);
+					loginParam.setUserToken(accountInfo.getSession());
+					checkLogin(loginParam);
 					break;
 				case LoginResultCode.LOGIN_ERROR_CANCEL:
 					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_CANCEL, "");
@@ -93,21 +99,24 @@ public class MeizuSdkService extends BaseSdkService {
 	}
 	
 	@Override
-	public void doPay(String payCode) {
-		PayInfo payInfo = ConfigHolder.getPayInfo(mActivity, payCode);
-		String productId = payInfo.getProductId();
-		String productSubject = payInfo.getProductName();
-		String productBody = payInfo.getProductDesc();
-		String buyAmount = mRoleInfo.getBuyAmount();
-		String money = payInfo.getMoney();
+	public void doPay(PayParam payInfo) {
+//		super.doPay(payInfo);
+		LogUtils.d("调用支付接口");
+		PayInfo productInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
+		
+		String productId = productInfo.getProductId();
+		String productSubject = productInfo.getProductName();
+		String productBody = productInfo.getProductDesc();
+//		String buyAmount = mRoleInfo.getBuyAmount();
+		String money = productInfo.getMoney();
 		// 创建订单
 		Map<String, String> payParam = new HashMap<String, String>();
-		payParam.put("userId", mUserId);
+		payParam.put("userId", mLoginInfo.getTianyouUserId());
 		payParam.put("appID", tyAppID);
 		payParam.put("roleId", mRoleInfo.getRoleId());
 		payParam.put("serverID", mRoleInfo.getServerId());
 		payParam.put("serverName", mRoleInfo.getServerName());
-		payParam.put("customInfo", mRoleInfo.getCustomInfo());
+		payParam.put("customInfo", payInfo.getCustomInfo());
 		payParam.put("productId",productId);
 		payParam.put("productName", productSubject);
 		payParam.put("productDesc", productBody);
@@ -115,7 +124,7 @@ public class MeizuSdkService extends BaseSdkService {
 		payParam.put("promotion", promotion);
 		// 魅族所需参数
 		payParam.put("app_id", appID);
-		payParam.put("buy_amount",buyAmount);
+		payParam.put("buy_amount","1");
 		payParam.put("pay_type", "0");
 		payParam.put("product_body", productBody);
 		payParam.put("product_id", productId);
@@ -161,6 +170,7 @@ public class MeizuSdkService extends BaseSdkService {
 				Log.d("TAG","meizi pay ty createOrder failed code= "+code);
 			}
 		});
+		
 	}
 	
 	private void doMeizuPay(Bundle buyBundle,final String orderID){
@@ -173,7 +183,7 @@ public class MeizuSdkService extends BaseSdkService {
 				case PayResultCode.PAY_SUCCESS:
 					Map<String, String> data = new HashMap<String, String>();
 					data.put("orderID",orderID); 
-					data.put("userId",mUserId);
+					data.put("userId",mLoginInfo.getTianyouUserId());
 					data.put("promotion", promotion);
 					Log.d("TAG", "meizu pay ty check param= "+data);
 					
@@ -237,9 +247,29 @@ public class MeizuSdkService extends BaseSdkService {
 	}
 	
 	@Override
+	public void doLogout() {
+		super.doLogout();
+		MzGameCenterPlatform.logout(mActivity, new MzLoginListener() {
+			
+			@Override
+			public void onLoginResult(int code, MzAccountInfo mzAccountInfo, String msg) {
+				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "退出账号");
+			}
+		});
+	}
+	
+	@Override
 	public void doExitGame() {
-		MzGameCenterPlatform.logout(mActivity);
-		mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
+//		MzGameCenterPlatform.logout(mActivity);
+		MzGameCenterPlatform.exitSDK(mActivity, new MzExitListener() {
+			
+			@Override
+			public void callback(int code, String msg) {
+				if (code == MzExitListener.CODE_SDK_EXIT) {
+					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "退出游戏");
+				} 
+			}
+		});
 	}
 
 	@Override

@@ -1,26 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/transparent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent">
 
     <com.le.legamesdk.widget.LeMainViewParent
         android:id="@+id/le_main_view_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_margin="@dimen/le_sdk_main_view_margin" >
+        android:layout_margin="@dimen/le_sdk_main_view_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/le_main_view_action_bar"
+                layout="@layout/le_main_view_action_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/le_main_view_action_bar_height"
-                layout="@layout/le_main_view_action_bar_layout" />
+                android:layout_height="@dimen/le_main_view_action_bar_height"/>
 
             <EditText
                 android:id="@+id/le_binding_phone_phone_edit"
@@ -31,10 +30,11 @@
                 android:background="@drawable/le_hollow_border_line_bg_round"
                 android:gravity="center_vertical"
                 android:hint="@string/le_binding_phone_phone_hint"
+                android:imeOptions="actionDone"
                 android:inputType="phone"
+                android:maxLength="11"
                 android:paddingLeft="6dp"
-                android:paddingStart="6dp"
-                android:maxLength="11" />
+                android:paddingStart="6dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:layout_marginStart="@dimen/margin_15"
                 android:background="@drawable/le_hollow_border_line_bg_round"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/le_binding_phone_verify_code_btn"
@@ -60,7 +60,7 @@
                     android:layout_marginStart="20dp"
                     android:background="@null"
                     android:gravity="center"
-                    android:text="@string/title_activity_binding_phone_verify_code" />
+                    android:text="@string/title_activity_binding_phone_verify_code"/>
 
                 <View
                     android:id="@+id/le_binding_phone_line"
@@ -70,7 +70,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_toLeftOf="@id/le_binding_phone_verify_code_btn"
                     android:layout_toStartOf="@id/le_binding_phone_verify_code_btn"
-                    android:background="@color/le_border_line_color" />
+                    android:background="@color/le_border_line_color"/>
 
                 <EditText
                     android:id="@+id/le_binding_phone_verify_code_edit"
@@ -87,7 +87,7 @@
                     android:inputType="number"
                     android:maxLength="6"
                     android:paddingLeft="4dp"
-                    android:paddingStart="4dp" />
+                    android:paddingStart="4dp"/>
             </RelativeLayout>
 
             <TextView
@@ -100,7 +100,7 @@
                 android:layout_marginStart="@dimen/margin_15"
                 android:layout_marginTop="@dimen/margin_15"
                 android:gravity="center_horizontal"
-                android:text="@string/le_binding_phone_content_description" />
+                android:text="@string/le_binding_phone_content_description"/>
 
             <Button
                 android:id="@+id/le_binding_phone_next_button"
@@ -110,7 +110,7 @@
                 android:layout_margin="@dimen/margin_15"
                 android:background="@drawable/le_solid_button_bg"
                 android:text="@string/le_sdk_next_content"
-                android:textColor="@color/lepay_white" />
+                android:textColor="@color/lepay_white"/>
         </LinearLayout>
     </com.le.legamesdk.widget.LeMainViewParent>
 

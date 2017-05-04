@@ -81,6 +81,12 @@
     <color name="le_oauth_loading_dot_gray">#5B6767</color>
     <color name="le_oauth_loading_dot_red">#CA171D</color>
     <color name="le_oauth_loading_dot_blue">#27A3D5</color>
+    <color name="le_oauth_orange_dark">#fa8700</color>
+    <color name="le_oauth_orange">#f19149</color>
+    <color name="le_oauth_orange_light">#f6b37f</color>
+    <color name="le_oauth_black">#000000</color>
+    <color name="le_oauth_gray">#999999</color>
+
 
     <!-- SDK窗体部分 -->
     <color name="sdk_green">#80c45d</color>
@@ -97,6 +103,9 @@
     <color name="sdk_gray_c6">#c6c6c6</color>
     <color name="sdk_gray_65">#656565</color>
     <color name="sdk_gray_47">#474747</color>
+    <color name="sdk_orange">#F5811E</color>
+    <color name="sdk_c555555">#555555</color>
+    <color name="sdk_c999999">#999999</color>
 
     <!-- 边框线颜色 -->
     <color name="le_border_line_color">#C7CED2</color>
@@ -109,8 +118,10 @@
     <color name="lesdk_green_light">#8dd568</color>
     <color name="lesdk_gray_light">#dfdfdf</color>
     <color name="lesdk_gray_dark">#A2A2A2</color>
-    <color name="lesdk_transparent_80">#80000000</color>
+    <color name="lesdk_transparent_80">#70000000</color>
     <color name="lesdk_transparent">#00000000</color>
     <color name="lesdk_orange">#ffaf67</color>
+    <color name="line_color">#d9d9d9</color>
 
-    <color name="line_color">#d9d9d9</color></resources>
+
+</resources>

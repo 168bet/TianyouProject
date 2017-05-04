@@ -69,4 +69,14 @@
     <color name="gamecat_color_f74c31">#f74c31</color>
     <color name="gamecat_color_EBBFA4">#EBBFA4</color><!-- #0b751e -->
     
+    <!-- Q2  -->
+    <color name="sogou_game_sdk_color_282828">#282828</color>
+    <color name="sogou_game_sdk_color_888888">#888888</color>
+    <color name="sogou_game_sdk_color_f5f5f5">#f5f5f5</color>
+    <color name="sogou_game_sdk_color_dddddd">#dddddd</color>
+    <color name="sogou_game_sdk_color_ff8a00">#ff8a00</color>
+    <color name="sogou_game_sdk_color_ff5359">#ff5359</color>
+    
+    <color name="sogou_game_sdk_download_progress">#6ee761</color>
+    <color name="sogou_game_sdk_download_indeterminate">#eeeeee</color>
 </resources>

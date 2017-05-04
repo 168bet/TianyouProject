@@ -57,7 +57,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/sogou_game_sdk_input_background"
-                    android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
+                    android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm.@"
                     android:hint="@string/sogou_game_sdk_reg_page_password_tips"
                     android:inputType="textPassword"
                     android:paddingLeft="10dip"

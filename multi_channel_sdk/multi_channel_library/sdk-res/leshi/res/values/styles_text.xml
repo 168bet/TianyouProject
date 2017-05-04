@@ -62,7 +62,7 @@
     </style>
 
     <style name="LeStyleGray14">
-        <item name="android:textColor">@color/lesdk_gray</item>
+        <item name="android:textColor">@color/sdk_green_gray</item>
         <item name="android:textSize">14dp</item>
     </style>
 
