@@ -83,32 +83,32 @@ public class PayActivity extends BaseActivity {
 		        	mPayHandler.doQueryOrder();
 		        } else {
 		            if (TextUtils.equals(resultStatus, "8000")) {
-		            	switchFragment(new SuccessFragment(), "SuccessFragment");
+		            	switchFragment(new SuccessFragment());
 		                Toast.makeText(mActivity, (ConfigHolder.isOverseas? "Confirmation of payment":"支付结果确认中"), Toast.LENGTH_SHORT).show();
 		            } else {
-		            	switchFragment(new FailedFragment(), "FailedFragment");
+		            	switchFragment(new FailedFragment());
 		            }
 		        }
 				break;
 			case 2:
-				switchFragment(new WalletFragment(), "WalletFragment");
+				switchFragment(new WalletFragment());
 				break;
 			case 3:
 				Log.d("TAG", "case google pay == 3,google pay success");
-				switchFragment(new SuccessFragment(), "SuccessFragment");
+				switchFragment(new SuccessFragment());
 				break;
 			case 4:
 				Log.d("TAG", "case google pay ==4,goolge pay failed");
-				switchFragment(new FailedFragment(), "FailedFragment");
+				switchFragment(new FailedFragment());
 				break;
 			case 5:
-				switchFragment(new NetworkFragment(), "NetworkFragment");
+				switchFragment(new NetworkFragment());
 				break;
 			case 6:
-				switchFragment(new RemitFragment(), "RemitFragment");
+				switchFragment(new RemitFragment());
 				break;
 			case 7:
-				switchFragment(new WxScanFragment(), "WxScanFragment");
+				switchFragment(new WxScanFragment());
 				break;
 			case 8:
 				try {
@@ -167,14 +167,14 @@ public class PayActivity extends BaseActivity {
         startService(paypalIntent);
 		
 		mPayHandler = PayHandler.getInstance(mActivity, mHandler);
-		switchFragment(new HomeFragment(), "HomeFragment");
+		switchFragment(new HomeFragment());
 	}
 	
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(this, "img_pay_question", "id")) {
 			if (!"ServiceFragment".equals(mFragmentTag)) {				
-        		switchFragment(new ServiceFragment(), "ServiceFragment");
+        		switchFragment(new ServiceFragment());
 			}
         } else if (v.getId() == ResUtils.getResById(this, "img_pay_close", "id")) {
         	if ("FailedFragment".equals(mFragmentTag)){
@@ -209,7 +209,7 @@ public class PayActivity extends BaseActivity {
         		mPayHandler.doQueryOrder();
         	} else {
         		Log.d("TAG", "FailedFragment-------------------------");
-        		switchFragment(new FailedFragment(), "FailedFragment");
+        		switchFragment(new FailedFragment());
         	}
         }
 		

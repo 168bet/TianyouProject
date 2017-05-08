@@ -54,7 +54,7 @@ public class AppUtils {
 	 * @param mobiles
 	 * @return
 	 */
-	public static boolean isMobileNO(String mobiles) {
+	public static boolean verifyPhoneNumber(String mobiles) {
 		String telRegex = "[1][358]\\d{9}";
 		if (TextUtils.isEmpty(mobiles))
 			return false;

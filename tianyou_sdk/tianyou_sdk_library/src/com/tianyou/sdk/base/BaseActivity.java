@@ -1,6 +1,7 @@
 package com.tianyou.sdk.base;
 
 import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.utils.ResUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
@@ -12,6 +13,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
@@ -29,6 +31,14 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 	protected String mFragmentTag;
 	protected TextView mTextTitle;
 	protected Activity mActivity;
+	public boolean mIsLogout;
+	
+	protected Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			}
+		};
+	};
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +61,11 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 	 * @param fragment
 	 * @param TAG
 	 */
-	public void switchFragment(Fragment fragment, String TAG) {
+	public void switchFragment(Fragment fragment) {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
-        transaction.replace(ResUtils.getResById(this, "layout_content", "id"), fragment, TAG);
-        transaction.addToBackStack(TAG);
+        transaction.replace(ResUtils.getResById(this, "layout_content", "id"), fragment, fragment.getClass().getSimpleName());
+        transaction.addToBackStack(fragment.getClass().getSimpleName());
         transaction.commitAllowingStateLoss();
     }
 	
@@ -81,8 +91,12 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     @Override
     public void onBackPressed() {
     	if ("HomeFragment".equals(mFragmentTag) || "WxScanFragment".equals(mFragmentTag) ||
-    			"SuccessFragment".equals(mFragmentTag) || "OneKeyFragment".equals(mFragmentTag)) {
+    			"SuccessFragment".equals(mFragmentTag) || "OneKeyFragment".equals(mFragmentTag) || 
+    			"PersonalCenterFragment".equals(mFragmentTag)) {
 			finish();
+		} else if ("TouristTipFragment".equals(mFragmentTag)) {
+			finish();
+			LoginHandler.onNoticeLoginSuccess();
 		} else {
 			getFragmentManager().popBackStack();
 		}
@@ -117,7 +131,6 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     	// 友盟统计
     	MobclickAgent.onPause(this);
     }
-    
     
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

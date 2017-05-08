@@ -45,7 +45,7 @@
             android:id="@+id/popup_menu_0"
             style="@style/style_popup_menu"
             android:drawableTop="@drawable/selector_menu_0"
-            android:text="@string/ty_menu_account" />
+            android:text="个人中心" />
     </LinearLayout>
 
     <ImageView

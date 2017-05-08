@@ -209,9 +209,10 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 				if (!ConfigHolder.userIsLogin) {
 					ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Please login first" : "请先登录"));
 				} else {
-					Intent intent = new Intent(mActivity, MenuActivity.class);
+					Intent intent = new Intent(mActivity, LoginActivity.class);
 					if (id == ResUtils.getResById(mActivity, "popup_menu_0", "id")) {
-						intent.putExtra("menu_type", MenuActivity.POPUP_MENU_0);
+						intent.putExtra("login_type", 1);
+						mActivity.startActivity(intent);
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_1", "id")) {
 						intent.putExtra("menu_type", MenuActivity.POPUP_MENU_1);
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_2", "id")) {
@@ -221,16 +222,18 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_4", "id")) {
 						intent.putExtra("menu_type", MenuActivity.POPUP_MENU_4);
 					} else if (id == ResUtils.getResById(mActivity, "popup_menu_5", "id")) {
-						ConfigHolder.userIsLogin = false;
-						TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
-						Intent intent2 = new Intent(mActivity, LoginActivity.class);
-						intent2.putExtra("is_logout", true);
-						mActivity.startActivity(intent2);
-						mMenupopupWindow.dismiss();
-						isShowFloat = true;
-						return;
+//						ConfigHolder.userIsLogin = false;
+//						TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+//						Intent intent2 = new Intent(mActivity, LoginActivity.class);
+//						intent2.putExtra("is_logout", true);
+//						mActivity.startActivity(intent2);
+//						mMenupopupWindow.dismiss();
+//						isShowFloat = true;
+//						return;
+						intent.putExtra("login_type", 1);
+						mActivity.startActivity(intent);
 					}
-					mActivity.startActivity(intent);
+//					mActivity.startActivity(intent);
 				}
 			}
 			mMenupopupWindow.dismiss();

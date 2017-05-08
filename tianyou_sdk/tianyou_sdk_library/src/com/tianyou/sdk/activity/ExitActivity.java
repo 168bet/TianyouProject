@@ -23,7 +23,7 @@ public class ExitActivity extends BaseActivity {
 
 	@Override
 	protected void initView() {
-		switchFragment(new HomeFragment(), "HomeFragment");
+		switchFragment(new HomeFragment());
 		findViewById(ResUtils.getResById(this, "img_exit_last", "id")).setOnClickListener(this);
 		findViewById(ResUtils.getResById(this, "img_exit_close", "id")).setOnClickListener(this);
 	}

@@ -235,7 +235,7 @@ public class WalletFragment extends BaseFragment {
 			
 			@Override
 			public void onFailed() {
-				mActivity.switchFragment(new NetworkFragment(), "NoNetworkFragment");
+				mActivity.switchFragment(new NetworkFragment());
 			}
 		});
 	}

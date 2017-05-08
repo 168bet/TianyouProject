@@ -5,41 +5,78 @@
     android:background="@drawable/shape_bg_dialog"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/layout_space_small" >
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ty_login_logo"
-            android:drawablePadding="@dimen/layout_space_little"
+        <LinearLayout
+            android:id="@+id/layout_login_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="@string/ty_phone_login"
-            android:textColor="#FFF"
-            android:textSize="@dimen/text_size_common" />
+            android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/text_title_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ty_no_register"
-            android:textColor="@color/color_gray_0"
-            android:textSize="@dimen/text_size_small" />
-        
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/img_login_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_space_super"
+                android:src="@drawable/back" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_gray_2" />
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="一键登录"
+                android:textColor="@color/color_gray_3"
+                android:textSize="@dimen/text_size_title" />
+
+            <ImageView
+                android:id="@+id/img_login_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_space_super"
+                android:src="@drawable/close" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_login_register_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_login_register_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="手机注册"
+                android:padding="@dimen/layout_space_small"
+                android:textColor="@color/color_gray_2"
+                android:textSize="@dimen/text_size_title" />
+
+            <TextView
+                android:id="@+id/text_login_register_account"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_gray_1"
+                android:gravity="center"
+                android:text="账号注册"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_title" />
+        </LinearLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/layout_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/layout_space_big" />
+        android:paddingLeft="@dimen/layout_space_super"
+        android:paddingRight="@dimen/layout_space_super"
+        android:paddingBottom="@dimen/layout_space_super" />
 
 </LinearLayout>

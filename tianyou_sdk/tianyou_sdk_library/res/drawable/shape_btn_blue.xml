@@ -3,12 +3,7 @@
 
     <!-- 圆角 -->
     <corners
-        android:radius="8dp"/>
-
-    <!-- 大小 -->
-    <size
-        android:width="70dp"
-        android:height="40dp"/><!-- 宽度和高度 -->
+        android:radius="3dp"/>
 
     <!-- 描边 -->
     <stroke

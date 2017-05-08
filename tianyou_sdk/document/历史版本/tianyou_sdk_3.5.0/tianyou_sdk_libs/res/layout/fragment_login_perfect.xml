@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/text_perfect_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:textSize="@dimen/text_size_common" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_white_fill" >
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="@string/ty_account"
+            android:textColor="@color/color_gray_1"
+            android:textSize="@dimen/text_size_common" />
+
+        <EditText
+            android:id="@+id/edit_perfect_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:enabled="false"
+            android:paddingLeft="@dimen/layout_space_small"
+            android:textColor="@color/color_gray_3"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="0.5dp"
+        android:background="@drawable/shape_bg_white_fill" >
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="@string/ty_username"
+            android:textColor="@color/color_gray_1"
+            android:textSize="@dimen/text_size_common" />
+
+        <EditText
+            android:id="@+id/edit_perfect_nick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_white"
+            android:hint="@string/ty_letter_number"
+            android:paddingLeft="@dimen/layout_space_small"
+            android:textColor="@color/color_red"
+            android:inputType="textPhonetic"
+            android:textColorHint="@color/color_gray_2"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="0.5dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_bg_white_fill"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/ty_password"
+                android:textColor="@color/color_gray_1"
+                android:textSize="@dimen/text_size_common" />
+
+            <EditText
+                android:id="@+id/edit_perfect_pass"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:hint="6-20位字符"
+                android:paddingLeft="@dimen/layout_space_small"
+                android:textColor="@color/color_gray_3"
+                android:textColorHint="@color/color_gray_2"
+                android:textSize="@dimen/text_size_common" />
+
+            <TextView
+                android:id="@+id/text_perfect_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/layout_space_small"
+                android:layout_marginRight="@dimen/layout_space_small"
+                android:textSize="@dimen/text_size_title" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_space_line"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal" >
+
+            <View
+                android:id="@+id/view_perfect_line_0"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="@color/color_jacinth"
+                android:visibility="invisible" />
+
+            <View
+                android:id="@+id/view_perfect_line_1"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="@color/color_jacinth"
+                android:visibility="invisible" />
+
+            <View
+                android:id="@+id/view_perfect_line_2"
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="@color/color_jacinth"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_perfect_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_bg_jacinth_fill"
+        android:gravity="center"
+        android:padding="@dimen/layout_space_small"
+        android:text="@string/ty_entry_game"
+        android:textColor="#FFF"
+        android:textSize="@dimen/text_size_title" />
+
+</LinearLayout>

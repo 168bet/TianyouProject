@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/style_text_gray"
+        android:layout_margin="@dimen/layout_space_small"
+        android:text="@string/ty_tourist_tips" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/text_tourist_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_btn_blue"
+            android:gravity="center"
+            android:paddingBottom="@dimen/layout_space_small"
+            android:paddingLeft="@dimen/layout_space_big"
+            android:paddingRight="@dimen/layout_space_big"
+            android:paddingTop="@dimen/layout_space_small"
+            android:text="下次再说"
+            android:textColor="@color/color_blue" />
+
+        <TextView
+            android:id="@+id/text_tourist_upgrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:background="@drawable/shape_bg_bule_fill"
+            android:gravity="center"
+            android:paddingBottom="@dimen/layout_space_small"
+            android:paddingLeft="@dimen/layout_space_big"
+            android:paddingRight="@dimen/layout_space_big"
+            android:paddingTop="@dimen/layout_space_small"
+            android:text="升级账号"
+            android:textColor="@color/color_white" />
+    </LinearLayout>
+
+</LinearLayout>

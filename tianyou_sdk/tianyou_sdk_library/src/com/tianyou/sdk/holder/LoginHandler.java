@@ -24,18 +24,13 @@ import com.tianyou.sdk.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -101,11 +96,8 @@ public class LoginHandler {
 				LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
 				ResultBean result = info.getResult();
 				if (result.getCode() == 200) {
-					if (ConfigHolder.isOverseas || ConfigHolder.isUnion) {
-						doUserLogin(result.getUsername(), result.getPassword(), false);
-					} else {
-						showTipDialog(result);
-					}
+					ConfigHolder.isTourist = true;
+					doUserLogin(result.getUsername(), result.getPassword(), false);
 				} else {
 					ToastUtils.show(mActivity, result.getMsg());
 				}
@@ -194,6 +186,7 @@ public class LoginHandler {
 	// 3.登陆成功数据处理
 	private void doHandlerLoginInfo() {
 		if ("qq".equals(mResultBean.getRegistertype()) && "0".equals(mResultBean.getIsperfect())) {	//	QQ登陆且没有完善账号信息
+			ToastUtils.show(mActivity, "QQ登陆且没有完善账号信息");
 			mHandler.sendEmptyMessage(2);
 		} else {
 			doSaveUserInfo();
@@ -209,6 +202,7 @@ public class LoginHandler {
 		ConfigHolder.userToken = mResultBean.getToken();
 		ConfigHolder.userCode = mResultBean.getVerification() + "";
 		ConfigHolder.userPassword = mResultBean.getPassword();
+		ConfigHolder.isTourist = mResultBean.getIsauth() == 0;
 		MobclickAgent.onProfileSignIn(ConfigHolder.userId);
 		//保存到文件
 		Map<String, String> info = new HashMap<String, String>();
@@ -236,7 +230,6 @@ public class LoginHandler {
     // 5.显示用户登录欢迎pupup
   	public void showWelComePopup() {
   		mActivity.finish();
-//  		ProgressBarHandler.getInstance().close();
   		View mView = new View(TianyouSdk.getInstance().mActivity);
   		FrameLayout layout = new FrameLayout(TianyouSdk.getInstance().mActivity);
   		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -299,7 +292,13 @@ public class LoginHandler {
    						intent.putExtra("content", custominfo);
    						TianyouSdk.getInstance().mActivity.startActivity(intent);
    					} else {
-   						onNoticeLoginSuccess();
+   						if (ConfigHolder.isTourist) {
+   				  			Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
+   				  			intent.putExtra("show_tourist_tip", true);
+   							TianyouSdk.getInstance().mActivity.startActivity(intent);
+   						} else {
+   							onNoticeLoginSuccess();
+   						}
    					}
    				} catch (JSONException e) {
    					e.printStackTrace();
@@ -353,41 +352,6 @@ public class LoginHandler {
  		});
  	}
   	
-  	// 1-2-1
- 	private void showTipDialog(final ResultBean result) {
- 		View view = View.inflate(mActivity, ResUtils.getResById(mActivity, "dialog_login_quick", "layout"), null);
- 		final AlertDialog dialog = new AlertDialog.Builder(mActivity).create();
- 		dialog.setCanceledOnTouchOutside(false);
- 		dialog.setView(view);
- 		dialog.show();
- 		setDialogWindowAttr(dialog, mActivity);
- 		view.findViewById(ResUtils.getResById(mActivity, "text_dialog_menu_0", "id")).setOnClickListener(new OnClickListener() {
- 			@Override
- 			public void onClick(View arg0) {
- 				mHandler.sendEmptyMessage(3);
- 				dialog.dismiss();
- 			}
- 		});
- 		view.findViewById(ResUtils.getResById(mActivity, "text_dialog_menu_1", "id")).setOnClickListener(new OnClickListener() {
- 			@Override
- 			public void onClick(View arg0) {
- 				doUserLogin(result.getUsername(), result.getPassword(), false);
-// 				doSaveUserInfo();
- 				dialog.dismiss();
- 			}
- 		});
- 	}
- 	
- 	// 1-2-2
- 	private void setDialogWindowAttr(Dialog dlg,Context ctx) {
-         Window window = dlg.getWindow();
-         WindowManager.LayoutParams lp = window.getAttributes();
-         lp.gravity = Gravity.CENTER;
-         lp.width = (int) ctx.getResources().getDimension(ResUtils.getResById(ctx, "dialog_login_tip", "dimen"));//宽高可设置具体大小
-         lp.height = LayoutParams.WRAP_CONTENT;
-         dlg.getWindow().setAttributes(lp);
-     }
-  	
   	// 7.通知游戏登录成功
   	public static void onNoticeLoginSuccess() {
   		ConfigHolder.userIsLogin = true;
@@ -400,5 +364,4 @@ public class LoginHandler {
 		}
 		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
   	}
-  	
 }

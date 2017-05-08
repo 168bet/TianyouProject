@@ -93,13 +93,13 @@ public class SuccessFragment extends BaseFragment {
 		if (v.getId() == ResUtils.getResById(mActivity, "btn_success_backgame", "id")) {
 			mActivity.finish();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_success_backgame", "id")) {
-			mActivity.switchFragment(new HomeFragment(), "HomeFragment");
+			mActivity.switchFragment(new HomeFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_success_call_service", "id")) {
 			AppUtils.callServerPhone(mActivity);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_success_service_qq", "id")) {
 			AppUtils.getQQTalk(mActivity);
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_success_continuepay", "id")) {
-			mActivity.switchFragment(new HomeFragment(), "HomeFragment");
+			mActivity.switchFragment(new HomeFragment());
 		}
 	}
 }

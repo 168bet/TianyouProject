@@ -7,7 +7,6 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-import com.tianyouxi.lszg.bm.R;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -30,6 +29,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_create_role).setOnClickListener(this);
 		findViewById(R.id.btn_switch).setOnClickListener(this);
 		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
+		findViewById(R.id.btn_exit_game).setOnClickListener(this);
 		TianyouSdk.getInstance().activityInit(this, mTianyouCallback);
 	}
 	
@@ -55,6 +55,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			ConfigHolder.isLandscape = !ConfigHolder.isLandscape;
 			setRequestedOrientation(ConfigHolder.isLandscape ? ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE 
 					: ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+			break;
+		case R.id.btn_exit_game:
+			TianyouSdk.getInstance().exitGame();
 			break;
 		}
 	}

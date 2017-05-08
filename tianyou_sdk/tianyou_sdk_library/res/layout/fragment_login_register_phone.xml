@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_btn_gray2"
+        android:orientation="vertical"
+        android:padding="@dimen/layout_space_little" >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_space_small"
+            android:background="@drawable/shape_bg_white_fill"
+            android:hint="请输入手机号"
+            android:singleLine="true"
+            android:textColor="@color/color_gray_2"
+            android:textColorHint="@color/color_gray_0" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_small"
+            android:background="@color/color_gray_0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_space_small"
+                android:layout_weight="1"
+                android:background="@drawable/shape_bg_white_fill"
+                android:hint="请输入验证码"
+                android:textColor="@color/color_gray_2"
+                android:textColorHint="@color/color_gray_0" />
+
+            <TextView
+                style="@style/style_text_gray"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/layout_space_small"
+                android:singleLine="true"
+                android:text="获取验证码"
+                android:textColor="@color/color_jacinth" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_small"
+            android:background="@color/color_gray_0" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/layout_space_small"
+            android:background="@drawable/shape_bg_white_fill"
+            android:hint="密码：6-16位数字或字母组合"
+            android:singleLine="true"
+            android:textColor="@color/color_gray_2"
+            android:textColorHint="@color/color_gray_0" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_register_confirm"
+        style="@style/style_text_red_long"
+        android:text="立即注册" />
+
+    <TextView
+        android:id="@+id/text_register_back"
+        style="@style/style_text_gray"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_space_super"
+        android:text="返回" />
+
+</LinearLayout>
