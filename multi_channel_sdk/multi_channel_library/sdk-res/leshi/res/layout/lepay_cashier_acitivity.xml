@@ -65,7 +65,6 @@
                     <TextView
                         style="@style/lepay_wrapparent"
                         android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
                         android:text="@string/lepay_cashier_tradeinfo_name_title"
                         android:textColor="@color/c717272"
                         android:textSize="@dimen/lepay_cashier_trade_desc" />
@@ -74,8 +73,8 @@
                         android:id="@+id/lepay_cashier_trade_name"
                         style="@style/lepay_wrapparent"
                         android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:textColor="@color/c717272"
+                        android:layout_marginLeft="100dp"
                         android:textSize="@dimen/lepay_cashier_trade_desc" />
                 </RelativeLayout>
 

@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="61dp"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/sogou_game_sdk_pay_giftcenter_view_reco_item_getgift_bt">
+        android:layout_toLeftOf="@id/sogou_game_sdk_pay_giftcenter_view_reco_item_getgift_bt" >
 
         <com.sogou.wan.common.NetworkImageView
             android:id="@+id/sogou_game_sdk_pay_giftcenter_view_reco_gift_icon_iv"
@@ -27,7 +27,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="9dp"
-            android:background="@drawable/sogou_game_sdk_app_default_icon"
             android:scaleType="centerCrop" />
 
         <LinearLayout

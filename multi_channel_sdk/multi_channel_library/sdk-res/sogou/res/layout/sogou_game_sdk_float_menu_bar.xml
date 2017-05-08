@@ -5,7 +5,7 @@
     <LinearLayout
         android:id="@+id/sogou_game_sdk_float_menu_bar_bg"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/sogou_game_sdk_menu_right"
         android:gravity="center_vertical">
 
@@ -20,145 +20,166 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:gravity="center_vertical">
+                android:gravity="center"
+                android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.sogou.gamecenter.sdk.views.CircleNetworkImage
+                        android:id="@+id/sogou_game_sdk_icon_iv"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/sogou_game_sdk_icon_my">
+                    </com.sogou.gamecenter.sdk.views.CircleNetworkImage>
+
+                    <ImageView
+                        android:id="@+id/sogou_game_sdk_news_iv"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_toRightOf="@id/sogou_game_sdk_icon_iv"
+                        android:layout_marginLeft="-7dp"
+                        android:layout_alignTop="@id/sogou_game_sdk_icon_iv"
+                        android:src="@drawable/sogou_game_sdk_personal_center_msg_count"
+                        android:visibility="gone" />
+                </RelativeLayout>
                 <TextView
                     style="@style/sogou_game_sdk_float_menu"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/sogou_game_sdk_float_menu_user"
-                    android:textColor="@color/sogou_game_sdk_color_000000"
+                    android:text="我的"
+                    android:textColor="@color/sogou_game_sdk_color_ffffff"
                     android:textSize="13sp" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="17dp"
-                    android:background="@color/sogou_game_sdk_color_7d7d7d" />
             </LinearLayout>
-
+            
             <LinearLayout
-                android:id="@+id/sogou_game_sdk_float_menu_pack_tv"
+                android:id="@+id/sogou_game_sdk_float_menu_welfare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:gravity="center_vertical"
-                android:visibility="gone">
-
+                android:gravity="center"
+                android:orientation="vertical">
+				<com.sogou.gamecenter.sdk.views.CircleNetworkImage
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/sogou_game_sdk_icon_welfare">
+                </com.sogou.gamecenter.sdk.views.CircleNetworkImage>
                 <TextView
                     style="@style/sogou_game_sdk_float_menu"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/sogou_game_sdk_float_menu_pack"
-                    android:textColor="@color/sogou_game_sdk_color_000000"
+                    android:text="福利"
+                    android:textColor="@color/sogou_game_sdk_color_ffffff"
                     android:textSize="13sp" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="17dp"
-                    android:background="@color/sogou_game_sdk_color_7d7d7d" />
             </LinearLayout>
-
+            
             <LinearLayout
-                android:id="@+id/sogou_game_sdk_float_menu_activity_tv"
+                android:id="@+id/sogou_game_sdk_float_menu_qa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:gravity="center_vertical">
-
+                android:gravity="center"
+                android:orientation="vertical">
+				<com.sogou.gamecenter.sdk.views.CircleNetworkImage
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/sogou_game_sdk_icon_service">
+                </com.sogou.gamecenter.sdk.views.CircleNetworkImage>
                 <TextView
                     style="@style/sogou_game_sdk_float_menu"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/sogou_game_sdk_float_menu_activity"
-                    android:textColor="@color/sogou_game_sdk_color_000000"
+                    android:text="客服"
+                    android:textColor="@color/sogou_game_sdk_color_ffffff"
                     android:textSize="13sp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="17dp"
-                    android:background="@color/sogou_game_sdk_color_7d7d7d" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/sogou_game_sdk_float_menu_forum_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:visibility="gone">
-
-                <TextView
-
-                    style="@style/sogou_game_sdk_float_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginRight="7dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/sogou_game_sdk_float_menu_forum"
-                    android:textColor="@color/sogou_game_sdk_color_000000"
-                    android:textSize="13sp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="17dp"
-                    android:background="@color/sogou_game_sdk_color_7d7d7d" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/sogou_game_sdk_float_menu_service_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:gravity="center_vertical">
-
-                <TextView
-                    style="@style/sogou_game_sdk_float_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginRight="7dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/sogou_game_sdk_float_menu_service"
-                    android:textColor="@color/sogou_game_sdk_color_000000"
-                    android:textSize="13sp" />
-
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/sogou_game_sdk_float_menu_recom_game_tv"
+                android:id="@+id/sogou_game_sdk_float_menu_activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:gravity="center_vertical"
-                android:visibility="gone">
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="17dp"
-                    android:background="@color/sogou_game_sdk_color_7d7d7d" />
-
+                android:gravity="center"
+                android:orientation="vertical">
+				<com.sogou.gamecenter.sdk.views.CircleNetworkImage
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/sogou_game_sdk_icon_activity">
+                </com.sogou.gamecenter.sdk.views.CircleNetworkImage>
                 <TextView
                     style="@style/sogou_game_sdk_float_menu"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/sogou_game_sdk_float_menu_recom_game"
-                    android:textColor="@color/sogou_game_sdk_color_000000"
+                    android:text="活动"
+                    android:textColor="@color/sogou_game_sdk_color_ffffff"
                     android:textSize="13sp" />
+
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/sogou_game_sdk_float_menu_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+				<com.sogou.gamecenter.sdk.views.CircleNetworkImage
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/sogou_game_sdk_icon_news">
+                </com.sogou.gamecenter.sdk.views.CircleNetworkImage>
+                <TextView
+                    style="@style/sogou_game_sdk_float_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:text="情报站"
+                    android:textColor="@color/sogou_game_sdk_color_ffffff"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/sogou_game_sdk_float_menu_new_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+				<com.sogou.gamecenter.sdk.views.CircleNetworkImage
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/sogou_game_sdk_icon_newgame">
+                </com.sogou.gamecenter.sdk.views.CircleNetworkImage>
+                <TextView
+                    style="@style/sogou_game_sdk_float_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:text="新游"
+                    android:textColor="@color/sogou_game_sdk_color_ffffff"
+                    android:textSize="13sp" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

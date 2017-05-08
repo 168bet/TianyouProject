@@ -40,7 +40,7 @@
     <EditText
         android:id="@+id/sogou_game_sdk_bindin_pwd_edit"
         style="@style/sogou_game_sdk_bindin_edit"
-        android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
+        android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm.@"
         android:hint="@string/sogou_game_sdk_bindin_pwd_edit"
         android:inputType="textPassword"
         android:singleLine="true" />

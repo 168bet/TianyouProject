@@ -7,9 +7,11 @@
     <dimen name="le_oauth_account_manager_slogan_margin_top">20dp</dimen>
     <dimen name="le_oauth_account_manager_main_view_margin_top">90dp</dimen>
     <dimen name="le_oauth_account_manager_other_login_margin_top">48dp</dimen>
+    <dimen name="le_oauth_account_manager_main_view_height">172dp</dimen>
     <dimen name="le_oauth_loading_le_logo_margin_top">200dp</dimen>
     <dimen name="le_oauth_loading_le_dot_margin_top">36dp</dimen>
     <dimen name="le_oauth_loading_other_login_margin_top">68dp</dimen>
+
 
     <!-- 支付部分 -->
     <dimen name="lepay_common_dialog_marginLeft">10dp</dimen>
@@ -47,6 +49,7 @@
     <dimen name="le_item_view_height">54dp</dimen>
     <dimen name="le_button_height">48dp</dimen>
     <dimen name="le_pay_select_height">48dp</dimen>
+    <dimen name="le_pay_select_margin_offset">15dp</dimen>
 
     <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_15">15dp</dimen>

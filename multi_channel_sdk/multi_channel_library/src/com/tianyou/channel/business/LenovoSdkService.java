@@ -7,6 +7,8 @@ import com.lenovo.lsf.gamesdk.GamePayRequest;
 import com.lenovo.lsf.gamesdk.IAuthResult;
 import com.lenovo.lsf.gamesdk.IPayResult;
 import com.lenovo.lsf.gamesdk.LenovoGameApi;
+import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
@@ -32,7 +34,10 @@ public class LenovoSdkService extends BaseSdkService {
 			public void onFinished(boolean ret, String data) {
 				Log.d("TAG", "ret= " + ret + ",data= " + data);
 				if (ret) {
-					checkLogin("", data);
+					LoginInfo loginParam = new LoginInfo();
+					loginParam.setChannelUserId("");
+					loginParam.setUserToken(data);
+					checkLogin(loginParam);
 				} else {
 					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 				}
@@ -41,14 +46,15 @@ public class LenovoSdkService extends BaseSdkService {
 	}
 	
 	@Override
-	public void doChannelPay(final OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
 		GamePayRequest payRequest = new GamePayRequest();
 		payRequest.addParam("appid", appID);
 		payRequest.addParam("notifyurl", orderInfo.getNotifyurl());
 		payRequest.addParam("waresid", orderInfo.getWaresid());
 		payRequest.addParam("exorderno", orderInfo.getOrderID());
 		payRequest.addParam("price", Integer.parseInt(orderInfo.getMoNey()));
-		payRequest.addParam("cpprivateinfo", mRoleInfo.getCustomInfo());
+		payRequest.addParam("cpprivateinfo", payInfo.getCustomInfo());
 		LenovoGameApi.doPay(mActivity, payPrivate, payRequest, new IPayResult() {
 			@Override
 			public void onPayResult(int resultCode, String signValue, String resultInfo) {

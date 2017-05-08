@@ -72,7 +72,7 @@
             android:layout_below="@id/sogou_game_sdk_reg_mobile_captcha"
             android:layout_marginTop="8dp"
             android:background="@drawable/sogou_game_sdk_input_background"
-            android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
+            android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm.@"
             android:hint="@string/sogou_game_sdk_reg_mobile_pwd_tips"
             android:inputType="textPassword"
             android:paddingLeft="10dip"

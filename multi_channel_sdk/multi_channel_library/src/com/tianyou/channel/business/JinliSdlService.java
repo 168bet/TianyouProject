@@ -12,11 +12,13 @@ import android.util.Log;
 
 import com.gionee.gamesdk.AccountInfo;
 import com.gionee.gamesdk.GamePayer;
+import com.gionee.gamesdk.QuitGameCallback;
 import com.gionee.gamesdk.GamePayer.GamePayCallback;
 import com.gionee.gamesdk.GamePlatform;
 import com.gionee.gamesdk.GamePlatform.LoginListener;
 import com.gionee.gamesdk.OrderInfo;
 import com.tianyou.channel.bean.ChannelInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -73,7 +75,8 @@ public class JinliSdlService extends BaseSdkService{
 	}
 	
 	@Override
-	public void doChannelPay(final OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
 		try {
 			OrderInfo order = new OrderInfo();
 			order.setApiKey(orderInfo.getApi_key());
@@ -122,8 +125,8 @@ public class JinliSdlService extends BaseSdkService{
 					JSONObject result = (JSONObject) jsonObject.get("result");
 					String code = result.getString("code");
 					if ("200".equals(code)) {
-						mUserId = result.getString("uid");
-						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, mUserId);
+						String uid = result.getString("uid");
+						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, uid);
 					} else {
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 					}
@@ -142,8 +145,19 @@ public class JinliSdlService extends BaseSdkService{
 	
 	@Override
 	public void doExitGame() {
-		super.doExitGame();
-		
+		LogUtils.d("调用退出游戏接口");		
+		GamePlatform.quitGame(mActivity, new QuitGameCallback() {
+			
+			@Override
+			public void onQuit() {
+				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "退出游戏成功");
+			}
+			
+			@Override
+			public void onCancel() {
+				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "退出游戏取消");
+			}
+		});
 	}
 	
 	@Override

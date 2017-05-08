@@ -30,8 +30,7 @@
                     android:id="@+id/sogou_game_sdk_float_account_icon_iv"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/sogou_game_sdk_app_default_icon" />
+                    android:layout_centerVertical="true" />
 
                 <TextView
                     android:id="@+id/sogou_game_sdk_float_account_name_tv"
@@ -193,7 +192,7 @@
                 android:id="@+id/sogou_game_sdk_float_account_myinfo_rl"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:clickable="true">
+                android:clickable="true" >
 
                 <TextView
                     android:id="@+id/sogou_game_sdk_float_account_myinfo_tv"
@@ -213,7 +212,7 @@
                     android:layout_marginRight="9dp"
                     android:text="0条未读"
                     android:textColor="@color/sogou_game_sdk_color_ff6a00"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"

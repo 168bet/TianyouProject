@@ -2,7 +2,12 @@ package com.tianyou.channel.business;
 
 import java.util.HashMap;
 
+import com.le.accountoauth.utils.LeUserInfo;
 import com.le.legamesdk.LeGameSDK;
+import com.le.legamesdk.LeGameSDK.ActionCallBack;
+import com.le.legamesdk.LeGameSDK.ExitCallback;
+import com.le.legamesdk.LeGameSDK.PayCallback;
+import com.letv.lepaysdk.smart.LePayInfo;
 import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
@@ -29,44 +34,24 @@ public class LeshiSdkService extends BaseSdkService{
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		letvGameSDK.doLogin
-		mLeGameSDK = LeGameSDK.init(mActivity, new InitCallback() {
+		mLeGameSDK = LeGameSDK.getInstance();
+		mLeGameSDK.onCreate(mActivity, new ActionCallBack() {
 			@Override
-			public void onSdkInitResult(String status, String errorMsg) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "status:" + status + ",errorMsg:" + errorMsg);
-			}
-			
-			@Override
-			public void onExitApplication() {
-				
-			}
+			public void onExitApplication() {}
 		});
+		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "SDK初始化完成");
 	}
 
 	@Override
 	public void doLogin() {
-		mLeGameSDK.login(mActivity, new com.le.legamesdk.LeGameSDK.LoginCallback() {
-			@Override
-			public void onLoginResult(HashMap<String, Object> userInfo) {
-				if (userInfo == null) {
-					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登陆失败");
-				} else {
-					LogUtils.d("userInfo:" + userInfo);
-					userInfo.get
-					sid = (String) userInfo.get("letv_uid");
-					session = (String) userInfo.get("access_token");
-					LoginInfo loginInfo = new LoginInfo();
-					loginInfo.setChannelUserId(sid);
-					loginInfo.setUserToken(session);
-					checkLogin(loginInfo);
-				}
-			}
-			
-			@Override
-			public void onLoginQuit() {
-				
-			}
-		}, false);
+		mLeGameSDK.doLogin(mActivity, mLeLoginCallback,false);
+	}
+	
+	@Override
+	public void doLogout() {
+		super.doLogout();
+		mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+		mLeGameSDK.doLogin(mActivity, mLeLoginCallback, true);
 	}
 	
 	@Override
@@ -95,7 +80,7 @@ public class LeshiSdkService extends BaseSdkService{
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				mLeGameSDK.pay(mActivity, lePayInfo, new PayCallback() {
+				mLeGameSDK.doPay(mActivity, lePayInfo, new PayCallback() {
 					@Override
 					public void onPayResult(String status, String msg) {
 						if (status.equals("SUCCESS") || status.equals("PAYED")) {
@@ -111,19 +96,50 @@ public class LeshiSdkService extends BaseSdkService{
 		});
 	}
 	
+	private com.le.legamesdk.LeGameSDK.LoginCallback mLeLoginCallback = new com.le.legamesdk.LeGameSDK.LoginCallback(){
+
+		@Override
+		public void onLoginSuccess(LeUserInfo leUserInfo) {
+			if (leUserInfo != null) {
+				LoginInfo loginParam = new LoginInfo();
+				loginParam.setChannelUserId(leUserInfo.getUserId());
+				loginParam.setUserToken(leUserInfo.getAccessToken());
+				checkLogin(loginParam);
+			} else {
+				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED,"登录失败");
+			}
+		}
+		
+		@Override
+		public void onLoginFailure(int errorCode, String errorMsg) {
+			mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
+		}
+		
+		@Override
+		public void onLoginCancel() {
+			mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_CANCEL, "取消登录");
+		}
+	};
+	
 	@Override
 	public void doResume() {
-		mLeGameSDK.resume(mActivity);
+		mLeGameSDK.onResume(mActivity);
 	}
 	
 	@Override
 	public void doPause() {
-		mLeGameSDK.pause(mActivity);
+		mLeGameSDK.onPause(mActivity);
+	}
+	
+	@Override
+	public void doDestory() {
+		mLeGameSDK.onDestory(mActivity);
+		mLeGameSDK = null;
 	}
 	
 	@Override
 	public void doExitGame() {
-		mLeGameSDK.exit(mActivity,new ExitCallback() {
+		mLeGameSDK.onExit(mActivity,new ExitCallback() {
 			@Override
 			public void onSdkExitConfirmed() {
 				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "用户退出游戏成功");

@@ -44,7 +44,7 @@
             <WebView
                 android:id="@+id/sogou_game_sdk_agree_webview"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
 
 
         <ProgressBar

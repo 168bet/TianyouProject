@@ -12,6 +12,8 @@ import cn.m4399.operate.OperateCenterConfig.PopLogoStyle;
 import cn.m4399.operate.OperateCenterConfig.PopWinPosition;
 import cn.m4399.operate.User;
 
+import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
@@ -36,18 +38,18 @@ public class M4399SdkService extends BaseSdkService {
 		mOpeCenter.setConfig(opeConfig);
 		mOpeCenter.init(mActivity, new OnInitGloabListener() {
 			@Override
-			public void onUserAccountLogout(boolean arg0, int arg1) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, arg1 + "");
+			public void onUserAccountLogout(boolean flag, int code) {
+				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, code + "");
 			}
 			
 			@Override
-			public void onSwitchUserAccountFinished(User arg0) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, arg0.toString());
+			public void onSwitchUserAccountFinished(User user) {
+				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, user.toString());
 			}
 			
 			@Override
-			public void onInitFinished(boolean flag, User arg1) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_INIT, arg1.toString());
+			public void onInitFinished(boolean flag, User user) {
+				mTianyouCallback.onResult(TianyouCallback.CODE_INIT, user.toString());
 //				if (flag) {
 //					mTianyouCallback.onResult(TianyouCallback.CODE_INIT, arg1.toString());
 //				} else {
@@ -64,7 +66,11 @@ public class M4399SdkService extends BaseSdkService {
 			public void onLoginFinished(boolean success, int code, User user) {
 				LogUtils.d("success:" + success + ",code：" + code);
 				if (success) {
-					checkLogin(user.getUid(), user.getState());
+//					checkLogin(user.getUid(), user.getState());
+					LoginInfo loginParam = new LoginInfo();
+					loginParam.setChannelUserId(user.getUid());
+					loginParam.setUserToken(user.getState());
+					checkLogin(loginParam);
 				} else {
 					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "code:" + code);
 				}
@@ -73,17 +79,26 @@ public class M4399SdkService extends BaseSdkService {
 	}
 	
 	@Override
+	public void doLogout() {
+		super.doLogout();
+		mOpeCenter.logout();
+	}
+	
+	@Override
 	public void doExitGame() {
 		mOpeCenter.shouldQuitGame(mActivity, new OnQuitGameListener() {
 			@Override
-			public void onQuitGame(boolean arg0) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
+			public void onQuitGame(boolean flag) {
+				if (flag) {
+					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
+				}
 			}
 		});
 	}
 	
 	@Override
-	public void doChannelPay(final OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
 		mOpeCenter.recharge(mActivity, Integer.parseInt(mPayInfo.getMoney()), 
 				orderInfo.getOrderID(), mPayInfo.getProductName(), new OnRechargeFinishedListener() {
 			@Override

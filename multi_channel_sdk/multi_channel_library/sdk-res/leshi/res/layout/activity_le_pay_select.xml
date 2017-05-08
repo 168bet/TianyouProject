@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.le.legamesdk.widget.LeMainViewParent
         android:id="@+id/le_main_view_parent"
@@ -9,18 +8,18 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/le_sdk_main_view_margin"
-        android:background="@drawable/le_main_view_border_line_bg" >
+        android:background="@drawable/le_main_view_border_line_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/le_main_view_action_bar"
+                layout="@layout/le_main_view_action_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/le_main_view_action_bar_height"
-                layout="@layout/le_main_view_action_bar_layout" />
+                android:layout_height="@dimen/le_main_view_action_bar_height" />
 
             <View
                 android:layout_width="match_parent"
@@ -37,7 +36,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:gravity="center_vertical" >
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/le_pay_select_info"
@@ -46,8 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="@dimen/le_pay_select_margin_offset"
+                    android:layout_marginStart="@dimen/le_pay_select_margin_offset"
                     android:text="@string/le_pay_select_info" />
 
                 <TextView
@@ -57,19 +56,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="@dimen/le_pay_select_margin_offset"
+                    android:layout_marginRight="@dimen/le_pay_select_margin_offset"
                     android:text="@string/le_sdk_rmb_to_le_play_coin" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginEnd="@dimen/margin_15"
-                android:layout_marginLeft="@dimen/margin_15"
-                android:layout_marginRight="@dimen/margin_15"
-                android:layout_marginStart="@dimen/margin_15"
-                android:orientation="horizontal" >
+                android:layout_height="@dimen/le_pay_select_height"
+                android:layout_marginEnd="@dimen/le_pay_select_margin_offset"
+                android:layout_marginLeft="@dimen/le_pay_select_margin_offset"
+                android:layout_marginRight="@dimen/le_pay_select_margin_offset"
+                android:layout_marginStart="@dimen/le_pay_select_margin_offset"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/le_pay_select_rmb_10"
@@ -104,12 +103,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginEnd="@dimen/margin_15"
-                android:layout_marginLeft="@dimen/margin_15"
-                android:layout_marginRight="@dimen/margin_15"
-                android:layout_marginStart="@dimen/margin_15"
-                android:orientation="horizontal" >
+                android:layout_height="@dimen/le_pay_select_height"
+                android:layout_marginEnd="@dimen/le_pay_select_margin_offset"
+                android:layout_marginLeft="@dimen/le_pay_select_margin_offset"
+                android:layout_marginRight="@dimen/le_pay_select_margin_offset"
+                android:layout_marginStart="@dimen/le_pay_select_margin_offset"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/le_pay_select_rmb_100"
@@ -144,11 +143,11 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_margin="@dimen/margin_15"
+                android:layout_height="@dimen/le_pay_select_height"
+                android:layout_margin="@dimen/le_pay_select_margin_offset"
                 android:background="@drawable/le_hollow_border_line_bg_rect"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/le_pay_select_unit"
@@ -187,10 +186,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/le_button_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="@dimen/margin_15"
-                android:layout_marginLeft="@dimen/margin_15"
-                android:layout_marginRight="@dimen/margin_15"
-                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginEnd="@dimen/le_pay_select_margin_offset"
+                android:layout_marginLeft="@dimen/le_pay_select_margin_offset"
+                android:layout_marginRight="@dimen/le_pay_select_margin_offset"
+                android:layout_marginStart="@dimen/le_pay_select_margin_offset"
                 android:background="@drawable/le_solid_button_bg"
                 android:text="@string/le_sdk_next_content"
                 android:textColor="@color/lepay_white" />

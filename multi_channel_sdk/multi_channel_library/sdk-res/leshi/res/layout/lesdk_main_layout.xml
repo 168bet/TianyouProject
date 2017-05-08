@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <com.le.legamesdk.widget.LeMainViewParent
         android:id="@+id/le_main_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/le_border_line_bg" >
+        android:background="@drawable/le_border_line_bg">
 
         <LinearLayout
             android:id="@+id/main_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <include
                 android:id="@+id/le_main_view_action_bar"
+                layout="@layout/le_main_view_action_bar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/le_main_view_action_bar_height"
-                layout="@layout/le_main_view_action_bar_layout" />
+                android:layout_height="@dimen/le_main_view_action_bar_height" />
 
             <LinearLayout
                 android:id="@+id/user_center"
@@ -28,7 +28,7 @@
                 android:layout_height="86dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/lepay_white"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <com.le.legamesdk.widget.RoundImageView
                     android:id="@+id/head_icon"
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/user_name"
@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <Button
                         android:id="@+id/top_up"
@@ -87,18 +87,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fillViewport="true"
-                android:scrollbars="none" >
+                android:scrollbars="none">
 
-                <com.le.legamesdk.activity.homepage.LeSDKMainGridView
-                    android:id="@+id/gridview"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:horizontalSpacing="0dp"
-                    android:listSelector="@null"
-                    android:numColumns="3"
-                    android:scrollbars="none"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="0dp" />
+                    android:orientation="vertical">
+
+                    <com.le.legamesdk.activity.homepage.LeSDKMainGridView
+                        android:id="@+id/gridview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="0dp"
+                        android:listSelector="@null"
+                        android:numColumns="3"
+                        android:scrollbars="none"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="0dp" />
+
+                    <LinearLayout
+                        android:id="@+id/le_main_bulletin_view_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
             </ScrollView>
         </LinearLayout>
     </com.le.legamesdk.widget.LeMainViewParent>

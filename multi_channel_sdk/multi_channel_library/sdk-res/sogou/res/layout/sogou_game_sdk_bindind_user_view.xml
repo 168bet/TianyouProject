@@ -48,7 +48,7 @@
         style="@style/sogou_game_sdk_bindin_edit"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"
+        android:digits="0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm.@"
         android:hint="@string/sogou_game_sdk_bindin_pwd_edit"
         android:inputType="textPassword"
         android:singleLine="true" />

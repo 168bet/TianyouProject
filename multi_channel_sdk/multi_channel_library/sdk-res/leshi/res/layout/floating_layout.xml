@@ -17,5 +17,40 @@
         android:layout_alignRight="@+id/floating_imageView"
         android:visibility="gone"
         />
-
+    <!--<ImageView-->
+        <!--android:id="@+id/personal"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/lesdk_about_us_icon"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_toRightOf="@+id/floating_imageView"-->
+        <!--android:visibility="visible"-->
+        <!--/>-->
+    <!--<ImageView-->
+        <!--android:id="@+id/gift"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/lesdk_about_us_icon"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_toRightOf="@+id/personal"-->
+        <!--android:visibility="visible"-->
+        <!--/>-->
+    <!--<ImageView-->
+        <!--android:id="@+id/message"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/lesdk_about_us_icon"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_toRightOf="@+id/gift"-->
+        <!--android:visibility="visible"-->
+        <!--/>-->
+    <!--<ImageView-->
+        <!--android:id="@+id/service"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/lesdk_about_us_icon"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_toRightOf="@+id/message"-->
+        <!--android:visibility="visible"-->
+        <!--/>-->
 </RelativeLayout>
