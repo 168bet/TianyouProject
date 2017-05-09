@@ -65,7 +65,7 @@
         <item name="android:textSize">@dimen/text_size_micro</item>
         <item name="android:visibility">visible</item>
     </style>
-    
+
     <!-- ************新版************ -->
     <!-- 普通灰色文字 -->
     <style name="style_text_gray">
@@ -74,7 +74,7 @@
         <item name="android:textColor">@color/color_gray_2</item>
         <item name="android:textSize">@dimen/text_size_common</item>
     </style>
-    
+
     <!-- 普通黑色文字 -->
     <style name="style_text_black">
         <item name="android:layout_width">wrap_content</item>
@@ -82,7 +82,18 @@
         <item name="android:textColor">@color/color_gray_3</item>
         <item name="android:textSize">@dimen/text_size_common</item>
     </style>
-    
+
+    <!-- 输入框样式 -->
+    <style name="style_edit_common">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/layout_space_small</item>
+        <item name="android:background">@drawable/shape_bg_white_fill</item>
+        <item name="android:textColor">@color/color_gray_2</item>
+        <item name="android:textColorHint">@color/color_gray_0</item>
+        <item name="android:textSize">@dimen/text_size_common</item>
+    </style>
+
     <!-- 红色长条文字 -->
     <style name="style_text_red_long">
         <item name="android:layout_width">match_parent</item>

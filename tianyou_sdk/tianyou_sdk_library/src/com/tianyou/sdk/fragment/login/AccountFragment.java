@@ -61,6 +61,7 @@ public class AccountFragment extends BaseFragment {
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_quick", "id")).setOnClickListener(this);;
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);;
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_tourist", "id")).setOnClickListener(this);;
+		mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_forget", "id")).setOnClickListener(this);;
 		
 		mImgPull.setOnClickListener(this);
 		mViewLogin.setOnClickListener(this);
@@ -96,6 +97,8 @@ public class AccountFragment extends BaseFragment {
 			mLoginHandler.doQuickRegister();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_account_switch", "id")) {
 			switchPassword();
+		} else if (v.getId() == ResUtils.getResById(mActivity, "text_account_forget", "id")) {
+			mActivity.switchFragment(new AlertPasswordFragment());
 		}
 	}
 

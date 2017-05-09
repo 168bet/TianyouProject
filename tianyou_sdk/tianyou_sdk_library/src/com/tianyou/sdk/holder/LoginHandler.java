@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -118,7 +119,10 @@ public class LoginHandler {
 				request.getResult().setNickname(map.get("nickname"));
 				if ("0".equals(request.getResult().getIsperfect())) {	//	QQ登陆且没有完善账号信息
 					mResultBean = request.getResult();
-					mHandler.sendEmptyMessage(2);
+					Message msg = new Message();
+					msg.what = 2;
+					msg.obj = map.get("nickname");
+					mHandler.sendMessage(msg);
 				} else {
 					onLoginProcess(request);
 				}
@@ -173,7 +177,7 @@ public class LoginHandler {
 			public void run() {
 				if (request.getResult().getCode() == 200) {
 					mResultBean = request.getResult();
-					doHandlerLoginInfo();
+					doSaveUserInfo();
 				} else {
 					ProgressHandler.getInstance().closeProgressDialog();
 					ToastUtils.show(mActivity, request.getResult().getMsg());
@@ -184,14 +188,16 @@ public class LoginHandler {
     }
 	
 	// 3.登陆成功数据处理
-	private void doHandlerLoginInfo() {
-		if ("qq".equals(mResultBean.getRegistertype()) && "0".equals(mResultBean.getIsperfect())) {	//	QQ登陆且没有完善账号信息
-			ToastUtils.show(mActivity, "QQ登陆且没有完善账号信息");
-			mHandler.sendEmptyMessage(2);
-		} else {
-			doSaveUserInfo();
-		}
-	}
+//	private void doHandlerLoginInfo() {
+//		if ("qq".equals(mResultBean.getRegistertype()) && "0".equals(mResultBean.getIsperfect())) {	//	QQ登陆且没有完善账号信息
+//			Message msg = new Message();
+//			msg.what = 2;
+//			msg.obj = mResultBean.getNickname();
+//			mHandler.sendMessage(msg);
+//		} else {
+//			doSaveUserInfo();
+//		}
+//	}
 	
 	// 4-1.保存登陆成功信息
     public void doSaveUserInfo() {

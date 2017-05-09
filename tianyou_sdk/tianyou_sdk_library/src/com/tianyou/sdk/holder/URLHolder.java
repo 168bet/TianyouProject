@@ -20,12 +20,14 @@ public class URLHolder {
 	public static final String URL_UNION_REGISTER = getHostAddrs() + "Register/register";
 	// 快速注册
 	public static final String URL_LOGIN_QUICK = getHostAddrs() + "register/quickregister";
+	// 快速注册
+	public static final String URL_REGISTER_PHONE = getHostAddrs() + "register/phoneregister";
 	// 账号登陆
 	public static final String URL_UNION_ACCOUNT_LOGIN = getHostAddrs() + "login/login";
 	// 手机登陆
 	public static final String URL_UNION_PHONE_LOGIN = getHostAddrs() + "login/phonelogin";
 	// 获取验证码
-//	public static final String URL_GET_CODE = getHostAddrs() + "sms/sendmsg";
+	public static final String URL_GET_CODE = getHostAddrs() + "sms/sendmsg";
 	// 公告
 	public static final String URL_UNION_ANNOUNCE = getHostAddrs() + "sdkinfo/getnotice";
 	// 绑定手机

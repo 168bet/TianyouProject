@@ -7,9 +7,9 @@
     <TextView
         android:id="@+id/text_upgrade_tip"
         style="@style/style_text_gray"
+        android:layout_marginBottom="@dimen/layout_space_small"
         android:text="升级为新用户名账号或者输入已有用户名账号"
         android:textSize="@dimen/text_size_small"
-        android:layout_marginBottom="@dimen/layout_space_small"
         android:visibility="gone" />
 
     <LinearLayout
@@ -21,14 +21,8 @@
 
         <EditText
             android:id="@+id/edit_upgrade_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/layout_space_small"
-            android:background="@drawable/shape_bg_white_fill"
-            android:hint="请输入手机号"
-            android:textColor="@color/color_gray_2"
-            android:textColorHint="@color/color_gray_0"
-            android:textSize="@dimen/text_size_common" />
+            style="@style/style_edit_common"
+            android:hint="请输入手机号" />
 
         <View
             android:layout_width="match_parent"
@@ -42,16 +36,11 @@
             android:layout_height="wrap_content" >
 
             <EditText
+                style="@style/style_edit_common"
                 android:id="@+id/edit_upgrade_code"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/layout_space_small"
                 android:layout_weight="1"
-                android:background="@drawable/shape_bg_white_fill"
-                android:hint="请输入验证码"
-                android:textColor="@color/color_gray_2"
-                android:textColorHint="@color/color_gray_0"
-                android:textSize="@dimen/text_size_common" />
+                android:hint="请输入验证码" />
 
             <TextView
                 android:id="@+id/text_upgrade_code"
@@ -73,7 +62,7 @@
         style="@style/style_text_gray"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/layout_space_super"
-        android:textSize="@dimen/text_size_small"
-        android:text="升级用户名账号>" />
+        android:text="升级用户名账号>"
+        android:textSize="@dimen/text_size_small" />
 
 </LinearLayout>

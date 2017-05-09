@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_btn_gray2"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,9 +21,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
                 android:hint="请输入账号"
+                android:padding="@dimen/layout_space_small"
                 android:textColor="@color/color_gray_2"
-        		android:padding="@dimen/layout_space_small" 
-                android:textColorHint="@color/color_gray_0" />
+                android:textColorHint="@color/color_gray_0"
+                android:textSize="@dimen/text_size_common" />
 
             <ImageView
                 android:id="@+id/img_account_pull"
@@ -52,12 +53,14 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
                 android:hint="请输入密码"
+                android:padding="@dimen/layout_space_small"
                 android:password="true"
-                android:padding="@dimen/layout_space_small" 
                 android:textColor="@color/color_gray_2"
-                android:textColorHint="@color/color_gray_0" />
+                android:textColorHint="@color/color_gray_0"
+                android:textSize="@dimen/text_size_common" />
 
             <TextView
+                android:id="@+id/text_account_forget"
                 style="@style/style_text_gray"
                 android:layout_marginRight="@dimen/layout_space_small"
                 android:text="忘记密码" />
@@ -76,9 +79,9 @@
         android:id="@+id/btn_account_login"
         android:layout_width="match_parent"
         android:layout_height="@dimen/notify_title_height"
-        android:gravity="center"
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_bg_green_fill"
+        android:gravity="center"
         android:text="登录"
         android:textColor="@color/color_white"
         android:textSize="@dimen/text_size_title" />
