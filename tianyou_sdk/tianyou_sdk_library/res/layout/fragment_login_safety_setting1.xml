@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView 
+        style="@style/style_text_black" 
+        android:text="请输入需要绑定的密保手机号："
+        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_btn_gray2"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:padding="@dimen/layout_space_little" >
+
+        <EditText
+            style="@style/style_edit_common"
+            android:id="@+id/edit_alert_password"
+            android:hint="请输入手机号" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_small"
+            android:background="@color/color_gray_0" />
+
+        
+        
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            style="@style/style_edit_common"
+            android:id="@+id/edit_alert_again"
+            android:hint="请输入短信验证码" />
+
+        <TextView
+            android:id="@+id/text_alert_code"
+            style="@style/style_text_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/layout_space_small"
+			android:text="获取验证码"/>
+    </RelativeLayout>
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/text_alert_confirm2"
+        style="@style/style_text_red_long"
+        android:text="确定" />
+
+</LinearLayout>
