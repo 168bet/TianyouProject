@@ -36,7 +36,6 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 	protected Activity mActivity;
 	
 	public boolean mIsLogout;
-	public int mCodeTime;	//验证码倒计时
 	
 	protected Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -78,34 +77,34 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
         transaction.commitAllowingStateLoss();
     }
 	
-	private TextView mTextGetCode;
+//	private TextView mTextGetCode;
 	
 	// 创建定时器
-	public void createDelayed(TextView textGetCode) {
-		mTextGetCode = textGetCode;
-		mCodeTime = 60;
-		final Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				if (mCodeTime != 0) {
-					mTextGetCode.setText("重新发送(" + mCodeTime-- + ")");
-					handler.postDelayed(this, 1000);
-				} else {
-					mTextGetCode.setText("获取验证码");
-					mTextGetCode.setClickable(true);
-					handler.removeCallbacks(this);
-				}
-			}
-		}, 1000);
-	}
+//	public void createDelayed(TextView textGetCode) {
+//		mTextGetCode = textGetCode;
+//		mCodeTime = 60;
+//		final Handler handler = new Handler();
+//		handler.postDelayed(new Runnable() {
+//			@Override
+//			public void run() {
+//				if (mCodeTime != 0) {
+//					mTextGetCode.setText("重新发送(" + mCodeTime-- + ")");
+//					handler.postDelayed(this, 1000);
+//				} else {
+//					mTextGetCode.setText("获取验证码");
+//					mTextGetCode.setClickable(true);
+//					handler.removeCallbacks(this);
+//				}
+//			}
+//		}, 1000);
+//	}
 
 	// 显示未完成的倒计时
-	public void showCountDown(TextView textGetCode) {
-		mTextGetCode = textGetCode;
-		mTextGetCode.setClickable(mCodeTime == 0 ? true : false);
-		mTextGetCode.setText(mCodeTime == 0 ? "获取验证码" : "重新发送(" + mCodeTime + ")");
-	}
+//	public void showCountDown(TextView textGetCode) {
+//		mTextGetCode = textGetCode;
+//		mTextGetCode.setClickable(mCodeTime == 0 ? true : false);
+//		mTextGetCode.setText(mCodeTime == 0 ? "获取验证码" : "重新发送(" + mCodeTime + ")");
+//	}
 	
 	/**
 	 * 设置title
@@ -130,7 +129,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     public void onBackPressed() {
     	if ("HomeFragment".equals(mFragmentTag) || "WxScanFragment".equals(mFragmentTag) ||
     			"SuccessFragment".equals(mFragmentTag) || "OneKeyFragment".equals(mFragmentTag) || 
-    			"PersonalCenterFragment".equals(mFragmentTag)) {
+    			"PersonalCenterFragment".equals(mFragmentTag) || "AccountFragment".equals(mFragmentTag)) {
 			finish();
 		} else if ("TouristTipFragment".equals(mFragmentTag)) {
 			finish();

@@ -50,6 +50,8 @@ public class URLHolder {
 	public static final String URL_UPGRADE_PHONE = getHostAddrs() + "member/upgradeuserbyphone";
 	// 用户名账号升级
 	public static final String URL_UPGRADE_ACCOUNT = getHostAddrs() + "member/upgradeuserbyphone";
+	// 验证是否绑定手机号
+	public static final String URL_CHECK_PHONE = getHostAddrs() + "member/checkmemberphone";
 		
 	/** ------------------------- 支付接口 ------------------------- */
 	// 创建订单

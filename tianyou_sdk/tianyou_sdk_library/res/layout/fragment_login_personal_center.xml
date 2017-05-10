@@ -9,8 +9,8 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ty_default_head" />
 
@@ -26,9 +26,10 @@
                 style="@style/style_text_black" 
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="账号：" />
+                android:text="账号" />
 
             <TextView
+                android:id="@+id/text_center_account"
                 style="@style/style_text_black"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -38,18 +39,15 @@
         </LinearLayout>
 
         <TextView
+             style="@style/style_text_gray"
             android:id="@+id/text_center_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/shape_btn_gray"
             android:paddingBottom="@dimen/layout_space_little"
             android:paddingLeft="@dimen/layout_space_small"
             android:paddingRight="@dimen/layout_space_small"
             android:paddingTop="@dimen/layout_space_little"
-            android:text="切换账号"
-            android:textColor="@color/color_gray_2"
-            android:textSize="@dimen/text_size_small" />
+            android:text="切换账号" />
     </LinearLayout>
 
     <View
@@ -90,6 +88,7 @@
                 android:paddingRight="@dimen/layout_space_big"
                 android:paddingTop="@dimen/layout_space_little"
                 android:text="账号升级"
+                android:textSize="@dimen/text_size_title"
                 android:textColor="@color/color_white" />
         </LinearLayout>
 

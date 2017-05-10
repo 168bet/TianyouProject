@@ -98,7 +98,7 @@ public class AccountFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_account_switch", "id")) {
 			switchPassword();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_account_forget", "id")) {
-			mActivity.switchFragment(new AlertPasswordFragment());
+			mActivity.switchFragment(new ForgetPasswordFragment());
 		}
 	}
 

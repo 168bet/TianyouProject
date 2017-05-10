@@ -1,16 +1,23 @@
 package com.tianyou.sdk.base;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.activity.PayActivity;
 import com.tianyou.sdk.activity.WebViewAvtivity;
 import com.tianyou.sdk.bean.LoginWay;
 import com.tianyou.sdk.bean.LoginWay.ResultBean;
+import com.tianyou.sdk.bean.PhoneCode;
 import com.tianyou.sdk.fragment.login.UnionRegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
@@ -18,10 +25,12 @@ import com.tianyou.sdk.utils.ToastUtils;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by itstrong on 2016/7/1.
@@ -77,6 +86,61 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		intent.putExtra("title", ResUtils.getString(mActivity, "ty_qq_login"));
 		intent.putExtra("url", URLHolder.URL_QQ_WEB);
 		startActivityForResult(intent, 100);
+ 	}
+ 	
+ 	public String mVerifiCode;
+ 	private TextView mTextCode;
+ 	
+ 	// 获取验证码
+ 	protected void getVerifiCode(String phone, TextView textView) {
+ 		mTextCode = textView;
+ 		if (phone.isEmpty()) {
+ 			ToastUtils.show(mActivity, "手机号不能为空");
+ 		} else if (!AppUtils.verifyPhoneNumber(phone)) {
+ 			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number format error" : "手机号格式错误"));
+ 		} else {
+ 			Map<String, String> map = new HashMap<String, String>();
+ 			map.put("mobile", phone);
+             map.put("send_code", AppUtils.MD5(phone));
+             map.put("send_type", "register");
+             map.put("type", "android");
+             map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+             map.put("sign", AppUtils.MD5(phone + "register" + "android" + AppUtils.getPhoeIMEI(mActivity)));
+ 			HttpUtils.post(mActivity, URLHolder.URL_GET_CODE, map, new HttpsCallback() {
+ 				@Override
+ 				public void onSuccess(String response) {
+ 					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);
+ 					if (code.getResult().getCode() == 200) {
+ 						mVerifiCode = code.getResult().getMobile_code();
+ 						mTextCode.setClickable(false);
+ 						createDelayed();
+// 						mTextCode.setText("");
+ 					}
+ 					ToastUtils.show(mActivity, code.getResult().getMsg());
+ 				}
+ 			});
+ 		}
+ 	}
+ 	
+ 	public int mCodeTime;	//验证码倒计时
+ 	
+ 	// 创建定时器
+ 	public void createDelayed() {
+ 		mCodeTime = 60;
+ 		final Handler handler = new Handler();
+ 		handler.postDelayed(new Runnable() {
+ 			@Override
+ 			public void run() {
+ 				if (mCodeTime != 0) {
+ 					mTextCode.setText("重新发送(" + mCodeTime-- + ")");
+ 					handler.postDelayed(this, 1000);
+ 				} else {
+ 					mTextCode.setText("获取验证码");
+ 					mTextCode.setClickable(true);
+ 					handler.removeCallbacks(this);
+ 				}
+ 			}
+ 		}, 1000);
  	}
  	
  	// 快速注册开关
