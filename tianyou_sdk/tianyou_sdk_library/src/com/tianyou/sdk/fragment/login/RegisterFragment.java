@@ -18,6 +18,8 @@ import com.tianyou.sdk.utils.ToastUtils;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -67,6 +69,9 @@ public class RegisterFragment extends BaseFragment {
 		mEditUsername.setHint(mIsUserRegister ? "请输入账号" : "请输入手机号");
 		mEditCode.setHint(mIsUserRegister ? "请输入密码" : "请输入验证码");
 		mEditPassword.setHint(mIsUserRegister ? "请再次输入密码" : "密码：6-16位数字或字母组合");
+		if (!mIsUserRegister) mEditUsername.setInputType(InputType.TYPE_CLASS_PHONE);
+		mEditCode.setInputType((mIsUserRegister ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD) : InputType.TYPE_CLASS_NUMBER));
+		mEditCode.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(16)} : new InputFilter[]{new InputFilter.LengthFilter(6)}));
 		mTextGetCode.setVisibility(mIsUserRegister ? View.GONE : View.VISIBLE);
 		mImgCode.setVisibility(mIsUserRegister ? View.VISIBLE : View.GONE);
 	}

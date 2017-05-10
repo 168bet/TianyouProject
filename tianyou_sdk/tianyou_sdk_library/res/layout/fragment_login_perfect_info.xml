@@ -21,6 +21,9 @@
         <EditText
             android:id="@+id/edit_perfect_username"
             style="@style/style_edit_common"
+            android:singleLine="true"
+            android:maxLength="16"
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
             android:hint="账号：6-16位数字或密码组合" />
 
         <View
@@ -33,6 +36,9 @@
         <EditText
             android:id="@+id/edit_perfect_password"
             style="@style/style_edit_common"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:maxLength="16"
             android:hint="密码：6-16位数字或密码组合" />
 
         <View
@@ -45,6 +51,9 @@
         <EditText
             android:id="@+id/edit_perfect_again"
             style="@style/style_edit_common"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:maxLength="16"
             android:hint="确认密码" />
     </LinearLayout>
 

@@ -4,6 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Application;
+import android.os.Process;
 import android.util.Log;
 
 import com.snowfish.cn.ganga.helper.SFOnlineExitListener;
@@ -122,14 +124,14 @@ public class YijieSdkService extends BaseSdkService{
 			public void onSDKExit(boolean flag) {
 				if (flag) {
 					// 退出游戏回调
-					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "退出游戏");
-					LogUtils.d("exit success -----------");
+					LogUtils.d("exit success f-----------");
+					Process.killProcess(Process.myPid());
 				} else {
-					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "退出游戏失败");
 					LogUtils.d("exit failed----------------");
 				}
 			}
 			
+//			mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "退出游戏失败");
 			@Override
 			public void onNoExiterProvide() {
 				// SDK没有退出界面时，这里通知游戏

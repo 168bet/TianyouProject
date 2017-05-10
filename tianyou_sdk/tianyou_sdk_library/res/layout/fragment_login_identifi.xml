@@ -36,7 +36,9 @@
                 android:hint="请输入手机号"
                 android:textColor="@color/color_gray_3"
                 android:textSize="@dimen/text_size_common"
-                android:textColorHint="@color/color_gray_0" />
+                android:textColorHint="@color/color_gray_0" 
+                android:inputType="phone"
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/text_identifi_code"
@@ -77,7 +79,9 @@
             android:background="@drawable/shape_bg_white_fill"
             android:hint="请输入验证码"
             android:inputType="number"
-            android:textColorHint="@color/color_gray_0" />
+            android:textColorHint="@color/color_gray_0"
+            android:singleLine="true"
+			android:maxLength="6"/>
     </LinearLayout>
 
     <View

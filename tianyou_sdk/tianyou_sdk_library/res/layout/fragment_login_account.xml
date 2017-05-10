@@ -25,7 +25,8 @@
                 android:textColor="@color/color_gray_2"
                 android:textColorHint="@color/color_gray_0"
                 android:textSize="@dimen/text_size_common" 
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"/>
 
             <ImageView
                 android:id="@+id/img_account_pull"
@@ -58,7 +59,8 @@
                 android:password="true"
                 android:textColor="@color/color_gray_2"
                 android:textColorHint="@color/color_gray_0"
-                android:textSize="@dimen/text_size_common" />
+                android:textSize="@dimen/text_size_common" 
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/text_account_forget"
