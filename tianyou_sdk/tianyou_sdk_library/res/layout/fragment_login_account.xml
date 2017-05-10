@@ -24,7 +24,8 @@
                 android:padding="@dimen/layout_space_small"
                 android:textColor="@color/color_gray_2"
                 android:textColorHint="@color/color_gray_0"
-                android:textSize="@dimen/text_size_common" />
+                android:textSize="@dimen/text_size_common" 
+                android:singleLine="true"/>
 
             <ImageView
                 android:id="@+id/img_account_pull"
