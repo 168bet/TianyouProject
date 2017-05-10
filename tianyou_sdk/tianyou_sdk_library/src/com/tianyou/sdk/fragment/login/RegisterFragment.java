@@ -69,9 +69,28 @@ public class RegisterFragment extends BaseFragment {
 		mEditUsername.setHint(mIsUserRegister ? "请输入账号" : "请输入手机号");
 		mEditCode.setHint(mIsUserRegister ? "请输入密码" : "请输入验证码");
 		mEditPassword.setHint(mIsUserRegister ? "请再次输入密码" : "密码：6-16位数字或字母组合");
+		/**
+		 * 账号输入框
+		 * 1.选择手机号注册，输入格式为phone;选择用户注册，输入格式为密码（字母+数字）
+		 * 2.选择手机号注册，字符长度控制在11位;选择用户注册，输入长度控制在16位
+		 */
 		if (!mIsUserRegister) mEditUsername.setInputType(InputType.TYPE_CLASS_PHONE);
+		mEditUsername.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(16)} : new InputFilter[]{new InputFilter.LengthFilter(11)}));
+		/**
+		 * 密码和手机验证码输入框
+		 * 1.选择手机注册时，输入格式为数字;选择用户注册时，输入格式为密码（字母+数字）
+		 * 2.选择手机注册时，输入长度控制在6位;选择用户注册时，输入长度控制在16位
+		 */
 		mEditCode.setInputType((mIsUserRegister ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD) : InputType.TYPE_CLASS_NUMBER));
 		mEditCode.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(16)} : new InputFilter[]{new InputFilter.LengthFilter(6)}));
+		/**
+		 * 密码和图片验证码输入框
+		 * 1.选择手机注册时，输入格式为密码（字母+数字）;选择用户注册时，输入格式为字母+数字
+		 * 2.选择手机注册时，输入长度控制在16位;选择用户注册时，输入长度控制在4位
+		 */
+		if (!mIsUserRegister) mEditPassword.setInputType((InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+		mEditPassword.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(4)} : new InputFilter[]{new InputFilter.LengthFilter(16)}));
+
 		mTextGetCode.setVisibility(mIsUserRegister ? View.GONE : View.VISIBLE);
 		mImgCode.setVisibility(mIsUserRegister ? View.VISIBLE : View.GONE);
 	}

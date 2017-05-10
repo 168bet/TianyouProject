@@ -55,7 +55,23 @@
                 android:text="获取验证码"
                 android:textSize="@dimen/text_size_common" />
         </LinearLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_small"
+            android:background="@color/color_gray_0" />
+    
+   		<EditText
+            android:id="@+id/edit_upgrade_password"
+            style="@style/style_edit_common"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:hint="请输入密码" />
+        
     </LinearLayout>
+    
 
     <TextView
         android:id="@+id/text_upgrade_confirm"
