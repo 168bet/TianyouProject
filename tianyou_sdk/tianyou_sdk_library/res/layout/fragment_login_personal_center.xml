@@ -23,7 +23,7 @@
             android:orientation="vertical" >
 
             <TextView
-                style="@style/style_text_black" 
+                style="@style/style_text_black"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="账号" />
@@ -35,12 +35,11 @@
                 android:layout_weight="1"
                 android:gravity="bottom"
                 android:text="游客：" />
-
         </LinearLayout>
 
         <TextView
-             style="@style/style_text_gray"
             android:id="@+id/text_center_logout"
+            style="@style/style_text_gray"
             android:layout_gravity="center_vertical"
             android:background="@drawable/shape_btn_gray"
             android:paddingBottom="@dimen/layout_space_little"
@@ -73,8 +72,8 @@
                 android:layout_margin="@dimen/layout_space_big"
                 android:layout_marginTop="@dimen/layout_space_big"
                 android:text="@string/ty_tourist_tips"
-                android:textSize="@dimen/text_size_small"
-                android:textColor="@color/color_gray_1" />
+                android:textColor="@color/color_gray_1"
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/text_center_upgrade"
@@ -88,8 +87,8 @@
                 android:paddingRight="@dimen/layout_space_big"
                 android:paddingTop="@dimen/layout_space_little"
                 android:text="账号升级"
-                android:textSize="@dimen/text_size_title"
-                android:textColor="@color/color_white" />
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_common" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +113,7 @@
                 android:layout_marginTop="@dimen/layout_space_big"
                 android:background="@color/color_gray_0" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/layout_center_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -127,14 +126,23 @@
                     android:drawablePadding="@dimen/layout_space_small"
                     android:text="账号安全设置" />
 
+                <ImageView
+                    android:id="@+id/img_center_point0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_space_big"
+                    android:src="@drawable/red_point" />
+
                 <TextView
+                    android:id="@+id/text_center_set"
                     style="@style/style_text_gray"
-                    android:layout_alignParentRight="true"
+                    android:layout_width="match_parent"
                     android:layout_marginRight="@dimen/layout_space_big"
                     android:layout_marginTop="@dimen/layout_space_big"
+                    android:gravity="right"
                     android:text="未设置"
                     android:textColor="@color/color_gray_0" />
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -142,7 +150,7 @@
                 android:layout_marginTop="@dimen/layout_space_big"
                 android:background="@color/color_gray_0" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/layout_center_identifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -155,15 +163,25 @@
                     android:drawableLeft="@drawable/identity"
                     android:drawablePadding="@dimen/layout_space_small"
                     android:text="实名认证" />
+                
+                <ImageView
+                    android:id="@+id/img_center_point1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_space_big"
+                    android:src="@drawable/red_point" />
 
                 <TextView
+                    android:id="@+id/text_center_auth"
                     style="@style/style_text_gray"
-                    android:layout_alignParentRight="true"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
                     android:layout_marginRight="@dimen/layout_space_big"
                     android:layout_marginTop="@dimen/layout_space_big"
-                    android:text="已认证"
+                    android:text="未认证"
                     android:textColor="@color/color_gray_0" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
+
 </LinearLayout>

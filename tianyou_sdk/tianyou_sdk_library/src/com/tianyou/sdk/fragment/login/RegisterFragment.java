@@ -112,7 +112,7 @@ public class RegisterFragment extends BaseFragment {
 						JSONObject result = jsonObject.getJSONObject("result");
 						ToastUtils.show(mActivity, result.getString("msg"));
 						if (result.getInt("code") == 200) {
-							mLoginHandler.doUserLogin(result.getString("username"), result.getString("password"), true);
+							mLoginHandler.doUserLogin(result.getString("username"), result.getString("password"), false);
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();

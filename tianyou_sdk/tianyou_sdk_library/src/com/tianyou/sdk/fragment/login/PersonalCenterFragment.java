@@ -16,7 +16,11 @@ public class PersonalCenterFragment extends BaseFragment {
 
 	private View mLayoutTourist;
 	private View mLayoutNotTourist;
+	private View mViewPoint0;
+	private View mViewPoint1;
 	private TextView mTextAccount;
+	private TextView mTextSet;
+	private TextView mTextAuth;
 
 	@Override
 	protected String setContentView() { return "fragment_login_personal_center"; }
@@ -27,13 +31,20 @@ public class PersonalCenterFragment extends BaseFragment {
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_logout", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_upgrade", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_alert", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_identifi", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_setting", "id")).setOnClickListener(this);
-		
+		if (!ConfigHolder.isPhone) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_setting", "id")).setOnClickListener(this);
+		}
+		if (!ConfigHolder.isAuth) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_identifi", "id")).setOnClickListener(this);
+		}
 		mLayoutTourist = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_tourist", "id"));
 		mLayoutNotTourist = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_not_tourist", "id"));
+		mViewPoint0 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_center_point0", "id"));
+		mViewPoint1 = mContentView.findViewById(ResUtils.getResById(mActivity, "img_center_point1", "id"));
 		
 		mTextAccount = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_account", "id"));
+		mTextSet = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_set", "id"));
+		mTextAuth = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_auth", "id"));
 	}
 
 	@Override
@@ -41,6 +52,10 @@ public class PersonalCenterFragment extends BaseFragment {
 		mLayoutTourist.setVisibility(ConfigHolder.isTourist ? View.VISIBLE : View.GONE);
 		mLayoutNotTourist.setVisibility(ConfigHolder.isTourist ? View.GONE : View.VISIBLE);
 		mTextAccount.setText(ConfigHolder.isTourist ? "游客：" + ConfigHolder.userName : ConfigHolder.userName);
+		mTextSet.setText(ConfigHolder.isPhone ? "已设置" : "未设置");
+		mTextAuth.setText(ConfigHolder.isAuth ? "已认证" : "未认证");
+		mViewPoint0.setVisibility(ConfigHolder.isPhone ? View.GONE : View.VISIBLE);
+		mViewPoint1.setVisibility(ConfigHolder.isAuth ? View.GONE : View.VISIBLE);
 	}
 	
 	@Override

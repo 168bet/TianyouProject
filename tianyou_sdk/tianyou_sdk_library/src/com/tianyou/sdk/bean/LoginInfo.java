@@ -27,11 +27,12 @@ public class LoginInfo {
 		private String username;
 		private String nickname;
 		private String token;
-		private String isphone;
+		private int isphone;
 		private String registertype;
 		private String password;
 		private String verification;
 		private String isperfect;
+		private int istourist;
 		private int isauth;
 		private String iscode;
 
@@ -57,6 +58,14 @@ public class LoginInfo {
 
 		public void setMsg(String msg) {
 			this.msg = msg;
+		}
+
+		public int getIstourist() {
+			return istourist;
+		}
+
+		public void setIstourist(int istourist) {
+			this.istourist = istourist;
 		}
 
 		public String getUserid() {
@@ -99,11 +108,11 @@ public class LoginInfo {
 			this.token = token;
 		}
 
-		public String getIsphone() {
+		public int getIsphone() {
 			return isphone;
 		}
 
-		public void setIsphone(String isphone) {
+		public void setIsphone(int isphone) {
 			this.isphone = isphone;
 		}
 
