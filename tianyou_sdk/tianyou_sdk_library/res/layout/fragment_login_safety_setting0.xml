@@ -35,7 +35,10 @@
             android:hint="请输入短信验证码"
             android:padding="@dimen/layout_space_small"
             android:textColor="@color/color_gray_2"
-            android:textColorHint="@color/color_gray_1" />
+            android:textColorHint="@color/color_gray_1" 
+            android:inputType="number"
+            android:singleLine="true"
+            android:maxLength="6"/>
 
         <TextView
             style="@style/style_text_black"

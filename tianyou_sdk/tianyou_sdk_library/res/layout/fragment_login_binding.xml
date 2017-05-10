@@ -54,7 +54,8 @@
             android:hint="@string/ty_input_code"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
-            android:inputType="phone"
+            android:inputType="number"
+            android:maxLength="6"
             android:textColor="@color/color_black"
             android:textColorHint="@color/color_gray_1"
             android:textSize="@dimen/text_size_common" />

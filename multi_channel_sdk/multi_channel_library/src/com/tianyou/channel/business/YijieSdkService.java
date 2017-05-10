@@ -3,14 +3,10 @@ package com.tianyou.channel.business;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.bool;
 import android.app.Activity;
+import android.app.Application;
+import android.os.Process;
 import android.util.Log;
-import android.widget.Toast;
-
-import cn.beecloud.dankal.Lequ;
-import cn.beecloud.dankal.callback.RegisterGenerateCallBack;
-import cn.beecloud.dankal.callback.RegisterPhoneCallBack;
 
 import com.snowfish.cn.ganga.helper.SFOnlineExitListener;
 import com.snowfish.cn.ganga.helper.SFOnlineHelper;
@@ -19,11 +15,12 @@ import com.snowfish.cn.ganga.helper.SFOnlineLoginListener;
 import com.snowfish.cn.ganga.helper.SFOnlinePayResultListener;
 import com.snowfish.cn.ganga.helper.SFOnlineUser;
 import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
-import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
+import com.tianyou.channel.utils.CommenUtil;
 import com.tianyou.channel.utils.LogUtils;
 
 public class YijieSdkService extends BaseSdkService{
@@ -56,10 +53,13 @@ public class YijieSdkService extends BaseSdkService{
 				// 登录成功
 //				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "登录成功");
 				LoginInfo loginParam = new LoginInfo();
+				String yijieAppID = CommenUtil.getMetaDataValue(mActivity, "com.snowfish.appid");
 				loginParam.setChannelUserId(user.getChannelUserId());
 				loginParam.setUserToken(user.getToken());
 				loginParam.setIsGuest(user.getChannelId());
 				loginParam.setNickname(user.getUserName());
+				LogUtils.d("yijieAppid= "+yijieAppID);
+				loginParam.setYijieAppId(yijieAppID);
 				checkLogin(loginParam);
 				LogUtils.d("login success id= "+user.getId()+",channelId= "+user.getChannelId()+
 						",channelUserId= "+user.getChannelUserId()+",productCode= "+user.getProductCode()+
@@ -78,50 +78,6 @@ public class YijieSdkService extends BaseSdkService{
 				// 退出回调
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "退出登录");
 				LogUtils.d("logout custom= "+customParams);
-			}
-		});
-	}
-	
-	// 手机号注册
-	@Override
-	public void doRegisterPhone() {
-		super.doRegisterPhone();
-		Lequ.register_phone(mActivity, new RegisterPhoneCallBack() {
-			@Override
-			public void sendSMSOrRegisterPhoneSuccess(String phone, String password,
-					String type) {
-				LogUtils.d("手机号注册成功, phone= "+phone+",password= "+password+",type= "+type);
-//				doLogin();
-			}
-			
-			@Override
-			public void sendSMSOrRegisterPhoneFail(String errorCode, String msg) {
-				LogUtils.d("手机号注册失败,errorCode= "+errorCode+",msg= "+msg);
-				mActivity.runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						Toast.makeText(mActivity, "手机号注册失败", Toast.LENGTH_SHORT).show();
-					}
-				});
-			}
-		});
-	}
-	
-	@Override
-	public void doRegisterGenerate() {
-		super.doRegisterGenerate();
-		Lequ.register_generate(mActivity, new RegisterGenerateCallBack() {
-			
-			@Override
-			public void registerGenerateSuccess() {
-				LogUtils.d("一键注册成功....");
-				doLogin();
-			}
-			
-			@Override
-			public void registerGenerateFail(String errorCode, String msg) {
-				LogUtils.d("一键注册失败, errorCode= "+errorCode+",msg= "+msg);
-				Toast.makeText(mActivity, "一键注册失败", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -168,14 +124,14 @@ public class YijieSdkService extends BaseSdkService{
 			public void onSDKExit(boolean flag) {
 				if (flag) {
 					// 退出游戏回调
-					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "退出游戏");
-					LogUtils.d("exit success -----------");
+					LogUtils.d("exit success f-----------");
+					Process.killProcess(Process.myPid());
 				} else {
-					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "退出游戏失败");
 					LogUtils.d("exit failed----------------");
 				}
 			}
 			
+//			mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "退出游戏失败");
 			@Override
 			public void onNoExiterProvide() {
 				// SDK没有退出界面时，这里通知游戏

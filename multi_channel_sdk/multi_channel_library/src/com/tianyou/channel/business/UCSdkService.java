@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.util.Log;
 import cn.uc.gamesdk.UCGameSdk;
+import cn.uc.gamesdk.even.SDKEventKey;
+import cn.uc.gamesdk.even.SDKEventReceiver;
+import cn.uc.gamesdk.even.Subscribe;
 import cn.uc.gamesdk.exception.UCCallbackListenerNullException;
 import cn.uc.gamesdk.exception.UCMissActivityException;
 import cn.uc.gamesdk.open.GameParamInfo;
@@ -20,7 +23,9 @@ import cn.uc.gamesdk.open.UCLogLevel;
 import cn.uc.gamesdk.open.UCOrientation;
 
 import com.tianyou.channel.bean.ChannelInfo;
+import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.PayInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -54,6 +59,15 @@ public class UCSdkService extends BaseSdkService {
 		info.setServerId(0);
 		info.setEnableUserChange(true);
 		info.setOrientation(UCOrientation.LANDSCAPE);
+		
+		UCGameSdk.defaultSdk().registerSDKEventReceiver(new SDKEventReceiver(){
+			@Subscribe(event = SDKEventKey.ON_INIT_SUCC) 
+			private void onInitSucc(){
+				mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "SDK初始化完成");
+			}
+			
+		});
+		
 		try {
 			UCGameSdk.defaultSdk().initSdk(mActivity, UCLogLevel.DEBUG, false, info, new UCCallbackListener<String>() {
 						@Override
@@ -83,6 +97,8 @@ public class UCSdkService extends BaseSdkService {
 			Log.d("TAG","退出账号: statuscode= "+statuscode+",data= "+data);
 		}
 	};
+	
+	
 
 	@Override
 	public void doLogin() {
@@ -98,7 +114,10 @@ public class UCSdkService extends BaseSdkService {
 						// 获取sid
 						String sid = UCGameSdk.defaultSdk().getSid();
 						Log.d("TAG","uc login sid= "+sid);
-						checkLogin(sid, sid);
+						LoginInfo loginParam = new LoginInfo();
+						loginParam.setChannelUserId(sid);
+						loginParam.setUserToken(sid);
+						checkLogin(loginParam);
 					}
 
 					if (code == UCGameSdkStatusCode.LOGIN_EXIT) {
@@ -166,22 +185,21 @@ public class UCSdkService extends BaseSdkService {
 	}
 	
 	@Override
-	public void doChannelPay(final OrderinfoBean infoBean) {
-		super.doChannelPay(infoBean);
-		
-		MyPaymentInfo payInfo = new MyPaymentInfo();
-		payInfo.setAmount(Float.parseFloat(infoBean.getMoNey()));
-		payInfo.setCustomInfo(mRoleInfo.getCustomInfo());
-		payInfo.setRoleId(mRoleInfo.getRoleId());
-		payInfo.setRoleName(mRoleInfo.getRoleName());
-		payInfo.setGrade(mRoleInfo.getRoleLevel());
-		payInfo.setServerId(0);
-		payInfo.setNotifyUrl(infoBean.getNotifyurl());
-		payInfo.setTransactionNumCP(infoBean.getOrderID());
-		Log.d("TAG","uc pay detail= "+payInfo.getDetail());
+	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
+		MyPaymentInfo payMentInfo = new MyPaymentInfo();
+		payMentInfo.setAmount(Float.parseFloat(orderInfo.getMoNey()));
+		payMentInfo.setCustomInfo(payInfo.getCustomInfo());
+		payMentInfo.setRoleId(mRoleInfo.getRoleId());
+		payMentInfo.setRoleName(mRoleInfo.getRoleName());
+		payMentInfo.setGrade(mRoleInfo.getRoleLevel());
+		payMentInfo.setServerId(0);
+		payMentInfo.setNotifyUrl(orderInfo.getNotifyurl());
+		payMentInfo.setTransactionNumCP(orderInfo.getOrderID());
+		Log.d("TAG","uc pay detail= "+payMentInfo.getDetail());
 		try {
-			UCGameSdk.defaultSdk().pay(payInfo,new UCCallbackListener<OrderInfo>() {
-
+			UCGameSdk.defaultSdk().pay(payMentInfo,new UCCallbackListener<OrderInfo>() {
+				
 				@Override
 				public void callback(int statuscode, OrderInfo orderInfo) {
 
@@ -195,7 +213,7 @@ public class UCSdkService extends BaseSdkService {
 						// 订单生成生成，非充值成功，充值结果由服务端回调判断,请勿显示充值成 功的弹窗或toast
 						//	callback.onSuccess(orderInfo.toString());
 						if (orderInfo != null) { 
-							checkOrder(infoBean.getOrderID());
+							checkOrder(orderInfo.getOrderId());
 						} else {
 //							callback.onFailed("充值失败");
 							mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED,"支付失败");

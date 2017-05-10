@@ -22,7 +22,6 @@ import com.coolcloud.uac.android.common.Constants;
 import com.coolcloud.uac.android.common.Params;
 import com.iapppay.interfaces.authentactor.AccountBean;
 import com.iapppay.interfaces.callback.IPayResultCallback;
-import com.iapppay.sdk.main.CoolPadPay;
 import com.iapppay.utils.RSAHelper;
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.PayInfo;
@@ -33,9 +32,13 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.CommenUtil;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
+import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.URLHolder;
-import com.tianyou.channel.utils.HttpUtils.HttpCallback;
+import com.yulong.paysdk.beens.CoolPayResult;
+import com.yulong.paysdk.beens.CoolYunAccessInfo;
+import com.yulong.paysdk.coolpayapi.CoolpayApi;
+import com.yulong.paysdk.payinterface.IPayResult;
 
 public class KupaiSdkService extends BaseSdkService{
 	
@@ -248,6 +251,40 @@ public class KupaiSdkService extends BaseSdkService{
 	}
 	
 	private void doKuPaiPay(String params,AccountBean buildAccount,final String orderID){
+		
+		CoolpayApi api = CoolpayApi.createCoolpayApi(mActivity, appID);
+		CoolYunAccessInfo accessInfo = new CoolYunAccessInfo();
+		accessInfo.setAccessToken("");
+		accessInfo.setOpenId("");
+		
+		com.yulong.paysdk.beens.PayInfo kPayInfo = new com.yulong.paysdk.beens.PayInfo();
+		kPayInfo.setAppId("");
+		kPayInfo.setPayKey("");
+		kPayInfo.setName("");
+		kPayInfo.setPoint(1);
+		kPayInfo.setQuantity(1);
+		kPayInfo.setCpPrivate("");
+		kPayInfo.setCpOrder("");
+		
+		api.startPay(mActivity, kPayInfo, accessInfo, new IPayResult() {
+			
+			@Override
+			public void onResult(CoolPayResult payResult) {
+				if (payResult != null) {
+					int resultStatus = payResult.getResultStatus();
+					String result = payResult.getResult();
+					if (resultStatus == 0) {
+						checkOrder(orderID);
+					} else if (resultStatus == -2) {
+						mTianyouCallback.onResult(TianyouCallback.CODE_PAY_CANCEL,"支付取消");
+					} else {
+						mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");
+					}
+				}
+				
+			}
+		}, CoolpayApi.PAY_STYLE_DIALOG, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		
 			CoolPadPay.startPay(mActivity, params, buildAccount, new IPayResultCallback() {
 			
 				@Override

@@ -8,6 +8,15 @@ public class LoginInfo {
 	private String nickname;
 	private String isGuest;
 	private boolean isOverseas; // 是否是海外渠道
+	private String yijieAppId;	// 易接appid
+
+	public String getYijieAppId() {
+		return yijieAppId;
+	}
+
+	public void setYijieAppId(String yijieAppId) {
+		this.yijieAppId = yijieAppId;
+	}
 
 	public String getChannelUserId() {
 		return channelUserId;

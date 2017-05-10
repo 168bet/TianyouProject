@@ -7,13 +7,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import cn.egame.terminal.usersdk.a.w;
+
+import com.baidu.bdgame.sdk.obf.ne;
 import com.qihoo.gamecenter.sdk.activity.ContainerActivity;
 import com.qihoo.gamecenter.sdk.common.IDispatcherCallback;
 import com.qihoo.gamecenter.sdk.matrix.Matrix;
+import com.qihoo.gamecenter.sdk.protocols.CPCallBackMgr.MatrixCallBack;
 import com.qihoo.gamecenter.sdk.protocols.ProtocolConfigs;
 import com.qihoo.gamecenter.sdk.protocols.ProtocolKeys;
 import com.tianyou.channel.bean.OrderInfo;
@@ -30,12 +35,32 @@ public class QihooSdkService extends BaseSdkService{
 	
 //	private static String uid;
 	private static String payUrl;
+	private boolean isLand;
+	
+	@Override
+		public void doApplicationCreate(Context context, boolean island) {
+			super.doApplicationCreate(context, island);
+			isLand = island;
+		}
 	
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		Matrix.init(mActivity);
-		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "初始化成功");
+//		Matrix.init(mActivity);
+//		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "初始化成功");
+		
+		Matrix.init(mActivity, new MatrixCallBack() {
+			
+			@Override
+			public void execute(Context context, int code, String msg) {
+				if (code == ProtocolConfigs.FUNC_CODE_INITSUCCESS) {
+					// SDK初始化成功
+					mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "SDK初始化完成");
+				} else if (code == ProtocolConfigs.FUNC_CODE_SWITCH_ACCOUNT){
+					// 切换账号
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -55,7 +80,7 @@ public class QihooSdkService extends BaseSdkService{
 	@Override
 	public void doLogin() {
 		Intent intent = new Intent(mActivity, ContainerActivity.class); 
-		intent.putExtra(ProtocolKeys.IS_SCREEN_ORIENTATION_LANDSCAPE, true); 
+		intent.putExtra(ProtocolKeys.IS_SCREEN_ORIENTATION_LANDSCAPE, isLand); 
 		intent.putExtra(ProtocolKeys.FUNCTION_CODE, ProtocolConfigs.FUNC_CODE_LOGIN); 
         Matrix.execute(mActivity, intent, mIDispatcherCallback);
 	}

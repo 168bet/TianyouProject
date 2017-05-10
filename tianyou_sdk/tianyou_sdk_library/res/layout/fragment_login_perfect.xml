@@ -36,7 +36,10 @@
             android:enabled="false"
             android:paddingLeft="@dimen/layout_space_small"
             android:textColor="@color/color_gray_3"
-            android:textSize="@dimen/text_size_common" />
+            android:textSize="@dimen/text_size_common" 
+            android:singleLine="true"
+            android:maxLength="16"
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"/>
     </LinearLayout>
 
     <LinearLayout

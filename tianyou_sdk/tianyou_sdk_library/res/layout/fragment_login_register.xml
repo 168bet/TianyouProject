@@ -15,6 +15,8 @@
         <EditText
             android:id="@+id/edit_register_username"
             style="@style/style_edit_common"
+            android:singleLine="true"
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
             android:hint="请输入手机号" />
 
         <View
@@ -34,6 +36,7 @@
                 style="@style/style_edit_common"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:singleLine="true"
                 android:hint="请输入验证码" />
 
             <TextView
@@ -62,6 +65,9 @@
                 style="@style/style_edit_common"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:maxLength="16"
                 android:hint="密码：6-16位数字或字母组合" />
 
             <TextView

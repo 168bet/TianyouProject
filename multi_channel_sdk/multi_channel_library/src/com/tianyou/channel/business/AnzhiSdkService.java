@@ -13,7 +13,9 @@ import com.anzhi.sdk.middle.manage.AnzhiSDK;
 import com.anzhi.sdk.middle.manage.AnzhiSDKExceptionHandler;
 import com.anzhi.sdk.middle.manage.GameCallBack;
 import com.anzhi.sdk.middle.util.MD5;
+import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
@@ -32,6 +34,7 @@ public class AnzhiSdkService extends BaseSdkService{
 	@Override
 	public void doApplicationCreate(Context context, boolean island) {
 		try {
+			
 			Object localObject;
 			if ((localObject = (localObject = context.getPackageManager()
 					.getPackageInfo(context.getPackageName(), 128).applicationInfo.metaData)) != null) {
@@ -44,6 +47,7 @@ public class AnzhiSdkService extends BaseSdkService{
 			e.printStackTrace();
 			Thread.setDefaultUncaughtExceptionHandler(new AnzhiSDKExceptionHandler(context));
 		}
+		
 	}
 	
 	@Override
@@ -76,21 +80,25 @@ public class AnzhiSdkService extends BaseSdkService{
 		anzhiSDK.logout();
 	}
 	
+	
+	
 	@Override
-	public void doChannelPay(OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
 		orderID = orderInfo.getOrderID();
         try {
         	JSONObject json = new JSONObject();
             json.put("cpOrderId", orderID); // 游戏方生成的订单号,可以作为与安智订单进行关联
             json.put("cpOrderTime", orderInfo.getCreate_time()); // 下单时间
             json.put("amount", Integer.parseInt(orderInfo.getMoNey())); // 支付金额(单位：分)
-            json.put("cpCustomInfo", mRoleInfo.getCustomInfo()); // 游戏方自定义数据(非json格式)，支付回调数据中会返回该数据
+            json.put("cpCustomInfo", payInfo.getCustomInfo()); // 游戏方自定义数据(非json格式)，支付回调数据中会返回该数据
             json.put("productName",mPayInfo.getProductName()); // 游戏方商品名称
             json.put("productCode", mPayInfo.getProductId()); // 游戏方商品代码
             anzhiSDK.pay(Des3Util.encrypt(json.toString(), appSecret), MD5.encodeToString(appSecret));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+		
 	}
 	
 	@Override
@@ -112,7 +120,10 @@ public class AnzhiSdkService extends BaseSdkService{
 						JSONObject loginObject = new JSONObject(data);
 						String sid = loginObject.getString("uid");
 						String session = loginObject.getString("sid");
-						checkLogin(sid, session);
+						LoginInfo loginParam = new LoginInfo();
+						loginParam.setChannelUserId(sid);
+						loginParam.setUserToken(session);
+						checkLogin(loginParam);
 					} catch (JSONException e) {
 						e.printStackTrace();
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
@@ -167,7 +178,5 @@ public class AnzhiSdkService extends BaseSdkService{
 	public void doDestory() {
 		anzhiSDK.onDestoryInvoked();
 	}
-	
-	
 
 }

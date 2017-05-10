@@ -11,9 +11,13 @@ import com.nearme.game.sdk.GameCenterSDK;
 import com.nearme.game.sdk.callback.ApiCallback;
 import com.nearme.game.sdk.callback.GameExitCallback;
 import com.nearme.game.sdk.common.model.biz.PayInfo;
+import com.nearme.game.sdk.common.model.biz.ReportUserGameInfoParam;
 import com.nearme.game.sdk.common.util.AppUtil;
 import com.nearme.platform.opensdk.pay.PayResponse;
 import com.tianyou.channel.bean.ChannelInfo;
+import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.PayParam;
+import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
@@ -65,12 +69,14 @@ public class OppoSdkService extends BaseSdkService {
 	public boolean isShowExitGame() { return true; }
 	
 	@Override
-	public void doChannelPay(final OrderinfoBean orderInfo) {
-		PayInfo payInfo = new PayInfo(orderInfo.getOrderID(), "自定义字段", Integer.parseInt(orderInfo.getMoNey()));
-		payInfo.setProductDesc(mPayInfo.getProductDesc());
-		payInfo.setProductName(mPayInfo.getProductName());
-		payInfo.setCallbackUrl(orderInfo.getNotifyurl());
-		GameCenterSDK.getInstance().doPay(mActivity, payInfo, new ApiCallback() {
+	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
+		PayInfo oppoPayInfo = new PayInfo(orderInfo.getOrderID(), "自定义字段", Integer.parseInt(orderInfo.getMoNey()));
+		oppoPayInfo.setProductDesc(mPayInfo.getProductDesc());
+		oppoPayInfo.setProductName(mPayInfo.getProductName());
+		oppoPayInfo.setCallbackUrl(orderInfo.getNotifyurl());
+		
+		GameCenterSDK.getInstance().doPay(mActivity, oppoPayInfo, new ApiCallback() {
 			@Override
 			public void onSuccess(String resultMsg) {
 				checkOrder(orderInfo.getOrderID());
@@ -85,6 +91,7 @@ public class OppoSdkService extends BaseSdkService {
 				}
 			}
 		});
+		
 	}
 	
 	private void getTokenInfo() {
@@ -94,7 +101,11 @@ public class OppoSdkService extends BaseSdkService {
 				try {
 					LogUtils.d("getTokenInfo,resultMsg:" + resultMsg);
 					JSONObject json = new JSONObject(resultMsg);
-					checkLogin(json.getString("ssoid"), json.getString("token"));
+					LoginInfo loginParam = new LoginInfo();
+					loginParam.setChannelUserId(json.getString("ssoid"));
+					loginParam.setUserToken(json.getString("token"));
+					checkLogin(loginParam);
+//					checkLogin(json.getString("ssoid"), json.getString("token"));
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -103,6 +114,29 @@ public class OppoSdkService extends BaseSdkService {
 			@Override
 			public void onFailure(String content, int resultCode) {
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, content + resultCode);
+			}
+		});
+	}
+	
+	@Override
+	public void doVerifiedInfo() {
+		super.doVerifiedInfo();
+		GameCenterSDK.getInstance().doGetVerifiedInfo(new ApiCallback() {
+			
+			@Override
+			public void onSuccess(String msg) {
+				JSONObject jsonObject = new JSONObject();
+				try {
+					jsonObject.put("age", msg);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				mTianyouCallback.onResult(TianyouCallback.CODE_VERIFIEDINFO_SUCCESS, jsonObject.toString());
+			}
+			
+			@Override
+			public void onFailure(String msg, int code) {
+				mTianyouCallback.onResult(TianyouCallback.CODE_VERIFIEDINFO_FAILED, "实名认证失败");
 			}
 		});
 	}

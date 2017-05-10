@@ -8,146 +8,118 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
     
-	<!-- 数据网络相关权限 -->
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />    
+	    <!-- 数据网络相关权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <!-- 接收短信权限 -->
-	<uses-permission android:name="android.permission.RECEIVE_SMS" />
-	<uses-permission android:name="android.permission.SEND_SMS" />
-	<!-- SD卡操作权限 -->
-	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<!-- 系统设置操作权限 -->
-	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
-	<uses-permission android:name="android.permission.READ_SETTINGS" />
-	<!-- 漂浮窗 -->
-	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-	<uses-permission android:name="android.permission.GET_TASKS" />
-	<!-- bank 卡支付 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <!-- SD卡操作权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 系统账户操作权限 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <!-- 系统设置操作权限 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <!-- 银联3.3.3添加权限 -->
-    <uses-permission android:name="android.permission.NFC" />
-	<uses-feature android:name="android.hardware.nfc.hce"/>
-	<uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
+
+    <!-- 漂浮窗 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 	    
     <application
         android:allowBackup="true">
         
-         <!-- 游戏卡和话费卡界面-->
-        <activity
-            android:name="com.iapppay.pay.channel.gamepay.GamepayActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"	
-            android:launchMode="singleTask" >
+         <!-- 登录SDK start -->
+   		<activity
+            android:name="com.coolcloud.uac.android.plug.view.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateVisible" >
         </activity>
-        
         <activity
-            android:name="com.iapppay.pay.channel.weixinpay.WeixinWapPayActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection" />
-        
-		<activity
+            android:name="com.coolcloud.uac.android.gameassistplug.GameAssistContentActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
             android:name="com.coolcloud.uac.android.api.view.AssistActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.AuthenticateActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
         <activity
             android:name="com.coolcloud.uac.android.api.view.FindpwdActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >     
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-            
         <activity
             android:name="com.coolcloud.uac.android.api.view.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        
         <activity
             android:name="com.coolcloud.uac.android.api.view.OAuth2Activity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        
         <activity
             android:name="com.coolcloud.uac.android.api.view.RegisterActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.coolcloud.uac.android.api.view.RnaDialogActivity"
+            android:theme="@style/CoolcloudUacActivityStyle" />
         
-		<activity             
-		    android:name="com.coolcloud.uac.android.qihuplug.view.LoginActivity"            
-		    android:theme="@android:style/Theme.Translucent.NoTitleBar">
-   		</activity>
-   		
-		<activity             
-		    android:name="com.coolcloud.uac.android.api.view.RnaDialogActivity"            
-  			android:theme="@style/CoolcloudUacActivityStyle">
-   		</activity>   
-   		
-		<activity
-			android:name="com.coolcloud.uac.android.gameassistplug.GameAssistContentActivity"
-    		android:launchMode="singleInstance"
-    		android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-		</activity>
-		
-		 <!-- 显示网页界面 -->
         <activity
-            android:name="com.iapppay.ui.WebActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"
-            android:launchMode="singleInstance" >
-        </activity>
-        <activity
-            android:name="com.iapppay.ui.activity.ServiceCenterActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection" />
-        <activity
-            android:name="com.iapppay.fastpay.ui.InputBankCarNoActivity"
-            android:launchMode="singleTask" >
-        </activity>
-        <activity
-            android:name="com.iapppay.fastpay.ui.InputBankCarMoreInfoActivity"
-            android:launchMode="singleTask" >
-        </activity>
-        <activity
-            android:name="com.iapppay.fastpay.ui.VerificationCodeActivity"
-            android:launchMode="singleTask" >
-        </activity>
-        <activity android:name="com.iapppay.fastpay.ui.CommonWebActivity" >
-        </activity>
+            android:name="com.coolcloud.uac.android.gameassistplug.GameAssistMessageActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/CoolcloudUacActivityStyle"/>
 
-        <!-- 收银台-普通 -->
         <activity
-            android:name="com.iapppay.ui.activity.normalpay.PayHubActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
-         <!-- 收银台-爱贝快付-->
-        <activity
-            android:name="com.iapppay.ui.activity.minipay.MiniPayHubActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Translucent" >
-        </activity>
-        <!-- 收银台-酷币 -->
-        <activity
-            android:name="com.iapppay.ui.activity.iapppay.IAppPayHubActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"
-            android:launchMode="singleTask"
-            android:theme="@android:style/Theme.Translucent" >
-        </activity>
+            android:name="com.coolcloud.uac.android.gameassistplug.GameAssistMsgListActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!-- 接收酷云、酷派账号退出广播 -->
+        <receiver android:name="com.coolcloud.uac.android.common.LoginStatusReceiver">
+            <intent-filter>
+                <action android:name="com.coolcloud.uac.LOGOUT" />
+            </intent-filter>
+        </receiver>
         
-        <activity 
-            android:name="com.iapppay.ui.activity.minipay.BankCardActivity" 
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"/>
+        <!-- 小助手消息service -->
+        <service android:name="com.coolcloud.uac.android.gameassistplug.message.AssistMsgService"/>
         
-        <!-- alipay sdk begin (新的支付宝) -->
-            <activity
+        <!-- 登录SDK end -->
+		
+		<!-- 支付SDK start -->
+		<activity
+            android:name="com.yulong.paysdk.module.main.CoolPayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.operational.OperationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.me.MeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name" >
+        </activity>
+        <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
@@ -155,42 +127,84 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
-            android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind" >
- 		</activity>
-        <!-- alipay sdk end -->
-       <!-- 银联3.3.3start -->
-       <uses-library android:name="org.simalliance.openmobileapi" android:required="false"/>
-        <activity
-			android:name="com.unionpay.uppay.PayActivity"
-			android:screenOrientation="portrait"
-			android:configChanges="orientation|keyboardHidden"
-			android:excludeFromRecents="true"
-			android:windowSoftInputMode="adjustResize"/>
-
- 		<activity
-    		android:name="com.unionpay.UPPayWapActivity"
-			android:configChanges="orientation|keyboardHidden"
-   			android:screenOrientation="portrait"
-    		android:windowSoftInputMode="adjustResize"/>
-        <!-- 银联3.3.3 end -->
-        
-       <!-- 财付通wap start-->
-		<activity
-            android:name="com.iapppay.pay.channel.tenpay.wap.TenpayWapPayActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"
-            android:theme="@android:style/Theme.Translucent" />
-        <activity
-            android:name="com.iapppay.pay.channel.tenpay.wap.WebActivity"
-            android:configChanges="screenSize|orientation|keyboard|navigation|layoutDirection"
+            android:name="com.yulong.paysdk.module.payment.PaymentActivity"
+            android:label="@string/coolpay_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-        <!-- 财付通wap end--> 
-   		
-		
+        <activity
+            android:name="com.yulong.paysdk.module.main.CoolPayActivityDialog"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.charge.ChargeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.yulong.paysdk.module.qq.CallbackActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/coolpay_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="qwallet1105429247" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:label="@string/coolpay_name"
+            android:screenOrientation="portrait" />
+
+        <!-- alipay sdk begin -->
+
+        <service
+            android:name="com.yulong.paysdk.aidl.ExcuteFlatService"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.yulong.paysdk.aidl.ExcuteFlatService" >
+                </action>
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.yulong.paysdk.module.main.CoolPayActivity$ResultReceiver" >
+            <intent-filter>
+                <action android:name="com.yulong.paysdk.receiver.ResultReceiver.onFlatStart" />
+                <action android:name="com.yulong.paysdk.receiver.ResultReceiver.onPayResult" />
+            </intent-filter>
+        </receiver>
+        <!-- coolcloud2 -->
         
+         <activity
+            android:name="com.ipaynow.wechatpay.plugin.inner_plugin.wechat_plugin.activity.WeChatNotifyActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.ipaynow.qqpay.plugin.ipview.QQPayAndNotifyView"
+            android:configChanges="keyboardHidden|navigation|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        
+		<!-- 支付SDK end -->
+         <meta-data
+            android:name="DC_APPID"
+            android:value="5000002325" />
+        <meta-data
+            android:name="DC_CHANNEL"
+            android:value="Coolpad" />
     </application>
 
 </manifest>

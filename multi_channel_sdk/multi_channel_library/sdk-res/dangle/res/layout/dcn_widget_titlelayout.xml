@@ -20,7 +20,7 @@
         android:layout_marginLeft="2dp"
         android:layout_weight="1"
         android:ellipsize="marquee"
-        android:text="公告：xxxxxxx" />
+        />
 
     <ImageView
         android:id="@+id/dcn_close"

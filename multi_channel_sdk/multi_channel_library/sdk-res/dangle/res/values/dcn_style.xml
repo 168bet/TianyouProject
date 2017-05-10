@@ -11,6 +11,14 @@
     <style name="dcn_full_screen_activity" parent="@android:style/Theme.NoTitleBar.Fullscreen">
     </style>
 
+    <style name="dcn_float_activity" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@color/dcn_transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <style name="dcn_dialog_login" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -21,6 +29,20 @@
         <item name="android:windowBackground">@color/dcn_transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+
+
+    <style name="dcn_dialog_switch_line" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- <item name="android:windowBackground">@android:color/transparent</item> -->
+        <item name="android:windowBackground">@color/dcn_transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 
     <style name="dcn_dialog_waiting" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -140,4 +162,22 @@
         <item name="android:button">@null</item>
     </style>
 
+    <!--<declare-styleable name="CircleImageView">-->
+        <!--<attr name="civ_border_width" format="dimension" />-->
+        <!--<attr name="civ_border_color" format="color" />-->
+        <!--<attr name="civ_border_overlay" format="boolean" />-->
+        <!--<attr name="civ_fill_color" format="color" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="SlipButton">-->
+    <!--<attr name="bg" format="reference" />-->
+    <!--<attr name="slipImg" format="reference" />-->
+    <!--<attr name="slipOn" format="boolean"></attr>-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="IndexView">-->
+    <!--<attr name="childNum" format="integer" />-->
+    <!--<attr name="imgSelect" format="reference" />-->
+    <!--<attr name="imgUnSelect" format="reference" />-->
+    <!--</declare-styleable>-->
 </resources>

@@ -10,34 +10,26 @@
         android:id="@+id/dcn_email_edit_ly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dcn_login_box_bg"
         android:orientation="vertical"
         android:padding="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:contentDescription="@null"
-                android:src="@drawable/dcn_register_edittext_email_icon" />
-
-            <View
-                android:layout_width="@dimen/dcn_divider_size"
-                android:layout_height="25dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/dcn_color_login_box_gb" />
+                android:src="@drawable/dcn_login_user" />
 
             <EditText
                 android:id="@+id/dcn_register_email"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:digits="@string/dcn_register_name_digits"
@@ -45,7 +37,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLength="30"
                 android:singleLine="true"
-                android:textColor="@color/dcn_light_black"
+                android:textColor="@color/dcn_white"
                 android:textColorHint="@color/dcn_login_edit_hint"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/dcn_edit_text_size" />
@@ -72,32 +64,25 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dcn_divider_size"
-            android:background="@color/dcn_color_login_box_gb" />
+            android:background="@color/dcn_login_split" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:contentDescription="@null"
-                android:src="@drawable/dcn_regiter_ext_password" />
-
-            <View
-                android:layout_width="@dimen/dcn_divider_size"
-                android:layout_height="25dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/dcn_color_login_box_gb" />
+                android:src="@drawable/dcn_login_password" />
 
             <EditText
                 android:id="@+id/dcn_register_email_set_password"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:digits="@string/dcn_register_password_digits"
@@ -105,7 +90,7 @@
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:singleLine="true"
-                android:textColor="@color/dcn_light_black"
+                android:textColor="@color/dcn_white"
                 android:textColorHint="@color/dcn_login_edit_hint"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/dcn_edit_text_size" />
@@ -135,37 +120,44 @@
                 android:layout_marginRight="4dp" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dcn_divider_size"
+            android:background="@color/dcn_login_split" />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/dcn_get_email_ver_code_notice_ly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/dcn_email_notice_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:paddingTop="2dp"
-            android:src="@drawable/dcn_login_box_sms" />
 
         <TextView
             android:id="@+id/dcn_get_email_ver_code_notice"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/dcn_email_notice_iv"
+            android:layout_centerHorizontal="true"
             android:paddingRight="2dp"
             android:text="@string/dcn_register_email_ver_code_notice"
-            android:textColor="@color/dcn_light_black"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/dcn_get_email_ver_code_notice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dcn_get_email_ver_code_notice"
+            android:layout_centerHorizontal="true"
+            android:paddingRight="2dp"
+            android:text="@string/dcn_register_email_ver_code_notice2"
+            android:textColor="#fff"
             android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/dcn_get_email_ver_code_notice"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
             <TextView
@@ -193,21 +185,26 @@
                 android:padding="4dp"
                 android:singleLine="true"
                 android:text="@string/dcn_register_verify_resend_2"
-                android:textColor="@color/dcn_count_down_text_color"
+                android:textColor="#ccc"
                 android:textSize="15sp" />
         </LinearLayout>
 
     </RelativeLayout>
 
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dcn_divider_size"-->
+        <!--android:background="@color/dcn_login_split" />-->
+
     <Button
         android:id="@+id/dcn_complete_by_email"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/dcn_orange_btn_selector"
-        android:text="@string/dcn_label_register"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/dcn_selector_login_btn"
+        android:text="@string/dcn_finish_register"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
 </LinearLayout>

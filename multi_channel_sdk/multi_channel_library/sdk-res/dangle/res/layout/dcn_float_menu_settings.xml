@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|right"
-                    android:text="游戏中" />
+                    android:text="@string/dcn_floating_menu_showbear_game" />
             </FrameLayout>
 
             <FrameLayout
@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="接收系统通知"
+                    android:text="@string/dcn_get_notice"
                     android:textColor="@color/dcn_light_black"
                     android:textSize="16sp" />
 
@@ -82,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="接收活动消息"
+                    android:text="@string/dcn_get_activity_notice"
                     android:textColor="@color/dcn_light_black"
                     android:textSize="16sp" />
 
@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="SDK版本"
+                    android:text="@string/dcn_sdk_version"
                     android:textColor="@color/dcn_light_black"
                     android:textSize="16sp" />
 

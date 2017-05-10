@@ -15,7 +15,8 @@
         android:singleLine="true"
         android:textColor="@color/color_black"
         android:textColorHint="@color/color_gray_1"
-        android:textSize="@dimen/text_size_title" />
+        android:textSize="@dimen/text_size_title" 
+        android:maxLength="16"/>
 
     <EditText
         android:id="@+id/edit_register_password"

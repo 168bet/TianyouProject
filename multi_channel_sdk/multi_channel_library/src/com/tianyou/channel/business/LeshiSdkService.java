@@ -37,7 +37,7 @@ public class LeshiSdkService extends BaseSdkService{
 		mLeGameSDK = LeGameSDK.getInstance();
 		mLeGameSDK.onCreate(mActivity, new ActionCallBack() {
 			@Override
-			public void onExitApplication() {}
+			public void onExitApplication() {mActivity.finish();}
 		});
 		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "SDK初始化完成");
 	}

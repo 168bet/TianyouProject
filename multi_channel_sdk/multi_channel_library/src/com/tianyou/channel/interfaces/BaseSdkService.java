@@ -39,6 +39,8 @@ public class BaseSdkService implements SdkServiceInterface {
 	protected TianyouCallback mTianyouCallback;
 	protected boolean mIsOverseas;
 	
+	protected String mHanfengUid;
+	
 	@Override
 	public void doApplicationCreate(Context context, boolean island) { LogUtils.d("调用Application onCreate"); }
 
@@ -148,6 +150,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		map.put("nickname", param.getNickname());
 		map.put("promotion", mChannelInfo.getChannelId());
 		map.put("is_guest", param.getIsGuest());
+		map.put("yijie_appid",param.getYijieAppId());
 		map.put("signature", CommenUtil.MD5("session=" + userToken + "&uid=" + userId + "&appid=" + gameId));
 		String url = (mIsOverseas ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
 		HttpUtils.post(mActivity, url, map, new HttpCallback() {
@@ -159,6 +162,7 @@ public class BaseSdkService implements SdkServiceInterface {
 					String code = result.getString("code");
 					if ("200".equals(code)) {
 						String userId = result.getString("uid");
+						mHanfengUid = result.getString("channeluid");
 						LogUtils.d("userid= "+userId);
 						LogUtils.d("tianyouuserId= "+mLoginInfo.getTianyouUserId());
 						if (mLoginInfo.getTianyouUserId() != null && !userId.equals(mLoginInfo.getTianyouUserId())) {
@@ -339,5 +343,8 @@ public class BaseSdkService implements SdkServiceInterface {
 
 	@Override
 	public void doRegisterGenerate() {LogUtils.d("调用一键注册接口...");}
+
+	@Override
+	public void doVerifiedInfo() { LogUtils.d("调用实名认证防沉迷接口..."); }
 
 }
