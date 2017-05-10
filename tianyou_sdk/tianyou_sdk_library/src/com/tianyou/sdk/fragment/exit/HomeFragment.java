@@ -90,7 +90,7 @@ public class HomeFragment extends BaseFragment {
 			bundle.putString("game_size", mGameInfo.getFilesize());
 			bundle.putString("game_icon", mGameInfo.getIcon());
 			bundle.putString("game_url", mGameInfo.getPath());
-			mActivity.switchFragment(DownloadFragment.getInstall(bundle), "DownloadFragment");
+			mActivity.switchFragment(DownloadFragment.getInstall(bundle));
 		}
 	}
 	
@@ -106,7 +106,7 @@ public class HomeFragment extends BaseFragment {
 			mActivity.finish();
 			TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_exit_icon", "id")) {
-			mActivity.switchFragment(DownloadFragment.getInstall(bundle), "DownloadFragment");
+			mActivity.switchFragment(DownloadFragment.getInstall(bundle));
 		}
 	}
 }

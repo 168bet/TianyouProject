@@ -4,165 +4,145 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_btn_gray2"
+        android:orientation="vertical" >
 
         <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="0px"
-            android:focusable="true"
-            android:focusableInTouchMode="true" />
-
-        <EditText
-            android:id="@+id/edit_home_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_bg_white_fill"
-            android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
-            android:hint="@string/ty_phone_nomber"
-            android:padding="@dimen/layout_space_small"
-            android:singleLine="true"
-            android:textColor="@color/color_black"
-            android:textColorHint="@color/color_gray_1"
-            android:textSize="@dimen/text_size_title" />
+            android:layout_height="wrap_content" >
 
-        <ImageView
-            android:id="@+id/img_home_user_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/layout_space_small"
-            android:src="@drawable/ty_login_pull"
-            android:visibility="gone" />
-    </RelativeLayout>
+            <EditText
+                android:id="@+id/edit_account_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_bg_white_fill"
+                android:hint="请输入账号"
+                android:padding="@dimen/layout_space_small"
+                android:textColor="@color/color_gray_2"
+                android:textColorHint="@color/color_gray_0"
+                android:textSize="@dimen/text_size_common" />
 
-    <RelativeLayout
+            <ImageView
+                android:id="@+id/img_account_pull"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/layout_space_super"
+                android:src="@drawable/pull" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_big"
+            android:background="@color/color_gray_0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/edit_account_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_bg_white_fill"
+                android:hint="请输入密码"
+                android:padding="@dimen/layout_space_small"
+                android:password="true"
+                android:textColor="@color/color_gray_2"
+                android:textColorHint="@color/color_gray_0"
+                android:textSize="@dimen/text_size_common" />
+
+            <TextView
+                android:id="@+id/text_account_forget"
+                style="@style/style_text_gray"
+                android:layout_marginRight="@dimen/layout_space_small"
+                android:text="忘记密码" />
+
+            <ImageView
+                android:id="@+id/img_account_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/layout_space_super"
+                android:src="@drawable/eye_close" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_account_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <EditText
-            android:id="@+id/edit_home_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0.5dp"
-            android:background="@drawable/shape_bg_white_fill"
-            android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
-            android:hint="@string/ty_password"
-            android:padding="@dimen/layout_space_small"
-            android:singleLine="true"
-            android:textColor="@color/color_black"
-            android:textColorHint="@color/color_gray_1"
-            android:textSize="@dimen/text_size_title" />
-
-        <TextView
-            android:id="@+id/text_home_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shape_btn_gray"
-            android:paddingBottom="@dimen/layout_space_little"
-            android:paddingLeft="@dimen/layout_space_small"
-            android:paddingRight="@dimen/layout_space_small"
-            android:paddingTop="@dimen/layout_space_little"
-            android:text="@string/ty_forget_password"
-            android:textColor="@color/color_gray_2"
-            android:textSize="@dimen/text_size_small" />
-    </RelativeLayout>
+        android:layout_height="@dimen/notify_title_height"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_green_fill"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/text_size_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_space_small" >
-
-        <Button
-            android:id="@+id/btn_home_entry"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/shape_bg_jacinth_fill"
-            android:gravity="center"
-            android:padding="@dimen/layout_space_small"
-            android:text="@string/ty_entry_game"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/text_size_title" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_space_small" >
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:orientation="horizontal" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:id="@+id/layout_account_quick"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/notify_title_height"
+            android:layout_weight="1"
+            android:background="@drawable/shape_bg_jacinth_fill"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ty_one_way_1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawablePadding="@dimen/layout_space_little"
-                android:drawableRight="@drawable/ty_login_right"
-                android:text="@string/ty_switch_login"
-                android:textSize="@dimen/text_size_small" />
-
-            <ImageView
-                android:id="@+id/img_login_way_0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_space_small"
-                android:src="@drawable/ty_login_way_0"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/img_login_way_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_space_small"
-                android:src="@drawable/ty_login_way_1"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/img_login_way_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_space_small"
-                android:src="@drawable/ty_login_way_3" />
-
-            <ImageView
-                android:id="@+id/img_login_way_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_space_small"
-                android:src="@drawable/ty_facebook"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/img_login_way_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_space_small"
-                android:src="@drawable/ty_google"
-                android:visibility="gone" />
+                android:singleLine="true"
+                android:text="快速登录"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_common" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_home_quick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/shape_bg_white"
-            android:paddingBottom="@dimen/layout_space_little"
-            android:paddingLeft="@dimen/layout_space_small"
-            android:paddingRight="@dimen/layout_space_small"
-            android:paddingTop="@dimen/layout_space_little"
-            android:text="@string/ty_quick_register"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/text_size_small" />
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/layout_account_qq"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/notify_title_height"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_weight="1"
+            android:background="@drawable/shape_btn_blue_fill"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ty_one_way_2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="QQ登录"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_common" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_account_tourist"
+        style="@style/style_text_gray"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/layout_space_super"
+        android:text="游客登录" />
 
 </LinearLayout>

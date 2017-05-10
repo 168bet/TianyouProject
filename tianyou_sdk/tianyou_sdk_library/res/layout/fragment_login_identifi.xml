@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/style_text_gray"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_size_small"
+        android:text="@string/ty_identification_tips" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <TextView
+            style="@style/style_text_black"
+            android:layout_margin="@dimen/layout_space_small"
+            android:drawableLeft="@drawable/ty_red_point"
+            android:drawablePadding="@dimen/layout_space_little"
+            android:text="手机号码" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/edit_identifi_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_bg_white_fill"
+                android:hint="请输入手机号"
+                android:textColor="@color/color_gray_3"
+                android:textSize="@dimen/text_size_common"
+                android:textColorHint="@color/color_gray_0" />
+
+            <TextView
+                android:id="@+id/text_identifi_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_bg_jacinth"
+                android:gravity="center"
+                android:paddingBottom="@dimen/layout_space_little"
+                android:paddingLeft="@dimen/layout_space_small"
+                android:paddingRight="@dimen/layout_space_small"
+                android:paddingTop="@dimen/layout_space_little"
+                android:text="获取验证码"
+                android:textColor="@color/color_jacinth" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <TextView
+            style="@style/style_text_black"
+            android:layout_margin="@dimen/layout_space_small"
+            android:drawableLeft="@drawable/ty_red_point"
+            android:drawablePadding="@dimen/layout_space_little"
+            android:text="输入验证码" />
+
+        <EditText
+            android:id="@+id/edit_identifi_code"
+            style="@style/style_text_black"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape_bg_white_fill"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:textColorHint="@color/color_gray_0" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <TextView
+            style="@style/style_text_black"
+            android:layout_margin="@dimen/layout_space_small"
+            android:drawableLeft="@drawable/ty_red_point"
+            android:drawablePadding="@dimen/layout_space_little"
+            android:text="真实姓名" />
+
+        <EditText
+            android:id="@+id/edit_identifi_name"
+            style="@style/style_text_black"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape_bg_white_fill"
+            android:hint="2-5个汉字"
+            android:textColorHint="@color/color_gray_0" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <TextView
+            style="@style/style_text_black"
+            android:layout_margin="@dimen/layout_space_small"
+            android:drawableLeft="@drawable/ty_red_point"
+            android:drawablePadding="@dimen/layout_space_little"
+            android:text="身份证号" />
+
+        <EditText
+            android:id="@+id/edit_identifi_id_card"
+            style="@style/style_text_black"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape_bg_white_fill"
+            android:hint="请输入身份证号"
+            android:inputType="textCapCharacters"
+            android:textColorHint="@color/color_gray_0" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_0" />
+
+    <TextView
+        android:id="@+id/text_identifi_confirm"
+        style="@style/style_text_red_long"
+        android:text="提交" />
+
+</LinearLayout>

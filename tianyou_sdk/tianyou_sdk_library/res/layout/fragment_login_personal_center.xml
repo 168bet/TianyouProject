@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ty_default_head" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_small"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/style_text_black" 
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="账号：" />
+
+            <TextView
+                style="@style/style_text_black"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="游客：" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_center_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape_btn_gray"
+            android:paddingBottom="@dimen/layout_space_little"
+            android:paddingLeft="@dimen/layout_space_small"
+            android:paddingRight="@dimen/layout_space_small"
+            android:paddingTop="@dimen/layout_space_little"
+            android:text="切换账号"
+            android:textColor="@color/color_gray_2"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@color/color_gray_0" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/layout_center_tourist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/layout_space_big"
+                android:layout_marginTop="@dimen/layout_space_big"
+                android:text="@string/ty_tourist_tips"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/color_gray_1" />
+
+            <TextView
+                android:id="@+id/text_center_upgrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/layout_space_super"
+                android:background="@drawable/shape_bg_jacinth_fill"
+                android:paddingBottom="@dimen/layout_space_little"
+                android:paddingLeft="@dimen/layout_space_big"
+                android:paddingRight="@dimen/layout_space_big"
+                android:paddingTop="@dimen/layout_space_little"
+                android:text="账号升级"
+                android:textColor="@color/color_white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_center_not_tourist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/text_center_alert"
+                style="@style/style_text_black"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/layout_space_little"
+                android:layout_marginTop="@dimen/layout_space_big"
+                android:drawableLeft="@drawable/lock"
+                android:drawablePadding="@dimen/layout_space_small"
+                android:text="修改密码" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/layout_space_big"
+                android:background="@color/color_gray_0" />
+
+            <RelativeLayout
+                android:id="@+id/layout_center_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="@style/style_text_black"
+                    android:layout_marginLeft="@dimen/layout_space_little"
+                    android:layout_marginTop="@dimen/layout_space_big"
+                    android:drawableLeft="@drawable/safety"
+                    android:drawablePadding="@dimen/layout_space_small"
+                    android:text="账号安全设置" />
+
+                <TextView
+                    style="@style/style_text_gray"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/layout_space_big"
+                    android:layout_marginTop="@dimen/layout_space_big"
+                    android:text="未设置"
+                    android:textColor="@color/color_gray_0" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/layout_space_big"
+                android:background="@color/color_gray_0" />
+
+            <RelativeLayout
+                android:id="@+id/layout_center_identifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/layout_space_super" >
+
+                <TextView
+                    style="@style/style_text_black"
+                    android:layout_marginLeft="@dimen/layout_space_little"
+                    android:layout_marginTop="@dimen/layout_space_big"
+                    android:drawableLeft="@drawable/identity"
+                    android:drawablePadding="@dimen/layout_space_small"
+                    android:text="实名认证" />
+
+                <TextView
+                    style="@style/style_text_gray"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/layout_space_big"
+                    android:layout_marginTop="@dimen/layout_space_big"
+                    android:text="已认证"
+                    android:textColor="@color/color_gray_0" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

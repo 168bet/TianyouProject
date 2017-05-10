@@ -32,6 +32,7 @@ public class LoginInfo {
 		private String password;
 		private String verification;
 		private String isperfect;
+		private int isauth;
 		private String iscode;
 
 		public int getCode() {
@@ -40,6 +41,14 @@ public class LoginInfo {
 
 		public void setCode(int code) {
 			this.code = code;
+		}
+
+		public int getIsauth() {
+			return isauth;
+		}
+
+		public void setIsauth(int isauth) {
+			this.isauth = isauth;
 		}
 
 		public String getMsg() {

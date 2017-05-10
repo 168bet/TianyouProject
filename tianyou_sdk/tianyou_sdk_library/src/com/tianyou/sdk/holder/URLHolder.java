@@ -20,6 +20,8 @@ public class URLHolder {
 	public static final String URL_UNION_REGISTER = getHostAddrs() + "Register/register";
 	// 快速注册
 	public static final String URL_LOGIN_QUICK = getHostAddrs() + "register/quickregister";
+	// 快速注册
+	public static final String URL_REGISTER_PHONE = getHostAddrs() + "register/phoneregister";
 	// 账号登陆
 	public static final String URL_UNION_ACCOUNT_LOGIN = getHostAddrs() + "login/login";
 	// 手机登陆
@@ -42,6 +44,12 @@ public class URLHolder {
 	public static final String URL_KEY_LOGIN = getHostAddrs() + "login/keylogin";
 	// 忘记密码
 	public static final String URL_FORGET_PASS = "http://newsdk.tianyouxi.com/api/commonality/getBackPassword";
+	// 身份认证
+	public static final String URL_IDENTIFI = getHostAddrs() + "member/upuserauth";
+	// 手机账号升级
+	public static final String URL_UPGRADE_PHONE = getHostAddrs() + "member/upgradeuserbyphone";
+	// 用户名账号升级
+	public static final String URL_UPGRADE_ACCOUNT = getHostAddrs() + "member/upgradeuserbyphone";
 		
 	/** ------------------------- 支付接口 ------------------------- */
 	// 创建订单

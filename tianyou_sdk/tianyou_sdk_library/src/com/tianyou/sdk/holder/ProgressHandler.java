@@ -39,7 +39,7 @@ public class ProgressHandler {
 	
 	//打开进度条对话框
 	public void openProgressDialog(Activity activity) {
-		mProgressDialog = new ProgressDialog(activity);
+		mProgressDialog = new ProgressDialog(activity, ResUtils.getResById(activity, "dialog_login_quick", "layout"));
 		mProgressDialog.setMessage(ResUtils.getString(activity, "ty_entry_load"));
 		mProgressDialog.setIndeterminate(true);
 		mProgressDialog.setCancelable(false);
@@ -50,5 +50,4 @@ public class ProgressHandler {
 	public void closeProgressDialog() {
 		if (mProgressDialog != null) mProgressDialog.dismiss();
 	}
-	
 }

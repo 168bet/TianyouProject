@@ -154,11 +154,11 @@ public class TianyouSdk {
 	
 	// 登陆接口
 	public void login() {
-		if (ConfigHolder.userIsLogin) {
-			ToastUtils.show(mActivity, "用户已登录");
-		} else {
+//		if (ConfigHolder.userIsLogin) {
+//			ToastUtils.show(mActivity, "用户已登录");
+//		} else {
 			mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
-		}
+//		}
 	}
 	
 	// 创建角色
@@ -221,11 +221,11 @@ public class TianyouSdk {
 	
 	// 支付接口
 	public void pay(PayInfo payInfo, boolean isShowChooseMoney) {
-		if (ConfigHolder.userIsLogin) {
-			PayHandler.getInstance(mActivity).doPay(payInfo, isShowChooseMoney);
-		} else {
-			ToastUtils.show(mActivity, "请先登录！");
-		}
+		PayHandler.getInstance(mActivity).doPay(payInfo, isShowChooseMoney);
+//		if (ConfigHolder.userIsLogin) {
+//		} else {
+//			ToastUtils.show(mActivity, "请先登录！");
+//		}
 	}
 	
 	// 退出游戏接口
