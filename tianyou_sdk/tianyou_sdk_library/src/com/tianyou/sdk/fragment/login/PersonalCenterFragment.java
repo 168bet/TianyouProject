@@ -5,6 +5,7 @@ import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.utils.ResUtils;
 
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * 个人中心页面
@@ -15,6 +16,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
 	private View mLayoutTourist;
 	private View mLayoutNotTourist;
+	private TextView mTextAccount;
 
 	@Override
 	protected String setContentView() { return "fragment_login_personal_center"; }
@@ -30,12 +32,15 @@ public class PersonalCenterFragment extends BaseFragment {
 		
 		mLayoutTourist = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_tourist", "id"));
 		mLayoutNotTourist = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_not_tourist", "id"));
+		
+		mTextAccount = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_account", "id"));
 	}
 
 	@Override
 	protected void initData() {
 		mLayoutTourist.setVisibility(ConfigHolder.isTourist ? View.VISIBLE : View.GONE);
 		mLayoutNotTourist.setVisibility(ConfigHolder.isTourist ? View.GONE : View.VISIBLE);
+		mTextAccount.setText(ConfigHolder.isTourist ? "游客：" + ConfigHolder.userName : ConfigHolder.userName);
 	}
 	
 	@Override
@@ -46,7 +51,7 @@ public class PersonalCenterFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_center_upgrade", "id")) {
 			mActivity.switchFragment(new UpgradeFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_center_alert", "id")) {
-			mActivity.switchFragment(AlertPasswordFragment.getInstance(0));
+			mActivity.switchFragment(new AlertPasswordFragment(0, ConfigHolder.userName));
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_center_identifi", "id")) {
 			mActivity.switchFragment(new IdentifiFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_center_setting", "id")) {

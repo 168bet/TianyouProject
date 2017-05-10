@@ -6,10 +6,8 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
-import com.tianyou.sdk.bean.PhoneCode;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
@@ -38,7 +36,6 @@ public class RegisterFragment extends BaseFragment {
 	private TextView mImgCode;
 	
 	private boolean mIsUserRegister;	//是否是用户注册
-	private String mVerifiCode;
 	
 	public static Fragment getInstance(boolean isPhoneRegister) {
 		Fragment fragment = new RegisterFragment();
@@ -72,7 +69,6 @@ public class RegisterFragment extends BaseFragment {
 		mEditPassword.setHint(mIsUserRegister ? "请再次输入密码" : "密码：6-16位数字或字母组合");
 		mTextGetCode.setVisibility(mIsUserRegister ? View.GONE : View.VISIBLE);
 		mImgCode.setVisibility(mIsUserRegister ? View.VISIBLE : View.GONE);
-		mActivity.showCountDown(mTextGetCode);
 	}
 	
 	@Override
@@ -82,38 +78,7 @@ public class RegisterFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_register_confirm", "id")) {
 			registerAccount();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_register_get_code", "id")) {
-			getVerifiCode();
-		}
-	}
-	
-	// 获取验证码
-	private void getVerifiCode() {
-		String phone = mEditUsername.getText().toString();
-		if (phone.isEmpty()) {
-			ToastUtils.show(mActivity, "手机号不能为空");
-		} else if (!AppUtils.verifyPhoneNumber(phone)) {
-			ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Phone number format error" : "手机号格式错误"));
-		} else {
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("mobile", phone);
-            map.put("send_code", AppUtils.MD5(phone));
-            map.put("send_type", "register");
-            map.put("type", "android");
-            map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-            map.put("sign", AppUtils.MD5(phone + "register" + "android" + AppUtils.getPhoeIMEI(mActivity)));
-			HttpUtils.post(mActivity, URLHolder.URL_GET_CODE, map, new HttpsCallback() {
-				@Override
-				public void onSuccess(String response) {
-					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);
-					if (code.getResult().getCode() == 200) {
-						mVerifiCode = code.getResult().getMobile_code();
-						mTextGetCode.setClickable(false);
-						mActivity.createDelayed(mTextGetCode);
-						mEditCode.setText("");
-					}
-					ToastUtils.show(mActivity, code.getResult().getMsg());
-				}
-			});
+			getVerifiCode(mEditUsername.getText().toString(), mTextGetCode);
 		}
 	}
 	

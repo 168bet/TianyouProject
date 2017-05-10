@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 灰色由浅到深 -->
+    <color name="color_gray_0">#CCC</color>
+    <color name="color_gray_1">#999</color>
+    <color name="color_gray_2">#666</color>
+    <color name="color_gray_3">#333</color>
+    <!-- 白色 -->
+    <color name="color_white">#FFFFFF</color>
+    <!-- 绿色 -->
+    <color name="color_green">#25AB38</color>
+    <!-- 蓝色 -->
+    <color name="color_blue">#3399fe</color>
+    <!-- 浅蓝色 -->
+    <color name="color_watchet">#36C6DA</color>
+    <!-- 橘黄色 -->
+    <color name="color_orange">#FF8C00</color>
+    <!-- 黑色 -->
+    <color name="color_black">#000000</color>
+    <!-- 红色 -->
+    <color name="color_red">#E84E40</color>
+    <!-- 橘红色 -->
+    <color name="color_jacinth">#FE623F</color>
+    <!-- 分割线 -->
+    <color name="color_line_seprator">#EEEEEE</color>
+    <!-- 客服电话背景色 -->
+    <color name="color_service_phone_bg">#FF623E</color>
+</resources>
