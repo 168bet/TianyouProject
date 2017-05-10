@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:singleLine="true"
-            android:text="菜单"
+            android:text="@string/dcn_menu"
             android:textColor="@color/dcn_common_navi_menu_text_selector"
             android:textSize="18sp" />
     </LinearLayout>

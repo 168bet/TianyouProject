@@ -8,8 +8,8 @@ import com.lenovo.lsf.gamesdk.IAuthResult;
 import com.lenovo.lsf.gamesdk.IPayResult;
 import com.lenovo.lsf.gamesdk.LenovoGameApi;
 import com.tianyou.channel.bean.LoginInfo;
-import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 

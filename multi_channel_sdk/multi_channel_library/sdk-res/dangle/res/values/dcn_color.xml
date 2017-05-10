@@ -24,6 +24,8 @@
     <color name="dcn_select_account_blue">#ff0bc4ef</color>
     <color name="dcn_login_name_color">#ff7f21</color>
     <color name="dcn_login_welcom_color">#5f5f5f</color>
+    <color name="dcn_orange_common">#ff7800</color>
+    <color name="dcn_float_content_selector_bg">#fb96fb</color>
 
     <!-- v4.0.3 -->
 
@@ -34,7 +36,7 @@
     <color name="dcn_gray_dark_2">#ff323232</color>
     <!--v4.1-->
     <color name="dcn_translucence">#7f000000</color>
-    
+
     <!--v4.2-->
     <color name="dcn_light_gray">#cccccc</color>
     <color name="dcn_green">#259424</color>
@@ -43,4 +45,15 @@
     <color name="dcn_actionbar_dark">#292929</color>
     <color name="dcn_message_read">#999999</color>
     <color name="dcn_message_content_color">#666666</color>
+
+    <color name="dcn_message_chat_bag">#F4F4F4</color>
+    <color name="dcn_message_chat_button">#F0F0F0</color>
+    <color name="dcn_message_chat_textColor">#999</color>
+    <color name="dcn_message_chat_listView_bg">#F4F4F4</color>
+    <color name="dcn_message_text_title">#333</color>
+    <color name="dcn_message_text_content">#666</color>
+
+    <color name="dcn_login_split">@color/dcn_white</color>
+    <color name="dcn_system_checked">#999</color>
+
 </resources>

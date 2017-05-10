@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/dcn_login_background"
+    android:background="@drawable/dcn_shape_dialog_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,46 +11,45 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dcn_title_height">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/dcn_title_height">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/dcn_upgrading"
-                android:textColor="@color/dcn_light_black"
-                android:textSize="22sp" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:text="@string/dcn_upgrading"-->
+                <!--android:textColor="@color/dcn_light_black"-->
+                <!--android:textSize="22sp" />-->
 
-            <RelativeLayout
-                android:id="@+id/dcn_close"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="10dp">
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/dcn_close"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginRight="10dp">-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/dcn_close_btn_selector" />
-            </RelativeLayout>
-        </RelativeLayout>
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:background="@drawable/dcn_close_btn_selector" />-->
+            <!--</RelativeLayout>-->
+        <!--</RelativeLayout>-->
+        <include layout="@layout/dcn_dialog_common_titlebar"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dcn_divider_size"
-            android:background="@color/dcn_color_login_box_gb" />
+
     </LinearLayout>
 
     <ImageView
         android:id="@+id/dcn_ad"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="138dp"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         android:scaleType="fitXY"
         android:src="@drawable/dcn_digua_ad" />

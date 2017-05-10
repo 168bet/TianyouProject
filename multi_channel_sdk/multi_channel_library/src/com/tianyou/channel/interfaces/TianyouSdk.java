@@ -15,11 +15,13 @@ import com.tianyou.channel.business.DownJoySdkService;
 import com.tianyou.channel.business.ErWuOUSdkService;
 import com.tianyou.channel.business.HSZSdkService;
 import com.tianyou.channel.business.HaiMaSdkService;
+import com.tianyou.channel.business.HanfengService;
 import com.tianyou.channel.business.HuaWeiSdkService;
 import com.tianyou.channel.business.JinliSdlService;
 import com.tianyou.channel.business.KupaiSdkService;
 import com.tianyou.channel.business.LenovoSdkService;
 import com.tianyou.channel.business.LeshiSdkService;
+import com.tianyou.channel.business.LeyouSdkService;
 import com.tianyou.channel.business.M4399SdkService;
 import com.tianyou.channel.business.MeizuSdkService;
 import com.tianyou.channel.business.TestYingyongbaoSdkService;
@@ -140,6 +142,10 @@ public class TianyouSdk {
 			sdkService = new CaoxieSdkService();
 		} else if ("ty100".equals(channelInfo.getChannelId())) {
 			sdkService = new TestYingyongbaoSdkService();
+		} else if ("ty066".equals(channelInfo.getChannelId())) {
+			sdkService = new HanfengService();
+		} else if ("ty067".equals(channelInfo.getChannelId())) {
+			sdkService = new LeyouSdkService();
 		}
 		return sdkService;
 	}

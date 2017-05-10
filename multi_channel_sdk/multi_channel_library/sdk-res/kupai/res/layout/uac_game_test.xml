@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A7C0DC"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/getauthcode"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
+        android:text="① 获取AuthCode" />
+
+    <Button
+        android:id="@+id/gettoken"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
+        android:text="② 获取Token Openid" />
+
+    <Button
+            android:id="@+id/dialog"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="3dp"
+            android:text="③ 身份验证" />
+
+    <Button
+        android:id="@+id/changeuser"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
+        android:text="切换账号" />
+
+    <Button
+        android:id="@+id/gametest_screenOri"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
+        android:text="切换横竖屏" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="3dp"
+        android:text="退出程序" />
+
+</LinearLayout>

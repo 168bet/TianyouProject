@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dcn_version_name">V4.2.3</string>
+    <string name="dcn_version_name">V4.4.0</string>
     <string name="dcn_no_network">无网络连接…</string>
     <string name="dcn_login_method_mid">通行证：登录</string>
     <string name="dcn_login_method_phone">手机号：登录</string>
@@ -12,7 +12,7 @@
     <string name="dcn_change_register_method_phone">手机号注册</string>
     <string name="dcn_change_register_method_email">邮箱注册</string>
     <string name="dcn_register_method_other">其他注册方式:</string>
-    <string name="dcn_login_exist_account">已有账号</string>
+    <string name="dcn_login_exist_account">已有帐号</string>
     <string name="dcn_register_verify_method_sms">短信验证</string>
     <string name="dcn_register_verify_method_email">邮箱验证</string>
     <string name="dcn_register_name_digits">
@@ -27,19 +27,21 @@
     <string name="dcn_verify_code_time_left">重新发送(%ss)</string>
     <string name="dcn_register_phone_ver_code_hint">请输入6位验证码</string>
     <string name="dcn_register_user_name_hint">请设定用户名</string>
-    <string name="dcn_register_email_hint">请输入您的邮箱地址</string>
+    <string name="dcn_register_email_hint">请输入电子邮箱</string>
     <string name="dcn_register_password_hint">请设定密码</string>
     <string name="dcn_register_ver_code_hint">请输入验证码</string>
-    <string name="dcn_register_phone_ver_code_notice">已发送验证短信至手机，请输入验证码完成注册。</string>
-    <string name="dcn_register_email_ver_code_notice">已发送验证邮件至注册邮箱，请点击邮箱中的验证邮件完成验证。</string>
+    <string name="dcn_register_phone_ver_code_notice">验证短信已发送至手机</string>
+    <string name="dcn_register_phone_ver_code_notice2">请输入验证码完成注册</string>
+    <string name="dcn_register_email_ver_code_notice">已发送验证邮件至注册邮箱</string>
+    <string name="dcn_register_email_ver_code_notice2">请点击邮箱中的验证链接完成注册验证</string>
     <string name="dcn_register_verify_done">完成</string>
     <string name="dcn_label_register">注册</string>
     <string name="dcn_label_login">登录</string>
     <string name="dcn_name_register_name_hint">%s/10</string>
     <string name="dcn_name_register_name_hint_default">0/10</string>
     <string name="dcn_register_verify_resend">重新发送</string>
-    <string name="dcn_register_verify_resend_2">&#62;重新发送</string>
-    <string name="dcn_register_to_email">&#62;前往邮箱</string>
+    <string name="dcn_register_verify_resend_2">重新发送</string>
+    <string name="dcn_register_to_email">前往邮箱</string>
     <string name="dcn_verify_format_not_correct">验证码格式不正确!</string>
 
     <!-- user center begin-->
@@ -84,9 +86,9 @@
     <string name="dcn_send_email_success">激活邮件已经发送，请注意查收。</string>
     <string name="dcn_no_code_warning">请输入验证码</string>
     <string name="dcn_wrong_code_warning">请输入6位数字</string>
-    <string name="dcn_retrieve_password">找回密码</string>
-    <string name="dcn_select_account_title">账户选择</string>
-    <string name="dcn_select_account_tip_delete">温馨提示：长按删除账户</string>
+    <string name="dcn_retrieve_password">密码</string>
+    <string name="dcn_select_account_title">帐户选择</string>
+    <string name="dcn_select_account_tip_delete">温馨提示：长按删除帐户</string>
     <string name="dcn_token_error">token错误</string>
     <string name="dcn_token_error_title">重新登录</string>
     <string name="dcn_token_error_content">您的帐号已在其他地方登录,请重新登录!</string>
@@ -112,6 +114,8 @@
     <string name="dcn_exit_exit">退出游戏</string>
     <string name="dcn_please_waiting">请稍候&#8230;</string>
     <string name="dcn_login_success">登录成功</string>
+    <string name="dcn_login_success_welcome">欢迎回来</string>
+    <string name="dcn_login_success_welcome_register">注册成功</string>
     <string name="dcn_select_account_radio_txt">默认登录</string>
     <string name="dcn_select_account_passport">通行证：</string>
     <string name="dcn_select_account_last_app_label">近期登录：</string>
@@ -121,14 +125,15 @@
     <string name="dcn_announcement_index">第%s条</string>
     <string name="dcn_ucenter_unread_msg_cnt">未读%1$d/已读%2$d</string>
     <string name="dcn_no_data">神马都没有!</string>
-    <string name="dcn_init_msg">正在初始化&#8230;</string>
+    <string name="dcn_init_msg">正在初始化</string>
     <string name="dcn_init_network_error_title">网络错误</string>
     <string name="dcn_init_network_error_msg">网络不通，不能进行游戏，请检查你的设备联网情况。</string>
     <string name="dcn_init_connection_failed_title">连接失败</string>
     <string name="dcn_init_connection_failed_msg">服务器无响应，请稍后重试。</string>
     <string name="dcn_init_connection_failed_msg_reserved">服务器无响应，请稍后重试或切换至备用线路</string>
     <string name="dcn_switch_reserved_server_title">正在切换至备用线路</string>
-    <string name="dcn_switch_reserved_server_content">备用线路只在应急情况下启用，仅提供游戏登录和第三方支付服务。为保障游戏体验，请在收到主线恢复通知后及时重新登录游戏。</string>
+    <string name="dcn_dialog_reserve_doing_content">备用线路只在应急情况下启用，仅提供游戏登录和第三方支付服务。为保障游戏体验，请在收到主线恢复通知后及时重新登录游戏。</string>
+    <string name="dcn_switch_reserved_server_content">当前连接的是备用线路，仅提供游戏登录和第三方支付服务。为保障游戏体验，请在收到主线恢复通知后及时重新登录游戏。</string>
     <string name="dcn_contact_service">联系客服</string>
     <string name="dcn_service">当乐客服</string>
     <string name="dcn_reserved_server_error_content">\n备用服务端无响应,请确认是否为本地网络故障。\n①退出重新运行游戏\n②查看其它应用是否可以正常联网\n③若非本地网络故障导致无法登录游戏，请联系当乐客服</string>
@@ -146,7 +151,7 @@
     <string name="dcn_init_server_down_msg">抱歉，服务器例行维护中，暂时不能登录。</string>
     <string name="dcn_install">安装</string>
     <string name="dcn_copy_success">复制成功</string>
-    <string name="dcn_navi_menu_account">账户</string>
+    <string name="dcn_navi_menu_account">帐户</string>
     <string name="dcn_navi_menu_message">消息</string>
     <string name="dcn_floating_menu_confirm">确定</string>
     <string name="dcn_floating_menu_act_msg">活动消息</string>
@@ -201,7 +206,7 @@
     <string name="dcn_announcement">公告</string>
     <string name="dcn_to_detail">查看详情</string>
     <string name="dcn_activation_code_exit_content">是否取消登录并退出游戏</string>
-    <string name="dcn_activation_code_back">返回输入激活码</string>
+    <string name="dcn_activation_code_back">输入激活码</string>
     <string name="dcn_get_announcement">正在获取公告...</string>
     <string name="dcn_switch_reserved">切换至备用线路</string>
     <string name="dcn_switch_main">切回主线</string>
@@ -210,4 +215,114 @@
     <string name="dcn_main_server_resumed_content">主线已恢复，重新登录即可享受当乐提供的完整网游服务</string>
     <string name="dcn_restart">重新启动</string>
     <string name="dcn_remind_later">稍后提醒</string>
+    <string name="dcn_splash_retry"><u>重试</u></string>
+    <string name="dcn_splash_reserveLine"><u>尝试备用线路</u></string>
+    <string name="dcn_splash_MainLine"><u>尝试主线路</u></string>
+    <string name="dcn_splash_feedback"><u>反馈给客服</u></string>
+
+    <string name="dcn_dialog_switch_line_title">正在切换至备用线路</string>
+    <string name="dcn_dialog_mainLine_recover_title">主线路已恢复</string>
+    <string name="dcn_dialog_MainLine_recover_tip">主线路已恢复,重新登录游戏即可享受当乐提供的完整网游服务。</string>
+    <string name="dcn_dialog_reserve_doing">备用线路执行中</string>
+    <string name="dcn_dialog_switch_doing">正在切换至备用线路</string>
+
+
+    <string name="dcn_dialog_MainLine_later_remind">稍后提醒</string>
+    <string name="dcn_dialog_MainLine_restart">立即重启</string>
+    <string name="dcn_dialog_reserve_logout">注销登录</string>
+
+    <string name="dcn_add_remark">在此添加备注</string>
+    <string name="dcn_input_remark">输入备注信息</string>
+
+    <string name="dcn_float_task">今日任务\n完成</string>
+    <string name="dcn_float_content_task">个任务</string>
+    <string name="dcn_float_content_no_task">暂无任务</string>
+    <string name="dcn_float_sign">签到</string>
+    <string name="dcn_float_sign_detail">签到详情</string>
+    <string name="dcn_float_sign_success">签到成功</string>
+    <string name="dcn_float_sign_failed">签到失败</string>
+    <string name="dcn_float_already_sign">已签到</string>
+    <string name="dcn_float_task_center">任务中心</string>
+    <string name="dcn_dialog_common_now_set">马上设置</string>
+    <string name="dcn_float_quick_enter_qqgroup">点击群号可以快捷加入QQ群</string>
+    <string name="dcn_float_guild">会</string>
+    <string name="dcn_float_join_groups">玩家交流群</string>
+    <string name="dcn_float_search">搜索</string>
+    <string name="dcn_float_drag_hide">拖到此处隐藏</string>
+    <string name="dcn_float_hide_hint">试试翻转手机来切换浮标的显示状态吧</string>
+    <string name="dcn_get">get√新技能</string>
+
+    <string name="dcn_more">更多</string>
+    <string name="dcn_detail">了解详情</string>
+    <string name="dcn_ann_kown">知道了</string>
+    <string name="dcn_commit">提交</string>
+    <string name="dcn_name">姓名</string>
+    <string name="dcn_id_number">身份证号</string>
+
+    <string name="dcn_game_center_old_version">当前操作需在新版当乐APP中完成，正在为您安装，请稍后...</string>
+    <string name="dcn_game_center_install_first">当前操作需在当乐APP中完成，正在为您安装，请稍后...</string>
+
+    <!-- 极验验证界面 -->
+    <string name="dcn_gt_get_verification_code">获取验证码中...</string>
+    <string name="dcn_gt_get_verification_code_failed">获取验证码失败！</string>
+
+    <!-- 登录提示-->
+    <string name="dcn_logining">登录中</string>
+    <string name="dcn_logining_change_user">切换帐号</string>
+    <string name="dcn_security_hint_title">帐号安全提醒</string>
+    <string name="dcn_security_hint_content">为了您的帐号安全，请及时设置密保手机和密保邮箱</string>
+    <string name="dcn_safe_center">安全中心</string>
+    <string name="dcn_pwd_hint_title">欢迎来到当乐</string>
+    <string name="dcn_pwd_hint_content_start">你的当乐帐号为</string>
+    <string name="dcn_pwd_hint_content_end">,请牢记并及时设置登录密码</string>
+    <string name="dcn_login_success_gold">金币+</string>
+    <string name="dcn_login_success_score">积分+</string>
+
+    <string name="dcn_dialog_check_net_title">请检查本地网络情况</string>
+    <string name="dcn_dialog_check_net_tip">请按如下方法重试\n①退出重新运行游戏\n②查看其他应用是否可以正常联网\n③若非本网络故障导致无法登录游戏，请联系当乐客服</string>
+    <string name="dcn_dialog_problem_feedback">问题反馈</string>
+    <string name="dcn_dialog_content_feedback">http://www.d.cn/</string>
+    <string name="dcn_dialog_phone_feedback">028-83112436</string>
+    <string name="dcn_dialog_phone_qq">2881265150</string>
+    <string name="dcn_dialog_button_back">返回</string>
+    <string name="dcn_dialog_button_submit">提交反馈</string>
+
+    <string name="dcn_message_chat_send">发送</string>
+
+    <!--下拉刷新string-->
+    <string name="dcn_pull_to_refresh_pull_label">下拉刷新…</string>
+    <string name="dcn_pull_to_refresh_release_label">放开以刷新…</string>
+    <string name="dcn_pull_to_refresh_refreshing_label">正在载入…</string>
+
+    <string name="dcn_pull_to_refresh_from_bottom_pull_label">@string/dcn_pull_to_refresh_pull_label</string>
+    <string name="dcn_pull_to_refresh_from_bottom_release_label">@string/dcn_pull_to_refresh_release_label</string>
+    <string name="dcn_pull_to_refresh_from_bottom_refreshing_label">@string/dcn_pull_to_refresh_refreshing_label</string>
+
+    <string name="dcn_too_frequent_operation">操作过于频繁，请稍候再试！</string>
+    <string name="dcn_menu">菜单</string>
+    <string name="dcn_exit">残忍退出</string>
+    <string name="dcn_get_notice">接收系统通知</string>
+    <string name="dcn_get_activity_notice">接收活动消息</string>
+    <string name="dcn_sdk_version">SDK版本</string>
+    <string name="dcn_message_center">消息中心</string>
+    <string name="dcn_whole_setting">全局设置</string>
+    <string name="dcn_message_pop_remind">消息弹出提醒</string>
+    <string name="dcn_message_setting">消息设置</string>
+    <string name="dcn_adv_setting">公告设置</string>
+    <string name="dcn_login_notice">登录时提醒（建议开启）</string>
+    <string name="dcn_finish_register">完成注册</string>
+    <string name="dcn_next_step">下一步</string>
+    <string name="dcn_finish_register_certification">请在完成注册前进行实名登记</string>
+    <string name="dcn_init_security_title_content">当前游戏客户端为非法修改版本，可能存在非法盗号、恶意扣费、广告推送等行为，请您按以下步骤下载当乐官方原版，享受安全、稳定的游戏体验。
+</string>
+    <string name="dcn_download_genuine">①下载正版</string>
+    <string name="dcn_safe_warn_url_null">未获取到下载链接，您可尝试使用当乐APP下载</string>
+    <string name="dcn_uninstall_current_version">②卸载当前版本</string>
+    <string name="dcn_install_current_version">③安装正版</string>
+    <string name="dcn_init_message_failed">初始化失败</string>
+    <string name="dcn_center_custom_service">客服中心：</string>
+    <string name="dcn_service_detail">(在线时间每天9:00-21:30)</string>
+    <string name="dcn_make_sure">好的</string>
+
+
 </resources>

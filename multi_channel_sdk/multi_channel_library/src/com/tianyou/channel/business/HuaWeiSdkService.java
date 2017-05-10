@@ -15,8 +15,9 @@ import com.huawei.gameservice.sdk.api.PayResult;
 import com.huawei.gameservice.sdk.api.Result;
 import com.huawei.gameservice.sdk.api.UserResult;
 import com.huawei.gameservice.sdk.model.RoleInfo;
-import com.tianyou.channel.bean.OrderInfo;
-import com.tianyou.channel.bean.RoleInfo;
+import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.GlobalParam;
@@ -71,7 +72,7 @@ public class HuaWeiSdkService extends BaseSdkService {
 	}
 
 	@Override
-	public void doUploadRoleInfo(RoleInfo roleInfo) {
+	public void doUploadRoleInfo(com.tianyou.channel.bean.RoleInfo roleInfo) {
 		super.doUploadRoleInfo(roleInfo);
 		HashMap<String, String> playerInfo = new HashMap<String, String>();
 		playerInfo.put(RoleInfo.GAME_RANK, mRoleInfo.getRoleLevel());
@@ -112,7 +113,12 @@ public class HuaWeiSdkService extends BaseSdkService {
 				if (userResult.rtnCode == Result.RESULT_OK && userResult.isAuth != null) {
 					String uid = userResult.playerId;
 					String session = userResult.gameAuthSign;
-					if (!session.isEmpty()) checkLogin(uid, session);
+					if (!session.isEmpty()) {
+						LoginInfo loginParam = new LoginInfo();
+						loginParam.setChannelUserId(uid);
+						loginParam.setUserToken(session);
+						checkLogin(loginParam);
+					}
 					return;
 				}
 				// 场景三： 通知帐号变换
@@ -131,14 +137,14 @@ public class HuaWeiSdkService extends BaseSdkService {
 	}
 	
 	@Override
-	public void doChannelPay(final OrderInfo orderInfo) {
+	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
 		Map<String, String> params = new HashMap<String, String>();
         params.put(GlobalParam.PayParams.USER_ID, mChannelInfo.getPayId());
         params.put(GlobalParam.PayParams.APPLICATION_ID, mChannelInfo.getAppId());
-        params.put(GlobalParam.PayParams.AMOUNT, orderInfo.getPrice());
+        params.put(GlobalParam.PayParams.AMOUNT, orderInfo.getMoNey());
         params.put(GlobalParam.PayParams.PRODUCT_NAME, mPayInfo.getProductName());
         params.put(GlobalParam.PayParams.PRODUCT_DESC, mPayInfo.getProductDesc());
-        params.put(GlobalParam.PayParams.REQUEST_ID, orderInfo.getOrderId());
+        params.put(GlobalParam.PayParams.REQUEST_ID, orderInfo.getOrderID());
 		String noSign = HuaweiPayUtil.getSignData(params);
 		String sign = Rsa.sign(noSign, mChannelInfo.getPayRsaPrivate());
 		LogUtils.d("noSign:" + noSign);
@@ -152,20 +158,20 @@ public class HuaWeiSdkService extends BaseSdkService {
         Log.d("huawei", "huawei:doCheck:" + doCheck);
         Log.d("huawei", "huawei:params:" + params);
 		
-		Map<String, Object> payInfo = new HashMap<String, Object>();
-        payInfo.put(GlobalParam.PayParams.AMOUNT, orderInfo.getPrice());
-        payInfo.put(GlobalParam.PayParams.PRODUCT_NAME, mPayInfo.getProductName());
-        payInfo.put(GlobalParam.PayParams.REQUEST_ID, orderInfo.getOrderId());
-        payInfo.put(GlobalParam.PayParams.PRODUCT_DESC, mPayInfo.getProductDesc());
-        payInfo.put(GlobalParam.PayParams.USER_NAME, "天游互动");
-        payInfo.put(GlobalParam.PayParams.APPLICATION_ID, mChannelInfo.getAppId());
-        payInfo.put(GlobalParam.PayParams.USER_ID, mChannelInfo.getPayId());
-        payInfo.put(GlobalParam.PayParams.SIGN, sign);
-        payInfo.put(GlobalParam.PayParams.SERVICE_CATALOG, "X6");
-        payInfo.put(GlobalParam.PayParams.SHOW_LOG, true);
-        payInfo.put(GlobalParam.PayParams.SCREENT_ORIENT, GlobalParam.PAY_ORI_LAND);
+		Map<String, Object> payMap = new HashMap<String, Object>();
+		payMap.put(GlobalParam.PayParams.AMOUNT, orderInfo.getMoNey());
+		payMap.put(GlobalParam.PayParams.PRODUCT_NAME, mPayInfo.getProductName());
+		payMap.put(GlobalParam.PayParams.REQUEST_ID, orderInfo.getOrderID());
+		payMap.put(GlobalParam.PayParams.PRODUCT_DESC, mPayInfo.getProductDesc());
+		payMap.put(GlobalParam.PayParams.USER_NAME, "天游互动");
+		payMap.put(GlobalParam.PayParams.APPLICATION_ID, mChannelInfo.getAppId());
+		payMap.put(GlobalParam.PayParams.USER_ID, mChannelInfo.getPayId());
+		payMap.put(GlobalParam.PayParams.SIGN, sign);
+		payMap.put(GlobalParam.PayParams.SERVICE_CATALOG, "X6");
+		payMap.put(GlobalParam.PayParams.SHOW_LOG, true);
+		payMap.put(GlobalParam.PayParams.SCREENT_ORIENT, GlobalParam.PAY_ORI_LAND);
         LogUtils.d("payInfo:" + payInfo.toString());
-		GameServiceSDK.startPay(mActivity, payInfo, new GameEventHandler() {
+		GameServiceSDK.startPay(mActivity, payMap, new GameEventHandler() {
 			@Override
 			public String getGameSign(String appId, String cpId, String ts) {
 				return createGameSign(appId + cpId + ts);
@@ -209,7 +215,7 @@ public class HuaWeiSdkService extends BaseSdkService {
 	            }
 	            String code = payResp.get("returnCode");
 				if ("0".equals(code)){
-					checkOrder(orderInfo.getOrderId());
+					checkOrder(orderInfo.getOrderID());
 				} else if ("30000".equals(code)) {
 					mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "");
 				} else {

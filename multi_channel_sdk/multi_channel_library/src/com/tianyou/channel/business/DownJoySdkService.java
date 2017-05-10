@@ -9,6 +9,7 @@ import com.downjoy.Downjoy;
 import com.downjoy.InitListener;
 import com.downjoy.LoginInfo;
 import com.downjoy.LogoutListener;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
@@ -34,10 +35,10 @@ public class DownJoySdkService extends BaseSdkService{
             public void onInitComplete() {
             	downjoy.showDownjoyIconAfterLogined(true);
             	downjoy.setInitLocation(Downjoy.LOCATION_LEFT_CENTER_VERTICAL);
+            	mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "SDK初始化完成");
             }
 		});
 		downjoy.setLogoutListener(mLogoutListener);
-		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "SDK初始化成功");
 	}
 	
 	
@@ -65,7 +66,10 @@ public class DownJoySdkService extends BaseSdkService{
 					case CallbackStatus.SUCCESS:
 						sid = data.getUmid();
 						String session = data.getToken();
-						checkLogin(sid, session);
+						com.tianyou.channel.bean.LoginInfo loginParam = new com.tianyou.channel.bean.LoginInfo();
+						loginParam.setChannelUserId(sid);
+						loginParam.setUserToken(session);
+						checkLogin(loginParam);
 						break;
 	
 					case CallbackStatus.FAIL:
@@ -82,14 +86,18 @@ public class DownJoySdkService extends BaseSdkService{
 	}
 	
 	@Override
-	public void doChannelPay(OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
+		
 		String price = orderInfo.getMoNey();
 		final String orderID = orderInfo.getOrderID();
 		String productName = mPayInfo.getProductName();
 		String productDesc = mPayInfo.getProductDesc();
 		String serverName = mRoleInfo.getServerName();
 		String playerName = mRoleInfo.getRoleName();
-		downjoy.openPaymentDialog(mActivity, Float.parseFloat(price), productName, productDesc, orderID, serverName, playerName, new CallbackListener<String>() {
+		String serverID = mRoleInfo.getServerId();
+		String roleID = mRoleInfo.getRoleId();
+		downjoy.openPaymentDialog(mActivity, Float.parseFloat(price), productName, productDesc, orderID, payInfo.getCustomInfo(),serverID,serverName, roleID,playerName, new CallbackListener<String>() {
 			@Override
 			public void callback(int status, String data) {
 				switch (status) {
@@ -107,6 +115,12 @@ public class DownJoySdkService extends BaseSdkService{
 				}
 			}
 		});
+	}
+	
+	@Override
+	public void doLogout() {
+		super.doLogout();
+		downjoy.logout(mActivity);
 	}
 	
 	@Override

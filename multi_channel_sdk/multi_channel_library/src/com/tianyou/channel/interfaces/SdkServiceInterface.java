@@ -196,6 +196,11 @@ public interface SdkServiceInterface {
 	
 	void doConfigurationChanged(Configuration newConfig);
 	
+	/**
+	 * 实名认证防沉迷
+	 */
+	void doVerifiedInfo();
+	
 	void doRegisterPhone();
 	
 	void doRegisterGenerate();

@@ -17,6 +17,9 @@ public interface TianyouCallback {
 	public static final int CODE_QUIT_SUCCESS = 8;	// 退出游戏成功
 	public static final int CODE_QUIT_CANCEL = 9;	// 退出游戏取消
 	
+	public static final int CODE_VERIFIEDINFO_SUCCESS = 10;
+	public static final int CODE_VERIFIEDINFO_FAILED = 11;
+	
 	/**
 	 * sdk操作成功回调
 	 * @param code
