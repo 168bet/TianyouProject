@@ -9,8 +9,14 @@ public class ConfigHolder {
 
 	// 游戏是否是横屏
 	public static boolean isLandscape;
+	
 	// 游戏是游客登录
 	public static boolean isTourist;
+	// 是否实名认证
+	public static boolean isAuth;
+	// 账号是否绑定手机
+	public static boolean isPhone;
+	
 	// 是否是海外包
 	public static boolean isOverseas;
 	// 是否打开日志

@@ -30,9 +30,9 @@ public class UpgradeFragment extends BaseFragment {
 	private EditText mEditPhone;
 	private EditText mEditCode;
 	private View mViewTip;
-	private View mViewCode;
+	private TextView mViewCode;
 	
-	private boolean mIsAccountUpgrade;	//是否是账号等级
+	private boolean mIsAccountUpgrade;	//是否是账号升级
 	private TextView mTextAccount;
 
 	@Override
@@ -40,19 +40,21 @@ public class UpgradeFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
-		mActivity.setFragmentTitle("账号升级");
-		((LoginActivity)mActivity).setBackBtnVisible(true);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_upgrade_confirm", "id")).setOnClickListener(this);
 		mTextAccount = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_upgrade_account", "id"));
 		mEditPhone = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_upgrade_phone", "id"));
 		mEditCode = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_upgrade_code", "id"));
 		mViewTip = mContentView.findViewById(ResUtils.getResById(mActivity, "text_upgrade_tip", "id"));
-		mViewCode = mContentView.findViewById(ResUtils.getResById(mActivity, "text_upgrade_code", "id"));
+		mViewCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_upgrade_code", "id"));
 		mTextAccount.setOnClickListener(this);
+		mViewCode.setOnClickListener(this);
 	}
 
 	@Override
-	protected void initData() { }
+	protected void initData() {
+		mActivity.setFragmentTitle("账号升级");
+		((LoginActivity)mActivity).setBackBtnVisible(true);
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -60,6 +62,19 @@ public class UpgradeFragment extends BaseFragment {
 			accountUpgrade();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_upgrade_account", "id")) {
 			switchUpgradeWay();
+		} else if (v.getId() == ResUtils.getResById(mActivity, "text_upgrade_code", "id")) {
+			verifiCode();
+		}
+	}
+
+	private void verifiCode() {
+		String phone = mEditPhone.getText().toString();
+		if (phone.isEmpty()) {
+			ToastUtils.show(mActivity, "手机号不能为空");
+		} else if (!AppUtils.verifyPhoneNumber(phone)) {
+			ToastUtils.show(mActivity, "手机号格式错误");
+		} else {
+			getVerifiCode(phone, mViewCode);
 		}
 	}
 
@@ -67,11 +82,11 @@ public class UpgradeFragment extends BaseFragment {
 		String phone = mEditPhone.getText().toString();
 		String code = mEditCode.getText().toString();
 		if (phone.isEmpty()) {
-			ToastUtils.show(mActivity, "手机号不能为空");
-		} else if (!AppUtils.verifyPhoneNumber(phone)) {
+			ToastUtils.show(mActivity, mIsAccountUpgrade ? "账号" : "手机号" + "不能为空");
+		} else if (!mIsAccountUpgrade && !AppUtils.verifyPhoneNumber(phone)) {
 			ToastUtils.show(mActivity, "手机号格式错误");
 		} else if (code.isEmpty()) {
-			ToastUtils.show(mActivity, "验证码不能为空");
+			ToastUtils.show(mActivity, mIsAccountUpgrade ? "密码" : "验证码" + "不能为空");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("userid", ConfigHolder.userId);
@@ -91,7 +106,14 @@ public class UpgradeFragment extends BaseFragment {
 						JSONObject result = jsonObject.getJSONObject("result");
 						ToastUtils.show(mActivity, result.getString("msg"));
 						if (result.getInt("code") == 200) {
-							mActivity.finish();
+							ConfigHolder.userId = result.getString("userid");
+							ConfigHolder.userName = result.getString("username");
+							ConfigHolder.isPhone = true;
+							if (ConfigHolder.isAuth) {
+								mActivity.finish();
+							} else {
+								mActivity.switchFragment(new IdentifiFragment());
+							}
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();

@@ -97,7 +97,6 @@ public class LoginHandler {
 				LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
 				ResultBean result = info.getResult();
 				if (result.getCode() == 200) {
-					ConfigHolder.isTourist = true;
 					doUserLogin(result.getUsername(), result.getPassword(), false);
 				} else {
 					ToastUtils.show(mActivity, result.getMsg());
@@ -187,18 +186,6 @@ public class LoginHandler {
 		}, 1500);
     }
 	
-	// 3.登陆成功数据处理
-//	private void doHandlerLoginInfo() {
-//		if ("qq".equals(mResultBean.getRegistertype()) && "0".equals(mResultBean.getIsperfect())) {	//	QQ登陆且没有完善账号信息
-//			Message msg = new Message();
-//			msg.what = 2;
-//			msg.obj = mResultBean.getNickname();
-//			mHandler.sendMessage(msg);
-//		} else {
-//			doSaveUserInfo();
-//		}
-//	}
-	
 	// 4-1.保存登陆成功信息
     public void doSaveUserInfo() {
     	//保存到内存
@@ -208,7 +195,9 @@ public class LoginHandler {
 		ConfigHolder.userToken = mResultBean.getToken();
 		ConfigHolder.userCode = mResultBean.getVerification() + "";
 		ConfigHolder.userPassword = mResultBean.getPassword();
-		ConfigHolder.isTourist = mResultBean.getIsauth() == 0;
+		ConfigHolder.isAuth = mResultBean.getIsauth() == 1;
+		ConfigHolder.isTourist = mResultBean.getIstourist() == 1;
+		ConfigHolder.isPhone = mResultBean.getIsphone() == 1;
 		MobclickAgent.onProfileSignIn(ConfigHolder.userId);
 		//保存到文件
 		Map<String, String> info = new HashMap<String, String>();
@@ -299,9 +288,14 @@ public class LoginHandler {
    						TianyouSdk.getInstance().mActivity.startActivity(intent);
    					} else {
    						if (ConfigHolder.isTourist) {
-   				  			Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
-   				  			intent.putExtra("show_tourist_tip", true);
-   							TianyouSdk.getInstance().mActivity.startActivity(intent);
+   							if (SPHandler.getBoolean(mActivity, SPHandler.SP_TOURIST)) {
+   								Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
+   	   				  			intent.putExtra("show_tourist_tip", true);
+   	   							TianyouSdk.getInstance().mActivity.startActivity(intent);
+							} else {
+								SPHandler.putBoolean(mActivity, SPHandler.SP_TOURIST, true);
+								onNoticeLoginSuccess();
+							}
    						} else {
    							onNoticeLoginSuccess();
    						}

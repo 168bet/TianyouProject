@@ -1,6 +1,7 @@
 package com.tianyou.sdk.fragment.login;
 
 import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
@@ -14,7 +15,7 @@ import android.view.View;
 public class SafetySettingFragment extends BaseFragment {
 
 	@Override
-	protected String setContentView() { return "fragment_login_safety_setting"; }
+	protected String setContentView() { return ConfigHolder.isPhone ? "fragment_login_safety_setting0" : "fragment_login_safety_setting1"; }
 
 	@Override
 	protected void initView() {
@@ -22,7 +23,9 @@ public class SafetySettingFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void initData() { }
+	protected void initData() {
+		mActivity.setFragmentTitle("账号安全设置");
+	}
 
 	@Override
 	public void onClick(View v) {
