@@ -38,6 +38,7 @@ import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ResUtils;
+import com.tianyou.channel.utils.SpUtils;
 import com.tianyou.channel.utils.URLHolder;
 
 public class TestYingyongbaoSdkService extends BaseSdkService {
@@ -56,6 +57,7 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	private String pf;
 	private String pfKey;
 	private int platForm;
+	private AlertDialog mLoginDialog;
 	
 	@Override
 	public void doActivityInit(Activity activity,
@@ -81,7 +83,7 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	
 	@Override
 	public boolean isShowLogout() {
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -116,6 +118,8 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	@Override
 	public void doLogout() {
 		YSDKApi.logout();
+		mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+		doLogin();
 		super.doLogout();
 	}
 	
@@ -221,6 +225,8 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 				pf = loginRet.pf;
 				pfKey = loginRet.pf_key;
 				platForm = loginRet.platform;
+				SpUtils.getInstance(mActivity).putInt(SpUtils.LOGIN_TYPE, platForm);
+				if (mLoginDialog != null) mLoginDialog.dismiss();
 				checkLogin(openID, token, platForm);
 			}
 		}
@@ -262,7 +268,7 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 		param.put("promotion", mChannelInfo.getChannelId());
 		param.put("signature", CommenUtil.MD5("session=" + token + "&uid=" + uid + "&appid=" + gameId));
 		LogUtils.d("loginParam:" + param);
-		HttpUtils.post(mActivity, URLHolder.CHECK_LOGIN_URL, param, new HttpCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_BASE+URLHolder.CHECK_LOGIN_URL, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
 				try {
@@ -290,32 +296,42 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	
 	private void showDialog(Activity activity) {
 		View dialogView = View.inflate(activity, ResUtils.getResById(activity, "dialog_exit_pay", "layout"), null);
-		final AlertDialog dialog = new AlertDialog.Builder(activity,ResUtils.getResById(activity, "style_my_dialog", "style"))
+		mLoginDialog = new AlertDialog.Builder(activity,ResUtils.getResById(activity, "style_my_dialog", "style"))
         .create();
-		dialog.setView(dialogView);
-		dialog.show();
+		mLoginDialog.setView(dialogView);
+//		mLoginDialog.show();
 		
-		WindowManager.LayoutParams wmParams = dialog.getWindow().getAttributes();  
+		WindowManager.LayoutParams wmParams = mLoginDialog.getWindow().getAttributes();  
         wmParams.format = PixelFormat.TRANSPARENT;  //内容全透明  
 //	    wmParams.format = PixelFormat.TRANSLUCENT;  内容半透明  
         wmParams.alpha=1.0f;    //调节透明度，1.0最大   
-		dialog.getWindow().setAttributes(wmParams);
-		dialog.setCanceledOnTouchOutside(false);
-		dialog.setCancelable(false);
-		
+        mLoginDialog.getWindow().setAttributes(wmParams);
+        mLoginDialog.setCanceledOnTouchOutside(false);
+        mLoginDialog.setCancelable(false);
+		int type = SpUtils.getInstance(mActivity).getInt(SpUtils.LOGIN_TYPE);
+		switch (type) {
+		case 1:  break;//YSDKApi.login(ePlatform.QQ);  break;
+		case 2:  break;//YSDKApi.login(ePlatform.WX);  break;
+		default: 
+			if (mLoginDialog != null) { mLoginDialog.show();} break;
+		}
 		dialogView.findViewById(ResUtils.getResById(mActivity, "qq_login", "id")).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				YSDKApi.login(ePlatform.WX);
+//				SpUtils.getInstance(mActivity).putInt(SpUtils.LOGIN_TYPE, 2);
+//				dialog.dismiss();
 			}
 		});
 		
-		dialog.findViewById(ResUtils.getResById(mActivity, "wechat_login", "id")).setOnClickListener(new OnClickListener() {
+		mLoginDialog.findViewById(ResUtils.getResById(mActivity, "wechat_login", "id")).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				YSDKApi.login(ePlatform.QQ);
+//				SpUtils.getInstance(mActivity).putInt(SpUtils.LOGIN_TYPE, 1);
+//				dialog.dismiss();
 			}
 		});
 	}

@@ -110,7 +110,7 @@ public class TianyouSdk {
 			sdkService = new SogouSdkService();
 		} else if ("ty025".equals(channelInfo.getChannelId())) {
 			sdkService = new M4399SdkService();
-		} else if ("ty026".equals(channelInfo.getChannelId()) || "ty060".equals(channelInfo.getChannelId())) {
+		} else if ("ty026".equals(channelInfo.getChannelId())) {// || "ty060".equals(channelInfo.getChannelId())) {
 			sdkService = new YingyongbaoSdkService();
 		} else if ("ty027".equals(channelInfo.getChannelId())) {
 			sdkService = new HSZSdkService();
@@ -140,7 +140,7 @@ public class TianyouSdk {
 			sdkService = new DouquSdkService();
 		} else if ("ty057".equals(channelInfo.getChannelId())) {
 			sdkService = new CaoxieSdkService();
-		} else if ("ty100".equals(channelInfo.getChannelId())) {
+		} else if ("ty060".equals(channelInfo.getChannelId())) {
 			sdkService = new TestYingyongbaoSdkService();
 		} else if ("ty066".equals(channelInfo.getChannelId())) {
 			sdkService = new HanfengService();

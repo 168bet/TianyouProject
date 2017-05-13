@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Application;
-import android.os.Process;
 import android.util.Log;
 
 import com.snowfish.cn.ganga.helper.SFOnlineExitListener;
@@ -119,32 +117,36 @@ public class YijieSdkService extends BaseSdkService{
 	public void doExitGame() {
 //		super.doExitGame();
 		SFOnlineHelper.exit(mActivity, new SFOnlineExitListener() {
-			
 			@Override
 			public void onSDKExit(boolean flag) {
+				
+				LogUtils.d("flag= "+flag);
 				if (flag) {
 					// 退出游戏回调
+					LogUtils.d("success flag= "+flag);
 					LogUtils.d("exit success f-----------");
-					Process.killProcess(Process.myPid());
+					mActivity.finish();
+					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS,"退出游戏");
 				} else {
-					LogUtils.d("exit failed----------------");
+					LogUtils.d("faild flag= "+flag);
+					LogUtils.d("exit failed1111----------------");
+					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "退出取消");
 				}
 			}
 			
-//			mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "退出游戏失败");
 			@Override
 			public void onNoExiterProvide() {
 				// SDK没有退出界面时，这里通知游戏
 				LogUtils.d("on No Exiter Provide------------");
+				mActivity.finish();
 				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "退出游戏——无界面");
-				
 			}
 		});
 	}
 	
 	@Override
 	public boolean isShowExitGame() {
-		return true;
+		return false;
 //		SFOnlineHelper.exit(mActivity, new SFOnlineExitListener() {
 //			
 //			@Override

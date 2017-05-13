@@ -16,7 +16,6 @@ import com.wuyouwan.callback.MemberLoginCallBack;
 import com.wuyouwan.callback.MemberPayCallBack;
 import com.wuyouwan.core.SDKInstace;
 import com.wuyouwan.entity.PayOrderModel;
-
 public class WuyouwanSdkService extends BaseSdkService {
 
 	@Override
