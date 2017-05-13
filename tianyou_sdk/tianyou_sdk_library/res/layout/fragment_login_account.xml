@@ -15,16 +15,14 @@
             android:layout_height="wrap_content" >
 
             <EditText
+                style="@style/style_text_black"
                 android:id="@+id/edit_account_username"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
                 android:hint="请输入账号"
                 android:padding="@dimen/layout_space_small"
-                android:textColor="@color/color_gray_2"
                 android:textColorHint="@color/color_gray_0"
-                android:textSize="@dimen/text_size_common" 
                 android:singleLine="true"
                 android:digits="abcdefghijklmnopqrstuvwxyz0123456789"/>
 
@@ -49,17 +47,15 @@
             android:layout_height="wrap_content" >
 
             <EditText
+                style="@style/style_text_black"
                 android:id="@+id/edit_account_password"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
                 android:hint="请输入密码"
                 android:padding="@dimen/layout_space_small"
                 android:password="true"
-                android:textColor="@color/color_gray_2"
                 android:textColorHint="@color/color_gray_0"
-                android:textSize="@dimen/text_size_common" 
                 android:singleLine="true"/>
 
             <TextView
@@ -79,15 +75,15 @@
     </LinearLayout>
 
     <TextView
+        style="@style/style_text_black"
         android:id="@+id/btn_account_login"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/notify_title_height"
+        android:layout_height="@dimen/notify_btn_height"
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_bg_green_fill"
         android:gravity="center"
         android:text="登录"
-        android:textColor="@color/color_white"
-        android:textSize="@dimen/text_size_title" />
+        android:textColor="@color/color_white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +94,7 @@
         <LinearLayout
             android:id="@+id/layout_account_quick"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/notify_title_height"
+            android:layout_height="@dimen/notify_btn_height"
             android:layout_weight="1"
             android:background="@drawable/shape_bg_jacinth_fill"
             android:gravity="center" >
@@ -109,18 +105,16 @@
                 android:src="@drawable/ty_one_way_1" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/style_text_black"
                 android:singleLine="true"
                 android:text="快速登录"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_common" />
+                android:textColor="@color/color_white"  />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_account_qq"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/notify_title_height"
+            android:layout_height="@dimen/notify_btn_height"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
             android:background="@drawable/shape_btn_blue_fill"
@@ -132,12 +126,10 @@
                 android:src="@drawable/ty_one_way_2" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/style_text_black"
                 android:singleLine="true"
                 android:text="QQ登录"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_common" />
+                android:textColor="@color/color_white" />
         </LinearLayout>
     </LinearLayout>
 

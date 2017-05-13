@@ -28,6 +28,8 @@ public class URLHolder {
 	public static final String URL_UNION_PHONE_LOGIN = getHostAddrs() + "login/phonelogin";
 	// 获取验证码
 	public static final String URL_GET_CODE = getHostAddrs() + "sms/sendmsg";
+	// 验证验证码
+	public static final String URL_VERIFY_CODE = getHostAddrs() + "Sms/Verify";
 	// 公告
 	public static final String URL_UNION_ANNOUNCE = getHostAddrs() + "sdkinfo/getnotice";
 	// 绑定手机
@@ -52,6 +54,14 @@ public class URLHolder {
 	public static final String URL_UPGRADE_ACCOUNT = getHostAddrs() + "member/upgradeuserbyname";
 	// 验证是否绑定手机号
 	public static final String URL_CHECK_PHONE = getHostAddrs() + "member/checkmemberphone";
+	// 验证是否绑定手机号
+	public static final String URL_IMG_VERIFI = "http://newsdk.tianyouxi.com/api/verify/verify";
+	// 用户注册
+	public static final String URL_USER_REGISTER = getHostAddrs() + "Register/registerVerify";
+	// 手机号修改密码
+	public static final String URL_ALERT_PHONE = getHostAddrs() + "login/findpassbyphone";
+	// 原密码修改密码
+	public static final String URL_ALERT_ACCOUNT = getHostAddrs() + "member/updatememberusername";
 		
 	/** ------------------------- 支付接口 ------------------------- */
 	// 创建订单

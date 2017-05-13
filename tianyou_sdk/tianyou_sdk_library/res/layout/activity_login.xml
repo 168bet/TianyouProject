@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dialog_login_width"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/dialog_login_height"
     android:background="@drawable/shape_bg_dialog"
     android:orientation="vertical" >
 
@@ -20,24 +20,22 @@
                 android:id="@+id/img_login_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/layout_space_super"
+                android:padding="@dimen/layout_space_big"
                 android:src="@drawable/back" />
 
             <TextView
+                style="@style/style_text_black"
                 android:id="@+id/text_title"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="一键登录"
-                android:textColor="@color/color_gray_3"
-                android:textSize="@dimen/text_size_title" />
+                android:text="一键登录" />
 
             <ImageView
                 android:id="@+id/img_login_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/layout_space_super"
+                android:padding="@dimen/layout_space_big"
                 android:src="@drawable/close" />
         </LinearLayout>
 

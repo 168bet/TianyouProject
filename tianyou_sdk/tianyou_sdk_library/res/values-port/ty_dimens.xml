@@ -6,7 +6,7 @@
     <dimen name="notify_title_height">50dp</dimen>
     
     <!-- 对话框宽高 -->
-    <dimen name="dialog_login_width">340dp</dimen>
+    <dimen name="dialog_login_width">300dp</dimen>
     <dimen name="dialog_exit_width">320dp</dimen>
     <dimen name="dialog_exit_height">240dp</dimen>
     <dimen name="dialog_announce_width">300dp</dimen>

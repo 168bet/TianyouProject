@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.Identifi;
 import com.tianyou.sdk.holder.ConfigHolder;
@@ -51,7 +50,6 @@ public class IdentifiFragment extends BaseFragment {
 	@Override
 	protected void initData() {
 		mActivity.setFragmentTitle("安全实名认证");
-		((LoginActivity)mActivity).setBackBtnVisible(true);
 		mLayoutIsPhone.setVisibility(ConfigHolder.isPhone ? View.GONE : View.VISIBLE);
 	}
 
@@ -71,7 +69,7 @@ public class IdentifiFragment extends BaseFragment {
 		} else if (!AppUtils.verifyPhoneNumber(phone)) {
 			ToastUtils.show(mActivity, "手机号格式错误");
 		} else {
-			getVerifiCode(phone, mTextCode);
+			getVerifiCode(phone, mTextCode, SendType.SEND_TYPE_IDENTITY);
 		}
 	}
 

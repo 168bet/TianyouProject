@@ -71,14 +71,12 @@
                 android:inputType="textPassword"
                 android:hint="密码：6-16位数字或字母组合" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/img_register_code"
                 style="@style/style_text_gray"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/layout_space_small"
-                android:text="图片验证码"
-                android:visibility="gone"
-                android:textColor="@color/color_jacinth" />
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
@@ -92,6 +90,6 @@
         style="@style/style_text_gray"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/layout_space_super"
-        android:text="&lt;返回" />
+        android:text="&lt; 返回" />
 
 </LinearLayout>

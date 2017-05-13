@@ -2,6 +2,7 @@ package com.tianyou.sdk.fragment.login;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +13,7 @@ import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
@@ -22,6 +24,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -31,13 +34,14 @@ import android.widget.TextView;
  */
 public class RegisterFragment extends BaseFragment {
 
-	private EditText mEditUsername;
-	private EditText mEditCode;
-	private EditText mEditPassword;
+	private EditText mEditText0;
+	private EditText mEditText1;
+	private EditText mEditText2;
 	private TextView mTextGetCode;
-	private TextView mImgCode;
+	private ImageView mImgCode;
 	
 	private boolean mIsUserRegister;	//是否是用户注册
+	private String mImgRandom;
 	
 	public static Fragment getInstance(boolean isPhoneRegister) {
 		Fragment fragment = new RegisterFragment();
@@ -52,47 +56,51 @@ public class RegisterFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
-		mEditUsername = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_username", "id"));
-		mEditCode = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_code", "id"));
-		mEditPassword = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_password", "id"));
+		mEditText0 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_username", "id"));
+		mEditText1 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_code", "id"));
+		mEditText2 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_password", "id"));
 		mTextGetCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_get_code", "id"));
-		mImgCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_register_code", "id"));
+		mImgCode = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_register_code", "id"));
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_back", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_confirm", "id")).setOnClickListener(this);
 		mTextGetCode.setOnClickListener(this);
+		mImgCode.setOnClickListener(this);
 	}
 
 	@Override
 	protected void initData() {
 		((LoginActivity)mActivity).setRegisterTitle(true);
 		if (getArguments() != null) mIsUserRegister = !getArguments().getBoolean("isPhoneRegister");
-		mEditUsername.setHint(mIsUserRegister ? "请输入账号" : "请输入手机号");
-		mEditCode.setHint(mIsUserRegister ? "请输入密码" : "请输入验证码");
-		mEditPassword.setHint(mIsUserRegister ? "请再次输入密码" : "密码：6-16位数字或字母组合");
+		mEditText0.setHint(mIsUserRegister ? "请输入账号" : "请输入手机号");
+		mEditText1.setHint(mIsUserRegister ? "请输入密码" : "请输入验证码");
+		mEditText2.setHint(mIsUserRegister ? "请输入验证码" : "密码：6-16位数字或字母组合");
+		mEditText2.setInputType(mIsUserRegister ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		/**
 		 * 账号输入框
 		 * 1.选择手机号注册，输入格式为phone;选择用户注册，输入格式为密码（字母+数字）
 		 * 2.选择手机号注册，字符长度控制在11位;选择用户注册，输入长度控制在16位
 		 */
-		if (!mIsUserRegister) mEditUsername.setInputType(InputType.TYPE_CLASS_PHONE);
-		mEditUsername.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(16)} : new InputFilter[]{new InputFilter.LengthFilter(11)}));
+		if (!mIsUserRegister) mEditText0.setInputType(InputType.TYPE_CLASS_PHONE);
+		mEditText0.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(16)} : new InputFilter[]{new InputFilter.LengthFilter(11)}));
 		/**
 		 * 密码和手机验证码输入框
 		 * 1.选择手机注册时，输入格式为数字;选择用户注册时，输入格式为密码（字母+数字）
 		 * 2.选择手机注册时，输入长度控制在6位;选择用户注册时，输入长度控制在16位
 		 */
-		mEditCode.setInputType((mIsUserRegister ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD) : InputType.TYPE_CLASS_NUMBER));
-		mEditCode.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(16)} : new InputFilter[]{new InputFilter.LengthFilter(6)}));
+		mEditText1.setInputType((mIsUserRegister ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD) : InputType.TYPE_CLASS_NUMBER));
+		mEditText1.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(16)} : new InputFilter[]{new InputFilter.LengthFilter(6)}));
 		/**
 		 * 密码和图片验证码输入框
 		 * 1.选择手机注册时，输入格式为密码（字母+数字）;选择用户注册时，输入格式为字母+数字
 		 * 2.选择手机注册时，输入长度控制在16位;选择用户注册时，输入长度控制在4位
 		 */
-		if (!mIsUserRegister) mEditPassword.setInputType((InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
-		mEditPassword.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(4)} : new InputFilter[]{new InputFilter.LengthFilter(16)}));
+		if (!mIsUserRegister) mEditText2.setInputType((InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD));
+		mEditText2.setFilters((mIsUserRegister ? new InputFilter[]{new InputFilter.LengthFilter(4)} : new InputFilter[]{new InputFilter.LengthFilter(16)}));
 
 		mTextGetCode.setVisibility(mIsUserRegister ? View.GONE : View.VISIBLE);
 		mImgCode.setVisibility(mIsUserRegister ? View.VISIBLE : View.GONE);
+		mImgRandom = UUID.randomUUID().toString();
+		HttpUtils.imageLoad(mActivity, URLHolder.URL_IMG_VERIFI + "/random/" + mImgRandom, mImgCode);
 	}
 	
 	@Override
@@ -102,33 +110,42 @@ public class RegisterFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_register_confirm", "id")) {
 			registerAccount();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_register_get_code", "id")) {
-			getVerifiCode(mEditUsername.getText().toString(), mTextGetCode);
+			getVerifiCode(mEditText0.getText().toString(), mTextGetCode, SendType.SEND_TYPE_REGISTER);
+		} else if (v.getId() == ResUtils.getResById(mActivity, "img_register_code", "id")) {
+			mImgRandom = UUID.randomUUID().toString();
+			LogUtils.d("mImgRandom:" + mImgRandom);
+			HttpUtils.imageLoad(mActivity, URLHolder.URL_IMG_VERIFI + "/random/" + mImgRandom, mImgCode);
 		}
 	}
 	
 	// 立即注册
 	private void registerAccount() {
-		String username = mEditUsername.getText().toString();
-		String code = mEditCode.getText().toString();
-		String password = mEditPassword.getText().toString();
-		if (username.isEmpty()) {
-			ToastUtils.show(mActivity, "手机号不能为空");
-		} else if (code.isEmpty()) {
-			ToastUtils.show(mActivity, "验证码不能为空");
-		} else if (password.isEmpty()) {
-			ToastUtils.show(mActivity, "密码不能为空");
-		} else if (!code.equals(mVerifiCode)) {
+		String editText0 = mEditText0.getText().toString();
+		String editText1 = mEditText1.getText().toString();
+		String editText2 = mEditText2.getText().toString();
+		if (editText0.isEmpty()) {
+			ToastUtils.show(mActivity, mIsUserRegister ? "账号" : "手机号" + "不能为空");
+		} else if (editText1.isEmpty()) {
+			ToastUtils.show(mActivity, mIsUserRegister ? "密码" : "验证码" + "不能为空");
+		} else if (editText2.isEmpty()) {
+			ToastUtils.show(mActivity, mIsUserRegister ? "验证码" : "密码" + "不能为空");
+		} else if (!mIsUserRegister && !editText1.equals(mVerifiCode)) {
 			ToastUtils.show(mActivity, "验证码输入错误");
-		} else if (!AppUtils.verifyPhoneNumber(username)) {
+		} else if (!mIsUserRegister && !AppUtils.verifyPhoneNumber(editText0)) {
 			ToastUtils.show(mActivity, "手机号格式错误");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
-			map.put("username", username);
-			map.put("Mobilecode", code);
-			map.put("password", password);
+			map.put("username", editText0);
+			map.put("Mobilecode", editText1);
+			map.put("password", mIsUserRegister ? editText1 : editText2);
 			map.put("channel", ConfigHolder.channelId);
-			map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
-			HttpUtils.post(mActivity, URLHolder.URL_REGISTER_PHONE, map, new HttpsCallback() {
+			if(mIsUserRegister) {
+				map.put("verify", editText2);
+				map.put("random", mImgRandom);
+			}
+			map.put("sign", AppUtils.MD5(editText0 + editText2 + ConfigHolder.gameId + ConfigHolder.gameToken));
+			String url = mIsUserRegister ? URLHolder.URL_USER_REGISTER : URLHolder.URL_REGISTER_PHONE;
+			HttpUtils.post(mActivity, url, map, new HttpsCallback() {
 				@Override
 				public void onSuccess(String response) {
 					try {

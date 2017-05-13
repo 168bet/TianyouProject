@@ -3,6 +3,7 @@ package com.tianyou.sdk.fragment.login;
 import java.util.List;
 import java.util.Map;
 
+import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.base.LoginAdapter;
 import com.tianyou.sdk.base.LoginAdapter.AdapterCallback;
@@ -50,7 +51,6 @@ public class AccountFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
-		mActivity.setFragmentTitle("账号登录");
 		mEditUsername = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_username", "id"));
 		mEditPassword = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_password", "id"));
 		mImgSwitch = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_switch", "id"));
@@ -70,6 +70,8 @@ public class AccountFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
+		mActivity.setFragmentTitle("账号登录");
+		((LoginActivity)mActivity).setCloseViw(false);
 		mLoginInfos = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (mLoginInfos.size() == 0) {
 			mImgPull.setVisibility(View.GONE);

@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.fragment.login.AlertPasswordFragment.AlertType;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
@@ -55,10 +56,11 @@ public class ForgetPasswordFragment extends BaseFragment {
 						JSONObject result = jsonObject.getJSONObject("result");
 						if (result.getInt("code") == 200) {
 							int mobile = result.getInt("mobile");
+							String phone = result.getString("mobileinfo");
 							if (mobile == 1) {
-								mActivity.switchFragment(new AlertPasswordFragment(0, username));
+								mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_PHONE_0, username, phone));
 							} else {
-								mActivity.switchFragment(new AlertPasswordFragment(1, username));
+								mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_ACCOUNT, username, phone));
 							}
 						} else {
 							ToastUtils.show(mActivity, result.getString("msg"));

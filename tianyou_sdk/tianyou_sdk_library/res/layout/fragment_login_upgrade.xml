@@ -44,7 +44,6 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:singleLine="true"
-                android:maxLength="6"
                 android:hint="请输入验证码" />
 
             <TextView
@@ -66,7 +65,6 @@
    		<EditText
             android:id="@+id/edit_upgrade_password"
             style="@style/style_edit_common"
-            android:inputType="phone"
             android:singleLine="true"
             android:hint="请输入密码" />
         

@@ -50,7 +50,7 @@
         <TextView
             android:id="@+id/popup_menu_5"
             style="@style/style_popup_menu"
-            android:drawableTop="@drawable/selector_menu_5"
+            android:drawableTop="@drawable/selector_menu_0"
             android:text="个人中心" />
     </LinearLayout>
 

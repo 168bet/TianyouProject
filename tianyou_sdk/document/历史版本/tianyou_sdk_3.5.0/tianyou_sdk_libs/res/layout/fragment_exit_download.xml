@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/layout_space_big"
+    android:paddingRight="@dimen/layout_space_big"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/img_download_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_space_big"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_space_small" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ty_game_name"
+                    android:textColor="@color/color_gray_2"
+                    android:textSize="@dimen/text_size_common" />
+
+                <TextView
+                    android:id="@+id/text_download_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_red"
+                    android:textSize="@dimen/text_size_common" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_space_big" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ty_game_size"
+                    android:textColor="@color/color_gray_2"
+                    android:textSize="@dimen/text_size_common" />
+
+                <TextView
+                    android:id="@+id/text_download_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_red"
+                    android:textSize="@dimen/text_size_common" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_download_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_red"
+        android:padding="@dimen/layout_space_small"
+        android:text="@string/ty_download_game"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/text_size_title" />
+
+</LinearLayout>

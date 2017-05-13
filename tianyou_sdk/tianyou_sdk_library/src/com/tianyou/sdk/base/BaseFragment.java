@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -51,6 +52,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
         try {
         	((LoginActivity)mActivity).setRegisterTitle(false);
         	((LoginActivity)mActivity).setBackBtnVisible(false);
+        	((LoginActivity)mActivity).setCloseViw(true);
 		} catch (Exception e) {
 			LogUtils.d("转化异常...");
 		}
@@ -91,8 +93,29 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
  	public String mVerifiCode;
  	private TextView mTextCode;
  	
+ 	protected void getVerifiCode(EditText editText, TextView textVie, String sendType) {
+		String phone = editText.getText().toString();
+		if (phone.isEmpty()) {
+			ToastUtils.show(mActivity, "手机号不能为空");
+		} else if (!AppUtils.verifyPhoneNumber(phone)) {
+			ToastUtils.show(mActivity, "手机号格式错误");
+		} else {
+			getVerifiCode(phone, textVie, sendType);
+		}
+	}
+ 	
+ 	public class SendType {
+ 		public static final String SEND_TYPE_REGISTER = "register";
+ 		public static final String SEND_TYPE_FIND_PASS = "findpass";
+ 		public static final String SEND_TYPE_REMOVE_PHONE = "removephone";
+ 		public static final String SEND_TYPE_BIND_PHONE = "bindphone";
+ 		public static final String SEND_TYPE_VERIFI = "verification";
+ 		public static final String SEND_TYPE_IDENTITY = "identity";
+ 		public static final String SEND_TYPE_UPDATE_PHONE = "updatephone";
+ 	}
+ 	
  	// 获取验证码
- 	protected void getVerifiCode(String phone, TextView textView) {
+ 	protected void getVerifiCode(String phone, TextView textView, String sendType) {
  		mTextCode = textView;
  		if (phone.isEmpty()) {
  			ToastUtils.show(mActivity, "手机号不能为空");
@@ -102,7 +125,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
  			Map<String, String> map = new HashMap<String, String>();
  			map.put("mobile", phone);
              map.put("send_code", AppUtils.MD5(phone));
-             map.put("send_type", "register");
+             map.put("send_type", sendType);
              map.put("type", "android");
              map.put("imei", AppUtils.getPhoeIMEI(mActivity));
              map.put("sign", AppUtils.MD5(phone + "register" + "android" + AppUtils.getPhoeIMEI(mActivity)));
@@ -114,13 +137,34 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
  						mVerifiCode = code.getResult().getMobile_code();
  						mTextCode.setClickable(false);
  						createDelayed();
-// 						mTextCode.setText("");
  					}
  					ToastUtils.show(mActivity, code.getResult().getMsg());
  				}
  			});
  		}
  	}
+ 	
+ 	// 验证验证码
+  	protected void verifiCode(String phone, String verify) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("username", phone);
+        map.put("verify", verify);
+        map.put("type", "android");
+        map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+        map.put("sign", AppUtils.MD5(phone + ConfigHolder.gameId));
+		HttpUtils.post(mActivity, URLHolder.URL_VERIFY_CODE, map, new HttpsCallback() {
+			@Override
+			public void onSuccess(String response) {
+				PhoneCode code = new Gson().fromJson(response, PhoneCode.class);
+				if (code.getResult().getCode() == 200) {
+					mVerifiCode = code.getResult().getMobile_code();
+					mTextCode.setClickable(false);
+					createDelayed();
+				}
+				ToastUtils.show(mActivity, code.getResult().getMsg());
+			}
+		});
+  	}
  	
  	public int mCodeTime;	//验证码倒计时
  	

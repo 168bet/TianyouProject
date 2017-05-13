@@ -50,5 +50,7 @@ public class ConfigHolder {
 	public static String userToken;
 	// 存储用户验证码
 	public static String userCode;
+	// 存储用户绑定手机号
+	public static String userPhone;
 	
 }

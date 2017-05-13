@@ -1,6 +1,7 @@
 package com.tianyou.sdk.fragment.login;
 
 import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.fragment.login.AlertPasswordFragment.AlertType;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.utils.ResUtils;
 
@@ -31,9 +32,7 @@ public class PersonalCenterFragment extends BaseFragment {
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_logout", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_upgrade", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_alert", "id")).setOnClickListener(this);
-		if (!ConfigHolder.isPhone) {
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_setting", "id")).setOnClickListener(this);
-		}
+		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_setting", "id")).setOnClickListener(this);
 		if (!ConfigHolder.isAuth) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_identifi", "id")).setOnClickListener(this);
 		}
@@ -66,11 +65,12 @@ public class PersonalCenterFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_center_upgrade", "id")) {
 			mActivity.switchFragment(new UpgradeFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_center_alert", "id")) {
-			mActivity.switchFragment(new AlertPasswordFragment(0, ConfigHolder.userName));
+			AlertType type = ConfigHolder.isPhone ? AlertType.ALERT_TYPE_PHONE_0 : AlertType.ALERT_TYPE_ACCOUNT;
+			mActivity.switchFragment(new AlertPasswordFragment(type, ConfigHolder.userName, ConfigHolder.userPhone));
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_center_identifi", "id")) {
 			mActivity.switchFragment(new IdentifiFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_center_setting", "id")) {
-			mActivity.switchFragment(new SafetySettingFragment());
+			mActivity.switchFragment(new SafetySettingFragment(ConfigHolder.isPhone));
 		}
 	}
 }
