@@ -1,5 +1,6 @@
 package com.tianyou.sdk.fragment.login;
 
+import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.utils.ResUtils;
@@ -18,13 +19,15 @@ public class TouristTipFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
-		mActivity.setFragmentTitle("");
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_tourist_account", "id")).setOnClickListener(this);;
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_tourist_upgrade", "id")).setOnClickListener(this);;
 	}
 
 	@Override
-	protected void initData() { }
+	protected void initData() {
+		mActivity.setFragmentTitle("");
+		((LoginActivity)mActivity).setBgHeight(true);
+	}
 
 	@Override
 	public void onClick(View v) {

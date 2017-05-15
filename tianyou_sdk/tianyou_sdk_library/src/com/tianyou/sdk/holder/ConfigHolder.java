@@ -10,6 +10,9 @@ public class ConfigHolder {
 	// 游戏是否是横屏
 	public static boolean isLandscape;
 	
+	// 游戏是否是横屏
+	public static String oldPassword;
+	
 	// 游戏是游客登录
 	public static boolean isTourist;
 	// 是否实名认证

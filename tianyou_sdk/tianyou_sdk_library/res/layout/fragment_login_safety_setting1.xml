@@ -14,17 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_btn_gray2"
-        android:orientation="vertical"
-        android:padding="@dimen/layout_space_little" >
+        android:orientation="vertical"  >
 
         <EditText
             android:id="@+id/edit_setting_phone"
             style="@style/style_edit_common"
             android:ems="10"
-            android:hint="请输入手机号" >
-
-            <requestFocus />
-        </EditText>
+            android:hint="请输入11位手机号" />
 
         <View
             android:layout_width="match_parent"
@@ -35,22 +31,22 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/layout_space_small" >
-
+            android:layout_height="wrap_content" >
             <EditText
                 android:id="@+id/edit_setting_code"
                 style="@style/style_edit_common"
-                android:layout_margin="0dp"
-                android:hint="请输入短信验证码" />
-
+                android:maxLength="6"
+                android:inputType="number"
+                android:hint="请输入6位验证码" />
             <TextView
                 android:id="@+id/text_setting_code"
                 style="@style/style_text_black"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:paddingRight="@dimen/layout_space_small"
+                android:padding="@dimen/layout_space_small"
                 android:text="获取验证码" />
+
         </RelativeLayout>
     </LinearLayout>
 

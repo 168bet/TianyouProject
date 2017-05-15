@@ -47,6 +47,7 @@ public class SafetySettingFragment extends BaseFragment {
 		mTextCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_setting_code", "id"));
 		mEditCode = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_setting_code", "id"));
 		if (mIsPhone) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "text_setting_server", "id")).setOnClickListener(this);
 			mTextPhone = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_setting_phone", "id"));
 		} else {
 			mEditPhone = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_setting_phone", "id"));
@@ -75,6 +76,8 @@ public class SafetySettingFragment extends BaseFragment {
 			} else {
 				getVerifiCode(mEditPhone, mTextCode, SendType.SEND_TYPE_BIND_PHONE);
 			}
+		} else if (v.getId() == ResUtils.getResById(mActivity, "text_setting_server", "id")) {
+			mActivity.switchFragment(new ServerFragment(ConfigHolder.isPhone, ConfigHolder.userName));
 		}
 	}
 
@@ -113,7 +116,7 @@ public class SafetySettingFragment extends BaseFragment {
 						ToastUtils.show(mActivity, result.getString("msg"));
 						if (result.getInt("code") == 200) {
 							ConfigHolder.isPhone = true;
-							ConfigHolder.userName = phone;
+							ConfigHolder.userPhone = phone;
 							mActivity.finish();
 						}
 					} catch (JSONException e) {

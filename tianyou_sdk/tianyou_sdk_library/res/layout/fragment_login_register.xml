@@ -9,15 +9,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_btn_gray2"
-        android:orientation="vertical"
-        android:padding="@dimen/layout_space_little" >
+        android:orientation="vertical"  >
 
         <EditText
             android:id="@+id/edit_register_username"
             style="@style/style_edit_common"
             android:singleLine="true"
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
-            android:hint="请输入手机号" 
+            android:hint="请输入11位手机号" 
             android:maxLength="16"/>
 
         <View
@@ -39,7 +38,8 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:inputType="textPassword"
-                android:hint="请输入验证码" />
+                android:maxLength="6"
+                android:hint="请输入6位验证码" />
 
             <TextView
                 android:id="@+id/text_register_get_code"
@@ -67,13 +67,18 @@
                 style="@style/style_edit_common"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:singleLine="true"
+                android:ems="10"
+                android:hint="密码：请输入6-16位字母或数字组合"
                 android:inputType="textPassword"
-                android:hint="密码：6-16位数字或字母组合" />
+                android:singleLine="true" >
+
+                <requestFocus />
+            </EditText>
 
             <ImageView
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
                 android:id="@+id/img_register_code"
-                style="@style/style_text_gray"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/layout_space_small"
                 android:visibility="gone" />
@@ -89,7 +94,7 @@
         android:id="@+id/text_register_back"
         style="@style/style_text_gray"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/layout_space_super"
+        android:layout_marginTop="@dimen/layout_space_big"
         android:text="&lt; 返回" />
 
 </LinearLayout>

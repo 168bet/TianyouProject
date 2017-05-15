@@ -15,16 +15,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_btn_gray2"
-        android:orientation="vertical"
-        android:padding="@dimen/layout_space_little" >
+        android:orientation="vertical"  >
 
         <EditText
             android:id="@+id/edit_perfect_username"
             style="@style/style_edit_common"
             android:singleLine="true"
-            android:maxLength="16"
+            android:maxLength="14"
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
-            android:hint="账号：6-16位数字或密码组合" />
+            android:hint="账号：请输入6-16位字母或数字组合" />
 
         <View
             android:layout_width="match_parent"
@@ -39,7 +38,8 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:maxLength="16"
-            android:hint="密码：6-16位数字或密码组合" />
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:hint="密码：请输入6-16位字母或数字组合" />
 
         <View
             android:layout_width="match_parent"
@@ -54,7 +54,8 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:maxLength="16"
-            android:hint="确认密码" />
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:hint="请再次输入密码" />
     </LinearLayout>
 
     <TextView

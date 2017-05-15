@@ -53,6 +53,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
         	((LoginActivity)mActivity).setRegisterTitle(false);
         	((LoginActivity)mActivity).setBackBtnVisible(false);
         	((LoginActivity)mActivity).setCloseViw(true);
+        	((LoginActivity)mActivity).setBgHeight(false);
 		} catch (Exception e) {
 			LogUtils.d("转化异常...");
 		}

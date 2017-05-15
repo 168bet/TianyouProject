@@ -71,9 +71,9 @@ public class RegisterFragment extends BaseFragment {
 	protected void initData() {
 		((LoginActivity)mActivity).setRegisterTitle(true);
 		if (getArguments() != null) mIsUserRegister = !getArguments().getBoolean("isPhoneRegister");
-		mEditText0.setHint(mIsUserRegister ? "请输入账号" : "请输入手机号");
-		mEditText1.setHint(mIsUserRegister ? "请输入密码" : "请输入验证码");
-		mEditText2.setHint(mIsUserRegister ? "请输入验证码" : "密码：6-16位数字或字母组合");
+		mEditText0.setHint(mIsUserRegister ? "账号：请输入6-16位字母或数字组合" : "请输入11位手机号");
+		mEditText1.setHint(mIsUserRegister ? "密码：请输入6-16位字母或数字组合" : "请输入6位验证码");
+		mEditText2.setHint(mIsUserRegister ? "请输入6位验证码" : "密码：请输入6-16位字母或数字组合");
 		mEditText2.setInputType(mIsUserRegister ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		/**
 		 * 账号输入框
@@ -124,11 +124,17 @@ public class RegisterFragment extends BaseFragment {
 		String editText1 = mEditText1.getText().toString();
 		String editText2 = mEditText2.getText().toString();
 		if (editText0.isEmpty()) {
-			ToastUtils.show(mActivity, mIsUserRegister ? "账号" : "手机号" + "不能为空");
+			ToastUtils.show(mActivity, (mIsUserRegister ? "账号" : "手机号") + "不能为空");
 		} else if (editText1.isEmpty()) {
-			ToastUtils.show(mActivity, mIsUserRegister ? "密码" : "验证码" + "不能为空");
+			ToastUtils.show(mActivity, (mIsUserRegister ? "密码" : "验证码") + "不能为空");
 		} else if (editText2.isEmpty()) {
-			ToastUtils.show(mActivity, mIsUserRegister ? "验证码" : "密码" + "不能为空");
+			ToastUtils.show(mActivity, (mIsUserRegister ? "验证码" : "密码") + "不能为空");
+		} else if (mIsUserRegister && (editText0.length() < 6 || editText0.length() > 16)) {
+			ToastUtils.show(mActivity, "账号长度错误");
+		} else if (mIsUserRegister && (editText1.length() < 6 || editText1.length() > 16)) {
+			ToastUtils.show(mActivity, "密码长度错误");
+		} else if (!mIsUserRegister && (editText2.length() < 6 || editText2.length() > 16)) {
+			ToastUtils.show(mActivity, "密码长度错误");
 		} else if (!mIsUserRegister && !editText1.equals(mVerifiCode)) {
 			ToastUtils.show(mActivity, "验证码输入错误");
 		} else if (!mIsUserRegister && !AppUtils.verifyPhoneNumber(editText0)) {

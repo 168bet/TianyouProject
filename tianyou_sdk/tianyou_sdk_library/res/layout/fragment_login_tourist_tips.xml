@@ -8,6 +8,7 @@
         style="@style/style_text_gray"
         android:textSize="@dimen/text_size_small"
         android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_space_super"
         android:layout_gravity="center_horizontal"
         android:text="@string/ty_tourist_tips" />
 

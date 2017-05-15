@@ -92,7 +92,7 @@ public class UpgradeFragment extends BaseFragment {
 			ToastUtils.show(mActivity, (mIsAccountUpgrade ? "账号" : "手机号") + "不能为空");
 		} else if (!mIsAccountUpgrade && !AppUtils.verifyPhoneNumber(editText0)) {
 			ToastUtils.show(mActivity, "手机号格式错误");
-		} else if (mIsAccountUpgrade && (editText0.length() < 4 || editText0.length() > 14)) {
+		} else if (mIsAccountUpgrade && (editText0.length() < 6 || editText0.length() > 16)) {
 			ToastUtils.show(mActivity, "账号长度错误");
 		} else if (mIsAccountUpgrade && (editText1.length() < 6 || editText1.length() > 16)) {
 			ToastUtils.show(mActivity, "密码长度错误");
@@ -148,7 +148,7 @@ public class UpgradeFragment extends BaseFragment {
 			//保存到内存
 			ConfigHolder.userId = result.getString("userid");
 			ConfigHolder.userName = username;
-			ConfigHolder.isPhone = false;
+			ConfigHolder.isPhone = !mIsAccountUpgrade;
 			ConfigHolder.isTourist = false;
 			if (ConfigHolder.isAuth) {
 				mActivity.finish();
@@ -162,10 +162,11 @@ public class UpgradeFragment extends BaseFragment {
 		mIsAccountUpgrade = !mIsAccountUpgrade;
 		mEditPhone.setText("");
 		mEditCode.setText("");
+		mEditPassword.setText("");
 		mEditPhone.setInputType(mIsAccountUpgrade ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_PHONE);
 		mEditCode.setInputType(mIsAccountUpgrade ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_PHONE);
-		mEditPhone.setHint(mIsAccountUpgrade ? "用户名:4-14位,数字字母下划线组合" : "请输入手机号");
-		mEditCode.setHint(mIsAccountUpgrade ? "密码：6-16位数字字母组合" : "请输入验证码");
+		mEditPhone.setHint(mIsAccountUpgrade ? "账号：请输入6-16位字母或数字组合" : "请输入11位手机号");
+		mEditCode.setHint(mIsAccountUpgrade ? "密码：请输入6-16位字母或数字组合" : "请输入验证码");
 		mViewTip.setVisibility(mIsAccountUpgrade ? View.VISIBLE : View.GONE);
 		mViewCode.setVisibility(mIsAccountUpgrade ? View.GONE : View.VISIBLE);
 		mTextAccount.setText(mIsAccountUpgrade ? "升级手机号账号" : "升级用户名账号");

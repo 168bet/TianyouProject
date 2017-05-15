@@ -62,6 +62,8 @@ public class URLHolder {
 	public static final String URL_ALERT_PHONE = getHostAddrs() + "login/findpassbyphone";
 	// 原密码修改密码
 	public static final String URL_ALERT_ACCOUNT = getHostAddrs() + "member/updatememberusername";
+	// 登陆客服信息
+	public static final String URL_LOGIN_SERVER_INFO = getHostAddrs() + "Toconfigure/Representations";
 		
 	/** ------------------------- 支付接口 ------------------------- */
 	// 创建订单

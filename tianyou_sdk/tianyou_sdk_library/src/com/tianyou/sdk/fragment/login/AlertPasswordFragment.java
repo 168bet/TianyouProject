@@ -38,7 +38,6 @@ public class AlertPasswordFragment extends BaseFragment {
 		ALERT_TYPE_PHONE_1,		//手机号修改密码输入验证码
 		ALERT_TYPE_ACCOUNT,		//账号修改密码输入原密码
 		ALERT_TYPE_NEW,			//手机号或账号修改密码输入新密码
-		ALERT_TYPE_APPEAL,		//申诉修改密码
 	}
 	
 	private TextView mTextTips;
@@ -54,7 +53,7 @@ public class AlertPasswordFragment extends BaseFragment {
 	private String mAccount;
 	private String mBindPhone;
 	private boolean mIsOpenPassword;
-
+	
 	AlertPasswordFragment(AlertType alertType, String account, String bindPhone) {
 		mAlertType = alertType;
 		mAccount = account;
@@ -70,12 +69,10 @@ public class AlertPasswordFragment extends BaseFragment {
 			return "fragment_login_alert_phone_1";
 		case ALERT_TYPE_ACCOUNT:		
 			return "fragment_login_alert_account";
-		case ALERT_TYPE_NEW:
-			return "fragment_login_alert_new";
 		default:
 			break;
 		}
-		return "fragment_login_alert_appeal";
+		return "fragment_login_alert_new";
 	}
 
 	@Override
@@ -110,9 +107,6 @@ public class AlertPasswordFragment extends BaseFragment {
 			mEditAgain = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_alert_again", "id"));
 			mContentView.findViewById(ResUtils.getResById(mActivity, "text_alert_confirm", "id")).setOnClickListener(this);
 			break;
-		case ALERT_TYPE_APPEAL:
-			mTextTips = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_alert_tips", "id"));
-			break;
 		}
 	}
 
@@ -127,9 +121,6 @@ public class AlertPasswordFragment extends BaseFragment {
 			break;
 		case ALERT_TYPE_PHONE_1:
 			mTextPhone.setText(mBindPhone.substring(0, 3) + "****" + mBindPhone.substring(7, 11));
-			break;
-		case ALERT_TYPE_APPEAL:
-			mTextTips.setText("你的当前账号" + mAccount + "未设置过密码保护，请您在工作时间联系客服工作人员协调解决此类问题");
 			break;
 		default:
 			break;
@@ -148,7 +139,7 @@ public class AlertPasswordFragment extends BaseFragment {
 			} else if (v.getId() == ResUtils.getResById(mActivity, "text_alert_confirm", "id")) {
 				phoneAlertPassword();
 			} else if (v.getId() == ResUtils.getResById(mActivity, "text_alert_appeal", "id")) {
-				mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_APPEAL, mAccount, mBindPhone));
+				mActivity.switchFragment(new ServerFragment(!mBindPhone.isEmpty(), mAccount));
 			}
 			break;
 		case ALERT_TYPE_ACCOUNT:
@@ -157,7 +148,7 @@ public class AlertPasswordFragment extends BaseFragment {
 			} else if (v.getId() == ResUtils.getResById(mActivity, "img_alert_switch", "id")) {
 				switchPassword();
 			} else if (v.getId() == ResUtils.getResById(mActivity, "text_alert_forget", "id")) {
-				mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_APPEAL, mAccount, mBindPhone));
+				mActivity.switchFragment(new ServerFragment(!mBindPhone.isEmpty(), mAccount));
 			}
 			break;
 		case ALERT_TYPE_NEW:
@@ -177,6 +168,7 @@ public class AlertPasswordFragment extends BaseFragment {
 		} else if (mVerifiCode == null) {
 			ToastUtils.show(mActivity, "请先获取验证码");
 		} else {
+			ConfigHolder.oldPassword = mEditAccountPass.getText().toString();
 			mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_NEW, mAccount, mBindPhone));
 		}
 	}
@@ -200,11 +192,11 @@ public class AlertPasswordFragment extends BaseFragment {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("username", mAccount);
 		map.put("channel", ConfigHolder.channelId);
-		if (ConfigHolder.isPhone) {
+		if (!mBindPhone.isEmpty()) {
 			map.put("mobile", mBindPhone);
 			map.put("password", password);
 		} else {
-			map.put("password", ConfigHolder.userPassword);
+			map.put("password", ConfigHolder.oldPassword);
 			map.put("newpassword", password);
 		}
 		map.put("sign", AppUtils.MD5(ConfigHolder.userName + password + ConfigHolder.gameId));
@@ -247,9 +239,9 @@ public class AlertPasswordFragment extends BaseFragment {
 	}
 
 	//检查密码是否正确
-	private void checkPassword(String password) {
+	private void checkPassword(final String password) {
 		Map<String,String> map = new HashMap<String, String>();
-		map.put("username", ConfigHolder.userName);
+		map.put("username", mAccount);
 		map.put("password", password);
 		map.put("channel", ConfigHolder.channelId);
 		map.put("sign", AppUtils.MD5(ConfigHolder.userName + password + ConfigHolder.gameId + ConfigHolder.gameToken));
@@ -258,6 +250,7 @@ public class AlertPasswordFragment extends BaseFragment {
 			public void onSuccess(String response) {
 				LoginInfo loginInfo = new Gson().fromJson(response, LoginInfo.class);
 				if (loginInfo.getResult().getCode() == 200) {
+					ConfigHolder.oldPassword = password;
 					mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_NEW, mAccount, mBindPhone));
 				} else {
 					ToastUtils.show(mActivity, "密码错误");

@@ -60,7 +60,9 @@ public class PerfectInfoFragment extends BaseFragment {
 		if (username.isEmpty() || password.isEmpty()) {
 			ToastUtils.show(mActivity, "用户名或密码不能为空");
 		} else if (username.length() < 6 || username.length() > 16) {
-			ToastUtils.show(mActivity, "用户名或密码长度错误");
+			ToastUtils.show(mActivity, "用户名长度错误");
+		} else if (password.length() < 6 || password.length() > 16) {
+			ToastUtils.show(mActivity, "用户名长度错误");
 		} else if (!password.equals(again)) {
 			ToastUtils.show(mActivity, "两次输入密码不一致");
 		} else {

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.fragment.login.AlertPasswordFragment.AlertType;
 import com.tianyou.sdk.holder.ConfigHolder;
@@ -35,6 +36,7 @@ public class ForgetPasswordFragment extends BaseFragment {
 	@Override
 	protected void initData() {
 		mActivity.setFragmentTitle("忘记密码");
+		((LoginActivity)mActivity).setBackBtnVisible(true);
 	}
 
 	@Override

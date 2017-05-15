@@ -9,6 +9,7 @@ import com.tianyou.sdk.base.LoginAdapter;
 import com.tianyou.sdk.base.LoginAdapter.AdapterCallback;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -90,7 +91,7 @@ public class AccountFragment extends BaseFragment {
 		if (v.getId() == ResUtils.getResById(mActivity, "img_account_pull", "id")) {
 			showPopupWindow();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_account_login", "id")) {
-			mLoginHandler.doUserLogin(mEditUsername.getText().toString(), mEditPassword.getText().toString(), false);
+			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_quick", "id")) {
 			mActivity.switchFragment(new RegisterFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_qq", "id")) {
@@ -101,6 +102,20 @@ public class AccountFragment extends BaseFragment {
 			switchPassword();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_account_forget", "id")) {
 			mActivity.switchFragment(new ForgetPasswordFragment());
+		}
+	}
+
+	private void doLogin() {
+		String username = mEditUsername.getText().toString();
+		String password = mEditPassword.getText().toString();
+		if (username.isEmpty() || password.isEmpty()) {
+			ToastUtils.show(mActivity, "用户名或密码不能为空");
+		} else if (username.length() < 6 || username.length() > 16) {
+			ToastUtils.show(mActivity, "用户名长度错误");
+		} else if (password.length() < 6 || password.length() > 16) {
+			ToastUtils.show(mActivity, "密码长度错误");
+		} else {
+			mLoginHandler.doUserLogin(mEditUsername.getText().toString(), mEditPassword.getText().toString(), false);
 		}
 	}
 

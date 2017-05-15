@@ -94,7 +94,7 @@
         <item name="android:background">@drawable/shape_bg_white_fill</item>
         <item name="android:textColor">@color/color_gray_2</item>
         <item name="android:textColorHint">@color/color_gray_0</item>
-        <item name="android:textSize">@dimen/text_size_common</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
     </style>
 
     <!-- 红色长条文字 -->
@@ -105,8 +105,8 @@
         <item name="android:background">@drawable/shape_bg_jacinth_fill</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/layout_space_small</item>
-        <item name="android:textSize">@dimen/text_size_common</item>
-        <item name="android:layout_marginTop">@dimen/layout_space_big</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:layout_marginTop">@dimen/layout_space_small</item>
     </style>
 
 </resources>

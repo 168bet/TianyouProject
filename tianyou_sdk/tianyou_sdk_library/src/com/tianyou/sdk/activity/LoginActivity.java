@@ -18,6 +18,7 @@ import com.tianyou.sdk.utils.ResUtils;
 
 import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class LoginActivity extends BaseActivity {
 	private View mLayoutRegisterTitle;
 	private View mLayoutTitle;
 	private View mViewBack;
+	private View mLayoutBg;
 	private TextView mTextPhone;
 	private TextView mTextAccount;
 	private ImageView mImgClose;
@@ -44,6 +46,7 @@ public class LoginActivity extends BaseActivity {
 		mLayoutRegisterTitle = findViewById(ResUtils.getResById(mActivity, "layout_login_register_title", "id"));
 		mLayoutTitle = findViewById(ResUtils.getResById(mActivity, "layout_login_title", "id"));
 		mViewBack = findViewById(ResUtils.getResById(mActivity, "img_login_back", "id"));
+		mLayoutBg = findViewById(ResUtils.getResById(mActivity, "layout_login_bg", "id"));
 		
 		mTextPhone = (TextView) findViewById(ResUtils.getResById(mActivity, "text_login_register_phone", "id"));
 		mTextAccount = (TextView) findViewById(ResUtils.getResById(mActivity, "text_login_register_account", "id"));
@@ -93,6 +96,15 @@ public class LoginActivity extends BaseActivity {
 		mImgClose.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
 	}
 	
+	private int mBgHeight;
+	
+	public void setBgHeight(boolean flag) {
+		LayoutParams params = mLayoutBg.getLayoutParams();
+		if (mBgHeight == 0) mBgHeight = params.height;
+		params.height = flag ? LayoutParams.WRAP_CONTENT : mBgHeight;
+		mLayoutBg.setLayoutParams(params);
+	}
+	
 	private void closeLoginActivity() {
 		LogUtils.d("mFragmentTag:" + mFragmentTag);
 		if (mFragmentTag.equals("PerfectInfoFragment")) {
@@ -110,8 +122,8 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	private void switchTitleState(boolean isPhoneRegister) {
-		mTextPhone.setTextColor(Color.parseColor(isPhoneRegister ? "#666666" : "#FFFFFF"));
-		mTextAccount.setTextColor(Color.parseColor(isPhoneRegister ? "#FFFFFF" : "#666666"));
+		mTextPhone.setTextColor(Color.parseColor(isPhoneRegister ? "#333333" : "#FFFFFF"));
+		mTextAccount.setTextColor(Color.parseColor(isPhoneRegister ? "#FFFFFF" : "#333333"));
 		mTextPhone.setBackgroundColor(Color.parseColor(isPhoneRegister ? "#FFFFFF" : "#999999"));
 		mTextAccount.setBackgroundColor(Color.parseColor(isPhoneRegister ? "#999999" : "#FFFFFF"));
 		switchFragment(RegisterFragment.getInstance(isPhoneRegister));

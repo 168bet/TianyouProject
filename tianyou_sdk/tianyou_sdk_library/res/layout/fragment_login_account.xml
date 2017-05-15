@@ -15,16 +15,17 @@
             android:layout_height="wrap_content" >
 
             <EditText
-                style="@style/style_text_black"
                 android:id="@+id/edit_account_username"
+                style="@style/style_text_black"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
-                android:hint="请输入账号"
+                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+                android:hint="账号：请输入6-16位字母或数字组合"
+                android:maxLength="16"
                 android:padding="@dimen/layout_space_small"
-                android:textColorHint="@color/color_gray_0"
                 android:singleLine="true"
-                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"/>
+                android:textColorHint="@color/color_gray_0" />
 
             <ImageView
                 android:id="@+id/img_account_pull"
@@ -47,16 +48,18 @@
             android:layout_height="wrap_content" >
 
             <EditText
-                style="@style/style_text_black"
                 android:id="@+id/edit_account_password"
+                style="@style/style_text_black"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
-                android:hint="请输入密码"
+                android:hint="密码：请输入密码"
                 android:padding="@dimen/layout_space_small"
                 android:password="true"
-                android:textColorHint="@color/color_gray_0"
-                android:singleLine="true"/>
+                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+                android:singleLine="true"
+                android:maxLength="16"
+                android:textColorHint="@color/color_gray_0" />
 
             <TextView
                 android:id="@+id/text_account_forget"
@@ -75,8 +78,8 @@
     </LinearLayout>
 
     <TextView
-        style="@style/style_text_black"
         android:id="@+id/btn_account_login"
+        style="@style/style_text_black"
         android:layout_width="match_parent"
         android:layout_height="@dimen/notify_btn_height"
         android:layout_marginTop="@dimen/layout_space_small"
@@ -108,7 +111,7 @@
                 style="@style/style_text_black"
                 android:singleLine="true"
                 android:text="快速登录"
-                android:textColor="@color/color_white"  />
+                android:textColor="@color/color_white" />
         </LinearLayout>
 
         <LinearLayout
