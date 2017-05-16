@@ -73,7 +73,7 @@ public class RegisterFragment extends BaseFragment {
 		if (getArguments() != null) mIsUserRegister = !getArguments().getBoolean("isPhoneRegister");
 		mEditText0.setHint(mIsUserRegister ? "账号：请输入6-16位字母或数字组合" : "请输入11位手机号");
 		mEditText1.setHint(mIsUserRegister ? "密码：请输入6-16位字母或数字组合" : "请输入6位验证码");
-		mEditText2.setHint(mIsUserRegister ? "请输入6位验证码" : "密码：请输入6-16位字母或数字组合");
+		mEditText2.setHint(mIsUserRegister ? "请输入4位验证码" : "密码：请输入6-16位字母或数字组合");
 		mEditText2.setInputType(mIsUserRegister ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		/**
 		 * 账号输入框

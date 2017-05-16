@@ -21,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:drawableLeft="@drawable/ty_logo"
             android:drawablePadding="@dimen/layout_space_line"
             android:gravity="center_vertical"
             android:text="@string/ty_pay_center"
@@ -39,6 +38,7 @@
                 android:id="@+id/img_pay_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:src="@drawable/ty_question" />
 
             <ImageView

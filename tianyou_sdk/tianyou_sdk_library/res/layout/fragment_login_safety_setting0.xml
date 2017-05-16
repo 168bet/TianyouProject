@@ -39,6 +39,7 @@
             android:textColor="@color/color_gray_2"
             android:textColorHint="@color/color_gray_1" 
             android:inputType="number"
+            android:textSize="@dimen/text_size_small"
             android:singleLine="true"
             android:maxLength="6"/>
 

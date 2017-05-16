@@ -22,7 +22,7 @@
             android:padding="@dimen/layout_space_small"
             android:textColor="@color/color_gray_2"
             android:textColorHint="@color/color_gray_1"
-            android:textSize="@dimen/text_size_common" 
+            android:textSize="@dimen/text_size_small" 
             android:singleLine="true"
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789"/>
 

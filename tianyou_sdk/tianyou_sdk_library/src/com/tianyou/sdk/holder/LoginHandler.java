@@ -235,7 +235,7 @@ public class LoginHandler {
   		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_user", "id"));
   		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_switch", "id"));
   		LogUtils.d("nickName= "+ConfigHolder.userNickname+",account= "+ConfigHolder.userName);
-		textUser.setText(ResUtils.getString(mActivity, "ty_tianyou") + ConfigHolder.userName + ResUtils.getString(mActivity, "ty_welcome_back2"));
+		textUser.setText("欢迎" + ConfigHolder.userName + "回来");
   		final PopupWindow popupWindow = new PopupWindow(view, 0, 0);
   		popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
   		popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
