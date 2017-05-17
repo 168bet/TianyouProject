@@ -137,7 +137,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	 * @param callback
 	 */
 	protected void checkLogin(LoginInfo param, final LoginCallback callback) {
-		mLoginInfo = param;
+		mLoginInfo.setChannelUserId(param.getChannelUserId());
 		String userId = param.getChannelUserId();
 		String userToken = param.getUserToken();
 		String gameId = mChannelInfo.getGameId();

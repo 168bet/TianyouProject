@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.quicksdk.QuickSdkSplashActivity;
 import com.snowfish.cn.ganga.helper.SFOnlineSplashActivity;
 import com.tianyou.channel.utils.ResUtils;
 
-public class JXXMSpActivity extends SFOnlineSplashActivity {
+public class JXXMSpActivity extends 
+
+SFOnlineSplashActivity {		// 易接的闪屏
+
+//QuickSdkSplashActivity {		// quick的闪屏
 
 //	@Override
 //	protected void onCreate(Bundle savedInstanceState) {

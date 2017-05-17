@@ -24,6 +24,7 @@ import com.tianyou.channel.business.LeshiSdkService;
 import com.tianyou.channel.business.LeyouSdkService;
 import com.tianyou.channel.business.M4399SdkService;
 import com.tianyou.channel.business.MeizuSdkService;
+import com.tianyou.channel.business.QuickSdkService;
 import com.tianyou.channel.business.TestYingyongbaoSdkService;
 import com.tianyou.channel.business.YijieSdkService;
 import com.tianyou.channel.business.MoguSdkService;
@@ -146,6 +147,8 @@ public class TianyouSdk {
 			sdkService = new HanfengService();
 		} else if ("ty067".equals(channelInfo.getChannelId())) {
 			sdkService = new LeyouSdkService();
+		} else if ("ty068".equals(channelInfo.getChannelId())) {
+			sdkService = new QuickSdkService();
 		}
 		return sdkService;
 	}

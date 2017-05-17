@@ -59,30 +59,36 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	private int platForm;
 	private AlertDialog mLoginDialog;
 	
+	private String tyUserId;
+	
 	@Override
 	public void doActivityInit(Activity activity,
 			TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
 		YSDKApi.onCreate(mActivity);
 		YSDKApi.handleIntent(mActivity.getIntent());
+		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
 		YSDKApi.setUserListener(new MyUserListener());
 		YSDKApi.setBuglyListener(new MyBugliListener());
-		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
 	}
 	
 	@Override
 	public void doLogin() {
-//		YSDKApi.login(ePlatform.QQ);
-		showDialog(mActivity);
-	}
-	
-	@Override
-	public void doLoginWechat() {
-		YSDKApi.login(ePlatform.WX);
+		LogUtils.d("调用登录接口 tyUserid= "+tyUserId);
+		if (tyUserId == null) {
+			showDialog(mActivity);
+		} else {
+			mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, tyUserId);
+		}
 	}
 	
 	@Override
 	public boolean isShowLogout() {
+		return true;
+	}
+	
+	@Override
+	public boolean isShowExitGame() {
 		return true;
 	}
 	
@@ -117,10 +123,12 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	
 	@Override
 	public void doLogout() {
+		super.doLogout();
+		tyUserId = null;
 		YSDKApi.logout();
 		mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
-		doLogin();
-		super.doLogout();
+//		doLogin();
+		showDialog(mActivity);
 	}
 	
 	private void checkYybOrder (String orderID){
@@ -213,6 +221,7 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 		
 		@Override
 		public void OnLoginNotify( UserLoginRet loginRet) {
+			LogUtils.d("onLoginNotity-----------");
 			Log.d("TAG", "loginRet= "+loginRet.toString());
 			if (loginRet.flag == 2000) {
 				Toast.makeText(mActivity, "请先安装手机微信", Toast.LENGTH_SHORT).show();
@@ -276,7 +285,8 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 					JSONObject result = (JSONObject) jsonObject.get("result");
 					String code = result.getString("code");
 					if ("200".equals(code)) {
-						String tyUserId = result.getString("uid");
+						tyUserId = result.getString("uid");
+						mLoginInfo.setTianyouUserId(tyUserId);
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, tyUserId);
 						Log.d("TAG", "登录成功");
 					} else {
@@ -296,10 +306,9 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	
 	private void showDialog(Activity activity) {
 		View dialogView = View.inflate(activity, ResUtils.getResById(activity, "dialog_exit_pay", "layout"), null);
-		mLoginDialog = new AlertDialog.Builder(activity,ResUtils.getResById(activity, "style_my_dialog", "style"))
-        .create();
+		mLoginDialog = new AlertDialog.Builder(activity,ResUtils.getResById(activity, "style_my_dialog", "style")).create();
 		mLoginDialog.setView(dialogView);
-//		mLoginDialog.show();
+		mLoginDialog.show();
 		
 		WindowManager.LayoutParams wmParams = mLoginDialog.getWindow().getAttributes();  
         wmParams.format = PixelFormat.TRANSPARENT;  //内容全透明  
@@ -309,12 +318,14 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
         mLoginDialog.setCanceledOnTouchOutside(false);
         mLoginDialog.setCancelable(false);
 		int type = SpUtils.getInstance(mActivity).getInt(SpUtils.LOGIN_TYPE);
-		switch (type) {
-		case 1:  break;//YSDKApi.login(ePlatform.QQ);  break;
-		case 2:  break;//YSDKApi.login(ePlatform.WX);  break;
-		default: 
-			if (mLoginDialog != null) { mLoginDialog.show();} break;
-		}
+		LogUtils.d("login type= "+type);
+//		switch (type) {
+//		case 1:  break;//YSDKApi.login(ePlatform.QQ);  break;
+//		case 2:  break;//YSDKApi.login(ePlatform.WX);  break;
+//		default: 
+//			if (mLoginDialog != null) { mLoginDialog.show();} break;
+//		}
+//		mLoginDialog.show();
 		dialogView.findViewById(ResUtils.getResById(mActivity, "qq_login", "id")).setOnClickListener(new OnClickListener() {
 			
 			@Override
