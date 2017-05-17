@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <fieldset>
+        <legend>第三方登录</legend>
+        <button onclick='GBAccount.fbLogin(fbLoginCallback);'>Facebook</button>
+        <button onclick='GBAccount.twitterLogin(twitterLoginCallback);'>Twitter</button>
+    </fieldset>
+</div>
+</body>
+</html>
+<script>
+    function $(id){
+        return document.getElementById(id);
+    }
+
+    function fbLoginCallback(code, message){
+        console.log(code)
+        console.log(message);
+        GBAccount.closeWindow();
+    }
+
+    function twitterLoginCallback(code, message){
+        console.log(code)
+        console.log(message);
+        GBAccount.closeWindow();
+    }
+</script>

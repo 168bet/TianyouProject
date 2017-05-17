@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/text_upgrade_tip"
+        style="@style/style_text_gray"
+        android:layout_marginBottom="@dimen/layout_space_small"
+        android:text="升级为新用户名账号或者输入已有用户名账号"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_btn_gray2"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/edit_upgrade_phone"
+            style="@style/style_edit_common"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:hint="请输入11位手机号" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_small"
+            android:background="@color/color_gray_0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                style="@style/style_edit_common"
+                android:id="@+id/edit_upgrade_code"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:singleLine="true"
+                android:maxLength="6"
+                android:hint="请输入6位验证码" />
+
+            <TextView
+                android:id="@+id/text_upgrade_code"
+                style="@style/style_text_gray"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/layout_space_small"
+                android:text="获取验证码"  />
+        </LinearLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_marginRight="@dimen/layout_space_small"
+            android:background="@color/color_gray_0" />
+    
+   		<EditText
+            android:id="@+id/edit_upgrade_password"
+            style="@style/style_edit_common"
+            android:singleLine="true"
+            android:maxLength="16"
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:hint="密码：请输入6-16位字母或数字组合" />
+        
+    </LinearLayout>
+    
+
+    <TextView
+        android:id="@+id/text_upgrade_confirm"
+        style="@style/style_text_red_long"
+        android:text="账号升级" />
+
+    <TextView
+        android:id="@+id/text_upgrade_account"
+        style="@style/style_text_gray"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:text="升级用户名账号>"
+        android:textSize="@dimen/text_size_small" />
+
+</LinearLayout>

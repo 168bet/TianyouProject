@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:paddingRight="@dimen/layout_space_super"
-                android:src="@drawable/pull" />
+                android:src="@drawable/ty2_pull" />
         </LinearLayout>
 
         <View
@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:paddingRight="@dimen/layout_space_super"
-                android:src="@drawable/eye_close" />
+                android:src="@drawable/ty2_eye_close" />
         </LinearLayout>
     </LinearLayout>
 

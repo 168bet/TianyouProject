@@ -39,6 +39,7 @@ public class RegisterFragment extends BaseFragment {
 	private EditText mEditText2;
 	private TextView mTextGetCode;
 	private ImageView mImgCode;
+	private ImageView mImgRadio;
 	
 	private boolean mIsUserRegister;	//是否是用户注册
 	private String mImgRandom;
@@ -61,9 +62,13 @@ public class RegisterFragment extends BaseFragment {
 		mEditText2 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_password", "id"));
 		mTextGetCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_get_code", "id"));
 		mImgCode = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_register_code", "id"));
+		mImgRadio = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_register_radio", "id"));
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_back", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_confirm", "id")).setOnClickListener(this);
+		mTextConfirm = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_confirm", "id"));
+		mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_protocol", "id")).setOnClickListener(this);
+		mTextConfirm.setOnClickListener(this);
 		mTextGetCode.setOnClickListener(this);
+		mImgRadio.setOnClickListener(this);
 		mImgCode.setOnClickListener(this);
 	}
 
@@ -115,11 +120,29 @@ public class RegisterFragment extends BaseFragment {
 			mImgRandom = UUID.randomUUID().toString();
 			LogUtils.d("mImgRandom:" + mImgRandom);
 			HttpUtils.imageLoad(mActivity, URLHolder.URL_IMG_VERIFI + "/random/" + mImgRandom, mImgCode);
+		} else if (v.getId() == ResUtils.getResById(mActivity, "text_register_protocol", "id")) {
+			mActivity.switchFragment(new ProtocolFragment());
+		} else if (v.getId() == ResUtils.getResById(mActivity, "img_register_radio", "id")) {
+			switchRadioState();
 		}
 	}
 	
+	private boolean isShowRadio;	//false选中
+	private TextView mTextConfirm;
+	
+	private void switchRadioState() {
+		isShowRadio = !isShowRadio;
+		mImgRadio.setImageResource(ResUtils.getResById(mActivity, isShowRadio ? "ty2_gou_1" : "ty2_gou_0", "drawable"));
+		mTextConfirm.setBackgroundResource(ResUtils.getResById(mActivity, isShowRadio ? "shape_btn_gray_fill" : "shape_bg_jacinth_fill", "drawable"));
+		mTextConfirm.setClickable(!isShowRadio);
+	}
+
 	// 立即注册
 	private void registerAccount() {
+//		if (isShowRadio) {
+//			ToastUtils.show(mActivity, "未同意用户注册协议");
+//			return;
+//		}
 		String editText0 = mEditText0.getText().toString();
 		String editText1 = mEditText1.getText().toString();
 		String editText2 = mEditText2.getText().toString();

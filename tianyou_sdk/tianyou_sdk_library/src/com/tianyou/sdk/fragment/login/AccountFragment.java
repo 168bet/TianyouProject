@@ -123,7 +123,7 @@ public class AccountFragment extends BaseFragment {
 		mIsOpenPassword = !mIsOpenPassword;
 		mEditPassword.setSingleLine();
 		mEditPassword.setInputType(mIsOpenPassword ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-		mImgSwitch.setImageResource(ResUtils.getResById(mActivity, mIsOpenPassword ? "eye_open" : "eye_close", "drawable"));
+		mImgSwitch.setImageResource(ResUtils.getResById(mActivity, mIsOpenPassword ? "ty2_eye_open" : "ty2_eye_close", "drawable"));
 	}
 
 	// 用户登录下拉弹窗

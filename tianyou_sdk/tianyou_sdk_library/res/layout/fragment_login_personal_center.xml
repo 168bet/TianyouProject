@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginLeft="@dimen/layout_space_little"
                 android:layout_marginTop="@dimen/layout_space_big"
-                android:drawableLeft="@drawable/lock"
+                android:drawableLeft="@drawable/ty2_lock"
                 android:drawablePadding="@dimen/layout_space_small"
                 android:text="修改密码" />
 
@@ -122,7 +122,7 @@
                     style="@style/style_text_black"
                     android:layout_marginLeft="@dimen/layout_space_little"
                     android:layout_marginTop="@dimen/layout_space_big"
-                    android:drawableLeft="@drawable/safety"
+                    android:drawableLeft="@drawable/ty2_safety"
                     android:drawablePadding="@dimen/layout_space_small"
                     android:text="账号安全设置" />
 
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_space_big"
-                    android:src="@drawable/red_point" />
+                    android:src="@drawable/ty2_red_point" />
 
                 <TextView
                     android:id="@+id/text_center_set"
@@ -160,7 +160,7 @@
                     style="@style/style_text_black"
                     android:layout_marginLeft="@dimen/layout_space_little"
                     android:layout_marginTop="@dimen/layout_space_big"
-                    android:drawableLeft="@drawable/identity"
+                    android:drawableLeft="@drawable/ty2_identity"
                     android:drawablePadding="@dimen/layout_space_small"
                     android:text="实名认证" />
                 
@@ -169,7 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_space_big"
-                    android:src="@drawable/red_point" />
+                    android:src="@drawable/ty2_red_point" />
 
                 <TextView
                     android:id="@+id/text_center_auth"

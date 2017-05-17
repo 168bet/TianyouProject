@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:padding="@dimen/layout_space_small"
             android:paddingRight="@dimen/layout_space_small"
-            android:src="@drawable/eye_close" />
+            android:src="@drawable/ty2_eye_close" />
     </RelativeLayout>
 
     <TextView

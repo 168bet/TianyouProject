@@ -263,6 +263,6 @@ public class AlertPasswordFragment extends BaseFragment {
 		mIsOpenPassword = !mIsOpenPassword;
 		mEditAccountPass.setSingleLine();
 		mEditAccountPass.setInputType(mIsOpenPassword ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-		mImgSwitch.setImageResource(ResUtils.getResById(mActivity, mIsOpenPassword ? "eye_open" : "eye_close", "drawable"));
+		mImgSwitch.setImageResource(ResUtils.getResById(mActivity, mIsOpenPassword ? "ty2_eye_open" : "ty2_eye_close", "drawable"));
 	}
 }
