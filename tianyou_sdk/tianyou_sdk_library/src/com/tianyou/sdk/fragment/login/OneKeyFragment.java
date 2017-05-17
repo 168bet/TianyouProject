@@ -9,7 +9,7 @@ import android.view.View;
 
 /**
  * 一键登录页面
- * @author itstrong
+ * @author itstrongx
  *
  */
 public class OneKeyFragment extends BaseFragment {
@@ -20,6 +20,7 @@ public class OneKeyFragment extends BaseFragment {
 	@Override
 	protected void initView() {
 		((LoginActivity)mActivity).setBackBtnVisible(false);
+		((LoginActivity)mActivity).setBgHeight(true);
 		mActivity.setFragmentTitle("一键登录");
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_tourist", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_register", "id")).setOnClickListener(this);

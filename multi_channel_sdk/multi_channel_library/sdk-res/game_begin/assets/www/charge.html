@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <fieldset>
+        <legend>支付</legend>
+        <button onclick='GBCharge.GoogleWallet("gold1", "GBT.1ag4jkdbs", "showPurchaseFinished()");'>Google Wallet</button>
+    </fieldset>
+</div>
+</body>
+</html>
+<script>
+    function $(id){
+        return document.getElementById(id);
+    }
+
+    function showPurchaseFinished(){
+        console.log("Purchase Finished!");
+    }
+    setTimeout(function(){
+        GBCharge.GoogleWallet("gold1", "GBT.1ag4jkdbs", "showPurchaseFinished()");
+    }, 10);
+
+</script>

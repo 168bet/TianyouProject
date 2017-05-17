@@ -35,6 +35,7 @@ public class LoginInfo {
 		private int istourist;
 		private int isauth;
 		private String iscode;
+		private String mobile;
 
 		public int getCode() {
 			return code;
@@ -50,6 +51,14 @@ public class LoginInfo {
 
 		public void setIsauth(int isauth) {
 			this.isauth = isauth;
+		}
+
+		public String getMobile() {
+			return mobile;
+		}
+
+		public void setMobile(String mobile) {
+			this.mobile = mobile;
 		}
 
 		public String getMsg() {

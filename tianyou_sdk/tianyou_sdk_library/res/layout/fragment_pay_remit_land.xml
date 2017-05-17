@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ty_remit_server"
+            android:text="人工充值"
             android:textColor="@color/color_gray_3"
             android:textSize="@dimen/text_size_title" />
 
@@ -105,7 +105,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <LinearLayout
+            <!-- <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -130,7 +130,7 @@
                     android:text="@string/ty_get_help"
                     android:textColor="@color/color_gray_2"
                     android:textSize="@dimen/text_size_title" />
-            </LinearLayout>
+            </LinearLayout> -->
 
             <TextView
                 android:id="@+id/text_remit_service_qq"

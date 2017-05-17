@@ -3,11 +3,13 @@ package com.tianyou.sdk.fragment.login;
 import java.util.List;
 import java.util.Map;
 
+import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.base.LoginAdapter;
 import com.tianyou.sdk.base.LoginAdapter.AdapterCallback;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -50,7 +52,6 @@ public class AccountFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
-		mActivity.setFragmentTitle("账号登录");
 		mEditUsername = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_username", "id"));
 		mEditPassword = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_password", "id"));
 		mImgSwitch = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_switch", "id"));
@@ -70,6 +71,8 @@ public class AccountFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
+		mActivity.setFragmentTitle("账号登录");
+		((LoginActivity)mActivity).setCloseViw(false);
 		mLoginInfos = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (mLoginInfos.size() == 0) {
 			mImgPull.setVisibility(View.GONE);
@@ -88,7 +91,7 @@ public class AccountFragment extends BaseFragment {
 		if (v.getId() == ResUtils.getResById(mActivity, "img_account_pull", "id")) {
 			showPopupWindow();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_account_login", "id")) {
-			mLoginHandler.doUserLogin(mEditUsername.getText().toString(), mEditPassword.getText().toString(), false);
+			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_quick", "id")) {
 			mActivity.switchFragment(new RegisterFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_qq", "id")) {
@@ -102,11 +105,25 @@ public class AccountFragment extends BaseFragment {
 		}
 	}
 
+	private void doLogin() {
+		String username = mEditUsername.getText().toString();
+		String password = mEditPassword.getText().toString();
+		if (username.isEmpty() || password.isEmpty()) {
+			ToastUtils.show(mActivity, "用户名或密码不能为空");
+		} else if (username.length() < 6 || username.length() > 16) {
+			ToastUtils.show(mActivity, "用户名长度错误");
+		} else if (password.length() < 6 || password.length() > 16) {
+			ToastUtils.show(mActivity, "密码长度错误");
+		} else {
+			mLoginHandler.doUserLogin(mEditUsername.getText().toString(), mEditPassword.getText().toString(), false);
+		}
+	}
+
 	private void switchPassword() {
 		mIsOpenPassword = !mIsOpenPassword;
 		mEditPassword.setSingleLine();
 		mEditPassword.setInputType(mIsOpenPassword ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-		mImgSwitch.setImageResource(ResUtils.getResById(mActivity, mIsOpenPassword ? "eye_open" : "eye_close", "drawable"));
+		mImgSwitch.setImageResource(ResUtils.getResById(mActivity, mIsOpenPassword ? "ty2_eye_open" : "ty2_eye_close", "drawable"));
 	}
 
 	// 用户登录下拉弹窗

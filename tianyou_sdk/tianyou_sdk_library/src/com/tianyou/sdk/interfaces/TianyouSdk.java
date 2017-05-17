@@ -221,11 +221,11 @@ public class TianyouSdk {
 	
 	// 支付接口
 	public void pay(PayInfo payInfo, boolean isShowChooseMoney) {
-		PayHandler.getInstance(mActivity).doPay(payInfo, isShowChooseMoney);
-//		if (ConfigHolder.userIsLogin) {
-//		} else {
-//			ToastUtils.show(mActivity, "请先登录！");
-//		}
+		if (ConfigHolder.userIsLogin) {
+			PayHandler.getInstance(mActivity).doPay(payInfo, isShowChooseMoney);
+		} else {
+			ToastUtils.show(mActivity, "请先登录！");
+		}
 	}
 	
 	// 退出游戏接口

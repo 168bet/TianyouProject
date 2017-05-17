@@ -7,13 +7,12 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -33,7 +32,7 @@
 
     <uses-feature android:name="android.hardware.nfc.hce" />
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="org.simalliance.openmobileapi.SMARTCARD" />
 
@@ -64,26 +63,17 @@
     <!-- Umeng push permission end -->
 
     <application>
-        
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <!-- 
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
-        
         <activity
             android:name="com.tianyou.sdk.activity.LoginActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:theme="@style/style_my_dialog" />
         <activity
             android:name="com.tianyou.sdk.activity.MenuActivity"
-            android:configChanges="screenSize|keyboardHidden|orientation"
-            android:screenOrientation="sensorPortrait" />
+            android:configChanges="screenSize|keyboardHidden|orientation" />
         <activity
             android:name="com.tianyou.sdk.activity.PayActivity"
             android:configChanges="screenSize|keyboardHidden|orientation" />
@@ -93,8 +83,7 @@
             android:theme="@style/style_my_dialog" />
         <activity
             android:name="com.tianyou.sdk.activity.WebViewAvtivity"
-            android:configChanges="screenSize|keyboardHidden|orientation"
-            android:screenOrientation="sensorPortrait" />
+            android:configChanges="screenSize|keyboardHidden|orientation" />
         <activity
             android:name="com.tianyou.sdk.activity.NotifyActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
@@ -141,7 +130,7 @@
         <service
             android:name="com.taobao.accs.ChannelService"
             android:exported="true"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.SERVICE" />
             </intent-filter>
@@ -149,10 +138,9 @@
                 <action android:name="com.taobao.accs.intent.action.ELECTION" />
             </intent-filter>
         </service>
-
         <service
             android:name="com.taobao.accs.data.MsgDistributeService"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.RECEIVE" />
             </intent-filter>
@@ -160,7 +148,7 @@
 
         <receiver
             android:name="com.taobao.accs.EventReceiver"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -169,16 +157,16 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name="com.taobao.accs.ServiceReceiver"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.COMMAND" />
             </intent-filter>
@@ -190,29 +178,26 @@
         <service
             android:name="com.taobao.accs.ChannelService$KernelService"
             android:process=":channel" />
-
         <service
             android:name="org.android.agoo.accs.AgooService"
             android:exported="true"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.RECEIVE" />
             </intent-filter>
         </service>
-
         <service
             android:name="com.umeng.message.UmengIntentService"
             android:exported="true"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
         </service>
-
         <service
             android:name="com.umeng.message.XiaomiIntentService"
             android:exported="true"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
@@ -221,12 +206,13 @@
         <receiver
             android:name="com.taobao.agoo.AgooCommondReceiver"
             android:exported="true"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="com.tianyou.sdk.demo.intent.action.COMMAND" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -234,7 +220,7 @@
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
             android:exported="true"
-            android:process=":channel">
+            android:process=":channel" >
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
@@ -246,7 +232,7 @@
 
         <service
             android:name="com.umeng.message.UmengMessageCallbackHandlerService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
             </intent-filter>
@@ -260,7 +246,6 @@
                 <action android:name="com.umeng.message.message.handler.action" />
             </intent-filter>
         </service>
-
         <service
             android:name="com.umeng.message.UmengDownloadResourceService"
             android:exported="false" />
@@ -268,18 +253,19 @@
         <provider
             android:name="com.umeng.message.provider.MessageProvider"
             android:authorities="com.tianyou.sdk.demo.umeng.message"
-            android:exported="false">
+            android:exported="false" >
             <grant-uri-permission android:pathPattern=".*" />
         </provider>
         <!-- Umeng push sdk end -->
-        
-        <!--Google Login-->
-        <activity android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity">
+
+
+        <!-- Google Login -->
+        <activity android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity" >
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.GOOGLE_SIGN_IN" />
             </intent-filter>
         </activity>
-        
+
         <!-- paypal pay -->
         <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
@@ -312,16 +298,15 @@
             android:value="4887035f80ac28aa425cc0dd9fba83bd" />
         <!-- android:value="12404a015b1c2a574ad937be2face5d1" /> -->
         <!-- Umeng push set end -->
-        
+
+
         <!-- google -->
         <meta-data
             android:name="google_client_id"
-            android:value="775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com"/>
-        
+            android:value="775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        
     </application>
 
 </manifest>

@@ -198,6 +198,7 @@ public class LoginHandler {
 		ConfigHolder.isAuth = mResultBean.getIsauth() == 1;
 		ConfigHolder.isTourist = mResultBean.getIstourist() == 1;
 		ConfigHolder.isPhone = mResultBean.getIsphone() == 1;
+		ConfigHolder.userPhone = mResultBean.getMobile();
 		MobclickAgent.onProfileSignIn(ConfigHolder.userId);
 		//保存到文件
 		Map<String, String> info = new HashMap<String, String>();
@@ -234,12 +235,7 @@ public class LoginHandler {
   		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_user", "id"));
   		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_switch", "id"));
   		LogUtils.d("nickName= "+ConfigHolder.userNickname+",account= "+ConfigHolder.userName);
-  		if (ConfigHolder.userNickname == null || ConfigHolder.userNickname.isEmpty()) {
-  			textUser.setText(ResUtils.getString(mActivity, "ty_tianyou") + 
-   					ConfigHolder.userName + ResUtils.getString(mActivity, "ty_welcome_back2"));
- 		} else {
- 			textUser.setText(ConfigHolder.userNickname + ResUtils.getString(mActivity, "ty_welcome_back2"));
- 		}
+		textUser.setText("欢迎" + ConfigHolder.userName + "回来");
   		final PopupWindow popupWindow = new PopupWindow(view, 0, 0);
   		popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
   		popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -287,7 +283,7 @@ public class LoginHandler {
    						intent.putExtra("content", custominfo);
    						TianyouSdk.getInstance().mActivity.startActivity(intent);
    					} else {
-   						if (ConfigHolder.isTourist) {
+   						if (ConfigHolder.isTourist || !ConfigHolder.isAuth || !ConfigHolder.isPhone) {
    							if (SPHandler.getBoolean(mActivity, SPHandler.SP_TOURIST)) {
    								Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
    	   				  			intent.putExtra("show_tourist_tip", true);

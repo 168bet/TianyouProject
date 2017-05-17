@@ -15,13 +15,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="@drawable/ty_float_bg"
-        android:paddingLeft="@dimen/layout_space_small" >
+        android:paddingLeft="@dimen/layout_space_big" >
 
         <TextView
             android:id="@+id/popup_menu_0"
             style="@style/style_popup_menu"
             android:drawableTop="@drawable/selector_menu_0"
-            android:text="@string/ty_menu_account" />
+            android:text="个人中心" />
         
         <TextView
             android:id="@+id/popup_menu_1"
@@ -51,7 +51,7 @@
             android:id="@+id/popup_menu_5"
             style="@style/style_popup_menu"
             android:drawableTop="@drawable/selector_menu_5"
-            android:text="@string/ty_menu_logout" />
+            android:text="注销" />
     </LinearLayout>
 
 </LinearLayout>

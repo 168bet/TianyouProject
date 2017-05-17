@@ -16,17 +16,16 @@
 
             <EditText
                 android:id="@+id/edit_account_username"
+                style="@style/style_text_black"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
-                android:hint="请输入账号"
+                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+                android:hint="账号：请输入6-16位字母或数字组合"
+                android:maxLength="16"
                 android:padding="@dimen/layout_space_small"
-                android:textColor="@color/color_gray_2"
-                android:textColorHint="@color/color_gray_0"
-                android:textSize="@dimen/text_size_common" 
                 android:singleLine="true"
-                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"/>
+                android:textColorHint="@color/color_gray_0" />
 
             <ImageView
                 android:id="@+id/img_account_pull"
@@ -34,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:paddingRight="@dimen/layout_space_super"
-                android:src="@drawable/pull" />
+                android:src="@drawable/ty2_pull" />
         </LinearLayout>
 
         <View
@@ -50,17 +49,17 @@
 
             <EditText
                 android:id="@+id/edit_account_password"
+                style="@style/style_text_black"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
-                android:hint="请输入密码"
+                android:hint="密码：请输入密码"
                 android:padding="@dimen/layout_space_small"
                 android:password="true"
-                android:textColor="@color/color_gray_2"
-                android:textColorHint="@color/color_gray_0"
-                android:textSize="@dimen/text_size_common" 
-                android:singleLine="true"/>
+                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+                android:singleLine="true"
+                android:maxLength="16"
+                android:textColorHint="@color/color_gray_0" />
 
             <TextView
                 android:id="@+id/text_account_forget"
@@ -74,20 +73,20 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:paddingRight="@dimen/layout_space_super"
-                android:src="@drawable/eye_close" />
+                android:src="@drawable/ty2_eye_close" />
         </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:id="@+id/btn_account_login"
+        style="@style/style_text_black"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/notify_title_height"
+        android:layout_height="@dimen/notify_btn_height"
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_bg_green_fill"
         android:gravity="center"
         android:text="登录"
-        android:textColor="@color/color_white"
-        android:textSize="@dimen/text_size_title" />
+        android:textColor="@color/color_white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +97,7 @@
         <LinearLayout
             android:id="@+id/layout_account_quick"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/notify_title_height"
+            android:layout_height="@dimen/notify_btn_height"
             android:layout_weight="1"
             android:background="@drawable/shape_bg_jacinth_fill"
             android:gravity="center" >
@@ -109,18 +108,16 @@
                 android:src="@drawable/ty_one_way_1" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/style_text_black"
                 android:singleLine="true"
                 android:text="快速登录"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_common" />
+                android:textColor="@color/color_white" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_account_qq"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/notify_title_height"
+            android:layout_height="@dimen/notify_btn_height"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
             android:background="@drawable/shape_btn_blue_fill"
@@ -132,12 +129,10 @@
                 android:src="@drawable/ty_one_way_2" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/style_text_black"
                 android:singleLine="true"
                 android:text="QQ登录"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_size_common" />
+                android:textColor="@color/color_white" />
         </LinearLayout>
     </LinearLayout>
 

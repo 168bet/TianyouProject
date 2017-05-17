@@ -103,35 +103,35 @@ public class MenuActivity extends Activity implements OnClickListener {
 		CustominfoBean info = control.getResult().getCustominfo();
 		switch (getIntent().getIntExtra("menu_type", 0)) {
 		case POPUP_MENU_0:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_index"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_menu_index"));
 			mWebView.loadUrl(getURL(info.getAccount().getUrl()));
 			break;
 		case POPUP_MENU_1:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_more"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_menu_more"));
 			mWebView.loadUrl(getURL(info.getMore().getUrl()));
 			break;
 		case POPUP_MENU_2:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_gift"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_menu_gift"));
 			mWebView.loadUrl(getURL(info.getGift().getUrl()));
 			break;
 		case POPUP_MENU_3:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_bbs"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_menu_bbs"));
 			mWebView.loadUrl(getURL(info.getBbs().getUrl()));
 			break;
 		case POPUP_MENU_4:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_menu_help"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_menu_help"));
 			mWebView.loadUrl(getURL(info.getHelp().getUrl()));
 			break;
 		case POPUP_MENU_5:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_hot_game2"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_hot_game2"));
 			mWebView.loadUrl(getURL(info.getMore().getUrl()));
 			break;
 		case POPUP_MENU_6:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_forget_password"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_forget_password"));
 			mWebView.loadUrl(getURL(URLHolder.URL_FORGET_PASS));
 			break;
 		case POPUP_MENU_7:
-			mTextTitle.setText(ResUtils.getString(this, "ty_company_name") + " | " + ResUtils.getString(this, "ty_platform_pay2"));
+			mTextTitle.setText(ResUtils.getString(this, "ty_platform_pay2"));
 			String url = getIntent().getStringExtra("url");
 			setResult(REQUEST_OK,getIntent());
 			LogUtils.d("POPUP_MENU_7:" + url);

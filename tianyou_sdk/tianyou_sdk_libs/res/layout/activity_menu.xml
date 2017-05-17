@@ -23,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:drawableLeft="@drawable/ty_logo"
             android:gravity="center_vertical"
             android:drawablePadding="5dp"
             android:textColor="#666666"

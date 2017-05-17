@@ -95,6 +95,17 @@ public class LoginInfoHandler {
 		saveLoginInfo(loginType, infos);
 	}
 	
+	// 保存用户登录信息
+	public static void deleteLoginInfo(String loginType, String username) {
+		List<Map<String, String>> infos = getLoginInfo(loginType);
+		for (int i = 0; i < infos.size(); i++) {
+			if (username.equals(infos.get(i).get(USER_ACCOUNT))) {
+				infos.remove(i);
+				break;
+			}
+		}
+	}
+	
 	// 写入用户登录信息
 	public static void saveLoginInfo(String loginType, List<Map<String, String>> infos) {
 		try {

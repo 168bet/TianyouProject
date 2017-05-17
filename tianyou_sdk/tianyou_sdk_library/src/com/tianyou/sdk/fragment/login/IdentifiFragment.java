@@ -3,8 +3,13 @@ package com.tianyou.sdk.fragment.login;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.google.gson.Gson;
-import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.Identifi;
 import com.tianyou.sdk.holder.ConfigHolder;
@@ -14,10 +19,6 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * 实名认证页面
@@ -46,12 +47,41 @@ public class IdentifiFragment extends BaseFragment {
 		mLayoutIsPhone = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_identifi_is_phone", "id"));
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_identifi_confirm", "id")).setOnClickListener(this);
 		mTextCode.setOnClickListener(this);
+		mEditName.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+			
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+			
+			@Override
+			public void afterTextChanged(Editable text) {
+				String value = text.toString();
+				for (int i = 0; i < value.length(); i++) {
+					if (!isChinese(value.charAt(i))) {
+						mEditName.setText(value.substring(0, i) + value.substring(i + 1, value.length()));
+					}
+				}
+			}
+		});
 	}
+	
+    public  boolean isChinese(char c) {
+	    Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+	    if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+	         || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+	        || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+	        || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION
+	        || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+	        || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {
+	        return true;
+	    }
+	    return false;
+    }
 
 	@Override
 	protected void initData() {
 		mActivity.setFragmentTitle("安全实名认证");
-		((LoginActivity)mActivity).setBackBtnVisible(true);
 		mLayoutIsPhone.setVisibility(ConfigHolder.isPhone ? View.GONE : View.VISIBLE);
 	}
 
@@ -71,7 +101,7 @@ public class IdentifiFragment extends BaseFragment {
 		} else if (!AppUtils.verifyPhoneNumber(phone)) {
 			ToastUtils.show(mActivity, "手机号格式错误");
 		} else {
-			getVerifiCode(phone, mTextCode);
+			getVerifiCode(phone, mTextCode, SendType.SEND_TYPE_IDENTITY);
 		}
 	}
 

@@ -152,7 +152,7 @@
                     android:textSize="@dimen/text_size_common" />
             </LinearLayout>
 
-            <LinearLayout
+            <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_space_little"
@@ -178,7 +178,7 @@
                     android:text="@string/ty_quick_get_help"
                     android:textColor="@color/color_gray_2"
                     android:textSize="@dimen/text_size_common" />
-            </LinearLayout>
+            </LinearLayout> -->
         </LinearLayout>
     </LinearLayout>
 
