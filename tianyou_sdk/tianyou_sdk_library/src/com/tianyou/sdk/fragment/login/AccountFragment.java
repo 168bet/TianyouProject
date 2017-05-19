@@ -3,11 +3,16 @@ package com.tianyou.sdk.fragment.login;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.base.LoginAdapter;
 import com.tianyou.sdk.base.LoginAdapter.AdapterCallback;
+import com.tianyou.sdk.bean.LoginWay;
+import com.tianyou.sdk.bean.LoginWay.ResultBean;
+import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginInfoHandler;
+import com.tianyou.sdk.holder.SPHandler;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
@@ -58,21 +63,23 @@ public class AccountFragment extends BaseFragment {
 		
 		mViewLogin = mContentView.findViewById(ResUtils.getResById(mActivity, "btn_account_login", "id"));
 		mImgPull = mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_pull", "id"));
+		mViewTourist = mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_tourist", "id"));
 		
-		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_quick", "id")).setOnClickListener(this);;
-		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);;
-		mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_tourist", "id")).setOnClickListener(this);;
-		mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_forget", "id")).setOnClickListener(this);;
+		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_quick", "id")).setOnClickListener(this);
+		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);
+		mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_forget", "id")).setOnClickListener(this);
 		
 		mImgPull.setOnClickListener(this);
 		mViewLogin.setOnClickListener(this);
 		mImgSwitch.setOnClickListener(this);
+		mViewTourist.setOnClickListener(this);
 	}
 
 	@Override
 	protected void initData() {
 		mActivity.setFragmentTitle("账号登录");
 		((LoginActivity)mActivity).setCloseViw(false);
+		mViewTourist.setVisibility(ConfigHolder.isUnion ? View.GONE : View.VISIBLE);
 		mLoginInfos = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
 		if (mLoginInfos.size() == 0) {
 			mImgPull.setVisibility(View.GONE);
@@ -93,7 +100,7 @@ public class AccountFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_account_login", "id")) {
 			doLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_quick", "id")) {
-			mActivity.switchFragment(new RegisterFragment());
+			doRegister();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_qq", "id")) {
 			doQQLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_account_tourist", "id")) {
@@ -102,6 +109,18 @@ public class AccountFragment extends BaseFragment {
 			switchPassword();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_account_forget", "id")) {
 			mActivity.switchFragment(new ForgetPasswordFragment());
+		}
+	}
+
+	private void doRegister() {
+		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+		ResultBean result = loginWay.getResult();
+		if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 0) {
+			ToastUtils.show(mActivity, "暂未开放");
+		} else {
+			((LoginActivity)mActivity).switchFragment(new PhoneRegisterFragment());
+//			mActivity.switchFragment(new RegisterFragment());
 		}
 	}
 
@@ -169,4 +188,5 @@ public class AccountFragment extends BaseFragment {
 			mPopupWindow.dismiss();
 		}
 	};
+	private View mViewTourist;
 }

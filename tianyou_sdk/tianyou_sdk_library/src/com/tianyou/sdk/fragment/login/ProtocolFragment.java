@@ -7,6 +7,11 @@ import com.tianyou.sdk.utils.ResUtils;
 import android.view.View;
 import android.webkit.WebView;
 
+/**
+ * 用户注册协议
+ * @author itstrong
+ *
+ */
 public class ProtocolFragment extends BaseFragment {
 
 	private WebView mWebView;

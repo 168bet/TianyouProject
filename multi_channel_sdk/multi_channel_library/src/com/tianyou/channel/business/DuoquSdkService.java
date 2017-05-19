@@ -70,10 +70,24 @@ public class DuoquSdkService extends BaseSdkService {
 	}
 	
 	@Override
+	public void doUpdateRoleInfo(RoleInfo roleInfo) {
+		super.doUpdateRoleInfo(roleInfo);
+		JSONObject jsonExData = new JSONObject();
+		try {
+			jsonExData.put("service", roleInfo.getServerName());
+			jsonExData.put("role", roleInfo.getRoleName());
+			jsonExData.put("grade", roleInfo.getRoleLevel());
+			DQSDKManager.getInstance(mActivity).submitExtendData(1, jsonExData);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
 	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
-		sdkmanager.showPay(mActivity, mRoleInfo.getRoleId(), mPayInfo.getMoney(), mRoleInfo.getServerId(), 
-				mPayInfo.getProductName(), mPayInfo.getProductDesc(), payInfo.getCustomInfo(), new OnPaymentListener() {
+		sdkmanager.showPay(mActivity, mRoleInfo.getRoleName(), mPayInfo.getMoney(), mRoleInfo.getServerName(), 
+				mPayInfo.getProductName(), mPayInfo.getProductDesc(), orderInfo.getOrderID(), new OnPaymentListener() {
 			@Override
 			public void paymentSuccess(PaymentCallbackInfo callbackInfo) {
 				checkOrder(orderInfo.getOrderID());
@@ -81,8 +95,9 @@ public class DuoquSdkService extends BaseSdkService {
 
 			@Override
 			public void paymentError(PaymentErrorMsg errorMsg) {
-				Toast.makeText(mActivity, "充值失败：code:" + errorMsg.code + "  ErrorMsg:"
-						+ errorMsg.msg + "  预充值的金额：" + errorMsg.money, Toast.LENGTH_LONG).show();
+				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, errorMsg.code + errorMsg.msg);
+//				Toast.makeText(mActivity, "充值失败：code:" + errorMsg.code + "  ErrorMsg:"
+//						+ errorMsg.msg + "  预充值的金额：" + errorMsg.money, Toast.LENGTH_LONG).show();
 			}
 		});
 	}

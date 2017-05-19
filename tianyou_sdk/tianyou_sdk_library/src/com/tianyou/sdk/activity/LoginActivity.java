@@ -8,8 +8,9 @@ import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.IdentifiFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
 import com.tianyou.sdk.fragment.login.PersonalCenterFragment;
-import com.tianyou.sdk.fragment.login.RegisterFragment;
+import com.tianyou.sdk.fragment.login.PhoneRegisterFragment;
 import com.tianyou.sdk.fragment.login.TouristTipFragment;
+import com.tianyou.sdk.fragment.login.UserRegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginInfoHandler;
@@ -37,6 +38,8 @@ public class LoginActivity extends BaseActivity {
 	private TextView mTextAccount;
 	private ImageView mImgClose;
 	
+	private boolean mIsAccountRegister;
+	
 	protected int setContentView() { return ResUtils.getResById(this, "activity_login", "layout"); }
 
 	@Override
@@ -61,7 +64,7 @@ public class LoginActivity extends BaseActivity {
 	protected void initData() {
 		mIsLogout = getIntent().getBooleanExtra("is_logout", false);
 		if (getIntent().getBooleanExtra("show_tourist_tip", false)) {
-			if (ConfigHolder.isTourist) {
+			if (!ConfigHolder.isUnion && ConfigHolder.isTourist) {
 				switchFragment(new TouristTipFragment());
 			} else if(!ConfigHolder.isAuth) {
 				switchFragment(new IdentifiFragment());
@@ -69,12 +72,16 @@ public class LoginActivity extends BaseActivity {
 		} else if (getIntent().getIntExtra("login_type", 0) == 1) {
 			switchFragment(new PersonalCenterFragment());
 		} else {
-			List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
-			List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
-			if (info1.size() == 0 && info2.size() == 0) {
-				switchFragment(new OneKeyFragment());
-			} else {
+			if (ConfigHolder.isUnion) {
 				switchFragment(new AccountFragment());
+			} else {
+				List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
+				List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
+				if (info1.size() == 0 && info2.size() == 0) {
+					switchFragment(new OneKeyFragment());
+				} else {
+					switchFragment(new AccountFragment());
+				}
 			}
 		}
 	}
@@ -86,9 +93,9 @@ public class LoginActivity extends BaseActivity {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_login_back", "id")) {
 			onBackPressed();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_login_register_phone", "id")) {
-			switchTitleState(true);
-		} else if (v.getId() == ResUtils.getResById(mActivity, "text_login_register_account", "id")) {
 			switchTitleState(false);
+		} else if (v.getId() == ResUtils.getResById(mActivity, "text_login_register_account", "id")) {
+			switchTitleState(true);
 		}
 	}
 	
@@ -109,7 +116,8 @@ public class LoginActivity extends BaseActivity {
 		LogUtils.d("mFragmentTag:" + mFragmentTag);
 		if (mFragmentTag.equals("PerfectInfoFragment")) {
 			return;
-		} else if (mFragmentTag.equals("TouristTipFragment") || mFragmentTag.equals("IdentifiFragment")) {
+		} else if (mFragmentTag.equals("TouristTipFragment") || 
+				(mFragmentTag.equals("IdentifiFragment")  && !ConfigHolder.isNoticeGame)) {
 			LoginHandler.onNoticeLoginSuccess();
 		} else if (mFragmentTag.equals("UpgradeFragment")) {
 			if(!ConfigHolder.isAuth) {
@@ -117,16 +125,24 @@ public class LoginActivity extends BaseActivity {
 			} else {
 				LoginHandler.onNoticeLoginSuccess();
 			}
+		} else if (mFragmentTag.equals("ProtocolFragment") || mFragmentTag.equals("ServerFragment")) {
+			onBackPressed();
+			return;
 		}
 		finish();
 	}
-
-	private void switchTitleState(boolean isPhoneRegister) {
-		mTextPhone.setTextColor(Color.parseColor(isPhoneRegister ? "#333333" : "#FFFFFF"));
-		mTextAccount.setTextColor(Color.parseColor(isPhoneRegister ? "#FFFFFF" : "#333333"));
-		mTextPhone.setBackgroundColor(Color.parseColor(isPhoneRegister ? "#FFFFFF" : "#999999"));
-		mTextAccount.setBackgroundColor(Color.parseColor(isPhoneRegister ? "#999999" : "#FFFFFF"));
-		switchFragment(RegisterFragment.getInstance(isPhoneRegister));
+	
+	//设置注册类型
+	private void switchTitleState(boolean isAccountRegister) {
+		if (mIsAccountRegister == isAccountRegister) return;
+		mIsAccountRegister = isAccountRegister;
+		mTextPhone.setTextColor(Color.parseColor(!mIsAccountRegister ? "#333333" : "#FFFFFF"));
+		mTextAccount.setTextColor(Color.parseColor(!mIsAccountRegister ? "#FFFFFF" : "#333333"));
+		mTextPhone.setBackgroundResource(ResUtils.getResById(mActivity, 
+				!mIsAccountRegister ? "shape_bg_dialog" : "shape_bg_gray_fill", "drawable"));
+		mTextAccount.setBackgroundResource(ResUtils.getResById(mActivity, 
+				!mIsAccountRegister ? "shape_bg_gray_fill" : "shape_bg_dialog", "drawable"));
+		switchFragment(isAccountRegister ? new UserRegisterFragment() : new PhoneRegisterFragment());
 	}
 	
 	public void setRegisterTitle(boolean flag) {
@@ -136,5 +152,15 @@ public class LoginActivity extends BaseActivity {
 	
 	public void setBackBtnVisible(boolean flag) {
 		mViewBack.setVisibility(flag ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	public void resetRegisterTitle() {
+		mIsAccountRegister = false;
+		mTextPhone.setTextColor(Color.parseColor(!mIsAccountRegister ? "#333333" : "#FFFFFF"));
+		mTextAccount.setTextColor(Color.parseColor(!mIsAccountRegister ? "#FFFFFF" : "#333333"));
+		mTextPhone.setBackgroundResource(ResUtils.getResById(mActivity, 
+				!mIsAccountRegister ? "shape_bg_dialog" : "shape_bg_gray_fill", "drawable"));
+		mTextAccount.setBackgroundResource(ResUtils.getResById(mActivity, 
+				!mIsAccountRegister ? "shape_bg_gray_fill" : "shape_bg_dialog", "drawable"));
 	}
 }

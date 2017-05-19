@@ -37,7 +37,6 @@ public class BaseSdkService implements SdkServiceInterface {
 	protected LoginInfo mLoginInfo;
 	protected ChannelInfo mChannelInfo;
 	protected TianyouCallback mTianyouCallback;
-	protected boolean mIsOverseas;
 	
 	protected String mHanfengUid;
 	
@@ -56,7 +55,6 @@ public class BaseSdkService implements SdkServiceInterface {
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		LogUtils.d("调用初始化接口");
-		mIsOverseas = false;
 		mActivity = activity;
 		mTianyouCallback = tianyouCallback;
 		mLoginInfo = new LoginInfo();
@@ -127,8 +125,75 @@ public class BaseSdkService implements SdkServiceInterface {
 	 * 查询登录信息
 	 * @param param
 	 */
+	protected void checkLogin() {
+		checkLogin2(null);
+	}
+	
+	/**
+	 * 查询登录信息
+	 * @param param
+	 */
 	protected void checkLogin(LoginInfo param) {
 		checkLogin(param, null);
+	}
+	
+	/**
+	 * 查询登录信息
+	 * @param param
+	 * @param callback
+	 */
+	protected void checkLogin2(final LoginCallback callback) {
+		String gameId = mChannelInfo.getGameId();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("uid", mLoginInfo.getChannelUserId());
+		map.put("session", mLoginInfo.getUserToken());
+		map.put("imei", CommenUtil.getPhoeIMEI(mActivity));
+		map.put("appid", gameId);
+		map.put("playerid", mLoginInfo.getUserToken());
+		map.put("nickname", mLoginInfo.getNickname());
+		map.put("promotion", mChannelInfo.getChannelId());
+		map.put("is_guest", mLoginInfo.getIsGuest());
+		map.put("yijie_appid",mLoginInfo.getYijieAppId());
+		map.put("signature", CommenUtil.MD5("session=" + mLoginInfo.getUserToken() + "&uid=" + mLoginInfo.getChannelUserId() + "&appid=" + gameId));
+		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
+		HttpUtils.post(mActivity, url, map, new HttpCallback() {
+			@Override
+			public void onSuccess(String data) {
+				try {
+					JSONObject jsonObject = new JSONObject(data);
+					JSONObject result = (JSONObject) jsonObject.get("result");
+					String code = result.getString("code");
+					if ("200".equals(code)) {
+						String userId = result.getString("uid");
+						mHanfengUid = result.getString("channeluid");
+						LogUtils.d("userid= "+userId);
+						LogUtils.d("tianyouuserId= "+mLoginInfo.getTianyouUserId());
+						if (mLoginInfo.getTianyouUserId() != null && !userId.equals(mLoginInfo.getTianyouUserId())) {
+							LogUtils.d("current uid= "+mLoginInfo.getTianyouUserId()+",new uid= "+userId);
+							mLoginInfo.setTianyouUserId(userId);
+							mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+							LogUtils.d("onlogout -------------------------");
+						} else {
+							LogUtils.d("uid= "+userId);
+							mLoginInfo.setTianyouUserId(userId);
+							LogUtils.d("CODE_LOGIN_SUCCESS");
+							mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
+						}
+						if (callback != null) callback.onSuccess("");
+					} else {
+						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
+				}
+			}
+			
+			@Override
+			public void onFailed(String code) {
+				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败" + code);
+			}
+		});
 	}
 	
 	/**
@@ -152,7 +217,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		map.put("is_guest", param.getIsGuest());
 		map.put("yijie_appid",param.getYijieAppId());
 		map.put("signature", CommenUtil.MD5("session=" + userToken + "&uid=" + userId + "&appid=" + gameId));
-		String url = (mIsOverseas ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
+		String url = (param.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
 		HttpUtils.post(mActivity, url, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
@@ -213,7 +278,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		param.put("promotion", mChannelInfo.getChannelId());
 		param.put("playerid", mLoginInfo.getChannelUserId());
 		param.put("roleName", mRoleInfo.getRoleName());
-		String url = (mIsOverseas ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CREATE_ORDER_URL;
+		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CREATE_ORDER_URL;
 		LogUtils.d("url= "+url);
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
@@ -243,7 +308,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		param.put("orderID", orderId);
 		param.put("userId", mLoginInfo.getTianyouUserId());
 		param.put("promotion", mChannelInfo.getChannelId());
-		String url = (mIsOverseas ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_ORDER_URL;
+		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_ORDER_URL;
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {

@@ -88,21 +88,25 @@ public class LoginHandler {
 	
 	// 1-2.快速注册登陆接口
 	public void doQuickRegister() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("channel", ConfigHolder.channelId);
-		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
-		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_QUICK, map, new HttpsCallback() {
-			@Override
-			public void onSuccess(String response) {
-				LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
-				ResultBean result = info.getResult();
-				if (result.getCode() == 200) {
-					doUserLogin(result.getUsername(), result.getPassword(), false);
-				} else {
-					ToastUtils.show(mActivity, result.getMsg());
+		if (ConfigHolder.isUnion) {
+			ToastUtils.show(mActivity, "暂未开放");
+		} else {
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("channel", ConfigHolder.channelId);
+			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
+			HttpUtils.post(mActivity, URLHolder.URL_LOGIN_QUICK, map, new HttpsCallback() {
+				@Override
+				public void onSuccess(String response) {
+					LoginInfo info = new Gson().fromJson(response, LoginInfo.class);
+					ResultBean result = info.getResult();
+					if (result.getCode() == 200) {
+						doUserLogin(result.getUsername(), result.getPassword(), false);
+					} else {
+						ToastUtils.show(mActivity, result.getMsg());
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 	
 	// 1-3.QQ登陆接口
@@ -359,5 +363,6 @@ public class LoginHandler {
 			e.printStackTrace();
 		}
 		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
+		ConfigHolder.isNoticeGame = true;
   	}
 }

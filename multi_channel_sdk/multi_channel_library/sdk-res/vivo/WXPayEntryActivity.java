@@ -1,41 +1,35 @@
 package com.example.paydemo.wxapi;
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.bbk.payment.weixin.VivoWXPayEntryActivity;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.vivo.unionsdk.open.VivoPayUtils;
 
-public class WXPayEntryActivity extends VivoWXPayEntryActivity implements IWXAPIEventHandler {
+/**
+ * Created by Huyancheng on 2016/8/9.
+ */
+public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
+    private static final String TAG = "WXPayEntryActivity";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        VivoPayUtils.weiXinPayInit(this, this);
+    }
 
-	private static final String TAG = "WXPayEntryActivity";
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		this.finish();
-	}
+    @Override
+    public void onReq(BaseReq mBaseReq) {
+    }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-	}
-
-	@Override
-	public void onReq(BaseReq req) {
-		// TODO Auto-generated method stub
-		Log.d(TAG, "onReq, errCode = " + req);
-		super.onReq(req);
-	}
-
-	@Override
-	public void onResp(BaseResp resp) {
-		// TODO Auto-generated method stub
-		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode+",resp.getType() = " + resp.getType());
-		super.onResp(resp);
-	}
-	
+    @Override
+    public void onResp(BaseResp mBaseResp) {
+        VivoPayUtils.weiXinPayResponse(this, mBaseResp);
+    }
 }

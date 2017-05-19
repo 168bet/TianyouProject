@@ -64,6 +64,8 @@
             <TextView
                 android:id="@+id/text_account_forget"
                 style="@style/style_text_gray"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_marginRight="@dimen/layout_space_small"
                 android:text="忘记密码" />
 

@@ -58,10 +58,10 @@ public class GameBeginSdkService extends BaseSdkService {
 		gameBegin.openLogin(mActivity, new GBListener() {
 		    @Override
 		    public void afterLogin(int uid, String username, String token) {
-		    	LoginInfo loginInfo = new LoginInfo();
-		    	loginInfo.setChannelUserId(uid + "");
-		    	loginInfo.setUserToken(token);
-		    	checkLogin(loginInfo);
+		    	mLoginInfo.setChannelUserId(uid + "");
+		    	mLoginInfo.setUserToken(token);
+		    	mLoginInfo.setIsOverseas(true);
+		    	checkLogin();
 		    }
 		});
 	}

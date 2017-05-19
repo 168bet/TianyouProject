@@ -10,8 +10,8 @@ import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.LoginInfo;
+import com.tianyou.sdk.bean.PhoneCode;
 import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
@@ -163,13 +163,28 @@ public class AlertPasswordFragment extends BaseFragment {
 		String code = mEditCode.getText().toString();
 		if (code.isEmpty()) {
 			ToastUtils.show(mActivity, "验证码不能为空");
-		} else if (!code.equals(mVerifiCode)) {
-			ToastUtils.show(mActivity, "验证码输入错误");
-		} else if (mVerifiCode == null) {
-			ToastUtils.show(mActivity, "请先获取验证码");
 		} else {
-			ConfigHolder.oldPassword = mEditAccountPass.getText().toString();
-			mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_NEW, mAccount, mBindPhone));
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("username", mBindPhone);
+	        map.put("verify", code);
+	        map.put("type", "android");
+	        map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+	        map.put("sign", AppUtils.MD5(mBindPhone + ConfigHolder.gameId));
+			HttpUtils.post(mActivity, URLHolder.URL_VERIFY_CODE, map, new HttpsCallback() {
+				@Override
+				public void onSuccess(String response) {
+					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);
+					if (code.getResult().getCode() == 200) {
+						mTextCode.setClickable(false);
+						mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_NEW, mAccount, mBindPhone));
+					} else {
+						ToastUtils.show(mActivity, code.getResult().getMsg());
+					}
+				}
+			});
+			if (mAlertType == AlertType.ALERT_TYPE_ACCOUNT) {
+				ConfigHolder.oldPassword = mEditAccountPass.getText().toString();
+			}
 		}
 	}
 
@@ -200,7 +215,7 @@ public class AlertPasswordFragment extends BaseFragment {
 			map.put("newpassword", password);
 		}
 		map.put("sign", AppUtils.MD5(ConfigHolder.userName + password + ConfigHolder.gameId));
-		String url = ConfigHolder.isPhone ? URLHolder.URL_ALERT_PHONE : URLHolder.URL_ALERT_ACCOUNT;
+		String url = mBindPhone.isEmpty() ? URLHolder.URL_ALERT_ACCOUNT : URLHolder.URL_ALERT_PHONE;
 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
 			@Override
 			public void onSuccess(String response) {
@@ -209,16 +224,17 @@ public class AlertPasswordFragment extends BaseFragment {
 					JSONObject result = jsonObject.getJSONObject("result");	
 					ToastUtils.show(mActivity, result.getString("msg"));
 					if (result.getInt("code") == 200) {
-						Map<String, String> info = new HashMap<String, String>();
-						info.put(LoginInfoHandler.USER_ACCOUNT, mAccount);
-						info.put(LoginInfoHandler.USER_NICKNAME, "");
-						info.put(LoginInfoHandler.USER_PASSWORD, password);
-						info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
-						info.put(LoginInfoHandler.USER_LOGIN_WAY, "");
-						//保存到账号登陆信息表
-						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
-						ConfigHolder.userPassword = password;
-						mActivity.finish();
+						mLoginHandler.doUserLogin(mAccount, password, false);
+//						Map<String, String> info = new HashMap<String, String>();
+//						info.put(LoginInfoHandler.USER_ACCOUNT, mAccount);
+//						info.put(LoginInfoHandler.USER_NICKNAME, "");
+//						info.put(LoginInfoHandler.USER_PASSWORD, password);
+//						info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
+//						info.put(LoginInfoHandler.USER_LOGIN_WAY, "");
+//						//保存到账号登陆信息表
+//						LoginInfoHandler.putLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT, info);
+//						ConfigHolder.userPassword = password;
+//						mActivity.finish();
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

@@ -8,7 +8,7 @@
         android:id="@+id/text_upgrade_tip"
         style="@style/style_text_gray"
         android:layout_marginBottom="@dimen/layout_space_small"
-        android:text="升级为新用户名账号或者输入已有用户名账号"
+        android:text="升级为新用户名账号"
         android:visibility="gone" />
 
     <LinearLayout
@@ -42,13 +42,14 @@
                 android:layout_weight="1"
                 android:inputType="number"
                 android:singleLine="true"
-                android:maxLength="6"
                 android:hint="请输入6位验证码" />
 
             <TextView
                 android:id="@+id/text_upgrade_code"
                 style="@style/style_text_gray"
                 android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_marginRight="@dimen/layout_space_small"
                 android:text="获取验证码"  />
         </LinearLayout>

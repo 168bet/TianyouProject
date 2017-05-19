@@ -12,6 +12,8 @@ public class ConfigHolder {
 	
 	// 游戏是否是横屏
 	public static String oldPassword;
+	// 域名地址
+	public static String hostAddress;
 	
 	// 游戏是游客登录
 	public static boolean isTourist;
@@ -55,5 +57,7 @@ public class ConfigHolder {
 	public static String userCode;
 	// 存储用户绑定手机号
 	public static String userPhone;
+	// 存储是否通知游戏登陆成功
+	public static boolean isNoticeGame;
 	
 }

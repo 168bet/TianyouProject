@@ -204,13 +204,13 @@ public class PayActivity extends BaseActivity {
 		Log.d("TAG", "requestCode= "+requestCode+",resultCode= "+resultCode);
         String respCode = data.getExtras().getString("resultCode");
         if (requestCode != 1001 && requestCode != 0) {
-        	if (!TextUtils.isEmpty(respCode) && respCode.equalsIgnoreCase("success")) {
+//        	if (!TextUtils.isEmpty(respCode) && respCode.equalsIgnoreCase("success")) {
         		Log.d("TAG", "requestCode!=1001-----------");
         		mPayHandler.doQueryOrder();
-        	} else {
-        		Log.d("TAG", "FailedFragment-------------------------");
-        		switchFragment(new FailedFragment());
-        	}
+//        	} else {
+//        		Log.d("TAG", "FailedFragment-------------------------");
+//        		switchFragment(new FailedFragment());
+//        	}
         }
 		
 		if (requestCode == ACTIVITY_FINISH && resultCode == MenuActivity.REQUEST_OK){

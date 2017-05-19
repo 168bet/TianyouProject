@@ -89,9 +89,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private PayInfo getPayInfo() {
 		PayInfo payInfo = new PayInfo();
 		payInfo.setRoleId("13141654");
+		payInfo.setMoney("1");
 		payInfo.setServerId("10281");
 		payInfo.setServerName("测试一区");
-		payInfo.setMoney("1");
 		payInfo.setProductId("scom.tianyouxi.skszj.p1");
 		payInfo.setProductName("10金钻");
 		payInfo.setCustomInfo("21689575c5284a334ca8f6630127915f9058");

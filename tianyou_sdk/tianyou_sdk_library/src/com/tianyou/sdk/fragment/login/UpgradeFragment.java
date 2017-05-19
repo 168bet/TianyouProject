@@ -167,6 +167,7 @@ public class UpgradeFragment extends BaseFragment {
 		mEditCode.setInputType(mIsAccountUpgrade ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_PHONE);
 		mEditPhone.setHint(mIsAccountUpgrade ? "账号：请输入6-16位字母或数字组合" : "请输入11位手机号");
 		mEditCode.setHint(mIsAccountUpgrade ? "密码：请输入6-16位字母或数字组合" : "请输入验证码");
+		mEditPassword.setHint(mIsAccountUpgrade ? "请再次输入密码" : "密码：请输入6-16位字母或数字组合");
 		mViewTip.setVisibility(mIsAccountUpgrade ? View.VISIBLE : View.GONE);
 		mViewCode.setVisibility(mIsAccountUpgrade ? View.GONE : View.VISIBLE);
 		mTextAccount.setText(mIsAccountUpgrade ? "升级手机号账号" : "升级用户名账号");

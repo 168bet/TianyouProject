@@ -49,7 +49,7 @@
             style="@style/style_text_black"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingRight="@dimen/layout_space_small"
+            android:padding="@dimen/layout_space_small"
             android:text="获取验证码"/>
     </RelativeLayout>
     

@@ -10,7 +10,6 @@ import com.tianyou.sdk.activity.WebViewAvtivity;
 import com.tianyou.sdk.bean.LoginWay;
 import com.tianyou.sdk.bean.LoginWay.ResultBean;
 import com.tianyou.sdk.bean.PhoneCode;
-import com.tianyou.sdk.fragment.login.UnionRegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.SPHandler;
@@ -85,13 +84,20 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
     
     // QQ登录
  	protected void doQQLogin() {
- 		Intent intent = new Intent(mActivity, WebViewAvtivity.class);
-		intent.putExtra("title", ResUtils.getString(mActivity, "ty_qq_login"));
-		intent.putExtra("url", URLHolder.URL_QQ_WEB);
-		startActivityForResult(intent, 100);
+ 		String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+		ResultBean result = loginWay.getResult();
+		if (result.getCode() == 200 && result.getCustominfo().getQq_quick() == 0) {
+			ToastUtils.show(mActivity, "暂未开放");
+		} else {
+			Intent intent = new Intent(mActivity, WebViewAvtivity.class);
+			intent.putExtra("title", ResUtils.getString(mActivity, "ty_qq_login"));
+			intent.putExtra("url", URLHolder.URL_QQ_WEB);
+			startActivityForResult(intent, 100);
+		}
  	}
  	
- 	public String mVerifiCode;
+// 	public String mVerifiCode;
  	private TextView mTextCode;
  	
  	protected void getVerifiCode(EditText editText, TextView textVie, String sendType) {
@@ -135,7 +141,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
  				public void onSuccess(String response) {
  					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);
  					if (code.getResult().getCode() == 200) {
- 						mVerifiCode = code.getResult().getMobile_code();
+// 						mVerifiCode = code.getResult().getMobile_code();
  						mTextCode.setClickable(false);
  						createDelayed();
  					}
@@ -158,7 +164,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			public void onSuccess(String response) {
 				PhoneCode code = new Gson().fromJson(response, PhoneCode.class);
 				if (code.getResult().getCode() == 200) {
-					mVerifiCode = code.getResult().getMobile_code();
+//					mVerifiCode = code.getResult().getMobile_code();
 					mTextCode.setClickable(false);
 					createDelayed();
 				}
@@ -189,22 +195,22 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
  	}
  	
  	// 快速注册开关
- 	protected void quickRegisterSwitch() {
- 		if (ConfigHolder.isOverseas || ConfigHolder.isUnion) {
- 			String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
- 			LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
- 			ResultBean result = loginWay.getResult();
- 			if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 1) {
- 				if (ConfigHolder.isUnion) {
- 					mActivity.switchFragment(new UnionRegisterFragment());
- 				} else {
- 					mLoginHandler.doQuickRegister();
- 				}
- 			} else {
- 				ToastUtils.show(mActivity, "暂未开放");
- 			}
- 		} else {
- 			mLoginHandler.doQuickRegister();
- 		}
- 	}
+// 	protected void quickRegisterSwitch() {
+// 		if (ConfigHolder.isUnion) {
+// 			ToastUtils.show(mActivity, "暂未开放");
+//		} else {
+//			String response = SPHandler.getString(mActivity, SPHandler.SP_LOGIN_WAY);
+//			LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
+//			ResultBean result = loginWay.getResult();
+//			if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 1) {
+//				if (ConfigHolder.isUnion) {
+//					mActivity.switchFragment(new UnionRegisterFragment());
+//				} else {
+//					mLoginHandler.doQuickRegister();
+//				}
+//			} else {
+//				ToastUtils.show(mActivity, "暂未开放");
+//			}
+//		}
+// 	}
 }

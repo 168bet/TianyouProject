@@ -36,7 +36,7 @@ public class OneKeyFragment extends BaseFragment {
 		if (v.getId() == ResUtils.getResById(mActivity, "layout_one_key_tourist", "id")) {
 			mLoginHandler.doQuickRegister();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_one_key_register", "id")) {
-			mActivity.switchFragment(new RegisterFragment());
+			((LoginActivity)mActivity).switchFragment(new PhoneRegisterFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_qq", "id")) {
 			doQQLogin();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_account", "id")) {

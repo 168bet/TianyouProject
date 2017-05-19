@@ -75,6 +75,7 @@ public class TianyouSdk {
 			ConfigHolder.isOverseas = "1".equals(configInfo.get("is_overseas"));
 			ConfigHolder.isOpenLog = "1".equals(configInfo.get("log_switch"));
 			ConfigHolder.isUnion = "1".equals(configInfo.get("union_mode"));
+			ConfigHolder.hostAddress = configInfo.get("host_address");
 		} else {
 			LogUtils.d("configInfo:" + "渠道信息解析异常");
 		}

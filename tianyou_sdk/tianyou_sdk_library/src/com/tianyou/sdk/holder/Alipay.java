@@ -134,8 +134,8 @@ public class Alipay {
         orderInfo += "&body=" + "\"" + mPayInfo.getProductName() + "\"";
 
         // 商品金额
-        orderInfo += "&total_fee=" + "\"" + mPayInfo.getMoney() + "\"";
-//        orderInfo += "&total_fee=" + "\"" + "0.01" + "\"";
+//        orderInfo += "&total_fee=" + "\"" + mPayInfo.getMoney() + "\"";
+        orderInfo += "&total_fee=" + "\"" + "0.01" + "\"";
 
         // 服务器异步通知页面路径
         orderInfo += "&notify_url=" + "\"" + URLHolder.URL_NOTIFY_ALIPAY + "\"";

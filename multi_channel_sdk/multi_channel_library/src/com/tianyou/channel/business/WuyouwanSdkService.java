@@ -84,7 +84,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 	}
 
 	@Override
-	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
 		int money = Integer.parseInt(orderInfo.getMoNey());
 		int rate = Integer.parseInt(orderInfo.getRate());
@@ -96,7 +96,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 				money, money * rate, orderInfo.getCurrency(), false, rate, new MemberPayCallBack() {
 			@Override
 			public void PaySuccess(PayOrderModel model) {
-				checkOrder(model.getOrderNo());
+				checkOrder(orderInfo.getOrderID());
 			}
 		});
 	}
@@ -107,4 +107,8 @@ public class WuyouwanSdkService extends BaseSdkService {
 		SDKInstace.MemberLogout();
 	}
 
+	@Override
+	public boolean isShowExitGame() {
+		return true;
+	}
 }

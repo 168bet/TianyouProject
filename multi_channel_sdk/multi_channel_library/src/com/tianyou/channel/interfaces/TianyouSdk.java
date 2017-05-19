@@ -14,6 +14,7 @@ import com.tianyou.channel.business.CaoxieSdkService;
 import com.tianyou.channel.business.DownJoySdkService;
 import com.tianyou.channel.business.DuoquSdkService;
 import com.tianyou.channel.business.ErWuOUSdkService;
+import com.tianyou.channel.business.GameBeginSdkService;
 import com.tianyou.channel.business.HSZSdkService;
 import com.tianyou.channel.business.HaiMaSdkService;
 import com.tianyou.channel.business.HanfengService;
@@ -152,6 +153,8 @@ public class TianyouSdk {
 			sdkService = new LeyouSdkService();
 		} else if ("ty068".equals(channelInfo.getChannelId())) {
 			sdkService = new QuickSdkService();
+		} else if ("bm105".equals(channelInfo.getChannelId())) {
+			sdkService = new GameBeginSdkService();
 		}
 		return sdkService;
 	}

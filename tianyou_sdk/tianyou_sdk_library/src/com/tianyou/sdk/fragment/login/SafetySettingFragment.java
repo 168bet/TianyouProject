@@ -6,7 +6,9 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseFragment;
+import com.tianyou.sdk.bean.PhoneCode;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
@@ -72,7 +74,7 @@ public class SafetySettingFragment extends BaseFragment {
 			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_setting_code", "id")) {
 			if (mIsPhone) {
-				getVerifiCode(ConfigHolder.userPhone, mTextCode, SendType.SEND_TYPE_BIND_PHONE);
+				getVerifiCode(ConfigHolder.userPhone, mTextCode, SendType.SEND_TYPE_UPDATE_PHONE);
 			} else {
 				getVerifiCode(mEditPhone, mTextCode, SendType.SEND_TYPE_BIND_PHONE);
 			}
@@ -85,10 +87,24 @@ public class SafetySettingFragment extends BaseFragment {
 		String code = mEditCode.getText().toString();
 		if (code.isEmpty()) {
 			ToastUtils.show(mActivity, "验证码不能为空");
-		} else if (!code.equals(mVerifiCode)) {
-			ToastUtils.show(mActivity, "验证码输入错误");
 		} else {
-			mActivity.switchFragment(new SafetySettingFragment(false));
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("username", ConfigHolder.userName);
+	        map.put("verify", code);
+	        map.put("type", "android");
+	        map.put("imei", AppUtils.getPhoeIMEI(mActivity));
+	        map.put("sign", AppUtils.MD5(ConfigHolder.userPhone + ConfigHolder.gameId));
+			HttpUtils.post(mActivity, URLHolder.URL_VERIFY_CODE, map, new HttpsCallback() {
+				@Override
+				public void onSuccess(String response) {
+					PhoneCode code = new Gson().fromJson(response, PhoneCode.class);
+					if (code.getResult().getCode() == 200) {
+						mActivity.switchFragment(new SafetySettingFragment(false));
+					} else {
+						ToastUtils.show(mActivity, code.getResult().getMsg());
+					}
+				}
+			});
 		}
 	}
 

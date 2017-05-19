@@ -139,6 +139,7 @@ public class IdentifiFragment extends BaseFragment {
 					ToastUtils.show(mActivity, identifi.getResult().getMsg());
 					if (identifi.getResult().getCode() == 200) {
 						ConfigHolder.isAuth = true;
+						ConfigHolder.isPhone = true;
 						mActivity.finish();
 					}
 				}

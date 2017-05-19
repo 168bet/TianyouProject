@@ -9,5 +9,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="lib" path="libs/com.gionee.gsp.jar"/>
+	<classpathentry kind="lib" path="libs/vivounionsdk_online_v2.2.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
