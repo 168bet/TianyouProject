@@ -5,7 +5,7 @@ public class URLHolder {
 	// 国内正式服
 //	private static final String URL_BASE = "http://api.tianyouxi.com/index.php";
 	// 国内测试服
-	private static final String URL_BASE = " http://newsdk.tianyouxi.com/api/";
+	private static final String URL_BASE = "http://newsdk.tianyouxi.com/api/";
 	// 海外正式服
 //	private static final String URL_OVERSEAS = "http://testapi.tianyouxi.com/index.php";
 	// 海外测试服

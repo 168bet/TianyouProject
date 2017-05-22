@@ -365,4 +365,15 @@ public class LoginHandler {
 		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
 		ConfigHolder.isNoticeGame = true;
   	}
+  	
+  	public void doLogout() {
+  		ConfigHolder.userIsLogin = false;
+		ConfigHolder.isNoticeGame = false;
+		ConfigHolder.isPhone = false;
+		ConfigHolder.isAuth = false;
+		ConfigHolder.isTourist = false;
+		ConfigHolder.userPhone = "";
+		LogUtils.d("通知游戏注销");
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
+  	}
 }

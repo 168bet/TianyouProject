@@ -3,6 +3,9 @@ package com.tianyou.sdk.fragment.login;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.fragment.login.AlertPasswordFragment.AlertType;
 import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.TianyouSdk;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 
 import android.view.View;
@@ -60,8 +63,7 @@ public class PersonalCenterFragment extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "text_center_logout", "id")) {
-			ConfigHolder.userIsLogin = false;
-			ConfigHolder.isNoticeGame = false;
+			mLoginHandler.doLogout();
 			mActivity.switchFragment(new AccountFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_center_upgrade", "id")) {
 			mActivity.switchFragment(new UpgradeFragment());

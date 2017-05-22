@@ -9,7 +9,6 @@ import com.gamebegin.sdk.GameBegin;
 import com.gamebegin.sdk.SDKStatsExtra;
 import com.gamebegin.sdk.ui.ExitDialogListener;
 import com.gamebegin.sdk.webdialog.ChargeDialogListener;
-import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
@@ -28,7 +27,7 @@ public class GameBeginSdkService extends BaseSdkService {
 		super.doActivityInit(activity, tianyouCallback);
 		boolean isDebug = true; //修改测试环境地址
 	    boolean printLog = true; //修改控制台SDK log输出
-		gameBegin = GameBegin.getInstance(mActivity, "71", "cVOOTUHKr4qyVJta", GBLanguage.ZH_CN, isDebug, printLog);
+		gameBegin = GameBegin.getInstance(mActivity, "69", "aUO9lGDAZaoozdpr", GBLanguage.ZH_CN, isDebug, printLog);
 	    //设置注销监听器
 	    gameBegin.setLogoutListener(new GBListener() {
 	        @Override

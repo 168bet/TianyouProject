@@ -203,19 +203,19 @@
             </intent-filter>
         </service>
 
-        <receiver
+        <!-- <receiver
             android:name="com.taobao.agoo.AgooCommondReceiver"
             android:exported="true"
             android:process=":channel" >
             <intent-filter>
-                <action android:name="com.tianyou.sdk.demo.intent.action.COMMAND" />
+                <action android:name="{你的包名}.intent.action.COMMAND" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
+        </receiver> -->
 
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
@@ -250,12 +250,12 @@
             android:name="com.umeng.message.UmengDownloadResourceService"
             android:exported="false" />
 
-        <provider
+        <!-- <provider
             android:name="com.umeng.message.provider.MessageProvider"
-            android:authorities="com.tianyou.sdk.demo.umeng.message"
+            android:authorities="{你的包名}.umeng.message"
             android:exported="false" >
             <grant-uri-permission android:pathPattern=".*" />
-        </provider>
+        </provider> -->
         <!-- Umeng push sdk end -->
 
 

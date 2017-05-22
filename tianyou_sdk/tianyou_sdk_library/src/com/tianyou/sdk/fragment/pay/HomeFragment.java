@@ -175,6 +175,7 @@ public class HomeFragment extends BaseFragment {
 		mPayHandler.PAY_FLAG = false;
 		mPayHandler.mPayType = PayType.WECHAT;
 		LogUtils.d("mPayHandler.mIsShowChoose:" + mPayHandler.mIsShowChoose);
+		getPayWayControl();
 		mLayoutMenu0.setVisibility(mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu1.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu2.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
@@ -396,7 +397,6 @@ public class HomeFragment extends BaseFragment {
 		mPayWay6 = popupView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_6", "id"));
 		mPayWay7 = popupView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_7", "id"));
 		mPayWay8 = popupView.findViewById(ResUtils.getResById(mActivity, "layout_pay_way_8", "id"));
-		getPayWayControl();
 	}
 	
 	private void getPayWayControl() {
@@ -413,6 +413,34 @@ public class HomeFragment extends BaseFragment {
 			mPayWay6.setVisibility(customInfo.getScan_pay() == 1 ? View.VISIBLE : View.GONE);
 			mPayWay7.setVisibility(customInfo.getGoogle_pay() == 1 ? View.VISIBLE : View.GONE);
 			mPayWay8.setVisibility(customInfo.getPaypal_pay() == 1 ? View.VISIBLE : View.GONE);
+			if (customInfo.getWx_pay() == 1) {
+				mPayHandler.mPayType = PayType.WECHAT;
+				return;
+			} else if (customInfo.getZfb_pay() == 1) {
+				mPayHandler.mPayType = PayType.ALIPAY;
+				return;
+			} else if (customInfo.getQq_pay() == 1) {
+				mPayHandler.mPayType = PayType.QQPAY;
+				return;
+			} else if (customInfo.getWy_pay() == 1) {
+				mPayHandler.mPayType = PayType.UNION;
+				return;
+			} else if (customInfo.getHk_pay() == 1) {
+				mPayHandler.mPayType = PayType.REMIT;
+				return;
+			} else if (customInfo.getQb_pay() == 1) {
+				mPayHandler.mPayType = PayType.WALLET;
+				return;
+			} else if (customInfo.getScan_pay() == 1) {
+				mPayHandler.mPayType = PayType.WXSCAN;
+				return;
+			} else if (customInfo.getGoogle_pay() == 1) {
+				mPayHandler.mPayType = PayType.GOOGLE;
+				return;
+			} else if (customInfo.getPaypal_pay() == 1) {
+				mPayHandler.mPayType = PayType.PAYPAL;
+				return;
+			}
 		}
 	}
 
