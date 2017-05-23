@@ -287,15 +287,10 @@ public class LoginHandler {
    						intent.putExtra("content", custominfo);
    						TianyouxiSdk.getInstance().mActivity.startActivity(intent);
    					} else {
-   						if (ConfigHolder.isTourist || !ConfigHolder.isAuth || !ConfigHolder.isPhone) {
-   							if (SPHandler.getBoolean(mActivity, SPHandler.SP_TOURIST)) {
-   								Intent intent = new Intent(TianyouxiSdk.getInstance().mActivity, LoginActivity.class);
-   	   				  			intent.putExtra("show_tourist_tip", true);
-   	   							TianyouxiSdk.getInstance().mActivity.startActivity(intent);
-							} else {
-								SPHandler.putBoolean(mActivity, SPHandler.SP_TOURIST, true);
-								onNoticeLoginSuccess();
-							}
+   						if ((ConfigHolder.isTourist && !ConfigHolder.isUnion) || !ConfigHolder.isAuth) {
+							Intent intent = new Intent(TianyouxiSdk.getInstance().mActivity, LoginActivity.class);
+   				  			intent.putExtra("show_tourist_tip", true);
+   							TianyouxiSdk.getInstance().mActivity.startActivity(intent);
    						} else {
    							onNoticeLoginSuccess();
    						}

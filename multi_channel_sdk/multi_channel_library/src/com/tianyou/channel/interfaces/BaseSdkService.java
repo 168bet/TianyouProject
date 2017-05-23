@@ -36,7 +36,6 @@ public class BaseSdkService implements SdkServiceInterface {
 	protected LoginInfo mLoginInfo;
 	protected ChannelInfo mChannelInfo;
 	protected TianyouCallback mTianyouCallback;
-	
 	protected String mHanfengUid;
 	
 	@Override

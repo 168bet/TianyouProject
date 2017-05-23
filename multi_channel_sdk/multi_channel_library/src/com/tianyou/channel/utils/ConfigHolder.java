@@ -33,9 +33,15 @@ public class ConfigHolder {
 			InputStream input = context.getAssets().open("channel_info.json");
 			InputStreamReader reader = new InputStreamReader(input);
 			BufferedReader br = new BufferedReader(reader);
-			String json = br.readLine();
+			String results = "";
+            String newLine = "";
+            while((newLine = br.readLine()) != null) {
+                results += newLine;
+            }
             reader.close();
-            JSONObject channelInfo = new JSONObject(json);
+            results = results.trim();
+            LogUtils.d("渠道配置数据：" + results);
+            JSONObject channelInfo = new JSONObject(results);
             JSONObject result = channelInfo.getJSONObject("result");
             if (result.getInt("code") == 200) {
             	JSONObject channelinfo = result.getJSONObject("channelinfo");
