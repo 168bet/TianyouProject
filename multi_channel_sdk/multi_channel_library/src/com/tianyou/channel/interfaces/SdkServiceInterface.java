@@ -1,15 +1,14 @@
 package com.tianyou.channel.interfaces;
 
+import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
+import com.tianyou.channel.bean.PayParam;
+import com.tianyou.channel.bean.RoleInfo;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.annotation.NonNull;
-
-import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
-import com.tianyou.channel.bean.PayParam;
-import com.tianyou.channel.bean.RoleInfo;
 
 public interface SdkServiceInterface {
 
@@ -192,7 +191,7 @@ public interface SdkServiceInterface {
 	 */
 	boolean isShowLogout();
 	
-	void doRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grantResults);
+	void doRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
 	
 	void doConfigurationChanged(Configuration newConfig);
 	
@@ -204,6 +203,4 @@ public interface SdkServiceInterface {
 	void doRegisterPhone();
 	
 	void doRegisterGenerate();
-
 }
-

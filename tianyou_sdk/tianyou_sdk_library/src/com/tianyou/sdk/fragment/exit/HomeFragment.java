@@ -12,10 +12,11 @@ import com.tianyou.sdk.bean.ExitGame.ResultBean;
 import com.tianyou.sdk.bean.ExitGame.ResultBean.ProductinfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.TianyouSdk;
+import com.tianyou.sdk.interfaces.TianyouxiCallback;
+import com.tianyou.sdk.interfaces.TianyouxiSdk;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -56,6 +57,7 @@ public class HomeFragment extends BaseFragment {
 			public void onSuccess(String response) {
 				ExitGame exitGame = new Gson().fromJson(response, ExitGame.class);
 				ResultBean result = exitGame.getResult();
+				LogUtils.d("result.getMsg():" + result.getMsg());
 				if (result.getCode() == 200 && result.getStatus() != 0) {
 					List<ProductinfoBean> gameInfo = result.getProductinfo();
 					for (ProductinfoBean game : gameInfo) {
@@ -104,7 +106,7 @@ public class HomeFragment extends BaseFragment {
 			MobclickAgent.onProfileSignOff();
 			MobclickAgent.onKillProcess(mActivity);
 			mActivity.finish();
-			TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
+			TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_QUIT_SUCCESS, "");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_exit_icon", "id")) {
 			mActivity.switchFragment(DownloadFragment.getInstall(bundle));
 		}

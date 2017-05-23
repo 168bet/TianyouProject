@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile project(':facebook')
+    compile project(':google-play-services_lib')
+    compile project(':downloader_library')
+//    compile('com.twitter.sdk.android:twitter:1.13.0@aar') {
+//        exclude group: 'com.android.support', module: 'support-v4'
+//        transitive = true;
+//    }
+    //    compile project(':GBA')
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['jniLibs']
+        }
+        instrumentTest.setRoot('tests')
+
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFile '/Users/user/Downloads/GameBegin/SDK/proguard-gbsdk-rules.txt'
+        }
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+//            proguardFile '/Users/user/Downloads/GameBegin/SDK/proguard-gbsdk-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', fileTree(dir: 'proguards', include: '*.pro')
+        }
+    }
+}

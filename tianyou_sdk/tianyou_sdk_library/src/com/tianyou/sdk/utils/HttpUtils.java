@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.ConstantHolder;
-import com.tianyou.sdk.holder.ProgressHandler;
 
 import android.app.Activity;
 import android.content.Context;
@@ -129,6 +128,10 @@ public class HttpUtils {
 			map.put("signtype", "md5");
 			LogUtils.d("请求参数:" + map);
 			for (Entry<String, String> entry : map.entrySet()) {
+				if (entry.getValue() == null) {
+					ToastUtils.show(activity, entry.getKey() + "不能为空");
+					return;
+				}
 				builder.add(entry.getKey(), entry.getValue());
 			}
 		}

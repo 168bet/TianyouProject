@@ -1,0 +1,2 @@
+-keep class com.google.ads.conversiontracking.** { *; }
+-dontwarn com.google.ads.conversiontracking.**

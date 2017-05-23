@@ -1,0 +1,2 @@
+#fortumo
+-keep class mp.** { *; }

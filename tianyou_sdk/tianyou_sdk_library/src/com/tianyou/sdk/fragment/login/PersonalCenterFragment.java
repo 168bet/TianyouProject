@@ -3,8 +3,8 @@ package com.tianyou.sdk.fragment.login;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.fragment.login.AlertPasswordFragment.AlertType;
 import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.interfaces.TianyouCallback;
-import com.tianyou.sdk.interfaces.TianyouSdk;
+import com.tianyou.sdk.interfaces.TianyouxiCallback;
+import com.tianyou.sdk.interfaces.TianyouxiSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 

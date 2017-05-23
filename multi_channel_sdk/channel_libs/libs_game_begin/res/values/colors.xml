@@ -1,0 +1,6 @@
+<resources>
+    <color name="exit_dialog_background">#FFFFFF</color>
+    <color name="exit_dialog_text">#181818</color>
+    <color name="exit_dialog_btn">#1E90FF</color>
+    <color name="exit_dialog_divider">#d1d1d1</color>
+</resources>

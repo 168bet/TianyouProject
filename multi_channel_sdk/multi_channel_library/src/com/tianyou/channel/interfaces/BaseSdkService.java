@@ -6,13 +6,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.support.annotation.NonNull;
-
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.LoginInfo;
@@ -29,6 +22,12 @@ import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.channel.utils.URLHolder;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+
 public class BaseSdkService implements SdkServiceInterface {
 
 	protected Activity mActivity;
@@ -41,7 +40,10 @@ public class BaseSdkService implements SdkServiceInterface {
 	protected String mHanfengUid;
 	
 	@Override
-	public void doApplicationCreate(Context context, boolean island) { LogUtils.d("调用Application onCreate"); }
+	public void doApplicationCreate(Context context, boolean island) {
+		LogUtils.d("调用Application onCreate");
+		mChannelInfo = ConfigHolder.getChannelInfo(context);
+	}
 
 	@Override
 	public void doApplicationAttach(Context base) { }
@@ -58,7 +60,6 @@ public class BaseSdkService implements SdkServiceInterface {
 		mActivity = activity;
 		mTianyouCallback = tianyouCallback;
 		mLoginInfo = new LoginInfo();
-		mChannelInfo = ConfigHolder.getChannelInfo(activity);
 	}
 	
 	@Override
@@ -395,10 +396,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	public interface LoginCallback { void onSuccess(String data); }
 
 	@Override
-	public void doRequestPermissionsResult(int requestCode,
-			@NonNull String[] permissions, @NonNull int[] grantResults) {
-		
-	}
+	public void doRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) { }
 
 	@Override
 	public void doConfigurationChanged(Configuration newConfig) { }
