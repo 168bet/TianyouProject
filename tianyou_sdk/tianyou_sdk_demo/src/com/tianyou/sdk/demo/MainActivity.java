@@ -3,8 +3,8 @@ package com.tianyou.sdk.demo;
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.bean.RoleInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
-import com.tianyou.sdk.interfaces.TianyouxiCallback;
-import com.tianyou.sdk.interfaces.TianyouxiSdk;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
@@ -17,6 +17,42 @@ import android.view.View.OnClickListener;
 public class MainActivity extends Activity implements OnClickListener {
 
 	private Activity mActivity;
+	private TianyouCallback mTianyouCallback = new TianyouCallback() {
+		@Override
+		public void onResult(int code, String msg) {
+			switch (code) {
+			case TianyouCallback.CODE_LOGIN_SUCCESS:
+				// 登陆成功返回uid+token的json串，解析即可获取uid和token数据，格式：{"uid":47814,"userToken":"fhadklfa234"}
+				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
+				break;
+			case TianyouCallback.CODE_LOGIN_FAILED:
+				LogUtils.d("登录失败：" + msg);
+				break;
+			case TianyouCallback.CODE_LOGIN_CANCEL:
+				ToastUtils.show(mActivity, "登录取消：" + msg);
+				break;
+			case TianyouCallback.CODE_LOGOUT:
+				ToastUtils.show(mActivity, "注销：" + msg);
+				break;
+			case TianyouCallback.CODE_PAY_SUCCESS:
+				ToastUtils.show(mActivity, "支付成功：" + msg);
+				break;
+			case TianyouCallback.CODE_PAY_FAILED:
+				ToastUtils.show(mActivity, "支付失败：" + msg);
+				break;
+			case TianyouCallback.CODE_PAY_CANCEL:
+				ToastUtils.show(mActivity, "支付取消：" + msg);
+				break;
+			case TianyouCallback.CODE_QUIT_SUCCESS:
+				finish();
+				android.os.Process.killProcess(android.os.Process.myPid());
+				break;
+			case TianyouCallback.CODE_QUIT_CANCEL:
+				ToastUtils.show(mActivity, "退出游戏取消：" + msg);
+				break;
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +66,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_switch).setOnClickListener(this);
 		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
 		findViewById(R.id.btn_exit_game).setOnClickListener(this);
-		TianyouxiSdk.getInstance().activityInit(this, mTianyouxiCallback);
+		TianyouSdk.getInstance().activityInit(this, mTianyouCallback);
 	}
 	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_login:
-			TianyouxiSdk.getInstance().login();
+			TianyouSdk.getInstance().login();
 			break;
 		case R.id.btn_create_role:
 			doCreateRoleInfo();
@@ -46,10 +82,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			doUpdateRoleInfo();
 			break;
 		case R.id.btn_pay:
-			TianyouxiSdk.getInstance().pay(getPayInfo(), true);
+			TianyouSdk.getInstance().pay(getPayInfo(), true);
 			break;
 		case R.id.btn_pay_1:
-			TianyouxiSdk.getInstance().pay(getPayInfo());
+			TianyouSdk.getInstance().pay(getPayInfo());
 			break;
 		case R.id.btn_switch:
 			ConfigHolder.isLandscape = !ConfigHolder.isLandscape;
@@ -57,7 +93,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					: ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 			break;
 		case R.id.btn_exit_game:
-			TianyouxiSdk.getInstance().exitGame();
+			TianyouSdk.getInstance().exitGame();
 			break;
 		}
 	}
@@ -71,7 +107,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		roleInfo.setProfession("法师");
 		roleInfo.setLevel("50");
 		roleInfo.setSociaty("阴阳寮");
-		TianyouxiSdk.getInstance().updateRoleInfo(roleInfo);
+		TianyouSdk.getInstance().updateRoleInfo(roleInfo);
 	}
 
 	private void doCreateRoleInfo() {
@@ -83,7 +119,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		roleInfo.setProfession("法师");
 		roleInfo.setLevel("50");
 		roleInfo.setSociaty("阴阳寮");
-		TianyouxiSdk.getInstance().createRole(roleInfo);
+		TianyouSdk.getInstance().createRole(roleInfo);
 	}
 
 	private PayInfo getPayInfo() {
@@ -99,45 +135,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		return payInfo;
 	}
 
-	private TianyouxiCallback mTianyouxiCallback = new TianyouxiCallback() {
-		@Override
-		public void onResult(int code, String msg) {
-			switch (code) {
-			case TianyouxiCallback.CODE_LOGIN_SUCCESS:
-				// 登陆成功返回uid+token的json串，解析即可获取uid和token数据，格式：{"uid":47814,"userToken":"fhadklfa234"}
-				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
-				break;
-			case TianyouxiCallback.CODE_LOGIN_FAILED:
-				LogUtils.d("登录失败：" + msg);
-				break;
-			case TianyouxiCallback.CODE_LOGIN_CANCEL:
-				ToastUtils.show(mActivity, "登录取消：" + msg);
-				break;
-			case TianyouxiCallback.CODE_LOGOUT:
-				ToastUtils.show(mActivity, "注销：" + msg);
-				break;
-			case TianyouxiCallback.CODE_PAY_SUCCESS:
-				ToastUtils.show(mActivity, "支付成功：" + msg);
-				break;
-			case TianyouxiCallback.CODE_PAY_FAILED:
-				ToastUtils.show(mActivity, "支付失败：" + msg);
-				break;
-			case TianyouxiCallback.CODE_PAY_CANCEL:
-				ToastUtils.show(mActivity, "支付取消：" + msg);
-				break;
-			case TianyouxiCallback.CODE_QUIT_SUCCESS:
-				finish();
-				android.os.Process.killProcess(android.os.Process.myPid());
-				break;
-			case TianyouxiCallback.CODE_QUIT_CANCEL:
-				ToastUtils.show(mActivity, "退出游戏取消：" + msg);
-				break;
-			}
-		}
-	};
-
 	@Override
 	public void onBackPressed() {
-		TianyouxiSdk.getInstance().exitGame();
+		TianyouSdk.getInstance().exitGame();
 	}
 }
