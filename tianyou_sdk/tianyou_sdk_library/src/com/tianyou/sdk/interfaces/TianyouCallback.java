@@ -1,6 +1,6 @@
 package com.tianyou.sdk.interfaces;
 
-public interface TianyouxiCallback {
+public interface TianyouCallback {
 
 	public static final int CODE_LOGIN_SUCCESS = 1;	// 登录成功
 	public static final int CODE_LOGIN_FAILED = 2;	// 登录失败

@@ -5,8 +5,8 @@ import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.SPHandler;
-import com.tianyou.sdk.interfaces.TianyouxiCallback;
-import com.tianyou.sdk.interfaces.TianyouxiSdk;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.ResUtils;
 
@@ -37,7 +37,7 @@ public class SuccessFragment extends BaseFragment {
 	}
 
 	public SuccessFragment() {
-		TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_PAY_SUCCESS, "");
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, "");
 	}
 	
 	@Override

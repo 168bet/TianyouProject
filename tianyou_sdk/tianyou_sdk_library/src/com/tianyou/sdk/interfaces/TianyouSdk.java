@@ -46,17 +46,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class TianyouxiSdk {
+public class TianyouSdk {
 
-	private static TianyouxiSdk mTianyouSdk;
-	public TianyouxiCallback mTianyouCallback;
+	private static TianyouSdk mTianyouSdk;
+	public TianyouCallback mTianyouCallback;
 	public Activity mActivity;
 	
-	private TianyouxiSdk() { }
+	private TianyouSdk() { }
 	
-	public static TianyouxiSdk getInstance() {
+	public static TianyouSdk getInstance() {
 		if (mTianyouSdk == null) {
-			mTianyouSdk = new TianyouxiSdk();
+			mTianyouSdk = new TianyouSdk();
 		}
 		return mTianyouSdk;
 	}
@@ -104,7 +104,7 @@ public class TianyouxiSdk {
 	}
 	
 	// Activity初始化
-	public void activityInit(Activity activity, TianyouxiCallback callback) {
+	public void activityInit(Activity activity, TianyouCallback callback) {
 		mActivity = activity;
 		mTianyouCallback = callback;
 		createFloatMenu();

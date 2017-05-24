@@ -12,8 +12,8 @@ import com.tianyou.sdk.bean.ExitGame.ResultBean;
 import com.tianyou.sdk.bean.ExitGame.ResultBean.ProductinfoBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.URLHolder;
-import com.tianyou.sdk.interfaces.TianyouxiCallback;
-import com.tianyou.sdk.interfaces.TianyouxiSdk;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
@@ -106,7 +106,7 @@ public class HomeFragment extends BaseFragment {
 			MobclickAgent.onProfileSignOff();
 			MobclickAgent.onKillProcess(mActivity);
 			mActivity.finish();
-			TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_QUIT_SUCCESS, "");
+			TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_exit_icon", "id")) {
 			mActivity.switchFragment(DownloadFragment.getInstall(bundle));
 		}

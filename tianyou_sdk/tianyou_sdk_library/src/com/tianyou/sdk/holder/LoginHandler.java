@@ -13,8 +13,8 @@ import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.activity.NotifyActivity;
 import com.tianyou.sdk.bean.LoginInfo;
 import com.tianyou.sdk.bean.LoginInfo.ResultBean;
-import com.tianyou.sdk.interfaces.TianyouxiCallback;
-import com.tianyou.sdk.interfaces.TianyouxiSdk;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
@@ -184,7 +184,7 @@ public class LoginHandler {
 				} else {
 					ProgressHandler.getInstance().closeProgressDialog();
 					ToastUtils.show(mActivity, request.getResult().getMsg());
-					TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_LOGIN_FAILED, "");
+//					TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_LOGIN_FAILED, "");
 				}
 			} 
 		}, 1500);
@@ -230,14 +230,14 @@ public class LoginHandler {
     // 5.显示用户登录欢迎pupup
   	public void showWelComePopup() {
   		mActivity.finish();
-  		View mView = new View(TianyouxiSdk.getInstance().mActivity);
-  		FrameLayout layout = new FrameLayout(TianyouxiSdk.getInstance().mActivity);
+  		View mView = new View(TianyouSdk.getInstance().mActivity);
+  		FrameLayout layout = new FrameLayout(TianyouSdk.getInstance().mActivity);
   		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
   		layout.addView(mView);
-  		TianyouxiSdk.getInstance().mActivity.addContentView(layout, params);
-  		View view = View.inflate(TianyouxiSdk.getInstance().mActivity, ResUtils.getResById(TianyouxiSdk.getInstance().mActivity, "popup_welcome", "layout"), null);
-  		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(TianyouxiSdk.getInstance().mActivity, "text_welcome_user", "id"));
-  		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(TianyouxiSdk.getInstance().mActivity, "text_welcome_switch", "id"));
+  		TianyouSdk.getInstance().mActivity.addContentView(layout, params);
+  		View view = View.inflate(TianyouSdk.getInstance().mActivity, ResUtils.getResById(TianyouSdk.getInstance().mActivity, "popup_welcome", "layout"), null);
+  		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_user", "id"));
+  		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_switch", "id"));
   		LogUtils.d("nickName= "+ConfigHolder.userNickname+",account= "+ConfigHolder.userName);
 		textUser.setText("欢迎" + ConfigHolder.userName + "回来");
   		final PopupWindow popupWindow = new PopupWindow(view, 0, 0);
@@ -259,9 +259,9 @@ public class LoginHandler {
   			public void onClick(View arg0) {
   				handler.removeCallbacks(runnable);
   				popupWindow.dismiss();
-				Intent intent = new Intent(TianyouxiSdk.getInstance().mActivity, LoginActivity.class);
+				Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
 				intent.putExtra("is_switch_account", true);
-				TianyouxiSdk.getInstance().mActivity.startActivity(intent);
+				TianyouSdk.getInstance().mActivity.startActivity(intent);
   			}
   		});
   	}
@@ -274,7 +274,7 @@ public class LoginHandler {
   	private void displayAnnouncement() {
    		Map<String, String> map = new HashMap<String, String>();
    		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.userToken));
-   		HttpUtils.post(TianyouxiSdk.getInstance().mActivity, URLHolder.URL_UNION_ANNOUNCE, map, new HttpsCallback() {
+   		HttpUtils.post(TianyouSdk.getInstance().mActivity, URLHolder.URL_UNION_ANNOUNCE, map, new HttpsCallback() {
    			@Override
    			public void onSuccess(String response) {
    				try {
@@ -283,14 +283,14 @@ public class LoginHandler {
    					if (result.getInt("code") == 200) {
    						String custominfo = result.getString("custominfo");
    						custominfo = URLDecoder.decode(custominfo, "utf-8");
-   						Intent intent = new Intent(TianyouxiSdk.getInstance().mActivity, NotifyActivity.class);
+   						Intent intent = new Intent(TianyouSdk.getInstance().mActivity, NotifyActivity.class);
    						intent.putExtra("content", custominfo);
-   						TianyouxiSdk.getInstance().mActivity.startActivity(intent);
+   						TianyouSdk.getInstance().mActivity.startActivity(intent);
    					} else {
    						if ((ConfigHolder.isTourist && !ConfigHolder.isUnion) || !ConfigHolder.isAuth) {
-							Intent intent = new Intent(TianyouxiSdk.getInstance().mActivity, LoginActivity.class);
+							Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
    				  			intent.putExtra("show_tourist_tip", true);
-   							TianyouxiSdk.getInstance().mActivity.startActivity(intent);
+   							TianyouSdk.getInstance().mActivity.startActivity(intent);
    						} else {
    							onNoticeLoginSuccess();
    						}
@@ -357,7 +357,7 @@ public class LoginHandler {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.toString());
 		ConfigHolder.isNoticeGame = true;
   	}
   	
@@ -369,6 +369,6 @@ public class LoginHandler {
 		ConfigHolder.isTourist = false;
 		ConfigHolder.userPhone = "";
 		LogUtils.d("通知游戏注销");
-		TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_LOGOUT, "");
+		TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
   	}
 }
