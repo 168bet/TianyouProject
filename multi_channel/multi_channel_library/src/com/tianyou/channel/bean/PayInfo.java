@@ -1,5 +1,10 @@
 package com.tianyou.channel.bean;
 
+/**
+ * 游戏计费点信息
+ * @author itstrong
+ *
+ */
 public class PayInfo {
 
 	private String id;
@@ -24,14 +29,6 @@ public class PayInfo {
 		this.money = money;
 	}
 
-	public String getProductDesc() {
-		return productDesc;
-	}
-
-	public void setProductDesc(String productDesc) {
-		this.productDesc = productDesc;
-	}
-
 	public String getProductId() {
 		return productId;
 	}
@@ -48,11 +45,11 @@ public class PayInfo {
 		this.productName = productName;
 	}
 
-	@Override
-	public String toString() {
-		return "PayInfo [id=" + id + ", money=" + money + ", productId="
-				+ productId + ", productName=" + productName + ", productDesc="
-				+ productDesc + "]";
+	public String getProductDesc() {
+		return productDesc;
 	}
 
+	public void setProductDesc(String productDesc) {
+		this.productDesc = productDesc;
+	}
 }

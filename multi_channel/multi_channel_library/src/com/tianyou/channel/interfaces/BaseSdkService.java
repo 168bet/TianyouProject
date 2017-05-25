@@ -31,27 +31,27 @@ import android.content.res.Configuration;
 public class BaseSdkService implements SdkServiceInterface {
 
 	protected Activity mActivity;
-	protected PayInfo mPayInfo;
-	protected RoleInfo mRoleInfo;
-	protected LoginInfo mLoginInfo;
-	protected ChannelInfo mChannelInfo;
 	protected TianyouCallback mTianyouCallback;
-	protected String mHanfengUid;
+	
+	protected PayInfo mPayInfo;						//支付相关参数
+	protected RoleInfo mRoleInfo;					//游戏角色相关参数
+	protected LoginInfo mLoginInfo;					//用户登录相关参数
+	protected ChannelInfo mChannelInfo;				//渠道信息相关参数
 	
 	@Override
 	public void doApplicationCreate(Context context, boolean island) {
-		LogUtils.d("调用Application onCreate");
+		LogUtils.d("调用doApplicationCreate");
 		mChannelInfo = ConfigHolder.getChannelInfo(context);
 	}
 
 	@Override
-	public void doApplicationAttach(Context base) { }
+	public void doApplicationAttach(Context base) { LogUtils.d("调用doApplicationAttach"); }
 	
 	@Override
-	public void doApplicationTerminate() { }
+	public void doApplicationTerminate() { LogUtils.d("调用doApplicationTerminate"); }
 	
 	@Override
-	public void doApplicationConfigurationChanged(Application application,Configuration newConfig) { }
+	public void doApplicationConfigurationChanged(Application application,Configuration newConfig) { LogUtils.d("调用doApplicationConfigurationChanged"); }
 
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
@@ -80,33 +80,36 @@ public class BaseSdkService implements SdkServiceInterface {
 	}
 	
 	@Override
-	public void doCreateRole(RoleInfo roleInfo) { mRoleInfo = roleInfo; LogUtils.d("调用创建角色接口"); }
+	public void doCreateRole(RoleInfo roleInfo) { 
+		LogUtils.d("调用创建角色接口" + roleInfo); 
+		mRoleInfo = roleInfo; 
+	}
 	
 	@Override
 	public void doEntryGame() {
 		LogUtils.d("调用进入游戏接口");
 		if (mRoleInfo == null) {
-			ToastUtils.showToast(mActivity, "请先上传角色信息");
+			ToastUtils.show(mActivity, "请先上传角色信息");
 			return;
 		}
 	}
 	
 	@Override
 	public void doUpdateRoleInfo(RoleInfo roleInfo) { 
-		mRoleInfo = roleInfo;
 		LogUtils.d("调用更新角色信息接口：" + roleInfo.toString()); 
+		mRoleInfo = roleInfo;
 	}
 
 	@Override
 	public void doPay(PayParam payInfo) {
 		LogUtils.d("调用支付接口:" + payInfo);
 		if (mRoleInfo == null) {
-			ToastUtils.showToast(mActivity, "请先上传角色信息");
+			ToastUtils.show(mActivity, "请先上传角色信息");
 			return;
 		}
 		mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
 		if (mPayInfo == null) {
-			ToastUtils.showToast(mActivity, "需打入渠道资源");
+			ToastUtils.show(mActivity, "需打入渠道资源");
 		} else {
 			createOrder(payInfo);
 		}
@@ -121,28 +124,11 @@ public class BaseSdkService implements SdkServiceInterface {
 	@Override
 	public void doOpenNaverCafe() { LogUtils.d("调用doOpenNaverCafe接口"); }
 	
-	/**
-	 * 查询登录信息
-	 * @param param
-	 */
-	protected void checkLogin() {
-		checkLogin2(null);
-	}
+	// 查询登录信息
+	protected void checkLogin() { checkLogin(null); }
 	
-	/**
-	 * 查询登录信息
-	 * @param param
-	 */
-	protected void checkLogin(LoginInfo param) {
-		checkLogin(param, null);
-	}
-	
-	/**
-	 * 查询登录信息
-	 * @param param
-	 * @param callback
-	 */
-	protected void checkLogin2(final LoginCallback callback) {
+	// 查询登录信息
+	protected void checkLogin(final LoginCallback callback) {
 		String gameId = mChannelInfo.getGameId();
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid", mLoginInfo.getChannelUserId());
@@ -165,14 +151,13 @@ public class BaseSdkService implements SdkServiceInterface {
 					String code = result.getString("code");
 					if ("200".equals(code)) {
 						String userId = result.getString("uid");
-						mHanfengUid = result.getString("channeluid");
+						mLoginInfo.setHanfengUid(result.getString("channeluid"));
 						LogUtils.d("userid= "+userId);
 						LogUtils.d("tianyouuserId= "+mLoginInfo.getTianyouUserId());
 						if (mLoginInfo.getTianyouUserId() != null && !userId.equals(mLoginInfo.getTianyouUserId())) {
 							LogUtils.d("current uid= "+mLoginInfo.getTianyouUserId()+",new uid= "+userId);
 							mLoginInfo.setTianyouUserId(userId);
 							mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
-							LogUtils.d("onlogout -------------------------");
 						} else {
 							LogUtils.d("uid= "+userId);
 							mLoginInfo.setTianyouUserId(userId);
@@ -196,74 +181,8 @@ public class BaseSdkService implements SdkServiceInterface {
 		});
 	}
 	
-	/**
-	 * 查询登录信息
-	 * @param param
-	 * @param callback
-	 */
-	protected void checkLogin(LoginInfo param, final LoginCallback callback) {
-		mLoginInfo.setChannelUserId(param.getChannelUserId());
-		String userId = param.getChannelUserId();
-		String userToken = param.getUserToken();
-		String gameId = mChannelInfo.getGameId();
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("uid", userId);
-		map.put("session", userToken);
-		map.put("imei", CommenUtil.getPhoeIMEI(mActivity));
-		map.put("appid", gameId);
-		map.put("playerid", userToken);
-		map.put("nickname", param.getNickname());
-		map.put("promotion", mChannelInfo.getChannelId());
-		map.put("is_guest", param.getIsGuest());
-		map.put("yijie_appid",param.getYijieAppId());
-		map.put("signature", CommenUtil.MD5("session=" + userToken + "&uid=" + userId + "&appid=" + gameId));
-		String url = (param.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
-		HttpUtils.post(mActivity, url, map, new HttpCallback() {
-			@Override
-			public void onSuccess(String data) {
-				try {
-					JSONObject jsonObject = new JSONObject(data);
-					JSONObject result = (JSONObject) jsonObject.get("result");
-					String code = result.getString("code");
-					if ("200".equals(code)) {
-						String userId = result.getString("uid");
-						mHanfengUid = result.getString("channeluid");
-						LogUtils.d("userid= "+userId);
-						LogUtils.d("tianyouuserId= "+mLoginInfo.getTianyouUserId());
-						if (mLoginInfo.getTianyouUserId() != null && !userId.equals(mLoginInfo.getTianyouUserId())) {
-							LogUtils.d("current uid= "+mLoginInfo.getTianyouUserId()+",new uid= "+userId);
-							mLoginInfo.setTianyouUserId(userId);
-							mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
-							LogUtils.d("onlogout -------------------------");
-						} else {
-							LogUtils.d("uid= "+userId);
-							mLoginInfo.setTianyouUserId(userId);
-							LogUtils.d("CODE_LOGIN_SUCCESS");
-							mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
-						}
-						if (callback != null) callback.onSuccess("");
-					} else {
-						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
-				}
-			}
-			
-			@Override
-			public void onFailed(String code) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败" + code);
-			}
-		});
-	}
-	
-	/**
-	 * 创建订单
-	 * @param payInfo
-	 */
+	// 创建订单
 	protected void createOrder(final PayParam payInfo) {
-		LogUtils.d("createOrder---------------");
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("userId", mLoginInfo.getTianyouUserId());
 		param.put("appID", mChannelInfo.getGameId());
@@ -298,11 +217,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		});
 	}
 	
-	/**
-	 * 查询订单
-	 * @param orderId
-	 * @param callback
-	 */
+	// 查询订单
 	protected void checkOrder(String orderId) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("orderID", orderId);
@@ -378,22 +293,6 @@ public class BaseSdkService implements SdkServiceInterface {
 	@Override
 	public void doBackPressed() { }
 
-	/**
-	 * @exception 是否显示游戏的退出界面
-	 * @return true是显示，false不显示，默认不显示游戏的退出界面
-	 */
-	@Override
-	public boolean isShowExitGame() { return false; }
-
-	/**
-	 * @exception 是否显示游戏的注销按钮
-	 * @return true是显示，false不显示，默认不显示游戏的注销按钮
-	 */
-	@Override
-	public boolean isShowLogout() { return false; }
-
-	public interface LoginCallback { void onSuccess(String data); }
-
 	@Override
 	public void doRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) { }
 
@@ -401,12 +300,25 @@ public class BaseSdkService implements SdkServiceInterface {
 	public void doConfigurationChanged(Configuration newConfig) { }
 
 	@Override
-	public void doRegisterPhone() {LogUtils.d("调用手机号注册接口...");}
+	public void doRegisterPhone() { LogUtils.d("调用手机号注册接口..."); }
 
 	@Override
-	public void doRegisterGenerate() {LogUtils.d("调用一键注册接口...");}
+	public void doRegisterGenerate() { LogUtils.d("调用一键注册接口..."); }
 
 	@Override
 	public void doVerifiedInfo() { LogUtils.d("调用实名认证防沉迷接口..."); }
+	
+	//是否显示游戏的退出界面：true是显示，false不显示，默认不显示游戏的退出界面
+	@Override
+	public boolean isShowExitGame() { return false; }
 
+	//是否显示游戏的注销按钮: true是显示，false不显示，默认不显示游戏的注销按钮
+	@Override
+	public boolean isShowLogout() { return false; }
+	
+	//登陆成功回调接口
+	public interface LoginCallback {
+		
+		void onSuccess(String data); 
+	}
 }

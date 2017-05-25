@@ -4,33 +4,78 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.PayInfo;
 
+import android.content.Context;
+
 /**
  * 获取渠道配置信息类
- * 
  * @author itstrong
  * 
  */
 public class ConfigHolder {
 	
 	private static ChannelInfo mChannelInfo;
-	private static PayInfo mPayInfo;
+	private static ArrayList<PayInfo> mPayInfoList;
 	
 	public static ChannelInfo getChannelInfo(Context context) {
-		if (mChannelInfo != null) {
-			return mChannelInfo;
-		}
+		if (mChannelInfo != null) return mChannelInfo;
+		String channelInfo = readFileData(context, "channel_info.json");
 		try {
-			InputStream input = context.getAssets().open("channel_info.json");
+			JSONObject info = new JSONObject(channelInfo);
+			mChannelInfo = new ChannelInfo();
+			mChannelInfo.setChannelId(info.getString("channel_id"));
+			mChannelInfo.setChannelName(info.getString("channel_name"));
+			mChannelInfo.setAppId(info.getString("app_id"));
+			mChannelInfo.setAppToken(info.getString("app_token"));
+			mChannelInfo.setGameName(info.getString("game_name"));
+			mChannelInfo.setGameId(info.getString("game_id"));
+			mChannelInfo.setGameToken(info.getString("game_token"));
+		} catch (JSONException e1) {
+			ToastUtils.show(context, "渠道信息解析异常");
+		}
+		return mChannelInfo;
+	}
+	
+	public static PayInfo getPayInfo(Context context, String payCode) {
+		if (mPayInfoList == null) {
+			String json = readFileData(context, "pay_info.json");
+			try {
+				JSONObject jsonInfo = new JSONObject(json);
+				mPayInfoList = new ArrayList<PayInfo>();
+				JSONArray payArray = jsonInfo.getJSONArray("payinfo");
+				for (int i = 0; i < payArray.length(); i++) {
+					PayInfo payInfo = new PayInfo();
+					JSONObject info = payArray.getJSONObject(i);
+					payInfo.setId(info.getString("id"));
+					payInfo.setMoney(info.getString("money"));
+					payInfo.setProductId(info.getString("product_id"));
+					payInfo.setProductName(info.getString("product_name"));
+					payInfo.setProductDesc(info.getString("product_desc"));
+					mPayInfoList.add(payInfo);
+				}
+			} catch (JSONException e1) {
+				ToastUtils.show(context, "渠道信息解析异常");
+			}
+		}
+		for (PayInfo payInfo : mPayInfoList) {
+			if (payCode.equals(payInfo.getId())) {
+				return payInfo;
+			}
+		}
+		return null;
+	}
+	
+	private static String readFileData(Context context, String fileName) {
+		try {
+			InputStream input = context.getAssets().open(fileName);
 			InputStreamReader reader = new InputStreamReader(input);
 			BufferedReader br = new BufferedReader(reader);
 			String results = "";
@@ -39,69 +84,9 @@ public class ConfigHolder {
                 results += newLine;
             }
             reader.close();
-            results = results.trim();
-            LogUtils.d("渠道配置数据：" + results);
-            JSONObject channelInfo = new JSONObject(results);
-            JSONObject result = channelInfo.getJSONObject("result");
-            if (result.getInt("code") == 200) {
-            	JSONObject channelinfo = result.getJSONObject("channelinfo");
-            	mChannelInfo = new ChannelInfo();
-            	mChannelInfo.setChannelId(channelinfo.getString("channel_type"));
-            	mChannelInfo.setAppId(channelinfo.getString("appid"));
-            	mChannelInfo.setAppKey(channelinfo.getString("appkey"));
-            	mChannelInfo.setMerchantId(channelinfo.getString("merchant_id"));
-            	mChannelInfo.setGameId(channelinfo.getString("game_id"));
-            	mChannelInfo.setCpId(channelinfo.getString("cp_id"));
-            	mChannelInfo.setPayId(channelinfo.getString("pay_id"));
-            	mChannelInfo.setBuoSecret(channelinfo.getString("buoy_secret"));
-            	mChannelInfo.setPayRsaPrivate(channelinfo.getString("pay_private"));
-            	mChannelInfo.setPayRsaPublic(channelinfo.getString("pay_public"));
-            	mChannelInfo.setAppSecret(channelinfo.getString("appsecret"));
-            	mChannelInfo.setPlatformId(channelinfo.getString("channel_id"));
-            	return mChannelInfo;
-			} else {
-				result.getString("msg");
-			}
+            return results;
 		} catch (IOException e) {
-			LogUtils.d("配置文件不存在");
-		} catch (JSONException e) {
-			LogUtils.d("渠道信息解析异常");
-			LogUtils.d("e= "+e.getMessage());
-		}
-		return null;
-	}
-	
-	@SuppressWarnings("resource")
-	public static PayInfo getPayInfo(Context context, String payCode) {
-		try {
-			InputStream input = context.getAssets().open("pay_info.json");
-			InputStreamReader reader = new InputStreamReader(input);
-			BufferedReader br = new BufferedReader(reader);
-			String json = br.readLine();
-            reader.close();
-            JSONObject channelInfo = new JSONObject(json);
-            JSONObject result = channelInfo.getJSONObject("result");
-            if (result.getInt("code") == 200) {
-            	JSONArray payinfos = result.getJSONArray("payinfo");
-            	for (int i = 0; i < payinfos.length(); i++) {
-            		JSONObject payinfo = payinfos.getJSONObject(i);
-            		if (payCode.equals(payinfo.getString("id"))) {
-            			mPayInfo = new PayInfo();
-            			mPayInfo.setId(payinfo.getString("id"));
-            			mPayInfo.setMoney(payinfo.getString("money"));
-            			mPayInfo.setProductId(payinfo.getString("product_id"));
-            			mPayInfo.setProductName(payinfo.getString("product_name"));
-            			mPayInfo.setProductDesc(payinfo.getString("product_desc"));
-                		return mPayInfo;
-					}
-				}
-			} else {
-				result.getString("msg");
-			}
-		} catch (IOException e) {
-			LogUtils.d("配置文件不存在");
-		} catch (JSONException e) {
-			LogUtils.d("渠道信息解析异常");
+			ToastUtils.show(context, "配置文件" + fileName + "不存在");
 		}
 		return null;
 	}

@@ -2,8 +2,9 @@ package com.tianyou.channel.bean;
 
 public class LoginInfo {
 
-	private String channelUserId; // 渠道用户id
-	private String tianyouUserId; // 天游用户id
+	private String channelUserId; 	// 渠道用户id
+	private String tianyouUserId; 	// 天游用户id
+	private String hanfengUid; 		// 汉风uid
 	private String userToken;
 	private String nickname;
 	private String isGuest;
@@ -20,6 +21,14 @@ public class LoginInfo {
 
 	public String getChannelUserId() {
 		return channelUserId;
+	}
+
+	public String getHanfengUid() {
+		return hanfengUid;
+	}
+
+	public void setHanfengUid(String hanfengUid) {
+		this.hanfengUid = hanfengUid;
 	}
 
 	public void setChannelUserId(String channelUserId) {

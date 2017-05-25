@@ -34,10 +34,10 @@ public class CaoxieSdkService extends BaseSdkService {
 			public void onInitFinish(int initResult) {
 				switch (initResult) {
 				case GPSDKInitResult.GPInitErrorCodeConfig:// 配置错误
-	                ToastUtils.showToast(mActivity, "配置错误");
+	                ToastUtils.show(mActivity, "配置错误");
 					break;
 				case GPSDKInitResult.GPInitErrorCodeNet:// 网络不可用
-					ToastUtils.showToast(mActivity, "网络不可用");
+					ToastUtils.show(mActivity, "网络不可用");
 					break;
 				case GPSDKInitResult.GPInitSuccess:// 初始化成功
 					mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");

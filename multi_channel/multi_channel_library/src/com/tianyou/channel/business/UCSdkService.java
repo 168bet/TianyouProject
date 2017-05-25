@@ -267,7 +267,7 @@ public class UCSdkService extends BaseSdkService {
 						mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "用户取消退出");
 						break;
 					case UCGameSdkStatusCode.INIT_FAIL:
-						ToastUtils.showToast(mActivity, "初始化失败");
+						ToastUtils.show(mActivity, "初始化失败");
 						break;
 					}
 				}

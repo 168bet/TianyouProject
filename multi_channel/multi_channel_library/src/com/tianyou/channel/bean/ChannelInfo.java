@@ -8,89 +8,33 @@ package com.tianyou.channel.bean;
  */
 public class ChannelInfo {
 
+	//天游分配的渠道信息
 	private String channelId;
+	private String channelName;
+	
+	//渠道参数
 	private String appId;
-	private String appKey;
+	private String appToken;
+	
+	//天游分配的游戏信息
+	private String gameName;
 	private String gameId;
-	private String cpId;
-	private String payId;
-	private String buoSecret;
-	private String payRsaPrivate;
-	private String payRsaPublic;
-	private String merchantId;
-	private String appSecret;
-	private String platformId;
-
-	public String getPlatformId() {
-		return platformId;
-	}
-
-	public void setPlatformId(String platformId) {
-		this.platformId = platformId;
-	}
-
+	private String gameToken;
+	
 	public String getChannelId() {
 		return channelId;
 	}
 
-	public String getBuoSecret() {
-		return buoSecret;
-	}
-
-	public void setBuoSecret(String buoSecret) {
-		this.buoSecret = buoSecret;
-	}
-
-	public String getPayRsaPrivate() {
-		return payRsaPrivate;
-	}
-
-	public void setPayRsaPrivate(String payRsaPrivate) {
-		this.payRsaPrivate = payRsaPrivate;
-	}
-
-	public String getPayRsaPublic() {
-		return payRsaPublic;
-	}
-
-	public void setPayRsaPublic(String payRsaPublic) {
-		this.payRsaPublic = payRsaPublic;
-	}
-
-	public String getGameId() {
-		return gameId;
-	}
-
-	public String getPayId() {
-		return payId;
-	}
-
-	public void setPayId(String payId) {
-		this.payId = payId;
-	}
-
-	public String getCpId() {
-		return cpId;
-	}
-
-	public void setCpId(String cpId) {
-		this.cpId = cpId;
-	}
-
-	public String getMerchantId() {
-		return merchantId;
-	}
-
-	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
-	}
-
-	public void setGameId(String gameId) {
-		this.gameId = gameId;
-	}
-
 	public void setChannelId(String channelId) {
 		this.channelId = channelId;
+	}
+
+	public String getChannelName() {
+		return channelName;
+	}
+
+	public void setChannelName(String channelName) {
+		this.channelName = channelName;
 	}
 
 	public String getAppId() {
@@ -101,30 +45,42 @@ public class ChannelInfo {
 		this.appId = appId;
 	}
 
-	public String getAppKey() {
-		return appKey;
+	public String getAppToken() {
+		return appToken;
 	}
 
-	public void setAppKey(String appKey) {
-		this.appKey = appKey;
+	public void setAppToken(String appToken) {
+		this.appToken = appToken;
 	}
 
-	public String getAppSecret() {
-		return appSecret;
+	public String getGameName() {
+		return gameName;
 	}
 
-	public void setAppSecret(String appSecret) {
-		this.appSecret = appSecret;
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
+	}
+
+	public String getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
+	}
+
+	public String getGameToken() {
+		return gameToken;
+	}
+
+	public void setGameToken(String gameToken) {
+		this.gameToken = gameToken;
 	}
 
 	@Override
 	public String toString() {
-		return "ChannelInfo [channelId=" + channelId + ", appId=" + appId
-				+ ", appKey=" + appKey + ", gameId=" + gameId + ", cpId="
-				+ cpId + ", payId=" + payId + ", buoSecret=" + buoSecret
-				+ ", payRsaPrivate=" + payRsaPrivate + ", payRsaPublic="
-				+ payRsaPublic + ", merchantId=" + merchantId + ", appSecret="
-				+ appSecret + "]";
+		return "ChannelInfo [channelId=" + channelId + ", channelName=" + channelName + ", appId=" + appId
+				+ ", appToken=" + appToken + ", gameName=" + gameName + ", gameId=" + gameId + ", gameToken="
+				+ gameToken + "]";
 	}
-
 }

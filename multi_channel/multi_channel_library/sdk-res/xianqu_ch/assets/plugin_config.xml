@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<support>
-    <plugin value="cn.joy2u.middleware.yijie.YiJiePlatform" />
-    <plugin value="cn.joy2u.middleware.yijie.listener.YijieActivityListener" />
-</support>

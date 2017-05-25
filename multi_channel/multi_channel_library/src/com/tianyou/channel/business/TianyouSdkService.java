@@ -3,14 +3,14 @@ package com.tianyou.channel.business;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
-import com.tianyou.channel.interfaces.TianyouCallback;
+import com.tianyou.channel.utils.ConfigHolder;
+import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.sdk.bean.PayInfo;
-import com.tianyou.sdk.interfaces.TianyouxiCallback;
-import com.tianyou.sdk.interfaces.TianyouxiSdk;
+import com.tianyou.sdk.interfaces.TianyouCallback;
+import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.ToastUtils;
 
 import android.app.Activity;
@@ -18,11 +18,11 @@ import android.content.Context;
 
 public class TianyouSdkService extends BaseSdkService {
     
-	private TianyouxiCallback mTianyouxiCallback = new TianyouxiCallback() {
+	private TianyouCallback mTianyouxiCallback = new TianyouCallback() {
 		@Override
 		public void onResult(int code, String msg) {
 			switch (code) {
-			case TianyouxiCallback.CODE_LOGIN_SUCCESS:
+			case TianyouCallback.CODE_LOGIN_SUCCESS:
 				try {
 					JSONObject jsonObject = new JSONObject(msg);
 					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, jsonObject.getString("uid"));
@@ -31,28 +31,28 @@ public class TianyouSdkService extends BaseSdkService {
 					ToastUtils.show(mActivity, "uid解析异常");
 				}
 				break;
-			case TianyouxiCallback.CODE_LOGIN_FAILED:
+			case TianyouCallback.CODE_LOGIN_FAILED:
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, msg);
 				break;
-			case TianyouxiCallback.CODE_LOGIN_CANCEL:
+			case TianyouCallback.CODE_LOGIN_CANCEL:
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_CANCEL, msg);
 				break;
-			case TianyouxiCallback.CODE_LOGOUT:
+			case TianyouCallback.CODE_LOGOUT:
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, msg);
 				break;
-			case TianyouxiCallback.CODE_PAY_SUCCESS:
+			case TianyouCallback.CODE_PAY_SUCCESS:
 				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, msg);
 				break;
-			case TianyouxiCallback.CODE_PAY_FAILED:
+			case TianyouCallback.CODE_PAY_FAILED:
 				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, msg);
 				break;
-			case TianyouxiCallback.CODE_PAY_CANCEL:
+			case TianyouCallback.CODE_PAY_CANCEL:
 				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_CANCEL, msg);
 				break;
-			case TianyouxiCallback.CODE_QUIT_SUCCESS:
+			case TianyouCallback.CODE_QUIT_SUCCESS:
 				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, msg);
 				break;
-			case TianyouxiCallback.CODE_QUIT_CANCEL:
+			case TianyouCallback.CODE_QUIT_CANCEL:
 				mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, msg);
 				break;
 			}
@@ -62,21 +62,21 @@ public class TianyouSdkService extends BaseSdkService {
 	@Override
 	public void doApplicationCreate(Context context, boolean island) {
 		super.doApplicationCreate(context, island);
-		TianyouxiSdk.getInstance().applicationInit(context, mChannelInfo.getAppId(), 
-				mChannelInfo.getAppSecret(), mChannelInfo.getGameId(), true);
+		TianyouSdk.getInstance().applicationInit(context, mChannelInfo.getGameId(), 
+				mChannelInfo.getGameToken(), mChannelInfo.getGameName(), true);
 	}
     
     @Override
-    public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
+    public void doActivityInit(Activity activity, com.tianyou.channel.interfaces.TianyouCallback tianyouCallback) {
     	super.doActivityInit(activity, tianyouCallback);
-    	TianyouxiSdk.getInstance().activityInit(mActivity, mTianyouxiCallback);
-    	mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
+    	TianyouSdk.getInstance().activityInit(mActivity, mTianyouxiCallback);
+    	mTianyouCallback.onResult(com.tianyou.channel.interfaces.TianyouCallback.CODE_INIT, "");
     }
     
     @Override
     public void doLogin() {
     	super.doLogin();
-    	TianyouxiSdk.getInstance().login();
+    	TianyouSdk.getInstance().login();
     }
     
     @Override
@@ -90,7 +90,7 @@ public class TianyouSdkService extends BaseSdkService {
     	info.setProfession(roleInfo.getProfession());
     	info.setLevel(roleInfo.getRoleLevel());
     	info.setSociaty(roleInfo.getParty());
-		TianyouxiSdk.getInstance().createRole(info);
+		TianyouSdk.getInstance().createRole(info);
     }
     
     @Override
@@ -105,6 +105,12 @@ public class TianyouSdkService extends BaseSdkService {
     	doUpdateRoleInfo();
     }
     
+    @Override
+    public void doUpdateRoleInfo(RoleInfo roleInfo) {
+    	super.doUpdateRoleInfo(roleInfo);
+    	doUpdateRoleInfo();
+    }
+    
     private void doUpdateRoleInfo() {
     	com.tianyou.sdk.bean.RoleInfo roleInfo = new com.tianyou.sdk.bean.RoleInfo();
 		roleInfo.setServerId(mRoleInfo.getServerId());
@@ -114,26 +120,38 @@ public class TianyouSdkService extends BaseSdkService {
 		roleInfo.setProfession(mRoleInfo.getProfession());
 		roleInfo.setLevel(mRoleInfo.getRoleLevel());
 		roleInfo.setSociaty(mRoleInfo.getParty());
-		TianyouxiSdk.getInstance().updateRoleInfo(roleInfo);
+		roleInfo.setAmount("1");
+		roleInfo.setBalance(mRoleInfo.getBalance());
+		roleInfo.setVipLevel(mRoleInfo.getVipLevel());
+		TianyouSdk.getInstance().updateRoleInfo(roleInfo);
 	}
     
     @Override
-    public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
-    	super.doChannelPay(payInfo, orderInfo);
-    	PayInfo payParam = new PayInfo();
-    	payParam.setRoleId(mRoleInfo.getRoleId());
-    	payParam.setMoney(mPayInfo.getMoney());
-    	payParam.setServerId(mRoleInfo.getServerId());
-    	payParam.setServerName(mRoleInfo.getServerName());
-    	payParam.setProductId(mPayInfo.getProductId());
-    	payParam.setProductName(mPayInfo.getProductName());
-    	payParam.setCustomInfo(payInfo.getCustomInfo());
-    	payParam.setGameName(mChannelInfo.getGameId());
-    	TianyouxiSdk.getInstance().pay(payParam);
+    public void doPay(PayParam payInfo) {
+    	LogUtils.d("调用支付接口:" + payInfo);
+		if (mRoleInfo == null) {
+			ToastUtils.show(mActivity, "请先上传角色信息");
+			return;
+		}
+		mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
+		if (mPayInfo == null) {
+			ToastUtils.show(mActivity, "需打入渠道资源");
+		} else {
+			PayInfo payParam = new PayInfo();
+	    	payParam.setRoleId(mRoleInfo.getRoleId());
+	    	payParam.setMoney(mPayInfo.getMoney());
+	    	payParam.setServerId(mRoleInfo.getServerId());
+	    	payParam.setServerName(mRoleInfo.getServerName());
+	    	payParam.setProductId(mPayInfo.getProductId());
+	    	payParam.setProductName(mPayInfo.getProductName());
+	    	payParam.setCustomInfo(payInfo.getCustomInfo());
+	    	payParam.setGameName(mChannelInfo.getGameId());
+	    	TianyouSdk.getInstance().pay(payParam);
+		}
     }
     
     @Override
     public void doExitGame() {
-    	TianyouxiSdk.getInstance().exitGame();
+    	TianyouSdk.getInstance().exitGame();
     }
 }

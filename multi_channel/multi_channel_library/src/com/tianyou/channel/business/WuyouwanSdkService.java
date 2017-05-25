@@ -29,7 +29,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 			}
 
 			@Override
-			public void InitFail(int arg0) { ToastUtils.showToast(mActivity, "初始化失败：" + arg0); }
+			public void InitFail(int arg0) { ToastUtils.show(mActivity, "初始化失败：" + arg0); }
 		});
 	}
 

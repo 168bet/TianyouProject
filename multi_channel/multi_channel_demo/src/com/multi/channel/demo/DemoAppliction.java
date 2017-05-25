@@ -12,7 +12,7 @@ public class DemoAppliction extends Application {
 	public void onCreate() {
 		super.onCreate();
 		// 第二个参数代表横竖屏，true为横屏，false为竖屏
-		TianyouSdk.getInstance(getApplicationContext()).doApplicationCreate(getApplicationContext(), false);
+		TianyouSdk.getInstance(getApplicationContext()).doApplicationCreate(getApplicationContext(), true);
 	}
 	
 	@Override

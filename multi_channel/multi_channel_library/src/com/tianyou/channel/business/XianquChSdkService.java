@@ -286,7 +286,7 @@ public class XianquChSdkService extends BaseSdkService{
 		@Override
 		public void callback(String msg, boolean flag) {
 			Log.d("TAG", "msg= "+msg+",flag= "+flag);
-			ToastUtils.showToast(mActivity, "msg= "+msg+",flag= "+flag);
+			ToastUtils.show(mActivity, "msg= "+msg+",flag= "+flag);
 		}
 	}
 	

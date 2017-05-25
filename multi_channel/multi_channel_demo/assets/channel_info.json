@@ -1,26 +1,11 @@
 {
-    "result": {
-        "code": 200,
-        "msg": "ok",
-        "channelinfo": {
-            "id": "23",
-            "name": "虫虫",
-            "game_id": "1021",
-            "channel_id": "18",
-            "channel_type": "ty000",
-            "appid": "131",
-            "package": "shanghai.xnnetwork.games.cc",
-            "create_time": null,
-            "update_time": null,
-            "appkey": "4049adc9e4904a69ba10f38505959c99",
-            "appsecret": "1afa34a7f984eeabdbb0a7d494132ee5",
-            "merchant_id": null,
-            "payment_key": null,
-            "pay_id": null,
-            "cp_id": null,
-            "pay_public": null,
-            "pay_private": null,
-            "buoy_secret": null
-        }
-    }
+    "channel_id": "bm105",
+    "channel_name": "东南亚game begin",
+
+    "game_name": "仙路尘缘",
+    "game_id": "11003",
+    "game_token": "2da6a99a5ce7553b10fb03803d4994a9",
+
+    "app_id": "69",
+    "app_token": "aUO9lGDAZaoozdpr"
 }

@@ -68,35 +68,35 @@ public class MainActivity extends Activity implements OnClickListener {
 		public void onResult(int code, String msg) {
 			switch (code) {
 			case TianyouCallback.CODE_INIT:
-				ToastUtils.showToast(mActivity, "初始化：" + msg);
+				ToastUtils.show(mActivity, "初始化：" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_SUCCESS:
-				ToastUtils.showToast(mActivity, "登录成功：uid=" + msg);
+				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_FAILED:
-				ToastUtils.showToast(mActivity, "登录失败：" + msg);
+				ToastUtils.show(mActivity, "登录失败：" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_CANCEL:
-				ToastUtils.showToast(mActivity, "登录取消：" + msg);
+				ToastUtils.show(mActivity, "登录取消：" + msg);
 				break;
 			case TianyouCallback.CODE_LOGOUT:
-				ToastUtils.showToast(mActivity, "注销：" + msg);
+				ToastUtils.show(mActivity, "注销：" + msg);
 				break;
 			case TianyouCallback.CODE_PAY_SUCCESS:
-				ToastUtils.showToast(mActivity, "支付成功：" + msg);
+				ToastUtils.show(mActivity, "支付成功：" + msg);
 				break;
 			case TianyouCallback.CODE_PAY_FAILED:
-				ToastUtils.showToast(mActivity, "支付失败：" + msg);
+				ToastUtils.show(mActivity, "支付失败：" + msg);
 				break;
 			case TianyouCallback.CODE_PAY_CANCEL:
-				ToastUtils.showToast(mActivity, "支付取消：" + msg);
+				ToastUtils.show(mActivity, "支付取消：" + msg);
 				break;
 			case TianyouCallback.CODE_QUIT_SUCCESS:
 				finish();
 				android.os.Process.killProcess(android.os.Process.myPid());
 				break;
 			case TianyouCallback.CODE_QUIT_CANCEL:
-				ToastUtils.showToast(mActivity, "退出游戏取消：" + msg);
+				ToastUtils.show(mActivity, "退出游戏取消：" + msg);
 				break;
 			}
 		}

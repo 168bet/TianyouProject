@@ -27,7 +27,8 @@ public class GameBeginSdkService extends BaseSdkService {
 		super.doActivityInit(activity, tianyouCallback);
 		boolean isDebug = true; //修改测试环境地址
 	    boolean printLog = true; //修改控制台SDK log输出
-		gameBegin = GameBegin.getInstance(mActivity, "69", "aUO9lGDAZaoozdpr", GBLanguage.ZH_CN, isDebug, printLog);
+		gameBegin = GameBegin.getInstance(mActivity, mChannelInfo.getAppId(), 
+				mChannelInfo.getAppToken(), GBLanguage.ZH_CN, isDebug, printLog);
 	    //设置注销监听器
 	    gameBegin.setLogoutListener(new GBListener() {
 	        @Override

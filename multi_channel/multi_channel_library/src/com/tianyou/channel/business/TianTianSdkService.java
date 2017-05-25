@@ -60,7 +60,7 @@ public class TianTianSdkService extends BaseSdkService{
 
 				case SDKState.ERROR: 
 					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");	
-					ToastUtils.showToast(mActivity, msg);
+					ToastUtils.show(mActivity, msg);
 				break;
 				}
 			}
