@@ -3,22 +3,23 @@ package com.tianyou.sdk.fragment.login;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.Identifi;
 import com.tianyou.sdk.holder.ConfigHolder;
+import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * 实名认证页面
@@ -140,6 +141,7 @@ public class IdentifiFragment extends BaseFragment {
 					if (identifi.getResult().getCode() == 200) {
 						ConfigHolder.isAuth = true;
 						ConfigHolder.isPhone = true;
+						LoginHandler.onNoticeLoginSuccess();
 						mActivity.finish();
 					}
 				}

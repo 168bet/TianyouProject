@@ -89,7 +89,7 @@ public class SafetySettingFragment extends BaseFragment {
 			ToastUtils.show(mActivity, "验证码不能为空");
 		} else {
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("username", ConfigHolder.userName);
+			map.put("username", ConfigHolder.userPhone);
 	        map.put("verify", code);
 	        map.put("type", "android");
 	        map.put("imei", AppUtils.getPhoeIMEI(mActivity));
