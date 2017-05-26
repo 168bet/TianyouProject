@@ -118,7 +118,7 @@ public class LoginActivity extends BaseActivity {
 			return;
 		} else if (mFragmentTag.equals("TouristTipFragment") || 
 				(mFragmentTag.equals("IdentifiFragment")  && !ConfigHolder.isNoticeGame)) {
-			LoginHandler.onNoticeLoginSuccess();
+			LoginHandler.displayAnnouncement();
 		} else if (mFragmentTag.equals("UpgradeFragment")) {
 			if(!ConfigHolder.isAuth) {
 				switchFragment(new IdentifiFragment());

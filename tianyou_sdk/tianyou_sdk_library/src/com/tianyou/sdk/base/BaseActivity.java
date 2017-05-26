@@ -98,12 +98,17 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     public void onBackPressed() {
     	if ("HomeFragment".equals(mFragmentTag) || "WxScanFragment".equals(mFragmentTag) ||
     			"SuccessFragment".equals(mFragmentTag) || "OneKeyFragment".equals(mFragmentTag) || 
-    			"PersonalCenterFragment".equals(mFragmentTag) || "IdentifiFragment".equals(mFragmentTag)) {
+    			"PersonalCenterFragment".equals(mFragmentTag)) {
 			finish();
-		} else if ("TouristTipFragment".equals(mFragmentTag)) {
+		} else if ("TouristTipFragment".equals(mFragmentTag) || mFragmentTag.equals("IdentifiFragment")  && !ConfigHolder.isNoticeGame) {
 			finish();
+<<<<<<< HEAD
 			LoginHandler.onNoticeLoginSuccess();
 		} else if ("PhoneRegisterFragment".equals(mFragmentTag)||"UserRegisterFragment".equals(mFragmentTag)) {
+=======
+			LoginHandler.displayAnnouncement();
+		} else if ("RegisterFragment".equals(mFragmentTag)) {
+>>>>>>> 31ecfbe979dd983807559fb5d7f22e98ae773cc2
 			switchFragment(new AccountFragment());
 		} else if ("PerfectInfoFragment".equals(mFragmentTag) || "AccountFragment".equals(mFragmentTag)) { 
 		} else {
