@@ -47,6 +47,7 @@ public class UserRegisterFragment extends BaseFragment {
 		mEditText0 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_username", "id"));
 		mEditText1 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_code", "id"));
 		mEditText2 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_password", "id"));
+		mEditText0.requestFocus();
 		mImgCode = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_register_code", "id"));
 		mImgRadio = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_register_radio", "id"));
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_back", "id")).setOnClickListener(this);

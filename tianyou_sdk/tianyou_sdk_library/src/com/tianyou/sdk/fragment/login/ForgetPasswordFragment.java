@@ -6,6 +6,12 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.string;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.fragment.login.AlertPasswordFragment.AlertType;
@@ -16,9 +22,6 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-
-import android.view.View;
-import android.widget.EditText;
 
 public class ForgetPasswordFragment extends BaseFragment {
 
@@ -36,6 +39,11 @@ public class ForgetPasswordFragment extends BaseFragment {
 	@Override
 	protected void initData() {
 		mActivity.setFragmentTitle("忘记密码");
+		Bundle bundle = getArguments();  
+		String username = bundle.getString("mEditUsername");  
+		if(!username.isEmpty()){
+			mEditUsername.setText(username);
+		}
 		((LoginActivity)mActivity).setBackBtnVisible(true);
 	}
 

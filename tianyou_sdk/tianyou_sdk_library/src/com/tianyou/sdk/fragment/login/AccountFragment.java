@@ -19,6 +19,7 @@ import com.tianyou.sdk.utils.ToastUtils;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -108,7 +109,12 @@ public class AccountFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_account_switch", "id")) {
 			switchPassword();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_account_forget", "id")) {
-			mActivity.switchFragment(new ForgetPasswordFragment());
+			String username = mEditUsername.getText().toString();
+			ForgetPasswordFragment fpf=new ForgetPasswordFragment();
+			Bundle bundle = new Bundle(); 
+			bundle.putString("mEditUsername", username);
+			fpf.setArguments(bundle); 
+			mActivity.switchFragment(fpf);
 		}
 	}
 

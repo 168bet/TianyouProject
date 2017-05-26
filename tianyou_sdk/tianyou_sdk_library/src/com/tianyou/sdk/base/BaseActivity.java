@@ -103,7 +103,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 		} else if ("TouristTipFragment".equals(mFragmentTag)) {
 			finish();
 			LoginHandler.onNoticeLoginSuccess();
-		} else if ("RegisterFragment".equals(mFragmentTag)) {
+		} else if ("PhoneRegisterFragment".equals(mFragmentTag)||"UserRegisterFragment".equals(mFragmentTag)) {
 			switchFragment(new AccountFragment());
 		} else if ("PerfectInfoFragment".equals(mFragmentTag) || "AccountFragment".equals(mFragmentTag)) { 
 		} else {

@@ -42,6 +42,7 @@ public class PhoneRegisterFragment extends BaseFragment {
 		mEditText0 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_username", "id"));
 		mEditText1 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_code", "id"));
 		mEditText2 = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_register_password", "id"));
+		mEditText0.requestFocus();
 		mTextGetCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_get_code", "id"));
 		mImgRadio = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_register_radio", "id"));
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_register_back", "id")).setOnClickListener(this);
@@ -72,6 +73,7 @@ public class PhoneRegisterFragment extends BaseFragment {
 			switchRadioState();
 		}
 	}
+	
 	
 	private boolean isShowRadio;	//false选中
 	private TextView mTextConfirm;

@@ -17,6 +17,7 @@
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
             android:hint="账号：请输入6-16位字母或数字组合"
             android:maxLength="16"
+            android:focusableInTouchMode="true"
             android:singleLine="true" />
 
         <View
