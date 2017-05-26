@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_login_bg"
+    android:layout_width="@dimen/dialog_login_width"
+    android:layout_height="@dimen/dialog_login_height"
+    android:background="@drawable/shape_bg_dialog"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/layout_login_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/img_login_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_space_big"
+                android:src="@drawable/ty2_back" />
+
+            <TextView
+                android:id="@+id/text_title"
+                style="@style/style_text_black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="一键登录"
+                android:textSize="@dimen/text_size_common" />
+
+            <ImageView
+                android:id="@+id/img_login_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_space_big"
+                android:src="@drawable/ty2_close" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_login_register_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/text_login_register_phone"
+                style="@style/style_text_black"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shape_bg_dialog"
+                android:gravity="center"
+                android:padding="@dimen/layout_space_small"
+                android:text="手机注册"
+                android:textSize="@dimen/text_size_common" />
+
+            <TextView
+                android:id="@+id/text_login_register_account"
+                style="@style/style_text_black"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shape_bg_gray_fill"
+                android:gravity="center"
+                android:text="用户注册"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_common" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/layout_space_super"
+        android:paddingLeft="@dimen/layout_space_super"
+        android:paddingRight="@dimen/layout_space_super" />
+
+</LinearLayout>

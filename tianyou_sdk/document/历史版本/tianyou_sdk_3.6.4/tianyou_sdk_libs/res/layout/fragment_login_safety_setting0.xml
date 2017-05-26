@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+        style="@style/style_text_gray"
+        android:layout_gravity="center"
+         android:textSize="@dimen/text_size_small"
+        android:text="你的账号已绑定的密保手机号" />
+    
+    <TextView
+        android:id="@+id/text_setting_phone"
+        style="@style/style_text_black"
+        android:layout_gravity="center"
+        android:textColor="@color/color_orange"
+        android:layout_marginTop="@dimen/layout_space_little" />
+    
+    <TextView
+        style="@style/style_text_gray"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/layout_space_big"
+        android:textSize="@dimen/text_size_small"
+        android:text="如需要更改密保手机请先完成验证：" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_space_small" >
+
+        <EditText
+            style="@style/style_text_black"
+            android:id="@+id/edit_setting_code"
+            android:layout_width="match_parent"
+            android:background="@drawable/shape_bg_gray"
+            android:hint="请输入短信验证码"
+            android:padding="@dimen/layout_space_small"
+            android:textColor="@color/color_gray_2"
+            android:textColorHint="@color/color_gray_1" 
+            android:inputType="number"
+            android:textSize="@dimen/text_size_small"
+            android:singleLine="true"
+            android:maxLength="6"/>
+
+        <TextView
+            android:id="@+id/text_setting_code"
+            
+            style="@style/style_text_black"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/layout_space_small"
+            android:text="获取验证码"/>
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/text_safety_confirm"
+        style="@style/style_text_red_long"
+        android:text="确定" />
+    
+    <TextView
+        android:id="@+id/text_setting_server"
+        style="@style/style_text_black"
+        android:layout_gravity="center"
+        android:textColor="@color/color_blue"
+        android:layout_marginTop="@dimen/layout_space_super"
+        android:text="联系客服" />
+</LinearLayout>

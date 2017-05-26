@@ -249,7 +249,13 @@ public class LoginHandler {
   		final Runnable runnable = new Runnable() {
   			@Override
   			public void run() {
-  				displayAnnouncement();
+  				if ((ConfigHolder.isTourist && !ConfigHolder.isUnion) || !ConfigHolder.isAuth) {
+					Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
+		  			intent.putExtra("show_tourist_tip", true);
+					TianyouSdk.getInstance().mActivity.startActivity(intent);
+				} else {
+					displayAnnouncement();
+				}
   				popupWindow.dismiss();
   			}
   		};
@@ -271,7 +277,7 @@ public class LoginHandler {
 	}
   	
   	// 6.弹公告
-  	private void displayAnnouncement() {
+  	public static void displayAnnouncement() {
    		Map<String, String> map = new HashMap<String, String>();
    		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.userToken));
    		HttpUtils.post(TianyouSdk.getInstance().mActivity, URLHolder.URL_UNION_ANNOUNCE, map, new HttpsCallback() {
@@ -287,13 +293,7 @@ public class LoginHandler {
    						intent.putExtra("content", custominfo);
    						TianyouSdk.getInstance().mActivity.startActivity(intent);
    					} else {
-   						if ((ConfigHolder.isTourist && !ConfigHolder.isUnion) || !ConfigHolder.isAuth) {
-							Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
-   				  			intent.putExtra("show_tourist_tip", true);
-   							TianyouSdk.getInstance().mActivity.startActivity(intent);
-   						} else {
-   							onNoticeLoginSuccess();
-   						}
+   						onNoticeLoginSuccess();
    					}
    				} catch (JSONException e) {
    					e.printStackTrace();

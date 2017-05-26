@@ -81,7 +81,8 @@ public class FailedFragment extends BaseFragment {
 			mTextOrder.setText(ResUtils.getString(mActivity, "ty_pay_order2") + payInfo.getOrderId());
 		}
 		mTextServer.setText(ResUtils.getString(mActivity, "ty_pay_server2")+payInfo.getServerName());
-		mTextMoney.setText(ResUtils.getString(mActivity, "ty_pay_money2")+Integer.parseInt(payInfo.getMoney()) * payInfo.getScale()+payInfo.getCurrency());
+		mTextMoney.setText(ResUtils.getString(mActivity, "ty_pay_money2")+Integer.parseInt(payInfo.getMoney()) + "元");
+//		mTextMoney.setText(ResUtils.getString(mActivity, "ty_pay_money2")+Integer.parseInt(payInfo.getMoney()) * payInfo.getScale()+payInfo.getCurrency());
 		if (!ConfigHolder.isOverseas) {
 			mTextQQ.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_QQ));
 			mTextPhone.setText(SPHandler.getString(mActivity,SPHandler.SP_TEXT_PHONE));

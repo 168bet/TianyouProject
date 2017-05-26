@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ty_pay_success" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:text="@string/ty_congrats_pay_success"
+        android:textColor="@color/color_gray_2"
+        android:textSize="30sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/layout_space_small"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:layout_marginRight="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_big"
+        android:background="@color/color_line_seprator" />
+
+    <TextView
+        android:id="@+id/text_success_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:text="@string/ty_pay_order"
+        android:textColor="@color/color_gray_2"
+        android:textSize="@dimen/text_size_common" />
+
+    <TextView
+        android:id="@+id/text_success_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_little"
+        android:text="@string/ty_pay_server"
+        android:textColor="@color/color_gray_2"
+        android:textSize="@dimen/text_size_common" />
+
+    <TextView
+        android:id="@+id/text_success_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_little"
+        android:text="@string/ty_pay_money"
+        android:textColor="@color/color_gray_2"
+        android:textSize="@dimen/text_size_common" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="@dimen/layout_space_small"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:layout_marginRight="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_big"
+        android:background="@color/color_line_seprator" />
+
+    <TextView
+        android:id="@+id/tv_wish_paysuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:text="@string/ty_merry_play"
+        android:textColor="@color/color_black"
+        android:textSize="@dimen/text_size_common" />
+
+    <LinearLayout
+        android:id="@+id/lv_serviceqq_paysuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:layout_marginRight="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_little"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ty_server_qq"
+            android:textColor="@color/color_gray_2"
+            android:textSize="@dimen/text_size_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/layout_space_little"
+            android:src="@drawable/ty_pay_result_qq" />
+
+        <TextView
+            android:id="@+id/text_success_service_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8888888"
+            android:textColor="@color/color_green"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lv_servicephone_paysuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:layout_marginRight="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_little"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ty_server_phone"
+            android:textColor="@color/color_gray_2"
+            android:textSize="@dimen/text_size_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/layout_space_little"
+            android:src="@drawable/ty_pay_result_phone" />
+
+        <TextView
+            android:id="@+id/text_success_service_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123456789"
+            android:textColor="@color/color_jacinth"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+
+    <!-- <LinearLayout
+        android:id="@+id/lv_servicewhechat_paysuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_space_small"
+        android:layout_marginRight="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_little"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ty_wechat_code"
+            android:textColor="@color/color_gray_2"
+            android:textSize="@dimen/text_size_common" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ty_company_name"
+            android:textColor="@color/color_jacinth"
+            android:textSize="@dimen/text_size_common" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ty_quick_get_help"
+            android:textColor="@color/color_gray_2"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout> -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_space_small"
+        android:layout_marginTop="@dimen/layout_space_big"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_success_backgame"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/layout_space_big"
+            android:layout_weight="1"
+            android:background="@color/color_blue"
+            android:padding="@dimen/layout_space_small"
+            android:text="@string/ty_back_game"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_title" />
+
+        <Button
+            android:id="@+id/btn_success_continuepay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/color_green"
+            android:padding="@dimen/layout_space_small"
+            android:text="@string/ty_continue_pay"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_title" />
+    </LinearLayout>
+
+</LinearLayout>
