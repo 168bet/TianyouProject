@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/ipay_dialog_bg" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="45dip"
+            android:paddingLeft="@dimen/ipay_margin_8"
+            android:gravity="center_vertical"
+            android:textColor="@color/ipay_color_value_6"
+            android:textSize="@dimen/ipay_text_size_15" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ipay_title_line_heigth"
+            android:background="@color/ipay_color_value_3" />
+		<ScrollView android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+		    <LinearLayout android:layout_height="wrap_content"
+		        android:layout_width="match_parent"
+		        android:orientation="vertical"
+		        android:gravity="center">
+		        <ImageView 
+		            android:id="@+id/ipay_dialog_coupon_success"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:src="@drawable/ipay_coupon_success"
+		            android:layout_marginTop="20dp"
+		            android:visibility="gone"
+		            android:contentDescription="@null"/>
+		        
+		        <ImageView 
+		            android:id="@+id/ipay_dialog_coupon_fail"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:src="@drawable/ipay_coupon_fail"
+		            android:layout_marginTop="20dp"
+		            android:visibility="gone"
+		            android:contentDescription="@null"/>
+		        
+		        <TextView
+		            android:id="@+id/ipay_dialog_coupon_message"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginBottom="20dp"
+		            android:layout_marginTop="20dp"
+		            android:gravity="center"
+		            android:lineSpacingExtra="3dp"
+		            android:maxHeight="400dp"
+		            android:scrollbars="vertical"
+		            android:singleLine="false"
+		            android:textColor="@color/ipay_color_value_3_2"
+		            android:textSize="@dimen/ipay_text_size_15" />
+		
+		        <View
+		            android:layout_width="fill_parent"
+		            android:layout_height="@dimen/ipay_height_40"/>
+		        
+		    </LinearLayout>
+		</ScrollView>
+
+</LinearLayout>

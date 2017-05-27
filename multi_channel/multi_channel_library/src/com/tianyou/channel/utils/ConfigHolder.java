@@ -38,6 +38,10 @@ public class ConfigHolder {
 			mChannelInfo.setGameName(info.getString("game_name"));
 			mChannelInfo.setGameId(info.getString("game_id"));
 			mChannelInfo.setGameToken(info.getString("game_token"));
+			mChannelInfo.setPrivateKey(info.getString("private_key"));
+			mChannelInfo.setPublicKey(info.getString("public_key"));
+			mChannelInfo.setClientId(info.getString("client_id"));
+			mChannelInfo.setClientSecret(info.getString("client_secret"));
 		} catch (JSONException e1) {
 			ToastUtils.show(context, "渠道信息解析异常");
 		}
