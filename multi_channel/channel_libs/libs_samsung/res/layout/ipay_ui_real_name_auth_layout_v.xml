@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ipay_bg"
+    android:orientation="vertical" >
+    
+	<!--titlebar  -->
+    <include
+        android:id="@+id/v_title_bar_aipay"
+        layout="@layout/ipay_ui_title_bar_normal" />
+    
+    <ScrollView 
+        android:id="@+id/name_auth_layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+             <!-- userinfo and tip -->
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="@dimen/ipay_height_80"
+		        android:background="@color/ipay_color_value_2"
+		        android:orientation="vertical"
+		        android:gravity="center|left">
+		        
+		        <TextView 
+		            android:id="@+id/name_auth_user_mail"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:textSize="@dimen/ipay_text_size_12"
+		            android:layout_marginLeft="@dimen/ipay_margin_15"/>
+		        
+		        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ipay_margin_15"
+                    android:layout_marginTop="@dimen/ipay_margin_6"
+                    android:text="@string/ipay_name_auth_tip"
+                    android:textColor="@color/ipay_color_value_6"
+                    android:textSize="@dimen/ipay_text_size_14" />
+		    </LinearLayout>
+		    
+		    <!--真实姓名区域  -->
+		  	<RelativeLayout 
+		  	    android:layout_width="match_parent"
+		  	    android:layout_height="@dimen/ipay_height_80"
+		  	    android:layout_marginLeft="@dimen/ipay_margin_15"
+		  	    android:layout_marginRight="@dimen/ipay_margin_15">
+		        
+		  	    <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:textSize="@dimen/ipay_text_size_14"
+		            android:textColor="@color/ipay_color_value_6"
+		            android:layout_alignParentLeft="true"
+		            android:layout_centerInParent="true"
+		            android:layout_marginTop="@dimen/ipay_margin_12"
+		            android:text="@string/ipay_name_auth_real_name"/>
+		  	    <EditText
+		  	        android:id="@+id/et_name_auth_input_name" 
+		  	        android:layout_width="match_parent"
+		  	        android:layout_height="wrap_content"
+		  	        android:layout_alignParentBottom="true"
+		  	        android:singleLine="true"
+		  	        android:background="@null"
+		  	        android:maxLength="20"
+		  	        android:textSize="@dimen/ipay_text_size_14"
+		  	        android:layout_marginBottom="@dimen/ipay_margin_4"
+		  	        android:layout_marginLeft="@dimen/ipay_margin_4"
+		  	        android:hint=""/>
+		  	    <View 
+		  	        android:id="@+id/v_name_auth_input_name_bg"
+		  	        android:layout_width="match_parent"
+		  	        android:layout_height="@dimen/ipay_divid_line_h"
+		  	        android:background="@drawable/ipay_edittext_bg_selector"
+		  	        android:layout_alignParentBottom="true"/>
+		  	</RelativeLayout>
+		  	
+		  	<!-- 身份证号码-->
+		  	<RelativeLayout 
+		  	    android:layout_width="match_parent"
+		  	    android:layout_height="@dimen/ipay_height_80"
+		  	    android:layout_marginLeft="@dimen/ipay_margin_15"
+		  	    android:layout_marginRight="@dimen/ipay_margin_15">
+		        
+		  	    <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:textSize="@dimen/ipay_text_size_14"
+		            android:textColor="@color/ipay_color_value_6"
+		            android:layout_alignParentLeft="true"
+		            android:layout_centerInParent="true"
+		            android:layout_marginTop="@dimen/ipay_margin_12"
+		            android:text="@string/ipay_name_auth_idcardno"/>
+		  	    <EditText 
+		  	        android:id="@+id/et_name_auth_input_idno" 
+		  	        android:layout_width="match_parent"
+		  	        android:layout_height="wrap_content"
+		  	        android:layout_alignParentBottom="true"
+		  	        android:singleLine="true"
+		  	        android:background="@null"
+		  	        android:textSize="@dimen/ipay_text_size_14"
+		  	        android:maxLength="18"
+		  	        android:layout_marginLeft="@dimen/ipay_margin_4"
+		  	        android:layout_marginBottom="@dimen/ipay_margin_4"
+		  	        android:hint=""/>
+		  	    <View 
+		  	        android:id="@+id/v_name_auth_input_idno_bg"
+		  	        android:layout_width="match_parent"
+		  	        android:layout_height="@dimen/ipay_divid_line_h"
+		  	        android:background="@drawable/ipay_edittext_bg_selector"
+		  	        android:clickable="true"
+		  	        android:layout_alignParentBottom="true"/>
+		  	</RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+	 <Button
+		    android:id="@+id/btn_name_auth_submit"
+		    android:layout_width="match_parent"
+		    android:layout_height="@dimen/ipay_height_48"
+		    android:layout_marginTop="@dimen/ipay_margin_30"
+		    android:layout_marginBottom="@dimen/ipay_margin_30"
+		    android:layout_marginLeft="@dimen/ipay_margin_16"
+		    android:layout_marginRight="@dimen/ipay_margin_16"
+		    android:background="@drawable/ipay_common_btn_bg_color"
+		    android:enabled="false"
+		    android:text="@string/ipay_name_auth_submit"
+		    android:textColor="@drawable/ipay_common_btn_text_color"
+		    android:textSize="@dimen/ipay_text_size_15" />
+
+</LinearLayout>

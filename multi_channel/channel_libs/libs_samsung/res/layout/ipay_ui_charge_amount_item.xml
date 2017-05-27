@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ipay_height_65"
+    android:gravity="center_vertical"
+    android:orientation="vertical" 
+    android:id="@+id/item_lin">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_charge_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/ipay_color_value_6_1"
+                android:layout_marginLeft="@dimen/ipay_margin_24"
+                android:textSize="@dimen/ipay_text_size_15"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tv_charge_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/ipay_text_size_12"
+                android:textColor="@color/ipay_color_value_3_2"
+                android:layout_marginLeft="@dimen/ipay_margin_24"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+         <CheckBox
+            android:id="@+id/check_charge_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:button="@drawable/ipay_recharge_checkbox_bg"
+            android:layout_marginRight="@dimen/ipay_margin_24"/>
+    </RelativeLayout>

@@ -1,1 +1,16 @@
-{"result":{"code":200,"msg":"ok","channelinfo":{"id":"23","name":"\u866b\u866b","game_id":"1021","channel_id":"18","channel_type":"bm105","appid":"108997","package":"shanghai.xnnetwork.games.cc","create_time":null,"update_time":null,"appkey":"4049adc9e4904a69ba10f38505959c99","appsecret":"8cdd2a2c9313494fa8835f6db7c10986","merchant_id":null,"payment_key":null,"pay_id":null,"cp_id":null,"pay_public":null,"pay_private":null,"buoy_secret":null}}}
+{
+    "channel_id": "ty004",
+    "channel_name": "samsung",
+
+    "game_name": "¡˙…Ò÷Æπ‚",
+    "game_id": "1021",
+    "game_token": "2da6a99a5ce7553b10fb03803d4994a9",
+
+    "app_id": "5000518108",
+    "app_token":"",
+    
+    "client_id": "r3ud24h8bd",
+    "client_secret": "6BA577B9ED7A0D37C119036DBB53C76C",
+    "private_key": "MIICXQIBAAKBgQCbt5sZeVFw1QznHpRyPrT+rlAIGs+0F09rSR+OwGnvtXwSPhQvw5thtTdvY6VfM37ogad5tMJ/FHGPFny8r7uTg6kcf7JzXxpbVPSSzqUauBQOPaCPitbSF6aaLDaonINgs+f+W06GhrmhRuar0l0FZOcMX/b9CKy11/v25OI/hwIDAQABAoGAYvrwkd61z9z9GKQtg/ksH385zA0O3dC7YNzYPGs+a2qW9RmUx0+1IwSHujxC0CLxlmVjyU8HGrQqAuQuYdnqhrJdkbj7IMQ/zmGE1FaL3dLWS8ahM0Rkynpxp3QtKxKe44S7qB38SSCH0hnNRho3My5OfN0mGnmnDaidVkq+fFECQQD/k59dJrIO8OP/KLJup+xUrRfaTWrmLYe105dHa9xfobQ0DLwwzVN8oegHh4Wd3V05Wh4lzwx8uYQrM8NegK+rAkEAm/mjSzKmcADXjL1yvz1SxrvWVz/cIaTDJDxH0fi1KE6wsV4vPaN7sji+lX7VusohDP+LjGxNUTqFN0QSfMcDlQJBANum/y8q45ttszYHvxrVXYsE3Nw07yv2c4101a5/Z/4U1vBpBZCX1ynlaKqX8eFUcBurdP+frCbBtnL+4OkmhlMCQCZyIBf3AiN1cawVPmV5HiAySKD08rOwQxF5clKFNVIcI11007wjweeqKP/8ZX5HOGJV0vXn9B7jh9aZht0OyQkCQQDfbjSqQWfmkYXT5oZn1cGaz/niKf4zPCaXdmfTTJ/2TTDmHta+zT/fWeFYscw1aIGZwklZ8wMGvozjjzlfymWv",
+    "public_key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCd98g87Oo/8TRax/S8oGW/L3zOs1eYjrzPhZSR/PH4JmWjFnr0uQsfo6TAzpR5OzxdyIu3GkO1iJTB4r0Pr6Je8ji9LHdXctFU8100iuHxLJWkBl+tJ2WIuOzbSTMm3m1ufUt+BP/UWOpVX6D3fU54iBk2GLKDm0TZxP2P4cnDOwIDAQAB"
+}
