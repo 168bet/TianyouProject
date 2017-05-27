@@ -51,7 +51,9 @@ public class BaseSdkService implements SdkServiceInterface {
 	public void doApplicationTerminate() { LogUtils.d("调用doApplicationTerminate"); }
 	
 	@Override
-	public void doApplicationConfigurationChanged(Application application,Configuration newConfig) { LogUtils.d("调用doApplicationConfigurationChanged"); }
+	public void doApplicationConfigurationChanged(Application application,Configuration newConfig) { 
+		LogUtils.d("调用doApplicationConfigurationChanged"); 
+	}
 
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
@@ -140,7 +142,8 @@ public class BaseSdkService implements SdkServiceInterface {
 		map.put("promotion", mChannelInfo.getChannelId());
 		map.put("is_guest", mLoginInfo.getIsGuest());
 		map.put("yijie_appid",mLoginInfo.getYijieAppId());
-		map.put("signature", CommenUtil.MD5("session=" + mLoginInfo.getUserToken() + "&uid=" + mLoginInfo.getChannelUserId() + "&appid=" + gameId));
+		map.put("signature", CommenUtil.MD5("session=" + mLoginInfo.getUserToken() + "&uid="
+				+ mLoginInfo.getChannelUserId() + "&appid=" + gameId));
 		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
 		HttpUtils.post(mActivity, url, map, new HttpCallback() {
 			@Override

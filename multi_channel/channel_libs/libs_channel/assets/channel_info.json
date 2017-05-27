@@ -1,1 +1,11 @@
-{"result":{"code":200,"msg":"ok","channelinfo":{"id":"23","name":"\u866b\u866b","game_id":"1021","channel_id":"18","channel_type":"bm105","appid":"108997","package":"shanghai.xnnetwork.games.cc","create_time":null,"update_time":null,"appkey":"4049adc9e4904a69ba10f38505959c99","appsecret":"8cdd2a2c9313494fa8835f6db7c10986","merchant_id":null,"payment_key":null,"pay_id":null,"cp_id":null,"pay_public":null,"pay_private":null,"buoy_secret":null}}}
+{
+    "channel_id": "ty004",
+    "channel_name": "vivo",
+
+    "game_name": "龙神之光",
+    "game_id": "1021",
+    "game_token": "2da6a99a5ce7553b10fb03803d4994a9",
+
+    "app_id": "58f3caf8969760e7e30ecf380a8db109",
+    "app_token": "572b37f33c8af0a9d2af0992e82a33c8"
+}

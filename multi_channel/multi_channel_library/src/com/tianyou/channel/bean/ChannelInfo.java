@@ -15,6 +15,7 @@ public class ChannelInfo {
 	//渠道参数
 	private String appId;
 	private String appToken;
+	private String appKey;
 	
 	//天游分配的游戏信息
 	private String gameName;
@@ -27,6 +28,14 @@ public class ChannelInfo {
 
 	public void setChannelId(String channelId) {
 		this.channelId = channelId;
+	}
+
+	public String getAppKey() {
+		return appKey;
+	}
+
+	public void setAppKey(String appKey) {
+		this.appKey = appKey;
 	}
 
 	public String getChannelName() {

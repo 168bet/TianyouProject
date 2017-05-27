@@ -38,6 +38,7 @@ public class ConfigHolder {
 			mChannelInfo.setGameName(info.getString("game_name"));
 			mChannelInfo.setGameId(info.getString("game_id"));
 			mChannelInfo.setGameToken(info.getString("game_token"));
+			mChannelInfo.setAppKey(info.getString("app_key"));
 		} catch (JSONException e1) {
 			ToastUtils.show(context, "渠道信息解析异常");
 		}
