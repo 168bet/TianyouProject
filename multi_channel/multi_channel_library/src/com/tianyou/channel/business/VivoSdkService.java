@@ -83,7 +83,7 @@ public class VivoSdkService extends BaseSdkService {
 				orderInfo.getAccessKey(), orderInfo.getAppID(),
 				orderInfo.getOrderNumber(), mLoginInfo.getChannelUserId());
 		
-		Log.d("tianyou", vivoPayInfo.getVivoSignature());
+		Log.d("tianyou", vivoPayInfo.toString());
 		
 		VivoUnionSDK.pay(mActivity, vivoPayInfo, new VivoPayCallback() {
 

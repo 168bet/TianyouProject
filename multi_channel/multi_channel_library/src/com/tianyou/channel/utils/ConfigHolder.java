@@ -67,7 +67,7 @@ public class ConfigHolder {
 					mPayInfoList.add(payInfo);
 				}
 			} catch (JSONException e1) {
-				ToastUtils.show(context, "渠道信息解析异常");
+				ToastUtils.show(context, "支付信息解析异常");
 			}
 		}
 		for (PayInfo payInfo : mPayInfoList) {
