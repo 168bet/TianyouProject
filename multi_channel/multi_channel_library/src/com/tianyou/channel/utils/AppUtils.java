@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.JsonObject;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 
 import android.app.Activity;
@@ -16,7 +15,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-public class CommenUtil {
+public class AppUtils {
 
 	// 获取设备IMEI号的方法
     public static String getPhoeIMEI(Context context) {

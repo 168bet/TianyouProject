@@ -33,7 +33,7 @@ import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
@@ -271,11 +271,11 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("uid", uid);
 		param.put("session", token);
-		param.put("imei", CommenUtil.getPhoeIMEI(mActivity));
+		param.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		param.put("appid", gameId);
 		param.put("logintype", loginType+"");
 		param.put("promotion", mChannelInfo.getChannelId());
-		param.put("signature", CommenUtil.MD5("session=" + token + "&uid=" + uid + "&appid=" + gameId));
+		param.put("signature", AppUtils.MD5("session=" + token + "&uid=" + uid + "&appid=" + gameId));
 		LogUtils.d("loginParam:" + param);
 		HttpUtils.post(mActivity, URLHolder.URL_BASE+URLHolder.CHECK_LOGIN_URL, param, new HttpCallback() {
 			@Override

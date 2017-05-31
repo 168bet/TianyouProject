@@ -24,7 +24,7 @@ import com.tianyou.channel.bean.PayInfo;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
@@ -152,8 +152,8 @@ public class CCSdkService extends BaseSdkService {
 	
 	// 检查登录
 	private void checkLogin(String sid,String token,final TianyouCallback callback) {
-		String phoneIMEI = CommenUtil.getPhoeIMEI(mActivity);
-		String mdSignature = CommenUtil.MD5("session="+token+"&uid="+sid+"&appid="+tyAppID);
+		String phoneIMEI = AppUtils.getPhoeIMEI(mActivity);
+		String mdSignature = AppUtils.MD5("session="+token+"&uid="+sid+"&appid="+tyAppID);
 		Map<String, String> loginParam = new HashMap<String, String>();
 		loginParam.put("uid",sid);
 		loginParam.put("session",token);
