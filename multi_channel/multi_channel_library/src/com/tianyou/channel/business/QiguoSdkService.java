@@ -45,7 +45,7 @@ public class QiguoSdkService extends BaseSdkService{
 		super.doChannelPay(payInfo, orderInfo);
 		PayInfo prodcutInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
 		orderID = orderInfo.getOrderID();
-		mQiguoInstance.pay(prodcutInfo.getProductName(), prodcutInfo.getProductDesc(), orderInfo.getMoNey(), orderInfo.getMoNey(), mPayCallBack);
+		mQiguoInstance.pay(prodcutInfo.getProductName(), prodcutInfo.getProductDesc(), orderInfo.getMoNey(), orderInfo.getOrderID(), mPayCallBack);
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class QiguoSdkService extends BaseSdkService{
 			String qiguoUid = mQiguoInstance.getUserId();
 			LoginInfo loginParam = new LoginInfo();
 			loginParam.setChannelUserId(qiguoUid);
-			checkLogin(loginParam);
+			checkLogin();
 		}
 		
 		@Override
