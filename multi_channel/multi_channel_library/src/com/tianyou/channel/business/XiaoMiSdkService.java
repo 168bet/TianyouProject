@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.tianyou.channel.bean.ChannelInfo;
-import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -41,12 +40,13 @@ public class XiaoMiSdkService extends BaseSdkService{
 		super.doActivityInit(activity, tianyouCallback);
 		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
 	}
-
+	
 	@Override
 	public void doLogin() {
+		super.doLogin();
 		MiCommplatform.getInstance().miLogin(mActivity, new MyOnLoginProcessListener());
 	}
-	
+
 	@Override
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo,orderInfo);
@@ -82,10 +82,10 @@ public class XiaoMiSdkService extends BaseSdkService{
 	            String session = info.getSessionId();//若没有登录返回 null
 	            LogUtils.d("sid= "+sid+",token= "+session);
 //	            checkLogin(sid+"", session);
-	            LoginInfo param = new LoginInfo();
-	            param.setChannelUserId(sid+"");
-	            param.setUserToken(session);
-	            checkLogin(param);
+	            
+	            mLoginInfo.setChannelUserId(sid+"");
+	            mLoginInfo.setUserToken(session);
+	            checkLogin();
 	            break;
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_LOGIN_FAIL: 
 	            // 登陆失败

@@ -1,22 +1,83 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.kakao.android.sdk">
+    package="com.kakao.android.sdk" >
 
     <uses-sdk android:minSdkVersion="8" />
 
-    <application>
+    <!-- 1. 和服务器通信需要联网权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 为了读写图片需要添加访问SD卡的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <application>
         <activity
             android:name="com.kakao.auth.authorization.authcode.KakaoWebViewActivity"
             android:label="@string/com_kakao_login_button"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize">
-
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/kakao_scheme" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/kakaostory_host"
+                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
 
+        <meta-data
+            android:name="com.kakao.sdk.Appkakao_strings.xmlKey"
+            android:value="@string/kakao_app_key" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
+        <activity
+            android:name="com.kakao.sdk.reach.ReachAgeAuthActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensor"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name="com.kakao.sdk.reach.ReachMainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensor"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name="com.kakao.reach.ingame.ui.IngameWebViewActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name="com.kakao.reach.ingame.ui.PlusFriendActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

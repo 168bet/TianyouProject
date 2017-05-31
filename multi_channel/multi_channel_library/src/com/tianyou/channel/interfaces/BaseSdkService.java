@@ -14,7 +14,7 @@ import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayInfo;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
@@ -28,6 +28,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
+/**
+ * 多渠道接口默认实现
+ * @author itstrong
+ *
+ */
 public class BaseSdkService implements SdkServiceInterface {
 
 	protected Activity mActivity;
@@ -51,7 +56,9 @@ public class BaseSdkService implements SdkServiceInterface {
 	public void doApplicationTerminate() { LogUtils.d("调用doApplicationTerminate"); }
 	
 	@Override
-	public void doApplicationConfigurationChanged(Application application,Configuration newConfig) { LogUtils.d("调用doApplicationConfigurationChanged"); }
+	public void doApplicationConfigurationChanged(Application application,Configuration newConfig) { 
+		LogUtils.d("调用doApplicationConfigurationChanged"); 
+	}
 
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
@@ -133,14 +140,15 @@ public class BaseSdkService implements SdkServiceInterface {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid", mLoginInfo.getChannelUserId());
 		map.put("session", mLoginInfo.getUserToken());
-		map.put("imei", CommenUtil.getPhoeIMEI(mActivity));
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("appid", gameId);
 		map.put("playerid", mLoginInfo.getUserToken());
 		map.put("nickname", mLoginInfo.getNickname());
 		map.put("promotion", mChannelInfo.getChannelId());
 		map.put("is_guest", mLoginInfo.getIsGuest());
 		map.put("yijie_appid",mLoginInfo.getYijieAppId());
-		map.put("signature", CommenUtil.MD5("session=" + mLoginInfo.getUserToken() + "&uid=" + mLoginInfo.getChannelUserId() + "&appid=" + gameId));
+		map.put("signature", AppUtils.MD5("session=" + mLoginInfo.getUserToken() + "&uid="
+				+ mLoginInfo.getChannelUserId() + "&appid=" + gameId));
 		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
 		HttpUtils.post(mActivity, url, map, new HttpCallback() {
 			@Override
@@ -273,7 +281,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	public void doPause() { }
 
 	@Override
-	public void doStop() { }
+	public void doStop() { LogUtils.d("调用doStop接口..."); }
 
 	@Override
 	public void doRestart() { }
@@ -285,13 +293,13 @@ public class BaseSdkService implements SdkServiceInterface {
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) { }
 
 	@Override
-	public void doDestory() { }
+	public void doDestory() { LogUtils.d("调用doDestory接口..."); }
 
 	@Override
 	public void doActivityResult(int requestCode, int resultCode, Intent data) { }
 	
 	@Override
-	public void doBackPressed() { }
+	public void doBackPressed() { LogUtils.d("调用doBackPressed接口..."); }
 
 	@Override
 	public void doRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) { }

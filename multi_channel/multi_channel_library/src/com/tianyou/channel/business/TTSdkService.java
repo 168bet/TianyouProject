@@ -13,7 +13,7 @@ import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.MultiChannelCallback.ResultCallback;
 import com.tianyou.channel.interfaces.MultiChannelCallback.ResultCancelCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
 import com.wett.cooperation.container.SdkCallback;
@@ -79,8 +79,8 @@ public class TTSdkService extends BaseSdkService {
 					String sid = TTSDKV2.getInstance().getUid();
 					
 					Log.d("TAG", "sid= "+sid+",sesion= "+session);
-					String phoneIMEI = CommenUtil.getPhoeIMEI(mActivity);
-					String mdSignature = CommenUtil.MD5("session="+session+"&uid="+sid+"&appid="+tyAppID);
+					String phoneIMEI = AppUtils.getPhoeIMEI(mActivity);
+					String mdSignature = AppUtils.MD5("session="+session+"&uid="+sid+"&appid="+tyAppID);
 					Map<String, String> loginParam = new HashMap<String, String>();
 					loginParam.put("uid",sid);
 					loginParam.put("session",session);

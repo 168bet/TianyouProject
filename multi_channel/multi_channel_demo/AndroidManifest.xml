@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="com.tianyouxi.lszg.samsung"
+=======
+    package="com.tianyouxi.lszg.leshi"
+>>>>>>> 10461ae1202fb08c9d17412d29c96087fd6f05cf
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="18" />
+        android:minSdkVersion="15"
+        android:targetSdkVersion="21" />
 
     <application
         android:name="com.multi.channel.demo.DemoAppliction"
@@ -24,17 +28,6 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="smcsj"
-                    android:path="/smcsj"
-                    android:scheme="gamebegin-smcsj" />
             </intent-filter>
         </activity>
     </application>

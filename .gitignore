@@ -1,5 +1,6 @@
 bin/
 gen/
 obj/
-multi_channel/multi_channel_demo/*.properties
 multi_channel/multi_channel_demo/assets/
+multi_channel/multi_channel_demo/project.properties
+multi_channel/multi_channel_library/project.properties

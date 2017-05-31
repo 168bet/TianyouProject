@@ -29,7 +29,7 @@ import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
@@ -93,8 +93,8 @@ public class KupaiSdkService extends BaseSdkService{
 				String code = result.getString(Params.KEY_AUTHCODE);
 				Log.d("TAG", "kupai login success code= "+code);
 				
-				String phoneIMEI = CommenUtil.getPhoeIMEI(mActivity);
-				String mdSignature = CommenUtil.MD5("session="+code+"&uid="+""+"&appid="+tyAppID);
+				String phoneIMEI = AppUtils.getPhoeIMEI(mActivity);
+				String mdSignature = AppUtils.MD5("session="+code+"&uid="+""+"&appid="+tyAppID);
 				Map<String, String> loginParam = new HashMap<String, String>();
 				loginParam.put("uid","");
 				loginParam.put("session",code);

@@ -18,7 +18,7 @@ import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.LogUtils;
 
 public class YijieSdkService extends BaseSdkService{
@@ -51,7 +51,7 @@ public class YijieSdkService extends BaseSdkService{
 				// 登录成功
 //				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, "登录成功");
 				LoginInfo loginParam = new LoginInfo();
-				String yijieAppID = CommenUtil.getMetaDataValue(mActivity, "com.snowfish.appid");
+				String yijieAppID = AppUtils.getMetaDataValue(mActivity, "com.snowfish.appid");
 				loginParam.setChannelUserId(user.getChannelUserId());
 				loginParam.setUserToken(user.getToken());
 				loginParam.setIsGuest(user.getChannelId());

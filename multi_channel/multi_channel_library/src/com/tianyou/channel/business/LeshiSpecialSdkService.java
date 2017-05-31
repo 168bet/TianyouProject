@@ -9,11 +9,9 @@ import com.le.legamesdk.LeGameSDK.ActionCallBack;
 import com.le.legamesdk.LeGameSDK.ExitCallback;
 import com.le.legamesdk.LeGameSDK.PayCallback;
 import com.letv.lepaysdk.smart.LePayInfo;
-import com.tianyou.channel.bean.LoginInfo;
-import com.tianyou.channel.bean.PayInfo;
-
-import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
+import com.tianyou.channel.bean.PayInfo;
+import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.ConfigHolder;
@@ -122,11 +120,10 @@ public class LeshiSpecialSdkService extends BaseSdkService{
 			if (leUserInfo != null) {
 				leToken = leUserInfo.getAccessToken();
 				leUserId = leUserInfo.getUserId();
-				LoginInfo loginParam = new LoginInfo();
-				loginParam.setChannelUserId(leUserId);
-				loginParam.setUserToken(leToken);
+				mLoginInfo.setChannelUserId(leUserId);
+				mLoginInfo.setUserToken(leToken);
 				LogUtils.d("login success userId= "+leUserId+",accessToken= "+leToken+",userName= "+leUserInfo.getUserName());
-				checkLogin(loginParam);
+				checkLogin();
 			} else {
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 			}
