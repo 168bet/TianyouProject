@@ -276,7 +276,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	public void doPause() { }
 
 	@Override
-	public void doStop() { }
+	public void doStop() { LogUtils.d("调用doStop接口..."); }
 
 	@Override
 	public void doRestart() { }
@@ -288,13 +288,13 @@ public class BaseSdkService implements SdkServiceInterface {
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) { }
 
 	@Override
-	public void doDestory() { }
+	public void doDestory() { LogUtils.d("调用doDestory接口..."); }
 
 	@Override
 	public void doActivityResult(int requestCode, int resultCode, Intent data) { }
 	
 	@Override
-	public void doBackPressed() { }
+	public void doBackPressed() { LogUtils.d("调用doBackPressed接口..."); }
 
 	@Override
 	public void doRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) { }
