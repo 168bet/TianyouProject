@@ -161,19 +161,12 @@ public class TianyouSdk {
 			sdkService = new LeyouSdkService();
 		} else if ("ty068".equals(channelInfo.getChannelId())) {
 			sdkService = new QuickSdkService();
-<<<<<<< HEAD
 		} else if ("ty069".equals(channelInfo.getChannelId())) {
 			sdkService = new LeshiSpecialSdkService();
 		} else if ("ty070".equals(channelInfo.getChannelId())) {
 		} else if ("ty073".equals(channelInfo.getChannelId())) {
 			sdkService = new SamsungSdkService();
-		}
-		else if ("bm105".equals(channelInfo.getChannelId())) {
-=======
-		} else if ("ty069".equals(channelInfo.getChannelId())){
-			sdkService = new LeshiSpecialSdkService();
 		} else if ("bm105".equals(channelInfo.getChannelId())) {
->>>>>>> 10461ae1202fb08c9d17412d29c96087fd6f05cf
 			sdkService = new GameBeginSdkService();
 		} else if ("bm106".equals(channelInfo.getChannelId())) {
 			sdkService = new KakaoSdkService();
