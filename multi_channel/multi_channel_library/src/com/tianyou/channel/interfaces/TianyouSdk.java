@@ -28,6 +28,7 @@ import com.tianyou.channel.business.LeshiSpecialSdkService;
 import com.tianyou.channel.business.LeyouSdkService;
 import com.tianyou.channel.business.M4399SdkService;
 import com.tianyou.channel.business.MeizuSdkService;
+import com.tianyou.channel.business.QiguoSdkService;
 import com.tianyou.channel.business.QuickSdkService;
 import com.tianyou.channel.business.SamsungSdkService;
 import com.tianyou.channel.business.TestYingyongbaoSdkService;
@@ -135,7 +136,9 @@ public class TianyouSdk {
 			sdkService = new MoguSdkService();
 		} else if ("ty034".equals(channelInfo.getChannelId())  || "ty044".equals(channelInfo.getChannelId())  || 
 				"ty045".equals(channelInfo.getChannelId())  || "ty046".equals(channelInfo.getChannelId())  || 
-				"ty051".equals(channelInfo.getChannelId()) || "ty062".equals(channelInfo.getChannelId())) { 
+				"ty051".equals(channelInfo.getChannelId()) || "ty062".equals(channelInfo.getChannelId())
+				|| "ty058".equals(channelInfo.getChannelId()) || "ty071".equals(channelInfo.getChannelId())
+				|| "ty072".equals(channelInfo.getChannelId())) { 
 			sdkService = new WuyouwanSdkService();
 		} else if ("ty035".equals(channelInfo.getChannelId())) {
 			sdkService = new ShanyouSdkService();
@@ -161,19 +164,15 @@ public class TianyouSdk {
 			sdkService = new LeyouSdkService();
 		} else if ("ty068".equals(channelInfo.getChannelId())) {
 			sdkService = new QuickSdkService();
-<<<<<<< HEAD
 		} else if ("ty069".equals(channelInfo.getChannelId())) {
 			sdkService = new LeshiSpecialSdkService();
 		} else if ("ty070".equals(channelInfo.getChannelId())) {
+			sdkService = new QiguoSdkService();
 		} else if ("ty073".equals(channelInfo.getChannelId())) {
 			sdkService = new SamsungSdkService();
-		}
-		else if ("bm105".equals(channelInfo.getChannelId())) {
-=======
-		} else if ("ty069".equals(channelInfo.getChannelId())){
-			sdkService = new LeshiSpecialSdkService();
 		} else if ("bm105".equals(channelInfo.getChannelId())) {
->>>>>>> 10461ae1202fb08c9d17412d29c96087fd6f05cf
+			sdkService = new GameBeginSdkService();
+		} else if ("bm105".equals(channelInfo.getChannelId())) {
 			sdkService = new GameBeginSdkService();
 		} else if ("bm106".equals(channelInfo.getChannelId())) {
 			sdkService = new KakaoSdkService();
