@@ -28,23 +28,74 @@ public class ConfigHolder {
 	public static ChannelInfo getChannelInfo(Context context) {
 		if (mChannelInfo != null) return mChannelInfo;
 		String channelInfo = readFileData(context, "channel_info.json");
+		JSONObject info;
 		try {
-			JSONObject info = new JSONObject(channelInfo);
-			mChannelInfo = new ChannelInfo();
-			mChannelInfo.setChannelId(info.getString("channel_id"));
-			mChannelInfo.setChannelName(info.getString("channel_name"));
-			mChannelInfo.setAppId(info.getString("app_id"));
-			mChannelInfo.setAppToken(info.getString("app_token"));
-			mChannelInfo.setGameName(info.getString("game_name"));
-			mChannelInfo.setGameId(info.getString("game_id"));
-			mChannelInfo.setGameToken(info.getString("game_token"));
-			mChannelInfo.setAppKey(info.getString("app_key"));
-			mChannelInfo.setPrivateKey(info.getString("private_key"));
-			mChannelInfo.setPublicKey(info.getString("public_key"));
-			mChannelInfo.setClientId(info.getString("client_id"));
-			mChannelInfo.setClientSecret(info.getString("client_secret"));
-		} catch (JSONException e1) {
+			info = new JSONObject(channelInfo);
+		} catch (JSONException e) {
 			ToastUtils.show(context, "渠道信息解析异常");
+			return null;
+		}
+		mChannelInfo = new ChannelInfo();
+		try {
+			mChannelInfo.setChannelId(info.getString("channel_id"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+			LogUtils.d("channel_id为空");
+		}
+		try {
+			mChannelInfo.setChannelName(info.getString("channel_name"));
+		} catch (JSONException e) {
+			LogUtils.d("channel_name为空");
+		}
+		try {
+			mChannelInfo.setAppId(info.getString("app_id"));
+		} catch (JSONException e) {
+			LogUtils.d("app_id为空");
+		}
+		try {
+			mChannelInfo.setAppToken(info.getString("app_token"));
+		} catch (JSONException e) {
+			LogUtils.d("app_token为空");
+		}
+		try {
+			mChannelInfo.setGameName(info.getString("game_name"));
+		} catch (JSONException e) {
+			LogUtils.d("game_name为空");
+		}
+		try {
+			mChannelInfo.setGameId(info.getString("game_id"));
+		} catch (JSONException e) {
+			LogUtils.d("game_id为空");
+		}
+		try {
+			mChannelInfo.setGameToken(info.getString("game_token"));
+		} catch (JSONException e) {
+			LogUtils.d("game_token为空");
+		}
+		try {
+			mChannelInfo.setAppKey(info.getString("app_key"));
+		} catch (JSONException e) {
+			LogUtils.d("app_key为空");
+		}
+		try {
+			mChannelInfo.setPrivateKey(info.getString("private_key"));
+		} catch (JSONException e1) {
+			LogUtils.d("private_key为空");
+		}
+		try {
+			mChannelInfo.setPublicKey(info.getString("public_key"));
+		} catch (JSONException e1) {
+			LogUtils.d("public_key为空");
+		}
+		try {
+			mChannelInfo.setClientId(info.getString("client_id"));
+		} catch (JSONException e) {
+			LogUtils.d("client_id为空");
+		}
+		try {
+			mChannelInfo.setClientSecret(info.getString("client_secret"));
+		} catch (JSONException e) {
+			LogUtils.d("client_secret为空");
 		}
 		return mChannelInfo;
 	}

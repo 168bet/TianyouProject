@@ -20,6 +20,7 @@ import com.tianyou.channel.business.HaiMaSdkService;
 import com.tianyou.channel.business.HanfengService;
 import com.tianyou.channel.business.HuaWeiSdkService;
 import com.tianyou.channel.business.JinliSdlService;
+import com.tianyou.channel.business.KakaoSdkService;
 import com.tianyou.channel.business.KupaiSdkService;
 import com.tianyou.channel.business.LenovoSdkService;
 import com.tianyou.channel.business.LeshiSdkService;
@@ -52,6 +53,11 @@ import com.tianyou.channel.business.YingyongbaoSdkService;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.LogUtils;
 
+/**
+ * 多渠道入口类
+ * @author itstrong
+ *
+ */
 public class TianyouSdk {
 
 	private static BaseSdkService sdkService;
@@ -158,6 +164,8 @@ public class TianyouSdk {
 			sdkService = new LeshiSpecialSdkService();
 		} else if ("bm105".equals(channelInfo.getChannelId())) {
 			sdkService = new GameBeginSdkService();
+		} else if ("bm106".equals(channelInfo.getChannelId())) {
+			sdkService = new KakaoSdkService();
 		}
 		return sdkService;
 	}

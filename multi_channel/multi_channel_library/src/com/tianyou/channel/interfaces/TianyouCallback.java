@@ -1,5 +1,10 @@
 package com.tianyou.channel.interfaces;
 
+/**
+ * 通知游戏回调接口
+ * @author itstrong
+ *
+ */
 public interface TianyouCallback {
 
 	public static final int CODE_INIT = 0;
