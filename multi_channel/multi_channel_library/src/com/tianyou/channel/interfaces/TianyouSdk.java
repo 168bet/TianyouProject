@@ -53,6 +53,11 @@ import com.tianyou.channel.business.YingyongbaoSdkService;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.LogUtils;
 
+/**
+ * 多渠道入口类
+ * @author itstrong
+ *
+ */
 public class TianyouSdk {
 
 	private static BaseSdkService sdkService;

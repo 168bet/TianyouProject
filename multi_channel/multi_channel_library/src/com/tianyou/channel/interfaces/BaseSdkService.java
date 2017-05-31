@@ -28,6 +28,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
+/**
+ * 多渠道接口默认实现
+ * @author itstrong
+ *
+ */
 public class BaseSdkService implements SdkServiceInterface {
 
 	protected Activity mActivity;

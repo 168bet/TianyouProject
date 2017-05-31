@@ -10,6 +10,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
+/**
+ * 多渠道接口
+ * @author itstrong
+ *
+ */
 public interface SdkServiceInterface {
 
 	/**

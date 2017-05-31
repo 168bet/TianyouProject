@@ -1,7 +1,6 @@
 {
     "payinfo": [
         {
-<<<<<<< HEAD
             "id": "tyxmulti_qihoo_01",
             "money": "8",
             "product_id": "tyxmulti_qihoo_02",
@@ -21,104 +20,6 @@
             "product_id": "tyxmulti_qihoo_04",
             "product_name": "180钻石",
             "product_desc": "购买此商品获得180钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_04",
-            "money": "30",
-            "product_id": "tyxmulti_qihoo_05",
-            "product_name": "300钻石",
-            "product_desc": "购买此商品获得300钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_05",
-            "money": "50",
-            "product_id": "tyxmulti_qihoo_06",
-            "product_name": "500钻石",
-            "product_desc": "购买此商品获得500钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_06",
-            "money": "88",
-            "product_id": "tyxmulti_qihoo_07",
-            "product_name": "880钻石",
-            "product_desc": "购买此商品获得880钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_07",
-            "money": "98",
-            "product_id": "tyxmulti_qihoo_08",
-            "product_name": "980钻石",
-            "product_desc": "购买此商品获得980钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_08",
-            "money": "128",
-            "product_id": "tyxmulti_qihoo_09",
-            "product_name": "1280钻石",
-            "product_desc": "购买此商品获得1280钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_09",
-            "money": "168",
-            "product_id": "tyxmulti_qihoo_10",
-            "product_name": "1680钻石",
-            "product_desc": "购买此商品获得1680钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_10",
-            "money": "198",
-            "product_id": "tyxmulti_qihoo_11",
-            "product_name": "1980钻石",
-            "product_desc": "购买此商品获得1980钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_11",
-            "money": "258",
-            "product_id": "tyxmulti_qihoo_12",
-            "product_name": "2580钻石",
-            "product_desc": "购买此商品获得2580钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_12",
-            "money": "328",
-            "product_id": "tyxmulti_qihoo_13",
-            "product_name": "3280钻石",
-            "product_desc": "购买此商品获得3280钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_13",
-            "money": "588",
-            "product_id": "tyxmulti_qihoo_14",
-            "product_name": "5880钻石",
-            "product_desc": "购买此商品获得5880钻石"
-        },
-        {
-            "id": "tyxmulti_qihoo_14",
-            "money": "648",
-            "product_id": "tyxmulti_qihoo_15",
-            "product_name": "6480钻石",
-            "product_desc": "购买此商品获得6480钻石"
-=======
-            "id": "pay_code_01",
-            "money": "8",
-            "product_id": "2016001",
-            "product_name": "周卡",
-            "product_desc": "购买后7天内每日获得100元宝"
-        },
-        {
-            "id": "pay_code_02",
-            "money": "25",
-            "product_id": "2016002",
-            "product_name": "月卡",
-            "product_desc": "购买后30天内每日获得120元宝"
-        },
-        {
-            "id": "pay_code_03",
-            "money": "648",
-            "product_id": "2016003",
-            "product_name": "6480元宝",
-            "product_desc": "购买此商品获得6480元宝"
->>>>>>> df5e89ebe0c9eaf776ae7f01eff914eac7d0f263
         }
     ]
 }

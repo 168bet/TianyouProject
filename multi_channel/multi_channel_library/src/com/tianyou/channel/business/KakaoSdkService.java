@@ -32,7 +32,7 @@ public class KakaoSdkService extends BaseSdkService {
 	private SessionCallback callback;
 	
 	@Override
-	public void doApplicationCreate(Context context, boolean island) {
+	public void doApplicationCreate(final Context context, boolean island) {
 		super.doApplicationCreate(context, island);
 		KakaoSDK.init(new KakaoAdapter() {
 			@Override
@@ -70,7 +70,7 @@ public class KakaoSdkService extends BaseSdkService {
 
 					@Override
 					public Context getApplicationContext() {
-						return mActivity;
+						return context;
 					}
 				};
 			}
