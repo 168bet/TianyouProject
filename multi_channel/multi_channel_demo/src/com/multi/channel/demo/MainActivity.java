@@ -13,6 +13,7 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
+import com.tianyouxi.lszg.samsung.R;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -104,7 +105,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("tyxmulti_qihoo_01");
+		payParam.setPayCode("2016001");
 		payParam.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
 		payParam.setAmount("1");
 		return payParam;

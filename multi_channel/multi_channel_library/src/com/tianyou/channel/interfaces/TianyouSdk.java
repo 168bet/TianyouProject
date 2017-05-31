@@ -23,10 +23,12 @@ import com.tianyou.channel.business.JinliSdlService;
 import com.tianyou.channel.business.KupaiSdkService;
 import com.tianyou.channel.business.LenovoSdkService;
 import com.tianyou.channel.business.LeshiSdkService;
+import com.tianyou.channel.business.LeshiSpecialSdkService;
 import com.tianyou.channel.business.LeyouSdkService;
 import com.tianyou.channel.business.M4399SdkService;
 import com.tianyou.channel.business.MeizuSdkService;
 import com.tianyou.channel.business.QuickSdkService;
+import com.tianyou.channel.business.SamsungSdkService;
 import com.tianyou.channel.business.TestYingyongbaoSdkService;
 import com.tianyou.channel.business.YijieSdkService;
 import com.tianyou.channel.business.MoguSdkService;
@@ -153,7 +155,13 @@ public class TianyouSdk {
 			sdkService = new LeyouSdkService();
 		} else if ("ty068".equals(channelInfo.getChannelId())) {
 			sdkService = new QuickSdkService();
-		} else if ("bm105".equals(channelInfo.getChannelId())) {
+		} else if ("ty069".equals(channelInfo.getChannelId())) {
+			sdkService = new LeshiSpecialSdkService();
+		} else if ("ty070".equals(channelInfo.getChannelId())) {
+		} else if ("ty073".equals(channelInfo.getChannelId())) {
+			sdkService = new SamsungSdkService();
+		}
+		else if ("bm105".equals(channelInfo.getChannelId())) {
 			sdkService = new GameBeginSdkService();
 		}
 		return sdkService;
