@@ -172,8 +172,6 @@ public class TianyouSdk {
 			sdkService = new SamsungSdkService();
 		} else if ("bm105".equals(channelInfo.getChannelId())) {
 			sdkService = new GameBeginSdkService();
-		} else if ("bm105".equals(channelInfo.getChannelId())) {
-			sdkService = new GameBeginSdkService();
 		} else if ("bm106".equals(channelInfo.getChannelId())) {
 			sdkService = new KakaoSdkService();
 		}
