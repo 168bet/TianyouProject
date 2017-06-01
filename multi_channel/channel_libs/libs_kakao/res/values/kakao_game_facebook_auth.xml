@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="facebook_app_id">374087929645848</string>
+
+    <!--
+    페이스북 인증시  "public_profile", "email" "user_friends" 퍼미션이 기본 정의되어 있으며 
+    추가로 필요한 Read 퍼미션이 있는 경우 아래 item 항목에 추가한다.
+    Publish 퍼미션을 추가할 수 없다.
+    -->
+    <string-array name="facebook_read_pemissions">
+        <item>user_posts</item>
+    </string-array>
+
+</resources>
