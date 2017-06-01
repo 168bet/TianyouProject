@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuartion-list>
+
+    <configuration
+        key="appId"
+        value="103815" />
+
+    <configuration
+        key="appSecret"
+        value="951b75bf17fe0885ab5106ba2a9f9bc9" />
+
+    <configuration
+        key="appVersion"
+        value="1.0.0" />
+
+    <configuration
+        key="market"
+        value="googlePlay" />
+
+    <configuration
+        key="serverType"
+        value="qa" />
+
+    <configuration
+        key="debugLevel"
+        value="verbose" />
+
+</configuartion-list>
