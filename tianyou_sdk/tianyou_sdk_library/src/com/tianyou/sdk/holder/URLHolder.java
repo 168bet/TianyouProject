@@ -2,21 +2,6 @@ package com.tianyou.sdk.holder;
 
 public class URLHolder {
 
-	// 国内正式服
-//	private static final String URL_BASE = "http://api.tianyouxi.com/index.php";
-	// 国内测试服
-	private static final String URL_BASE = "http://newsdk.tianyouxi.com/api/";
-	// 海外正式服
-//	private static final String URL_OVERSEAS = "http://testapi.tianyouxi.com/index.php";
-	// 海外测试服
-	private static final String URL_OVERSEAS = "http://testapi.tianyouxi.com/api/";
-	// 工会正式服
-//	private static final String URL_UNION = "http://ghsdk.tianyouxi.com/api/";
-	// 工会测试服
-//	public static final String URL_UNION = "http://192.168.1.169/tygh/api/";
-	// 长沙工会正式服
-	public static final String URL_UNION = "http://gh.tianyouxi.com/api/";
-	
 	/** ------------------------- 登陆接口 ------------------------- */
 	// 注册
 	public static final String URL_UNION_REGISTER = getHostAddrs() + "Register/register";
@@ -111,12 +96,5 @@ public class URLHolder {
 	
 	private static String getHostAddrs() {
 		return ConfigHolder.hostAddress;
-//		if (ConfigHolder.isOverseas) {
-//			return URL_OVERSEAS;
-//		} else if (ConfigHolder.isUnion) {
-//			return URL_UNION;
-//		} else {
-//			return URL_BASE;
-//		}
 	}
 }
