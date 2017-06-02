@@ -2,8 +2,8 @@ package com.tianyou.channel.business;
 
 import android.app.Activity;
 
-import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -21,7 +21,7 @@ public class WuyouwanSdkService extends BaseSdkService {
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		int platformNumber = Integer.parseInt(mChannelInfo.getPlatformId());
+		int platformNumber = Integer.parseInt(mChannelInfo.getAppId());
 		SDKInstace.SDKInitialize(mActivity, platformNumber, new InitCallBack() {
 			@Override
 			public void InitSuccess(int arg0) {
@@ -39,10 +39,9 @@ public class WuyouwanSdkService extends BaseSdkService {
 		SDKInstace.MemberRegLoginPanel(true, new MemberLoginCallBack() {
 			@Override
 			public void Success(long uid, String token) {
-				LoginInfo param = new LoginInfo();
-				param.setChannelUserId(uid + "");
-				param.setUserToken(token);
-				checkLogin(param);
+				mLoginInfo.setChannelUserId(uid + "");
+				mLoginInfo.setUserToken(token);
+				checkLogin();
 			}
 
 			@Override
