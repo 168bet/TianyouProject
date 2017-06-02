@@ -6,6 +6,7 @@ import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.business.AipuSdkService;
 import com.tianyou.channel.business.AiqiyiSdkService;
 import com.tianyou.channel.business.AnzhiSdkService;
+import com.tianyou.channel.business.AsyxSdkService;
 import com.tianyou.channel.business.AyxSdkService;
 import com.tianyou.channel.business.BaiduSdkService;
 import com.tianyou.channel.business.CCSdkService;
@@ -170,6 +171,8 @@ public class TianyouSdk {
 			sdkService = new QiguoSdkService();
 		} else if ("ty073".equals(channelInfo.getChannelId())) {
 			sdkService = new SamsungSdkService();
+		} else if ("ty074".equals(channelInfo.getChannelId())) {
+			sdkService = new AsyxSdkService();
 		} else if ("bm105".equals(channelInfo.getChannelId())) {
 			sdkService = new GameBeginSdkService();
 		} else if ("bm106".equals(channelInfo.getChannelId())) {

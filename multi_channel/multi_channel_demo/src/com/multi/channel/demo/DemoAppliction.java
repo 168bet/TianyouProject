@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.res.Configuration;
 
 import com.tianyou.channel.interfaces.TianyouSdk;
+import com.u8.sdk.U8Application;
 
-public class DemoAppliction extends Application {
+public class DemoAppliction extends U8Application {
 
 	@Override
 	public void onCreate() {
@@ -16,7 +17,7 @@ public class DemoAppliction extends Application {
 	}
 	
 	@Override
-	protected void attachBaseContext(Context base) {
+	public void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 		TianyouSdk.getInstance(base).doApplicationAttach(base);
 	}
