@@ -1,5 +1,7 @@
 package com.tianyou.sdk.holder;
 
+import java.util.UUID;
+
 import android.content.Context;
 
 public class SPHandler {
@@ -41,5 +43,9 @@ public class SPHandler {
     
     public static void putBoolean(Context context, String key, boolean value) {
     	context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).edit().putBoolean(key, value).commit();
+	}
+    
+    public static String getImeiString(Context context, String key) {
+    	return context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).getString(key, UUID.randomUUID().toString());
 	}
 }

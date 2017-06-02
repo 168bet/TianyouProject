@@ -68,6 +68,11 @@ public class BaseSdkService implements SdkServiceInterface {
 		mLoginInfo = new LoginInfo();
 	}
 	
+	protected void doNoticeGameInit() {
+		LogUtils.d("通知游戏初始化成功");
+		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
+	}
+	
 	@Override
 	public void doLogin() { LogUtils.d("调用登录接口"); }
 	

@@ -103,7 +103,7 @@ public class AppUtils {
     public static String getPhoeIMEI(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String imei = telephonyManager.getDeviceId();
-        if (imei == null) imei = SPHandler.getString(context, SPHandler.SP_IMEI);
+        if (imei == null) imei = SPHandler.getImeiString(context, SPHandler.SP_IMEI);
         return imei;
     }
     
