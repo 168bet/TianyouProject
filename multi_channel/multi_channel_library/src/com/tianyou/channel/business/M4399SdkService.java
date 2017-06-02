@@ -45,8 +45,7 @@ public class M4399SdkService extends BaseSdkService {
 			@Override
 			public void onSwitchUserAccountFinished(User user) {
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, user.toString());
-			}
-			
+			}	
 			@Override
 			public void onInitFinished(boolean flag, User user) {
 				mTianyouCallback.onResult(TianyouCallback.CODE_INIT, user.toString());
@@ -66,11 +65,9 @@ public class M4399SdkService extends BaseSdkService {
 			public void onLoginFinished(boolean success, int code, User user) {
 				LogUtils.d("success:" + success + ",code：" + code);
 				if (success) {
-//					checkLogin(user.getUid(), user.getState());
-					LoginInfo loginParam = new LoginInfo();
-					loginParam.setChannelUserId(user.getUid());
-					loginParam.setUserToken(user.getState());
-					checkLogin(loginParam);
+					mLoginInfo.setChannelUserId(user.getUid());
+					mLoginInfo.setUserToken(user.getState());
+					checkLogin();
 				} else {
 					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "code:" + code);
 				}

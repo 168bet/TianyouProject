@@ -19,7 +19,7 @@ import com.tianyou.channel.business.HSZSdkService;
 import com.tianyou.channel.business.HaiMaSdkService;
 import com.tianyou.channel.business.HanfengService;
 import com.tianyou.channel.business.HuaWeiSdkService;
-import com.tianyou.channel.business.JinliSdlService;
+import com.tianyou.channel.business.JinliSdkService;
 import com.tianyou.channel.business.KakaoSdkService;
 import com.tianyou.channel.business.KupaiSdkService;
 import com.tianyou.channel.business.LenovoSdkService;
@@ -89,11 +89,11 @@ public class TianyouSdk {
 		} else if ("ty008".equals(channelInfo.getChannelId())) {
 			sdkService = new OppoSdkService();
 		} else if ("ty009".equals(channelInfo.getChannelId())) {
-			sdkService = new JinliSdlService();
+			sdkService = new JinliSdkService();
 		} else if ("ty010".equals(channelInfo.getChannelId())) {
 			sdkService = new AnzhiSdkService();
 		} else if ("ty011".equals(channelInfo.getChannelId())) {
-			sdkService = new LeshiSdkService();
+			sdkService = new LeshiSpecialSdkService();
 		} else if ("ty012".equals(channelInfo.getChannelId())) {
 			sdkService = new LenovoSdkService();
 		} else if ("ty013".equals(channelInfo.getChannelId())) {
@@ -161,7 +161,7 @@ public class TianyouSdk {
 		} else if ("ty068".equals(channelInfo.getChannelId())) {
 			sdkService = new QuickSdkService();
 		} else if ("ty069".equals(channelInfo.getChannelId())){
-			sdkService = new LeshiSpecialSdkService();
+			sdkService = new LeshiSdkService();
 		} else if ("bm105".equals(channelInfo.getChannelId())) {
 			sdkService = new GameBeginSdkService();
 		} else if ("bm106".equals(channelInfo.getChannelId())) {
