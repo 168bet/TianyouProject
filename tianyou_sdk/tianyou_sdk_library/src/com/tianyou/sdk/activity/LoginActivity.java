@@ -14,9 +14,11 @@ import com.tianyou.sdk.fragment.login.UserRegisterFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginInfoHandler;
+import com.tianyou.sdk.holder.ProgressHandler;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -162,5 +164,11 @@ public class LoginActivity extends BaseActivity {
 				!mIsAccountRegister ? "shape_bg_dialog" : "shape_bg_gray_fill", "drawable"));
 		mTextAccount.setBackgroundResource(ResUtils.getResById(mActivity, 
 				!mIsAccountRegister ? "shape_bg_gray_fill" : "shape_bg_dialog", "drawable"));
+	}
+	
+	@Override
+	protected void onDestroy() {
+		ProgressHandler.getInstance().closeProgressDialog();
+		super.onDestroy();
 	}
 }

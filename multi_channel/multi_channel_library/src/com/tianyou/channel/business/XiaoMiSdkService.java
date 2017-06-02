@@ -38,7 +38,7 @@ public class XiaoMiSdkService extends BaseSdkService{
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
+		doNoticeGameInit();
 	}
 	
 	@Override

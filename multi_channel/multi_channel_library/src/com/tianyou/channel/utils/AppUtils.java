@@ -20,10 +20,11 @@ public class AppUtils {
 	// 获取设备IMEI号的方法
     public static String getPhoeIMEI(Context context) {
     	if (Build.VERSION.SDK_INT >= 23) {
-    		return "123456789";
+    		return SPHandler.getIMEI(context, SPHandler.SP_IMEI);
     	} else {
     		TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     		String imei = telephonyManager.getDeviceId();
+    		if (imei == null || imei.isEmpty()) imei = SPHandler.getIMEI(context, SPHandler.SP_IMEI);
     		return imei;
     	}
     }
