@@ -42,7 +42,7 @@ public class MiaoLeU8SdkService extends BaseSdkService{
 	@Override
 	public void doLogin() {
 		super.doLogin();
-		U8SDK.getInstance().runOnMainThread(new Runnable() {	//主线程中调用
+		U8SDK.getInstance().runOnMainThread(new Runnable() {	//主线程中调用SDK接口
 			@Override
 			public void run() { U8User.getInstance().login();}
 		});
@@ -54,7 +54,7 @@ public class MiaoLeU8SdkService extends BaseSdkService{
 	@Override
 	public void doUploadRoleInfo(RoleInfo roleInfo) {
 		super.doUploadRoleInfo(roleInfo);
-		U8User.getInstance().submitExtraData(getUserExtraData(1, mRoleInfo));
+		U8User.getInstance().submitExtraData(getUserExtraData(1, mRoleInfo));	// 调用SDK上传角色接口
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class MiaoLeU8SdkService extends BaseSdkService{
 	@Override
 	public void doCreateRole(RoleInfo roleInfo) {
 		super.doCreateRole(roleInfo);
-		U8User.getInstance().submitExtraData(getUserExtraData(2, mRoleInfo));
+		U8User.getInstance().submitExtraData(getUserExtraData(2, mRoleInfo));	// 调用SDK上传角色接口
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class MiaoLeU8SdkService extends BaseSdkService{
 	@Override
 	public void doEntryGame() {
 		super.doEntryGame();
-		U8User.getInstance().submitExtraData(getUserExtraData(3, mRoleInfo));
+		U8User.getInstance().submitExtraData(getUserExtraData(3, mRoleInfo));	// 调用SDK上传角色接口
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class MiaoLeU8SdkService extends BaseSdkService{
 	@Override
 	public void doUpdateRoleInfo(RoleInfo roleInfo) {
 		super.doUpdateRoleInfo(roleInfo);
-		U8User.getInstance().submitExtraData(getUserExtraData(4, mRoleInfo));
+		U8User.getInstance().submitExtraData(getUserExtraData(4, mRoleInfo));	// 调用SDK上传角色接口
 	}
 	
 	
@@ -91,7 +91,7 @@ public class MiaoLeU8SdkService extends BaseSdkService{
 	@Override
 	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
-		U8SDK.getInstance().runOnMainThread(new Runnable() {
+		U8SDK.getInstance().runOnMainThread(new Runnable() {	// 主线程中调用SDK支付接口
 			@Override
 			public void run() { U8Pay.getInstance().pay(getPayParams(orderInfo));}
 		});
@@ -103,8 +103,8 @@ public class MiaoLeU8SdkService extends BaseSdkService{
 	@Override
 	public void doExitGame() {
 		LogUtils.d("调用退出游戏接口");
-		U8User.getInstance().submitExtraData(getUserExtraData(5, mRoleInfo));
-		U8User.getInstance().exit();
+		U8User.getInstance().submitExtraData(getUserExtraData(5, mRoleInfo));	// 调用SDK上传角色接口
+		U8User.getInstance().exit();	// 调用SDK退出游戏接口
 	}
 	
 
