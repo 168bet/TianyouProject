@@ -30,7 +30,7 @@ import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
@@ -123,7 +123,7 @@ public class PangSdkService extends BaseSdkService {
 				map.put("userid", mLoginInfo.getTianyouUserId());
 				map.put("guid", guid);
 				map.put("articleId", articleId + "");
-				map.put("sign", CommenUtil.MD5(mRoleInfo.getRoleId() + mChannelInfo.getAppId() + mLoginInfo.getTianyouUserId() + guid));
+				map.put("sign", AppUtils.MD5(mRoleInfo.getRoleId() + mChannelInfo.getAppId() + mLoginInfo.getTianyouUserId() + guid));
 				HttpUtils.post(mActivity, url, map, new HttpCallback() {
 					@Override
 					public void onSuccess(String data) { }
@@ -147,7 +147,7 @@ public class PangSdkService extends BaseSdkService {
 				map.put("menuId", menuId + "");
 				map.put("imageCount", imageCount + "");
 				map.put("videoCount", videoCount + "");
-				map.put("sign", CommenUtil.MD5(mRoleInfo.getRoleId() + mChannelInfo.getAppId() + mLoginInfo.getTianyouUserId() + guid));
+				map.put("sign", AppUtils.MD5(mRoleInfo.getRoleId() + mChannelInfo.getAppId() + mLoginInfo.getTianyouUserId() + guid));
 				HttpUtils.post(mActivity, url, map, new HttpCallback() {
 					@Override
 					public void onSuccess(String data) { }
@@ -168,7 +168,7 @@ public class PangSdkService extends BaseSdkService {
 				map.put("email", email);
 				map.put("userid", mLoginInfo.getTianyouUserId());
 				map.put("guid", guid);
-				map.put("sign", CommenUtil.MD5(mRoleInfo.getRoleId() + mChannelInfo.getAppId() + mLoginInfo.getTianyouUserId() + guid));
+				map.put("sign", AppUtils.MD5(mRoleInfo.getRoleId() + mChannelInfo.getAppId() + mLoginInfo.getTianyouUserId() + guid));
 				HttpUtils.post(mActivity, url, map, new HttpCallback() {
 					@Override
 					public void onSuccess(String data) { }

@@ -75,6 +75,7 @@ public class YijieSdkService extends BaseSdkService{
 			public void onLogout(Object customParams) {
 				// 退出回调
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "退出登录");
+				doLogin();
 				LogUtils.d("logout custom= "+customParams);
 			}
 		});

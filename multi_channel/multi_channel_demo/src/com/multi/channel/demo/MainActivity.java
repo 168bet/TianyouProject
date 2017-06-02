@@ -1,5 +1,6 @@
 package com.multi.channel.demo;
 
+import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
-import com.tianyouxi.lszg.R;
 
 public class MainActivity extends Activity implements OnClickListener {
 

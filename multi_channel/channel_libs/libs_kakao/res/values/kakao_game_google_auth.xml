@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 구글 인증시 추가로 필요한 퍼미션이 있는 경우 아래 item 항목에 추가한다. -->
+    <string-array name="google_pemissions">
+</string-array>
+
+    <string name="google_app_id">1002041625464</string>
+    <string name="google_web_app_client_id">1002041625464-1f6qd86oivnktic7i5ves1rgi3st87fb.apps.googleusercontent.com</string>
+
+</resources>

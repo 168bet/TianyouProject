@@ -14,7 +14,7 @@ import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayInfo;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
@@ -66,6 +66,11 @@ public class BaseSdkService implements SdkServiceInterface {
 		mActivity = activity;
 		mTianyouCallback = tianyouCallback;
 		mLoginInfo = new LoginInfo();
+	}
+	
+	protected void doNoticeGameInit() {
+		LogUtils.d("通知游戏初始化成功");
+		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
 	}
 	
 	@Override
@@ -140,14 +145,14 @@ public class BaseSdkService implements SdkServiceInterface {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid", mLoginInfo.getChannelUserId());
 		map.put("session", mLoginInfo.getUserToken());
-		map.put("imei", CommenUtil.getPhoeIMEI(mActivity));
+		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("appid", gameId);
 		map.put("playerid", mLoginInfo.getUserToken());
 		map.put("nickname", mLoginInfo.getNickname());
 		map.put("promotion", mChannelInfo.getChannelId());
 		map.put("is_guest", mLoginInfo.getIsGuest());
 		map.put("yijie_appid",mLoginInfo.getYijieAppId());
-		map.put("signature", CommenUtil.MD5("session=" + mLoginInfo.getUserToken() + "&uid="
+		map.put("signature", AppUtils.MD5("session=" + mLoginInfo.getUserToken() + "&uid="
 				+ mLoginInfo.getChannelUserId() + "&appid=" + gameId));
 		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
 		HttpUtils.post(mActivity, url, map, new HttpCallback() {

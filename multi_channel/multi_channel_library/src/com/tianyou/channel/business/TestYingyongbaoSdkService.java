@@ -7,12 +7,14 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.platform2y9y.qyyxpaysdk.api.QYYXPaySDK;
 import com.tencent.ysdk.api.YSDKApi;
 import com.tencent.ysdk.framework.common.ePlatform;
 import com.tencent.ysdk.module.bugly.BuglyListener;
@@ -36,9 +39,11 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.utils.CommenUtil;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
+import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ResUtils;
 import com.tianyou.channel.utils.SpUtils;
+import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.channel.utils.URLHolder;
 
 public class TestYingyongbaoSdkService extends BaseSdkService {
@@ -60,11 +65,16 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 	private AlertDialog mLoginDialog;
 	
 	private String tyUserId;
+	private int payType = 0;
+	private PayParam payParam;
 	
 	@Override
 	public void doActivityInit(Activity activity,
 			TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
+		
+		QYYXPaySDK.initSDK(mActivity);		// 乾游支付初始化
+		
 		YSDKApi.onCreate(mActivity);
 		YSDKApi.handleIntent(mActivity.getIntent());
 		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
@@ -92,11 +102,60 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 		return true;
 	}
 	
+	private Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			if (msg.what == 0) {
+				LogUtils.d("调用支付接口:" + payParam);
+				if (mRoleInfo == null) {
+					ToastUtils.showToast(mActivity, "请先上传角色信息");
+					return;
+				}
+				mPayInfo = ConfigHolder.getPayInfo(mActivity, payParam.getPayCode());
+				if (mPayInfo == null) {
+					ToastUtils.showToast(mActivity, "需打入渠道资源");
+				} else {
+					createOrder(payParam);
+				}
+			}
+		};
+	};
+	
+	@Override
+	public void doPay(PayParam payInfo) {
+		payParam = payInfo;
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("user_id", openID);
+		data.put("game", "lieyao_yyb");
+		data.put("channel", "yingyongb_main");
+		data.put("data", mRoleInfo.getVipLevel());
+		data.put("ip", CommenUtil.getIP());
+		HttpUtils.post(mActivity, "http://h5pay.2y9y.com/api/rechargeSwitch.php", data, new HttpCallback() {
+			
+			@Override
+			public void onSuccess(String data) {
+				LogUtils.d("onSuccess data= "+data);
+				payType = Integer.parseInt(data.substring(0,1));
+				mHandler.sendEmptyMessage(0);
+			}
+			
+			@Override
+			public void onFailed(String code) {
+				LogUtils.d("onFailed code= "+code);
+			}
+		});
+	}
+	
 	@Override
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+		LogUtils.d("paytype= "+payType);
+		if (payType == 1) {		// 走乾游支付
+			QYYXPaySDK.pay(mActivity, orderInfo.getOrderID(), orderInfo.getMoNey(), 
+					mRoleInfo.getRoleName(), mRoleInfo.getServerId(), mRoleInfo.getRoleId(), mRoleInfo.getRoleName());
+			return;
+		}
 		Log.d("TAG", "channel pay-----------");
 		String zoneId = mRoleInfo.getServerId();
-		String saveValue = orderInfo.getMoNey();
+		String saveValue = Integer.parseInt(orderInfo.getMoNey())*10+"";
 		boolean isCanChange = false;
 		Bitmap bmp = BitmapFactory.decodeResource(mActivity.getResources(), ResUtils.getResById(mActivity, "sample_yuanbao", "drawable"));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -151,7 +210,7 @@ public class TestYingyongbaoSdkService extends BaseSdkService {
 		checkParam.put("platform", platForm+"");
 		checkParam.put("zoneid", mRoleInfo.getServerId());
 		Log.d("TAG", "checkParam= "+checkParam);
-		HttpUtils.post(mActivity, URLHolder.CHECK_ORDER_URL_YYB,checkParam, new HttpCallback() {
+		HttpUtils.post(mActivity, URLHolder.CHECK_ORDER_ML_LY_YYB,checkParam, new HttpCallback() {
 					@Override
 					public void onSuccess(String data) {
 						Log.d("TAG", "yyb check success data= "+data);

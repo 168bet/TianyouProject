@@ -9,6 +9,7 @@ import com.iapppay.interfaces.callback.IPayResultCallback;
 import com.iapppay.sdk.main.IAppPay;
 import com.iapppay.sdk.main.IAppPayOrderUtils;
 import com.tianyou.channel.bean.ChannelInfo;
+import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -24,6 +25,8 @@ public class SamsungSdkService extends BaseSdkService{
 	private String clientSecret;
 	private String privateKey;
 	private String publicKey;
+	
+	private String checkOrderID;	// 查询订单ID（天游orderID）
 
 	/**
 	 * Activity初始化接口
@@ -55,8 +58,9 @@ public class SamsungSdkService extends BaseSdkService{
 	@Override
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
+		checkOrderID = orderInfo.getCustomInfo();
 		String payParams = getPayParams(orderInfo);		// 获取支付参数
-		IAppPay.startPay(mActivity, payParams, null);		//调用渠道支付接口
+		IAppPay.startPay(mActivity, payParams, mPayResultCallback);		//调用渠道支付接口
 	}
 	
 	/**
@@ -65,12 +69,12 @@ public class SamsungSdkService extends BaseSdkService{
 	private String getPayParams(OrderinfoBean orderInfo){
 		IAppPayOrderUtils orderUtils = new IAppPayOrderUtils();
 		orderUtils.setAppid(appID);
-		orderUtils.setWaresid(0);
+		orderUtils.setWaresid(Integer.parseInt(orderInfo.getWaresid()));
 		orderUtils.setCporderid(orderInfo.getOrderID());
-		orderUtils.setAppuserid("");
+		orderUtils.setAppuserid(mLoginInfo.getTianyouUserId());
 		orderUtils.setPrice(Float.parseFloat(orderInfo.getMoNey()));
-		orderUtils.setWaresname("");
-		orderUtils.setCpprivateinfo(orderInfo.getOrderID());
+		orderUtils.setWaresname(orderInfo.getProductName());
+		orderUtils.setCpprivateinfo(orderInfo.getCustomInfo());
 		orderUtils.setNotifyurl(orderInfo.getNotifyurl());
 		String payParams = orderUtils.getTransdata(privateKey);
 		LogUtils.d("payParams= "+payParams);
@@ -102,6 +106,10 @@ public class SamsungSdkService extends BaseSdkService{
 				String samGlobalID =resultMapStr.get("samGlobalID");
 				String tokenMsg =resultMapStr.get("tokenMsg");
 				LogUtils.d("login success userID= "+iapppayUserid+",globalID= "+samGlobalID+",token= "+tokenMsg);
+				mLoginInfo.setChannelUserId(iapppayUserid);
+				mLoginInfo.setNickname(samGlobalID);
+				mLoginInfo.setUserToken(tokenMsg);
+				checkLogin();
 			}else{
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 				LogUtils.e("登录成功，验签失败");
@@ -125,6 +133,7 @@ public class SamsungSdkService extends BaseSdkService{
 
 		@Override
 		public void onPayResult(int resultCode, String signValue, String resultInfo, Map<String, String> authMap) {
+			LogUtils.d("pay result resultCode= "+resultCode+",signValue= "+signValue+",resultInfo= "+resultInfo+",authMap= "+authMap);
 			//----实名认证结果的处理，如果对这些参数没有任何使用，可以忽略此处----Start
 			String authTypeDes = "";
 			if(authMap != null && !authMap.isEmpty()){
@@ -142,19 +151,27 @@ public class SamsungSdkService extends BaseSdkService{
 			case IAppPay.PAY_SUCCESS:
 				//调用 IAppPayOrderUtils 的验签方法进行支付结果验证
 				boolean payState = IAppPayOrderUtils.checkPayResult(signValue, publicKey);
+				LogUtils.d("pay success payState= "+payState);
 				if(payState){
 					// 支付成功
+					checkOrder(checkOrderID);
+				} else {
+					mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");
 				}
 				break;
+				
 			case IAppPay.PAY_ING:
-//				Toast.makeText(GoodsActivity.this, "成功下单"+authTypeDes, Toast.LENGTH_LONG).show();
 				break ;
-				 
+			
+			case IAppPay.PAY_CANCEL:
+				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_CANCEL, "支付取消"); 
+				break;
+				
 			default:
-//				Toast.makeText(GoodsActivity.this, resultInfo+authTypeDes, Toast.LENGTH_LONG).show();
+				LogUtils.d("pay failed resultCode= "+resultCode+",signValue= "+signValue+",resultInfo= "+resultInfo);
+				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");
 				break;
 			}
-//			Log.d(TAG, "requestCode:"+resultCode + ",signvalue:" + signvalue + ",resultInfo:"+resultInfo);
 		}
 		
 	};

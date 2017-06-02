@@ -11,7 +11,7 @@ import android.app.Activity;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.URLHolder;
@@ -102,11 +102,11 @@ public class ShanyouSdkService extends BaseSdkService{
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("uid", uid);
 		param.put("session", session);
-		param.put("imei", CommenUtil.getPhoeIMEI(mActivity));
+		param.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		param.put("appid", gameId);
 		param.put("promotion", mChannelInfo.getChannelId());
 		param.put("logintime", loginTime);
-		param.put("signature", CommenUtil.MD5("session=" + session + "&uid=" + uid + "&appid=" + gameId));
+		param.put("signature", AppUtils.MD5("session=" + session + "&uid=" + uid + "&appid=" + gameId));
 		LogUtils.d("session:" + param.get("session"));
 		HttpUtils.post(mActivity, URLHolder.CHECK_LOGIN_URL, param, new HttpCallback() {
 			@Override

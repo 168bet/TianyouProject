@@ -25,7 +25,7 @@ import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
-import com.tianyou.channel.utils.CommenUtil;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.HttpUtils;
 import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
@@ -99,11 +99,17 @@ public class QihooSdkService extends BaseSdkService {
 					JSONObject jsonObject = new JSONObject(data);
 					JSONObject dataInfo = jsonObject.getJSONObject("data");
 					String accessToken = dataInfo.getString("access_token");
+<<<<<<< HEAD
 					String phoneIMEI = CommenUtil.getPhoeIMEI(mActivity);
 					String mdSignature = CommenUtil
 							.MD5("session=" + accessToken + "&appid="
 									+ mChannelInfo.getAppId());
 					Log.d("TAG", "qihoo login token = " + accessToken);
+=======
+					String phoneIMEI = AppUtils.getPhoeIMEI(mActivity);
+					String mdSignature = AppUtils.MD5("session="+accessToken+"&appid="+mChannelInfo.getAppId());
+					Log.d("TAG","qihoo login token = "+accessToken);
+>>>>>>> 41a2fc61cf7c9eb020c733a649e01e280dc50348
 					Map<String, String> param = new HashMap<String, String>();
 					param.put("uid", "");
 					param.put("appid", mChannelInfo.getGameId());
