@@ -1,6 +1,7 @@
 package com.tianyou.channel.business;
 
 import android.app.Activity;
+import android.os.Handler;
 
 import com.kding.api.QiGuoApi;
 import com.kding.api.QiGuoCallBack;
@@ -97,7 +98,15 @@ public class QiguoSdkService extends BaseSdkService{
 	private QiGuoCallBack mPayCallBack = new QiGuoCallBack() {
 		
 		@Override
-		public void onSuccess() { checkOrder(orderID);}
+		public void onSuccess() { 
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					checkOrder(orderID);
+				}
+			}, 1000);
+		}
 		
 		@Override
 		public void onFailure(String msg) { LogUtils.e("支付失败 msg= "+msg); mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");}

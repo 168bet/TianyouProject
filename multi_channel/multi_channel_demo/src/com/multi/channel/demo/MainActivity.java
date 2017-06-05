@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+<<<<<<< HEAD
+import com.ml.ly.qiguo.R;
+=======
+>>>>>>> f5b60bcd3b7a2d1b3c7df9e6a32836f3a6687012
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -105,7 +109,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("tyxmulti_qihoo_01");
+		payParam.setPayCode("2016001");
 		payParam.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
 		payParam.setAmount("1");
 		return payParam;
@@ -123,6 +127,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		roleInfo.setRoleLevel("100");
 		roleInfo.setRoleName("卢锡安");
 		roleInfo.setVipLevel("12");
+		roleInfo.setCreateTime(System.currentTimeMillis()+"");
+		roleInfo.setRoleLevelUpTime(System.currentTimeMillis()+"");
+		roleInfo.setRoleId("1001");
 		return roleInfo;
 	}
 

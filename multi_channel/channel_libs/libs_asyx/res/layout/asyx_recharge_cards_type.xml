@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/asyx_recharge_cards_type_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_weight="0.2"
+    android:background="@drawable/asyx_recharge_content_shape"
+    android:orientation="horizontal"
+    android:visibility="gone" >
+
+    <ImageButton
+        android:id="@+id/asyx_recharge_yidong_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:contentDescription="@string/asyx_image_contentDescription"
+        android:onClick="onClick"
+        android:scaleType="fitCenter"
+        android:src="@drawable/asyx_recharge_yidong" />
+
+    <ImageButton
+        android:id="@+id/asyx_recharge_liantong_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:contentDescription="@string/asyx_image_contentDescription"
+        android:onClick="onClick"
+        android:scaleType="fitCenter"
+        android:src="@drawable/asyx_recharge_liantong" />
+
+    <ImageButton
+        android:id="@+id/asyx_recharge_dianxin_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:contentDescription="@string/asyx_image_contentDescription"
+        android:onClick="onClick"
+        android:scaleType="fitCenter"
+        android:src="@drawable/asyx_recharge_dianxin" />
+
+</LinearLayout>

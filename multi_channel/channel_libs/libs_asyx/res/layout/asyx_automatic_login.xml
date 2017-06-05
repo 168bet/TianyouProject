@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#cc000000"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/asyx_image_contentDescription"
+        android:scaleType="fitCenter"
+        android:src="@drawable/asyx_logo_white" />
+
+    <Button
+        android:id="@+id/asyx_automatic_account"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/asyx_dialog_shape"
+        android:textColor="@color/asyx_options_text_color" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/asyx_automatic_login"
+        android:textColor="@color/asyx_options_text_color"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/asyx_automatic_change"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@color/asyx_registered_selected"
+        android:text="@string/asyx_automatic_change"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

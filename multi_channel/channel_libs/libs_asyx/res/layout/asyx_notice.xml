@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@drawable/asyx_dialog_shape"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/asyx_notice_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/asyx_registered_selected"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#bcb8b7" />
+
+    <TextView
+        android:id="@+id/asyx_notice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/asyx_registered_selected"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#bcb8b7" />
+
+    <Button
+        android:id="@+id/asyx_notice_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:text="@string/asyx_prompt_submit"
+        android:textColor="#5cc1f9"
+        android:textSize="18sp" />
+
+</LinearLayout>

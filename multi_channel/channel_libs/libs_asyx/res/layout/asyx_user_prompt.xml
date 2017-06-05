@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@drawable/asyx_dialog_shape" >
+
+    <TextView
+        android:id="@+id/asyx_user_prompt_box_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/asyx_options_text_color"
+        android:textSize="18sp" />
+
+    <View
+        android:id="@+id/user_prompt_box_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/asyx_user_prompt_box_message"
+        android:background="#bcb8b7" />
+
+    <Button
+        android:id="@+id/asyx_user_prompt_box_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_prompt_box_divider"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:text="@string/asyx_prompt_submit"
+        android:textColor="#5cc1f9"
+        android:textSize="18sp" />
+
+</RelativeLayout>
