@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/asyx_recharge_card_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_weight="0.2"
+    android:background="@drawable/asyx_recharge_content_shape"
+    android:orientation="vertical"
+    android:visibility="gone" >
+
+    <TextView
+        android:id="@+id/asyx_recharge_card_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textColor="#5fd2fe"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/asyx_edittext_shape" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_card_lines"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text="@string/asyx_recharge_card_lines"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/asyx_card_lines"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/asyx_recharge_card_lines"
+            android:background="@null"
+            android:hint="@string/asyx_recharge_lines_hint"
+            android:inputType="number"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/asyx_edittext_shape" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text="@string/asyx_recharge_card_number"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/asyx_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/asyx_recharge_card_number"
+            android:background="@null"
+            android:hint="@string/asyx_recharge_number_hint"
+            android:inputType="number"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/asyx_edittext_shape" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_card_password"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:text="@string/asyx_recharge_card_password"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/asyx_card_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/asyx_recharge_card_password"
+            android:background="@null"
+            android:hint="@string/asyx_recharge_password_hint"
+            android:inputType="textPassword"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/asyx_recharge_hint_text"
+        android:textColor="#62d3ff"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/asyx_image_contentDescription"
+        android:scaleType="fitCenter"
+        android:src="@drawable/asyx_recharge_divider" />
+
+    <Button
+        android:id="@+id/asyx_recharge_card_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/asyx_recharge_submit_background"
+        android:onClick="onClick"
+        android:paddingBottom="12dp"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:paddingTop="12dp"
+        android:text="@string/asyx_recharge_submit"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

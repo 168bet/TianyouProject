@@ -38,9 +38,7 @@
     <application
         android:name="com.letv.gamesdk.mobile.demo.BaseApplication"
         android:allowBackup="true"
-        android:icon="@drawable/letv_gamesdk_icon"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+       >
         
         <meta-data
             android:name="lepay_appid"

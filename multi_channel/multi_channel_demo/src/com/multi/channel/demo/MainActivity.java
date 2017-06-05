@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.ml.ly.asyx.R;
+import com.ml.ly.qiguo.R;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -105,7 +105,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("tyxmulti_qihoo_01");
+		payParam.setPayCode("2016001");
 		payParam.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
 		payParam.setAmount("1");
 		return payParam;

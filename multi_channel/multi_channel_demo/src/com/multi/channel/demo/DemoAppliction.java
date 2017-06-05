@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 
 import com.tianyou.channel.interfaces.TianyouSdk;
-import com.u8.sdk.U8Application;
 
-public class DemoAppliction extends U8Application {
+public class DemoAppliction extends Application {
 
 	@Override
 	public void onCreate() {
