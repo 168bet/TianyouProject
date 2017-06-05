@@ -175,7 +175,10 @@ public class HomeFragment extends BaseFragment {
 		mPayHandler.PAY_FLAG = false;
 		mPayHandler.mPayType = PayType.WECHAT;
 		LogUtils.d("mPayHandler.mIsShowChoose:" + mPayHandler.mIsShowChoose);
-		getPayWayControl();
+		LogUtils.d("isLandscape：" + ConfigHolder.isLandscape);
+		if (ConfigHolder.isLandscape) {
+			getPayWayControl();
+		}
 		mLayoutMenu0.setVisibility(mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu1.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);
 		mLayoutMenu2.setVisibility(!mPayHandler.mIsShowChoose ? View.VISIBLE : View.GONE);

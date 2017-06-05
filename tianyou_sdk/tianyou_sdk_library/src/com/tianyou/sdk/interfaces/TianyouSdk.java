@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -274,7 +275,12 @@ public class TianyouSdk {
 					com.tianyou.sdk.base.FloatControl.ResultBean.CustominfoBean custominfo = control.getResult().getCustominfo();
 					if (custominfo.getLockstatus() == 1) {
 						SPHandler.putString(mActivity, SPHandler.SP_FLOAT_CONTROL, response);
-						new FloatMenu(mActivity).createLogoPopupWindow();
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								new FloatMenu(mActivity).createLogoPopupWindow();
+							}
+						}, 1000);
 					}
 				} else {
 					ToastUtils.show(mActivity, control.getResult().getMsg());
