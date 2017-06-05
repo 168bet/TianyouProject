@@ -1,0 +1,88 @@
+{
+    "payinfo": [
+        {
+            "id": "2016001",
+            "money": "8",
+            "product_id": "2016001",
+            "product_name": "周卡",
+            "product_desc": "购买后7天内每日获得100元宝"
+        },
+        {
+            "id": "2016002",
+            "money": "25",
+            "product_id": "2016002",
+            "product_name": "月卡",
+            "product_desc": "购买后30天内每日获得120元宝"
+        },
+        {
+            "id": "2016003",
+            "money": "648",
+            "product_id": "2016003",
+            "product_name": "6480元宝",
+            "product_desc": "购买此商品获得6480元宝"
+        },
+        {
+            "id": "2016004",
+            "money": "328",
+            "product_id": "2016004",
+            "product_name": "3280元宝",
+            "product_desc": "购买此商品获得3280元宝"
+        },
+        {
+            "id": "2016005",
+            "money": "198",
+            "product_id": "2016005",
+            "product_name": "1980元宝",
+            "product_desc": "购买此商品获得1980元宝"
+        },
+        {
+            "id": "2016006",
+            "money": "6",
+            "product_id": "2016006",
+            "product_name": "60元宝",
+            "product_desc": "购买此商品获得60元宝"
+        },
+        {
+            "id": "2016007",
+            "money": "30",
+            "product_id": "2016007",
+            "product_name": "300元宝",
+            "product_desc": "购买此商品获得300元宝"
+        },
+        {
+            "id": "2016008",
+            "money": "98",
+            "product_id": "2016008",
+            "product_name": "980元宝",
+            "product_desc": "购买此商品获得980元宝"
+        },
+        {
+            "id": "2016009",
+            "money": "68",
+            "product_id": "2016009",
+            "product_name": "680元宝",
+            "product_desc": "首次购买此商品可激活成长基金"
+        },
+        {
+            "id": "2016013",
+            "money": "1000",
+            "product_id": "2016013",
+            "product_name": "10000元宝",
+            "product_desc": "购买此商品获得10000元宝"
+        },
+        {
+            "id": "2016011",
+            "money": "3000",
+            "product_id": "2016011",
+            "product_name": "30000元宝",
+            "product_desc": "购买此商品获得30000元宝"
+        },
+        {
+            "id": "2016012",
+            "money": "5000",
+            "product_id": "2016012",
+            "product_name": "50000元宝",
+            "product_desc": "购买此商品获得50000元宝"
+        }
+    ]
+}

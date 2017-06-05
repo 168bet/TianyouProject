@@ -334,4 +334,5 @@ public class BaseSdkService implements SdkServiceInterface {
 		
 		void onSuccess(String data); 
 	}
+
 }

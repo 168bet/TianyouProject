@@ -92,6 +92,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 				mLogoPopupWindow.showAtLocation(mView, Gravity.LEFT, 0, 0);
 			} catch (Exception e) {
 				LogUtils.w("mLogoPopupWindow异常...");
+				e.printStackTrace();
 			}
 			mLogoPopupWindow.update();
 		}

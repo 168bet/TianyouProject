@@ -2,8 +2,8 @@ package com.tianyou.channel.business;
 
 import android.app.Activity;
 
-import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.LoginInfo;
+import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -39,7 +39,10 @@ public class WuyouwanSdkService extends BaseSdkService {
 		SDKInstace.MemberRegLoginPanel(true, new MemberLoginCallBack() {
 			@Override
 			public void Success(long uid, String token) {
+<<<<<<< HEAD
 //				LoginInfo param = new LoginInfo();
+=======
+>>>>>>> f5b60bcd3b7a2d1b3c7df9e6a32836f3a6687012
 				mLoginInfo.setChannelUserId(uid + "");
 				mLoginInfo.setUserToken(token);
 				checkLogin();

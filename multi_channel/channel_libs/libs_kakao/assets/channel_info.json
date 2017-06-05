@@ -1,11 +1,11 @@
 {
-    "channel_id": "bm106",
-    "channel_name": "kakao",
+    "channel_id": "ty009",
+    "channel_name": "jinli",
 
     "game_name": "龙神之光",
     "game_id": "1021",
     "game_token": "2da6a99a5ce7553b10fb03803d4994a9",
 
-    "app_id": "273848",
-    "app_token": "c2ab10c6b0884247a6a2adc3a7db6b6d"
+    "app_id": "12C37AA29B0D4A1092DC88382D24CDD8",
+    "app_token": "93B4D50909CC4271B1CDC113AA98116D"
 }
