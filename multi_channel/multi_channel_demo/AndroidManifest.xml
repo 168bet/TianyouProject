@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    package="com.ml.ly.qiguo"
-=======
-    package="com.tianyouxi.lszg"
->>>>>>> f5b60bcd3b7a2d1b3c7df9e6a32836f3a6687012
+    package="com.tianyouxi.lszg.mi"
     android:versionCode="1"
     android:versionName="1.0" >
 
