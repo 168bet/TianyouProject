@@ -4,13 +4,20 @@ import java.util.List;
 import java.util.Map;
 
 import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.IdentifiFragment;
@@ -23,6 +30,7 @@ import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.ProgressHandler;
+import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 
@@ -46,11 +54,15 @@ public class LoginActivity extends BaseActivity {
 	private static boolean isGoogleConnected = false;
 	
 	private boolean mIsAccountRegister;
+	private ConnectionCallbacks mConnectionCallbacks;
+	private OnConnectionFailedListener mOnConnectionFailedListener;
 	
 	protected int setContentView() { return ResUtils.getResById(this, "activity_login", "layout"); }
 
 	@Override
 	protected void initView() {
+		googleInit();
+		
 		mImgClose = (ImageView) findViewById(ResUtils.getResById(mActivity, "img_login_close", "id"));
 		
 		mLayoutRegisterTitle = findViewById(ResUtils.getResById(mActivity, "layout_login_register_title", "id"));
@@ -65,6 +77,18 @@ public class LoginActivity extends BaseActivity {
 		mViewBack.setOnClickListener(this);
 		mTextPhone.setOnClickListener(this);
 		mTextAccount.setOnClickListener(this);
+		
+		if (ConfigHolder.isOverseas) {
+			mConnectionResult = null;
+			mApiClient = null;
+			mApiClient = new GoogleApiClient.Builder(this)
+			.addApi(Plus.API,Plus.PlusOptions.builder()
+					.setServerClientId(AppUtils.getMetaDataValue(LoginActivity.this, "google_client_id"))//"775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com")
+					.build())
+					.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(mConnectionCallbacks).addOnConnectionFailedListener(mOnConnectionFailedListener)
+					.build();
+//			facebookLogin();
+		}
 	}
 	
 	@Override
@@ -93,6 +117,63 @@ public class LoginActivity extends BaseActivity {
 		}
 	}
 	
+	private void googleInit() {
+		LogUtils.d("是否是海外报：" + ConfigHolder.isOverseas);
+		if (ConfigHolder.isOverseas) {
+			mConnectionCallbacks = new ConnectionCallbacks() {
+				@Override
+				public void onConnectionSuspended(int arg0) {
+					mApiClient.connect();
+				}
+				
+				@Override
+				public void onConnected(Bundle arg0) {
+					if (isGoogleConnected) {
+						isGoogleConnected = false;
+						final String accountName = Plus.AccountApi.getAccountName(mApiClient);
+						Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
+						final String nickname = person.getDisplayName();
+						final String id = person.getId();
+//						final String nickname = person.getNickname();
+						LogUtils.d("id= "+id+",accountName= "+accountName+",displayname= "+nickname);
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								try {
+									String token = GoogleAuthUtil.getToken(mActivity, accountName, "audience:server:client_id:"+AppUtils.getMetaDataValue(mActivity, "google_client_id"));//775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com");
+									LogUtils.d("token= "+token);
+				//					checkGoogleLogin(id,token);
+									Bundle bundle = new Bundle();
+									bundle.putString("id", id);
+									bundle.putString("token", token);
+									bundle.putString("nickname", nickname);
+									Message msg = new Message();
+									msg.what = 1;
+									msg.setData(bundle);
+									mHandler.sendMessage(msg);
+								} catch (Exception e) {
+									LogUtils.d("Exception= "+e.getMessage());
+								}
+							}
+						}).start();
+					}
+				}
+			};
+			
+			mOnConnectionFailedListener = new OnConnectionFailedListener() {
+				@Override
+				public void onConnectionFailed(ConnectionResult result) {
+					LogUtils.d("onConnecton failed-------------");
+					if (result == null) {
+						LogUtils.d("----------------");
+					} else {
+						LogUtils.d("=============");
+					}
+					mConnectionResult = result;
+				}
+			};
+		}
+	}
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "img_login_close", "id")) {
@@ -152,14 +233,6 @@ public class LoginActivity extends BaseActivity {
 		switchFragment(isAccountRegister ? new UserRegisterFragment() : new PhoneRegisterFragment());
 	}
 	
-	
-	//设置注册类型
-//		public void setTitleState() {
-//			mTextPhone.setVisibility(View.GONE);
-//			mTextAccount.setTextColor(Color.parseColor( "#333333"));
-//			mTextAccount.setBackgroundResource(ResUtils.getResById(mActivity, "shape_bg_dialog", "drawable"));
-//		}
-	
 	public void setRegisterTitle(boolean flag) {
 		mLayoutTitle.setVisibility(flag ? View.GONE : View.VISIBLE);
 		mLayoutRegisterTitle.setVisibility(flag ? View.VISIBLE : View.GONE);
@@ -179,6 +252,28 @@ public class LoginActivity extends BaseActivity {
 				!mIsAccountRegister ? "shape_bg_gray_fill" : "shape_bg_dialog", "drawable"));
 	}
 	
+	@Override
+	protected void onStart() {
+		LogUtils.d("onstart-----------");
+		if (ConfigHolder.isOverseas) {
+			mApiClient.connect();
+		}
+		super.onStart();
+	}
+	
+	@Override
+	protected void onStop() {
+		LogUtils.d("onstop-----------");
+		if (ConfigHolder.isOverseas) {
+			if (mApiClient.isConnected()) {
+				LogUtils.d("disconnect-----------");
+				Plus.AccountApi.clearDefaultAccount(mApiClient);
+				mApiClient.disconnect();
+				mApiClient.connect();
+			}
+		}
+		super.onStop();
+	}
 	@Override
 	protected void onDestroy() {
 		ProgressHandler.getInstance().closeProgressDialog();

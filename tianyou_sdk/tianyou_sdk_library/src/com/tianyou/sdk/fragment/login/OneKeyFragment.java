@@ -55,6 +55,7 @@ public class OneKeyFragment extends BaseFragment {
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_one_key_quicklogin", "id")) {
 			mActivity.switchFragment(new UserRegisterFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "btn_google_login", "id")&& !((LoginActivity) mActivity).getGoogleApiClient().isConnected()) {
+			LogUtils.d("into google");
 			((LoginActivity) mActivity).setIsGoogleConnected(true);
 			ConnectionResult connectionResult = ((LoginActivity) mActivity).getConnectionResult();
 			if (connectionResult == null) {

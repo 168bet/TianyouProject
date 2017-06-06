@@ -158,4 +158,8 @@
     <string name="ty_forget_username">请输入您要找回密码的账号</string>
     <string name="ty_forget_hint">请输入当前账号</string>
     <string name="ty_forget_tv_next">下一步</string>
+    <string name="ty_upgrade_init">升级为新用户名账号</string>
+    <string name="ty_upgrade_commit">账号升级</string>
+    <string name="ty_tourist_tips_exit">下次再说</string>
+    <string name="ty_tourist_tips_upgrade">升级账号</string>
 </resources>

@@ -54,11 +54,15 @@ public class UpgradeFragment extends BaseFragment {
 		mViewCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_upgrade_code", "id"));
 		mTextAccount.setOnClickListener(this);
 		mViewCode.setOnClickListener(this);
+		if (ConfigHolder.isOverseas) {
+			switchUpgradeWay();
+			mTextAccount.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle("账号升级");
+		mActivity.setFragmentTitle(ConfigHolder.isOverseas?"Account upgrade":"账号升级");
 		((LoginActivity)mActivity).setBackBtnVisible(true);
 	}
 
@@ -165,9 +169,9 @@ public class UpgradeFragment extends BaseFragment {
 		mEditPassword.setText("");
 		mEditPhone.setInputType(mIsAccountUpgrade ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_PHONE);
 		mEditCode.setInputType(mIsAccountUpgrade ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_PHONE);
-		mEditPhone.setHint(mIsAccountUpgrade ? "账号：请输入6-16位字母或数字组合" : "请输入11位手机号");
-		mEditCode.setHint(mIsAccountUpgrade ? "密码：请输入6-16位字母或数字组合" : "请输入验证码");
-		mEditPassword.setHint(mIsAccountUpgrade ? "请再次输入密码" : "密码：请输入6-16位字母或数字组合");
+		mEditPhone.setHint(mIsAccountUpgrade ? (ConfigHolder.isOverseas?"Username: 6-16-bit":"账号：请输入6-16位字母或数字组合" ): "请输入11位手机号");
+		mEditCode.setHint(mIsAccountUpgrade ? (ConfigHolder.isOverseas?"Password: 6-16-bit":"密码：请输入6-16位字母或数字组合" ): "请输入验证码");
+		mEditPassword.setHint(mIsAccountUpgrade ?(ConfigHolder.isOverseas?"Please enter the password again":"请再次输入密码") : "密码：请输入6-16位字母或数字组合");
 		mViewTip.setVisibility(mIsAccountUpgrade ? View.VISIBLE : View.GONE);
 		mViewCode.setVisibility(mIsAccountUpgrade ? View.GONE : View.VISIBLE);
 		mTextAccount.setText(mIsAccountUpgrade ? "升级手机号账号" : "升级用户名账号");
