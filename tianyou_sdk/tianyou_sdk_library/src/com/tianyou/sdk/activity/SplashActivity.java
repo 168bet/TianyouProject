@@ -20,8 +20,8 @@ public class SplashActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(ResUtils.getResById(this, "activity_splash", "layout"));
 		
-		findViewById(ResUtils.getResById(this, "splash_bg", "id"))
-			.setBackgroundResource(ResUtils.getResById(this, "ty_splash", "drawable"));
+//		findViewById(ResUtils.getResById(this, "splash_bg", "id"))
+//			.setBackgroundResource(ResUtils.getResById(this, "ty_splash", "drawable"));
 		
 		new Handler().postDelayed(new Runnable() {
 			@Override
