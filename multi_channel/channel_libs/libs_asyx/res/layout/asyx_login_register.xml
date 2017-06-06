@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/asyx_dialog_shape">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/asyx_background_radius"
+        android:background="@android:color/transparent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/asyx_image_contentDescription"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/asyx_login_logo" />
+
+                <Button
+                    android:id="@+id/asyx_registered_close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/asyx_sdk_close" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/asyx_registered_phone_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@color/asyx_registered_background"
+                    android:text="@string/asyx_registered_phone_register"
+                    android:textColor="@color/asyx_registered_selected"
+                    android:textSize="@dimen/asyx_registered_textsize" />
+
+                <Button
+                    android:id="@+id/asyx_registered_normal_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@color/asyx_registered_background"
+                    android:text="@string/asyx_registered_normal_register"
+                    android:textColor="@color/asyx_registered_normal"
+                    android:textSize="@dimen/asyx_registered_textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/asyx_registered_phone_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_divider"
+                    android:background="@color/asyx_registered_divider" />
+
+                <EditText
+                    android:id="@+id/asyx_registered_phonenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_edittext"
+                    android:background="@null"
+                    android:hint="@string/asyx_registered_phone_hint"
+                    android:inputType="phone"
+                    android:paddingLeft="10dp"
+                    android:textSize="@dimen/asyx_registered_textsize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_divider"
+                    android:background="@color/asyx_registered_divider" />
+
+                <EditText
+                    android:id="@+id/asyx_registered_mobile_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_edittext"
+                    android:background="@null"
+                    android:hint="@string/asyx_registered_password_hint"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:textSize="@dimen/asyx_registered_textsize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_divider"
+                    android:background="@color/asyx_registered_divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_edittext"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/asyx_registered_sms_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/asyx_registered_sms_hint"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/asyx_registered_textsize" />
+
+                    <Button
+                        android:id="@+id/asyx_registered_sms"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/asyx_registered_sms_background"
+                        android:text="@string/asyx_registered_sms_get"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/asyx_registered_textsize" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_divider"
+                    android:background="@color/asyx_registered_divider" />
+            </LinearLayout>
+
+            <!-- layout_marginBottom在切换注册方式的时候按钮位置保持不变 -->
+
+            <LinearLayout
+                android:id="@+id/asyx_registered_normal_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="41dp"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_divider"
+                    android:background="@color/asyx_registered_divider" />
+
+                <EditText
+                    android:id="@+id/asyx_registered_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_edittext"
+                    android:background="@null"
+                    android:hint="@string/asyx_registered_normal_hint"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="@dimen/asyx_registered_textsize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_divider"
+                    android:background="@color/asyx_registered_divider" />
+
+                <EditText
+                    android:id="@+id/asyx_registered_normal_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_edittext"
+                    android:background="@null"
+                    android:hint="@string/asyx_registered_password_hint"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:textSize="@dimen/asyx_registered_textsize" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/asyx_registered_divider"
+                    android:background="@color/asyx_registered_divider" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/asyx_registered_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/asyx_registered_edittext"
+                android:layout_marginTop="10dp"
+                android:background="@color/asyx_registered_selected"
+                android:text="@string/asyx_registered_submit"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/asyx_registered_textsize" />
+
+            <Button
+                android:id="@+id/asyx_registered_login"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/asyx_registered_edittext"
+                android:layout_marginTop="2dp"
+                android:background="@color/asyx_registered_selected"
+                android:text="@string/asyx_registered_login"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/asyx_registered_textsize" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/asyx_sdk_version"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

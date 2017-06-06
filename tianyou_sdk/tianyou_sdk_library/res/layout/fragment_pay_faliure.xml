@@ -102,7 +102,6 @@
             android:id="@+id/text_failed_service_qq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8888888"
             android:textColor="@color/color_green"
             android:textSize="@dimen/text_size_common" />
     </LinearLayout>
@@ -134,7 +133,6 @@
             android:id="@+id/text_failed_service_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123456789"
             android:textColor="@color/color_jacinth"
             android:textSize="@dimen/text_size_common" />
     </LinearLayout>

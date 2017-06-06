@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/asyx_automatic_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/asyx_real_name_verification"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/asyx_real_name_verification_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/asyx_sdk_close_white" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_background"
+        android:gravity="center"
+        android:paddingBottom="2dp"
+        android:paddingTop="8dp"
+        android:text="@string/asyx_real_name_hint_1"
+        android:textColor="@color/asyx_registered_normal"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_background"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:paddingTop="2dp"
+        android:text="@string/asyx_real_name_hint_2"
+        android:textColor="@color/asyx_registered_normal"
+        android:textSize="13sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_background" >
+
+        <TextView
+            android:id="@+id/asyx_real_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/asyx_real_name"
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/asyx_real_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/asyx_registered_edittext"
+            android:layout_toRightOf="@id/asyx_real_name_text"
+            android:background="@null"
+            android:hint="@string/asyx_real_name_hint"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/asyx_registered_divider"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_divider" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_background" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_background" >
+
+        <TextView
+            android:id="@+id/asyx_id_card_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/asyx_id_card_no"
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/asyx_id_card"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/asyx_registered_edittext"
+            android:layout_toRightOf="@id/asyx_id_card_text"
+            android:background="@null"
+            android:hint="@string/asyx_id_card_no_hint"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/asyx_registered_divider"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_divider" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/asyx_registered_background" />
+
+    <Button
+        android:id="@+id/asyx_real_name_verification_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="5dp"
+        android:text="@string/asyx_real_name_verification_submit"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>

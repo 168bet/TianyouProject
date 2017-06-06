@@ -65,13 +65,6 @@ public class PayActivity extends BaseActivity {
 	protected ServiceConnection mServiceConn;
 	
 	private static final int REQUEST_CODE_PAYMENT = 1;
-    private static PayPalConfiguration config = new PayPalConfiguration()
-            // 沙盒测试(ENVIRONMENT_SANDBOX)，生产环境(ENVIRONMENT_PRODUCTION)
-            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-            //你创建的测试应用Client ID
-            //.clientId("AY0e-gWL3dZS4lNWlnJsq1nDgXAgV5WA_cpLrrnnxzVt9IbsMWl9-BelxC1sTlHAiGmk8dpT2Nda172n");
-            .clientId("AdNWcWrNwNjGM2qeP4fuddkj9apsDWEvlmuJD6h-Sf0ZgD7wqJQIbzBCMp05mJBcJt29-RAaYjb-D-J2");
-
 	
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -148,28 +141,41 @@ public class PayActivity extends BaseActivity {
 
 	@Override
 	protected void initData() {
+		mPayHandler = PayHandler.getInstance(mActivity, mHandler);
+		switchFragment(new HomeFragment());
+		if (ConfigHolder.isOverseas) {
+			overseasPayInit();
+		}
+	}
+	
+	private void overseasPayInit() {
 		// 谷歌支付
 		mServiceConn = new ServiceConnection() {
 			@Override
 			public void onServiceConnected(ComponentName componentName, android.os.IBinder service) {
 				mBillingService = IInAppBillingService.Stub.asInterface(service);
 			}
+
 			@Override
-			public void onServiceDisconnected(ComponentName componentName) { mBillingService = null; }
+			public void onServiceDisconnected(ComponentName componentName) {
+				mBillingService = null;
+			}
 		};
 		Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
 		serviceIntent.setPackage("com.android.vending");
 		mActivity.bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
-		
-		 // PayPal支付
-        Intent paypalIntent = new Intent(this, PayPalService.class);
-        paypalIntent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        startService(paypalIntent);
-		
-		mPayHandler = PayHandler.getInstance(mActivity, mHandler);
-		switchFragment(new HomeFragment());
+
+		// PayPal支付
+		Intent paypalIntent = new Intent(this, PayPalService.class);
+		paypalIntent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, new PayPalConfiguration()
+			// 沙盒测试(ENVIRONMENT_SANDBOX)，生产环境(ENVIRONMENT_PRODUCTION)
+			.environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+			// 你创建的测试应用Client ID
+			// .clientId("AY0e-gWL3dZS4lNWlnJsq1nDgXAgV5WA_cpLrrnnxzVt9IbsMWl9-BelxC1sTlHAiGmk8dpT2Nda172n");
+			.clientId("AdNWcWrNwNjGM2qeP4fuddkj9apsDWEvlmuJD6h-Sf0ZgD7wqJQIbzBCMp05mJBcJt29-RAaYjb-D-J2"));
+		startService(paypalIntent);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(this, "img_pay_question", "id")) {

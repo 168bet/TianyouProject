@@ -9,8 +9,8 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		String gameId = "11005";
-		String gameToken = "b0a4fed42fc9723fc5ef166da6e25614";
+		String gameId = "34";
+		String gameToken = "e369853df766fa44e1ed0ff613f563bd";
 		String gameName = "测试";
 		/**
 		 * gameId：app唯一标识，非常重要，请认真填写，确保正确
@@ -20,6 +20,4 @@ public class MyApplication extends Application {
 		 */
 		TianyouSdk.getInstance().applicationInit(this, gameId, gameToken, gameName, true);
 	}
-	
 }
- 

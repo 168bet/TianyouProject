@@ -24,6 +24,7 @@ public class SuccessFragment extends BaseFragment {
 	private TextView mTextMoney;
 	private TextView mTextOrder;
 	private TextView mTextQQ;
+	private TextView mTextPhone;
 	private Button mBtnCallService;
 	
     
@@ -46,6 +47,7 @@ public class SuccessFragment extends BaseFragment {
     	mTextMoney = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_money", "id"));
     	mTextOrder = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_order", "id"));
     	mTextQQ = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_service_qq", "id"));
+    	mTextPhone = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_success_service_phone", "id"));
     	mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_backgame", "id")).setOnClickListener(this);
     	if (ConfigHolder.isLandscape) {
     		if (ConfigHolder.isOverseas) {
@@ -76,6 +78,7 @@ public class SuccessFragment extends BaseFragment {
 	protected void initData() {
 		PayActivity activity = (PayActivity) getActivity();
 		PayInfo payInfo = activity.mPayHandler.mPayInfo;
+		mTextPhone.setText(SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
 		if (activity.mPayHandler.mPayInfo.getOrderId().isEmpty()){
 			mTextOrder.setVisibility(View.GONE);
 		} else {

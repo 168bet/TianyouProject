@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/asyx_recharge_platform_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_weight="0.2"
+    android:background="@drawable/asyx_recharge_content_shape"
+    android:orientation="vertical"
+    android:visibility="gone" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_money_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/asyx_recharge_colon"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_money_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/asyx_recharge_platform_money_colon"
+            android:text="@string/asyx_recharge_platform_money_text"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/asyx_recharge_platform_money_colon"
+            android:text="@string/asyx_recharge_money_text"
+            android:textColor="#62d3ff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@id/asyx_recharge_platform_money_text"
+            android:contentDescription="@string/asyx_image_contentDescription"
+            android:src="@drawable/asyx_recharge_item_point" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_balance_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/asyx_recharge_colon"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_balance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/asyx_recharge_platform_balance_colon"
+            android:text="@string/asyx_recharge_platform_balance"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/asyx_recharge_platform_balance_colon"
+            android:text="@string/asyx_recharge_platform_balance"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@id/asyx_recharge_platform_balance_text"
+            android:contentDescription="@string/asyx_image_contentDescription"
+            android:src="@drawable/asyx_recharge_item_point" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_withdrawal_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/asyx_recharge_colon"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_withdrawal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/asyx_recharge_withdrawal_colon"
+            android:text="@string/asyx_recharge_withdrawal"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_withdrawal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/asyx_recharge_withdrawal_colon"
+            android:text="@string/asyx_recharge_withdrawal"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@id/asyx_recharge_withdrawal_text"
+            android:contentDescription="@string/asyx_image_contentDescription"
+            android:src="@drawable/asyx_recharge_item_point" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_pay_platform_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/asyx_recharge_colon"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_pay_platform_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/asyx_recharge_pay_platform_colon"
+            android:text="@string/asyx_recharge_pay_platform"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_pay_platform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/asyx_recharge_pay_platform_colon"
+            android:text="@string/asyx_recharge_pay_platform"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@id/asyx_recharge_pay_platform_text"
+            android:contentDescription="@string/asyx_image_contentDescription"
+            android:src="@drawable/asyx_recharge_item_point" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp" >
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_account_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/asyx_recharge_colon"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_account_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/asyx_recharge_platform_account_colon"
+            android:text="@string/asyx_recharge_platform_account_text"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/asyx_recharge_platform_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/asyx_recharge_platform_account_colon"
+            android:text="@string/asyx_recharge_platform_account_text"
+            android:textColor="@color/asyx_options_text_color"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toLeftOf="@id/asyx_recharge_platform_account_text"
+            android:contentDescription="@string/asyx_image_contentDescription"
+            android:src="@drawable/asyx_recharge_item_point" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/asyx_recharge_platform_hint"
+        android:textColor="#62d3ff"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/asyx_recharge_platform_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/asyx_recharge_submit_background"
+        android:onClick="onClick"
+        android:paddingBottom="12dp"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:paddingTop="12dp"
+        android:text="@string/asyx_recharge_submit"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

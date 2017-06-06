@@ -16,7 +16,7 @@ public class DemoAppliction extends Application {
 	}
 	
 	@Override
-	protected void attachBaseContext(Context base) {
+	public void attachBaseContext(Context base) {
 		super.attachBaseContext(base);
 		TianyouSdk.getInstance(base).doApplicationAttach(base);
 	}

@@ -1,0 +1,14 @@
+{
+    "channel_id": "ty074",
+    "channel_name": "asyx",
+
+    "game_name": "龙神之光",
+    "game_id": "1021",
+    "game_token": "2da6a99a5ce7553b10fb03803d4994a9",
+
+    "app_id": "136",
+    "app_token": "0138d3656da25ad4a54999be2ec301ff",
+    "client_secret":"b1f25d100c0ba0467576833d5fc75218",
+    "public_key":"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCOixbs+QV3b/5blpogMNYGAfS0cAKdTXkGKg0ZyOLarS6xf1WNQ3yjeWFaPSfiz87WESDFjvIfkQu/KvqD8ylQVAXcTsq//axsrPtDL7FHfNzvQ1m+VNgJ1kiXFte06YcKzsCKe7beVmPsqvQVjkOCHnzpNOrvo6gO9lyOmn8HpQIDAQAB",
+    "private_key":"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAI6LFuz5BXdv/luWmiAw1gYB9LRwAp1NeQYqDRnI4tqtLrF/VY1DfKN5YVo9J+LPztYRIMWO8h+RC78q+oPzKVBUBdxOyr/9rGys+0MvsUd83O9DWb5U2AnWSJcW17TphwrOwIp7tt5WY+yq9BWOQ4IefOk06u+jqA72XI6afwelAgMBAAECgYAgmMgeWvgYDyFgunj2gZR//TSDitXeORhDA5zJV7og/deeuZrL2jIHhDtyEmgroxAOvg37f6v48gd4qRBu2k2I+s/lYItyyxNy4TCrDe1wLRhQwK69KunReL1nI+vuGCief4VX1xScMaBf16rv/cvdzm8twAYA8LM15mhdOJWn4QJBAOuxiokoFVMNIdefM7ZSK43TRaz9Z6fbE7OLs6PW9Aichc8saFhCb3YkZEVbMWTnawq6bhfbT0Qomnv86mktmPkCQQCa0wbLPbn6yAypvcMk2A+tXkCjigi4yqrDQStfrr65jFaRiuLYK0ka0/IYpiKdr91Nca6yNBz0CSfSqcgDbBsNAkEAwy8vO/B+4F1Stl74EzevK+9Xly/vpHlvslOx+6+qPmtpAK2U5+p0pdDzXOBtYlOnOKY1P/p1hUtey+kiMuH4+QJAWZRl5uxlEhvzb7bTFRtKHtZc8gKovzrMCMNJNEhoI/V2FSnVzJtm5fXhqq9dcf1SPz/ag1MxuWUevH3ts0U2dQJAZfieOQ+c/XaJnnJma3XtoTf9NfOPb2jFZxeQI5VBDWZY9R+YL3CebVl0lV2fvPq5/O956YayrVB9bHgfHGtjVw=="
+}
