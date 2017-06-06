@@ -60,7 +60,11 @@ public class UserRegisterFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		((LoginActivity)mActivity).setRegisterTitle(true);
+		if(!ConfigHolder.isOverseas) {
+			((LoginActivity)mActivity).setRegisterTitle(true);
+		} else {
+			mActivity.setFragmentTitle("User Register");
+		}
 		mImgRandom = UUID.randomUUID().toString();
 		HttpUtils.imageLoad(mActivity, URLHolder.URL_IMG_VERIFI + "/random/" + mImgRandom, mImgCode);
 	}

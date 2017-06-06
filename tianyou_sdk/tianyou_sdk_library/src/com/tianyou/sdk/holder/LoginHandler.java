@@ -89,7 +89,7 @@ public class LoginHandler {
 	// 1-2.快速注册登陆接口
 	public void doQuickRegister() {
 		if (ConfigHolder.isUnion) {
-			ToastUtils.show(mActivity, "暂未开放");
+			ToastUtils.show(mActivity, !ConfigHolder.isOverseas?"暂未开放":"Temporarily not opened");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("channel", ConfigHolder.channelId);
@@ -209,7 +209,7 @@ public class LoginHandler {
 		info.put(LoginInfoHandler.USER_ACCOUNT, mResultBean.getUsername());
 		info.put(LoginInfoHandler.USER_NICKNAME, (mResultBean.getNickname() == null || mResultBean.getNickname().isEmpty()) ? "" : mResultBean.getNickname());
 		info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword() == null ? mResultBean.getVerification() : mResultBean.getPassword());
-		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
+		info.put(LoginInfoHandler.USER_SERVER, !ConfigHolder.isOverseas?"最近登录：":"Recently the login: " + ConfigHolder.gameName);
 		info.put(LoginInfoHandler.USER_LOGIN_WAY, mResultBean.getRegistertype() == null ? "" : mResultBean.getRegistertype());
 		//保存到手机登陆信息表
 		if (SPHandler.getBoolean(mActivity, SPHandler.SP_IS_PHONE)) {
@@ -239,7 +239,7 @@ public class LoginHandler {
   		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_user", "id"));
   		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_switch", "id"));
   		LogUtils.d("nickName= "+ConfigHolder.userNickname+",account= "+ConfigHolder.userName);
-		textUser.setText("欢迎" + ConfigHolder.userName + "回来");
+		textUser.setText(!ConfigHolder.isOverseas?"欢迎 ":"Welcome "+ ConfigHolder.userName + (!ConfigHolder.isOverseas?" 回来":" Come Back"));
   		final PopupWindow popupWindow = new PopupWindow(view, 0, 0);
   		popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
   		popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -249,7 +249,7 @@ public class LoginHandler {
   		final Runnable runnable = new Runnable() {
   			@Override
   			public void run() {
-  				if ((ConfigHolder.isTourist && !ConfigHolder.isUnion) || !ConfigHolder.isAuth) {
+  				if ((ConfigHolder.isTourist && !ConfigHolder.isUnion || !ConfigHolder.isAuth)) {
 					Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
 		  			intent.putExtra("show_tourist_tip", true);
 					TianyouSdk.getInstance().mActivity.startActivity(intent);

@@ -134,9 +134,22 @@
     <string name="ty_hot_game2">hot game</string>
     <string name="ty_platform_pay2">platform pay</string>
     <string name="ty_server_info2">server info</string>
-    <string name="ty_qq_login2">qq login</string>
+    <string name="ty_qq_login2">Facebook</string>
     <string name="ty_currency">$</string>
     <string name="ty_tianyou">tianyou</string>
     <string name="ty_welcome_back2">,welcome back!</string>
     
+      <!-- 新版SDK -->
+    <string name="ty_tourist_login">Tourist login</string>
+    <string name="ty_user_register">Quick Register</string>
+    <string name="ty_user_register_hint1">6-16-bit combination of letters or Numbers</string>
+    <string name="ty_user_register_hint2">6-16-bit combination of letters or Numbers</string>
+    <string name="ty_user_register_hint3">Enter four captcha</string>
+    <string name="ty_user_register_protocol">《User registration agreement》</string>
+    <string name="ty_user_register_btn_register">Register now</string>
+    <string name="ty_user_register_back">&lt; go back</string>
+    <string name="ty_account_hint">Enter the password</string>
+    <string name="ty_forget_username">Please enter your account for the password</string>
+    <string name="ty_forget_hint">Please enter the current account </string>
+    <string name="ty_forget_tv_next">Next step </string>
 </resources>

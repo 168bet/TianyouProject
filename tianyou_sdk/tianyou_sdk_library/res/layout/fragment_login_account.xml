@@ -21,7 +21,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
                 android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
-                android:hint="账号：请输入6-16位字母或数字组合"
+                android:hint="@string/ty_user_register_hint1"
                 android:maxLength="16"
                 android:padding="@dimen/layout_space_small"
                 android:singleLine="true"
@@ -53,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
-                android:hint="密码：请输入密码"
+                android:hint="@string/ty_account_hint"
                 android:padding="@dimen/layout_space_small"
                 android:password="true"
                 android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
@@ -67,7 +67,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_marginRight="@dimen/layout_space_small"
-                android:text="忘记密码" />
+                android:text="@string/ty_forget_password" />
 
             <ImageView
                 android:id="@+id/img_account_switch"
@@ -87,7 +87,7 @@
         android:layout_marginTop="@dimen/layout_space_small"
         android:background="@drawable/shape_bg_green_fill"
         android:gravity="center"
-        android:text="登录"
+        android:text="@string/ty_google_login"
         android:textColor="@color/color_white" />
 
     <LinearLayout
@@ -112,7 +112,7 @@
             <TextView
                 style="@style/style_text_black"
                 android:singleLine="true"
-                android:text="快速登录"
+                android:text="@string/ty_user_register"
                 android:textColor="@color/color_white" />
         </LinearLayout>
 
@@ -133,16 +133,40 @@
             <TextView
                 style="@style/style_text_black"
                 android:singleLine="true"
-                android:text="QQ登录"
+                android:text="@string/ty_qq_login2"
+                android:textColor="@color/color_white" />
+        </LinearLayout>
+        
+        <com.facebook.login.widget.LoginButton
+         android:id="@+id/layout_account_facebook"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/notify_btn_height"
+         android:layout_marginLeft="@dimen/layout_space_small"
+         android:layout_weight="1"
+         android:background="@drawable/shape_btn_blue_fill"
+         android:text="Facebook"
+         android:gravity="center"
+         android:textSize="@dimen/text_size_common" />
+        
+        <LinearLayout
+            android:id="@+id/layout_account_google"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/notify_btn_height"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:layout_weight="1"
+            android:background="@drawable/shape_btn_blue_fill"
+            android:gravity="center" >
+            <TextView
+                style="@style/style_text_black"
+                android:singleLine="true"
+                android:text="Google"
                 android:textColor="@color/color_white" />
         </LinearLayout>
     </LinearLayout>
-
     <TextView
         android:id="@+id/text_account_tourist"
         style="@style/style_text_gray"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/layout_space_super"
-        android:text="游客登录" />
-
+        android:text="@string/ty_tourist_login" />
 </LinearLayout>

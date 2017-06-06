@@ -38,7 +38,7 @@ public class ForgetPasswordFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle("忘记密码");
+		mActivity.setFragmentTitle(ResUtils.getString(mActivity, "ty_forget_password"));
 		Bundle bundle = getArguments();  
 		String username = bundle.getString("mEditUsername");  
 		if(!username.isEmpty()){
@@ -51,9 +51,9 @@ public class ForgetPasswordFragment extends BaseFragment {
 	public void onClick(View v) {
 		final String username = mEditUsername.getText().toString();
 		if (username.isEmpty()) {
-			ToastUtils.show(mActivity, "账号不能为空");
+			ToastUtils.show(mActivity,!ConfigHolder.isOverseas?"账号不能为空":"The account cannot be empty");
 		} else if (username.length() < 6 || username.length() > 16) {
-			ToastUtils.show(mActivity, "账号长度错误");
+			ToastUtils.show(mActivity,!ConfigHolder.isOverseas?"账号长度错误":"Length error");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("username", username);

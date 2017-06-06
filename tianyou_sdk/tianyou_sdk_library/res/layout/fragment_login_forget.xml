@@ -6,7 +6,7 @@
 
     <TextView
         style="@style/style_text_gray"
-        android:text="请输入您要找回密码的账号" />
+        android:text="@string/ty_forget_username" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_bg_gray"
-            android:hint="请输入当前账号"
+            android:hint="@string/ty_forget_hint"
             android:padding="@dimen/layout_space_small"
             android:textColor="@color/color_gray_2"
             android:textColorHint="@color/color_gray_1"
@@ -39,6 +39,6 @@
     <TextView
         android:id="@+id/text_forget_confirm"
         style="@style/style_text_red_long"
-        android:text="下一步" />
+        android:text="@string/ty_forget_tv_next" />
 
 </LinearLayout>

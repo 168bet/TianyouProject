@@ -3,6 +3,14 @@ package com.tianyou.sdk.activity;
 import java.util.List;
 import java.util.Map;
 
+import android.graphics.Color;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.tianyou.sdk.base.BaseActivity;
 import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.IdentifiFragment;
@@ -18,13 +26,6 @@ import com.tianyou.sdk.holder.ProgressHandler;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 
-import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 /**
  * 登录Activity
  * @author itstrong
@@ -39,6 +40,10 @@ public class LoginActivity extends BaseActivity {
 	private TextView mTextPhone;
 	private TextView mTextAccount;
 	private ImageView mImgClose;
+	
+	private static GoogleApiClient mApiClient;
+	public ConnectionResult mConnectionResult;
+	private static boolean isGoogleConnected = false;
 	
 	private boolean mIsAccountRegister;
 	
@@ -147,6 +152,14 @@ public class LoginActivity extends BaseActivity {
 		switchFragment(isAccountRegister ? new UserRegisterFragment() : new PhoneRegisterFragment());
 	}
 	
+	
+	//设置注册类型
+//		public void setTitleState() {
+//			mTextPhone.setVisibility(View.GONE);
+//			mTextAccount.setTextColor(Color.parseColor( "#333333"));
+//			mTextAccount.setBackgroundResource(ResUtils.getResById(mActivity, "shape_bg_dialog", "drawable"));
+//		}
+	
 	public void setRegisterTitle(boolean flag) {
 		mLayoutTitle.setVisibility(flag ? View.GONE : View.VISIBLE);
 		mLayoutRegisterTitle.setVisibility(flag ? View.VISIBLE : View.GONE);
@@ -170,5 +183,29 @@ public class LoginActivity extends BaseActivity {
 	protected void onDestroy() {
 		ProgressHandler.getInstance().closeProgressDialog();
 		super.onDestroy();
+	}
+	public void setConnectionResult(ConnectionResult result) {
+		mConnectionResult = result;
+	}
+	
+	public ConnectionResult getConnectionResult (){
+		return mConnectionResult;
+	}
+	
+	public void setGoogleApiClient (GoogleApiClient apiClient) {
+		mApiClient = apiClient;
+	}
+	
+	public GoogleApiClient getGoogleApiClient (){
+		return mApiClient;
+	}
+	
+	
+	public boolean getIsGoogleConnected (){
+		return isGoogleConnected;
+	}
+	
+	public void setIsGoogleConnected (boolean isGoogleConnected) {
+		isGoogleConnected= isGoogleConnected;
 	}
 }
