@@ -157,4 +157,9 @@
     <string name="ty_upgrade_commit">Upgrade</string>
     <string name="ty_tourist_tips_exit">Another time</string>
     <string name="ty_tourist_tips_upgrade">Upgrade</string>
+    
+    <string name="ty_alert_account_init">Enter your current account password for security</string>
+    <string name="ty_alert_current_pw">Enter the password for the current account</string>
+    <string name="ty_alert_forget_pw">Forgot password</string>
+    <string name="ty_alert_account_commit">Sure</string>
 </resources>

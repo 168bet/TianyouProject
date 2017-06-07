@@ -7,7 +7,7 @@
     <TextView
         style="@style/style_text_gray"
         android:textSize="@dimen/text_size_small"
-        android:text="为了您的账号安全，请先输入当前账号的登录密码" />
+        android:text="@string/ty_alert_account_init" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_bg_gray"
-            android:hint="请输入当前账号的密码"
+            android:hint="@string/ty_alert_current_pw"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
             android:inputType="textPassword"
@@ -44,12 +44,12 @@
         style="@style/style_text_gray"
         android:layout_gravity="right"
         android:layout_marginTop="@dimen/layout_space_small"
-        android:text="忘记密码"
+        android:text="@string/ty_alert_forget_pw"
         android:textColor="@color/color_blue" />
 
     <TextView
         android:id="@+id/text_alert_confirm"
         style="@style/style_text_red_long"
-        android:text="确定" />
+        android:text="@string/ty_alert_account_commit" />
 
 </LinearLayout>

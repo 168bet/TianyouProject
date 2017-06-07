@@ -162,4 +162,8 @@
     <string name="ty_upgrade_commit">账号升级</string>
     <string name="ty_tourist_tips_exit">下次再说</string>
     <string name="ty_tourist_tips_upgrade">升级账号</string>
+    <string name="ty_alert_account_init">为了您的账号安全，请先输入当前账号的登录密码</string>
+    <string name="ty_alert_current_pw">请输入当前账号的密码</string>
+    <string name="ty_alert_forget_pw">忘记密码</string>
+    <string name="ty_alert_account_commit">确定</string>
 </resources>

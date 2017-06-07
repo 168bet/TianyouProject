@@ -55,6 +55,7 @@ public class UpgradeFragment extends BaseFragment {
 		mTextAccount.setOnClickListener(this);
 		mViewCode.setOnClickListener(this);
 		if (ConfigHolder.isOverseas) {
+			mIsAccountUpgrade = false;
 			switchUpgradeWay();
 			mTextAccount.setVisibility(View.GONE);
 		}
@@ -93,28 +94,28 @@ public class UpgradeFragment extends BaseFragment {
 		String editText1 = mEditCode.getText().toString();
 		String editText2 = mEditPassword.getText().toString();
 		if (editText0.isEmpty()) {
-			ToastUtils.show(mActivity, (mIsAccountUpgrade ? "账号" : "手机号") + "不能为空");
+			ToastUtils.show(mActivity, (mIsAccountUpgrade ?(ConfigHolder.isOverseas?"Account":"账号") : "手机号") + (ConfigHolder.isOverseas?"can't be empty":"不能为空"));
 		} else if (!mIsAccountUpgrade && !AppUtils.verifyPhoneNumber(editText0)) {
 			ToastUtils.show(mActivity, "手机号格式错误");
 		} else if (mIsAccountUpgrade && (editText0.length() < 6 || editText0.length() > 16)) {
-			ToastUtils.show(mActivity, "账号长度错误");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Account length error":"账号长度错误");
 		} else if (mIsAccountUpgrade && (editText1.length() < 6 || editText1.length() > 16)) {
-			ToastUtils.show(mActivity, "密码长度错误");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Password length error":"密码长度错误");
 		} else if (editText1.isEmpty()) {
-			ToastUtils.show(mActivity, (mIsAccountUpgrade ? "密码" : "验证码") + "不能为空");
+			ToastUtils.show(mActivity, (mIsAccountUpgrade ? (ConfigHolder.isOverseas?"Password":"密码"): "验证码") + (ConfigHolder.isOverseas?"can't be empty":"不能为空"));
 		} else if (mIsAccountUpgrade && !editText2.equals(editText1)) {
-			ToastUtils.show(mActivity, "两次密码不一致");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Two passwords do not agree":"两次密码不一致");
 		} else if (!mIsAccountUpgrade && editText2.isEmpty()) {
 			ToastUtils.show(mActivity, "密码不能为空");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("userid", ConfigHolder.userId);
-			map.put("mobile", editText0);
-			map.put("mobilecode", editText1);
 			if (mIsAccountUpgrade) {
 				map.put("newname", editText0);
 				map.put("password", editText1);
 			} else {
+				map.put("mobile", editText0);
+				map.put("mobilecode", editText1);
 				map.put("password", editText2);
 			}
 			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
