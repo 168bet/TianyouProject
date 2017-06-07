@@ -73,6 +73,7 @@ public class TianyouSdk {
 		if (configInfo != null) {
 			LogUtils.d("configInfo:" + configInfo.toString());
 			ConfigHolder.channelId = configInfo.get("channel_id");
+			ConfigHolder.sdkVersion = configInfo.get("sdk_version");
 			ConfigHolder.isOverseas = "1".equals(configInfo.get("is_overseas"));
 			ConfigHolder.isOpenLog = "1".equals(configInfo.get("log_switch"));
 			ConfigHolder.isUnion = "1".equals(configInfo.get("union_mode"));

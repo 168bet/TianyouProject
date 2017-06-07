@@ -76,6 +76,7 @@ public class LoginHandler {
 		map.put("username", username);
 		map.put("password", password);
 		map.put("channel", ConfigHolder.channelId);
+		map.put("version", ConfigHolder.sdkVersion);
 		map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
 		String url = isPhone ? URLHolder.URL_UNION_PHONE_LOGIN : URLHolder.URL_UNION_ACCOUNT_LOGIN;
 		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
