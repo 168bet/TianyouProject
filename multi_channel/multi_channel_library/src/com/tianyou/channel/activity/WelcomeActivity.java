@@ -11,7 +11,6 @@ import com.baidu.gamesdk.BDGameSDKSetting.Orientation;
 import com.baidu.gamesdk.IResponse;
 import com.baidu.gamesdk.ResultCode;
 import com.tianyou.channel.bean.ChannelInfo;
-import com.tianyou.channel.business.BaseActivity;
 import com.tianyou.channel.utils.ConfigHolder;
 
 public class WelcomeActivity extends BaseActivity {

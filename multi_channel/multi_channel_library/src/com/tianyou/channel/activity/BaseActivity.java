@@ -1,4 +1,4 @@
-package com.tianyou.channel.business;
+package com.tianyou.channel.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -18,7 +18,7 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import android.app.Activity;
 import android.content.Intent;
 
-public class GameBeginSdkService extends BaseSdkService {
+public class YilingSdkService extends BaseSdkService {
 
 	private GameBegin gameBegin;
 
