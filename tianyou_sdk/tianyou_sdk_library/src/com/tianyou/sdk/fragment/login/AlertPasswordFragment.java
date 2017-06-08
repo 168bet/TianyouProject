@@ -54,7 +54,9 @@ public class AlertPasswordFragment extends BaseFragment {
 	private String mBindPhone;
 	private boolean mIsOpenPassword;
 	
-	AlertPasswordFragment(AlertType alertType, String account, String bindPhone) {
+	public AlertPasswordFragment() {}
+	
+	public AlertPasswordFragment(AlertType alertType, String account, String bindPhone) {
 		mAlertType = alertType;
 		mAccount = account;
 		mBindPhone = bindPhone;
@@ -112,7 +114,7 @@ public class AlertPasswordFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle("修改密码");
+		mActivity.setFragmentTitle(ConfigHolder.isOverseas?"Modify password":"修改密码");
 		((LoginActivity)mActivity).setBackBtnVisible(true);
 		switch (mAlertType) {
 		case ALERT_TYPE_PHONE_0:
@@ -192,11 +194,11 @@ public class AlertPasswordFragment extends BaseFragment {
 		String password = mEditPassword.getText().toString();
 		String again = mEditAgain.getText().toString();
 		if (password.isEmpty()) {
-			ToastUtils.show(mActivity, "密码不能为空");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Password connot be empty":"密码不能为空");
 		} else if (password.length() < 6 || password.length() > 16) {
-			ToastUtils.show(mActivity, "密码长度错误");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Length error":"密码长度错误");
 		} else if (!again.equals(password)) {
-			ToastUtils.show(mActivity, "两次输入密码不一致");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The input password is inconsisten":"两次输入密码不一致");
 		} else {
 			postAlertPassword(password);
 		}
@@ -246,9 +248,9 @@ public class AlertPasswordFragment extends BaseFragment {
 	private void verifiPassword() {
 		String password = mEditAccountPass.getText().toString();
 		if (password.isEmpty()) {
-			ToastUtils.show(mActivity, "密码不能为空");
+			ToastUtils.show(mActivity,ConfigHolder.isOverseas?"Password can't be empty": "密码不能为空");
 		} else if (password.length() < 6 || password.length() > 16) {
-			ToastUtils.show(mActivity, "密码长度错误");
+			ToastUtils.show(mActivity, "Length error");
 		} else {
 			checkPassword(password);
 		}
@@ -269,7 +271,7 @@ public class AlertPasswordFragment extends BaseFragment {
 					ConfigHolder.oldPassword = password;
 					mActivity.switchFragment(new AlertPasswordFragment(AlertType.ALERT_TYPE_NEW, mAccount, mBindPhone));
 				} else {
-					ToastUtils.show(mActivity, "密码错误");
+					ToastUtils.show(mActivity,ConfigHolder.isOverseas?"Password mistake": "密码错误");
 				}
 			}
 		});

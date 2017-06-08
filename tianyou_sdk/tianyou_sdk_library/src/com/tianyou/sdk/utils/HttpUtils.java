@@ -151,11 +151,10 @@ public class HttpUtils {
 			
 			@Override
 			public void onFailure(Call arg0, IOException arg1) {
-				callback.onFailed();
 				activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						ToastUtils.show(activity, "网络连接失败，请检查网络~");
+						callback.onFailed();
 					}
 				});
 			}
@@ -195,13 +194,8 @@ public class HttpUtils {
 			public void onFailure(Call arg0, IOException arg1) {
 				activity.runOnUiThread(new Runnable() {
 					@Override
-					public void run() {
-						activity.runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								ToastUtils.show(activity, "网络连接失败，请检查网络~");
-							}
-						});
+					public void run() { 
+						LogUtils.d("网络连接失败~");
 					}
 				});
 			}

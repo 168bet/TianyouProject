@@ -11,6 +11,7 @@
     <issue id="SimpleDateFormat">
         <ignore path="src/com/tianyou/sdk/utils/AppUtils.java" />
     </issue>
+    <issue id="ValidFragment" severity="ignore" />
     <issue id="ViewConstructor">
         <ignore path="src/com/tianyou/sdk/view/SelectPicPopupWindow.java" />
         <ignore path="src/com/tianyou/sdk/views/PayPopupWindow.java" />

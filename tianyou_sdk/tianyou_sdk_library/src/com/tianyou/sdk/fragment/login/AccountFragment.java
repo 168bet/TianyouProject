@@ -40,6 +40,7 @@ public class AccountFragment extends BaseFragment {
 	private EditText mEditUsername;
 	private EditText mEditPassword;
 	private ImageView mImgSwitch;
+	private ImageView mImgQuick;
 	private View mImgPull;
 	private View mViewLogin;
 	
@@ -64,8 +65,10 @@ public class AccountFragment extends BaseFragment {
 		mEditUsername = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_username", "id"));
 		mEditPassword = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_password", "id"));
 		mImgSwitch = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_switch", "id"));
+		mImgQuick = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_quick", "id"));
 		if (ConfigHolder.isOverseas) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setVisibility(View.GONE);
+			mImgQuick.setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setOnClickListener(this);
 		} else {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setVisibility(View.GONE);
@@ -97,6 +100,7 @@ public class AccountFragment extends BaseFragment {
 		} else {
 			mImgPull.setVisibility(View.VISIBLE);
 			mEditUsername.setText(mLoginInfos.get(0).get(LoginInfoHandler.USER_ACCOUNT));
+			mEditUsername.setSelection(mLoginInfos.get(0).get(LoginInfoHandler.USER_ACCOUNT).length());
 			mEditPassword.setText(mLoginInfos.get(0).get(LoginInfoHandler.USER_PASSWORD));
 		}
 		mListView = new ListView(mActivity);

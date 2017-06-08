@@ -49,9 +49,10 @@ public class ServerFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle(mIsPhone ? "联系客服" : "人工申诉");
+		mActivity.setFragmentTitle(mIsPhone ? "联系客服" : ConfigHolder.isOverseas?"Handle service":"人工申诉");
 		mTextTips.setVisibility(mIsPhone ? View.GONE : View.VISIBLE);
-		mTextTips.setText("你的当前账号" + mAccount + "未设置过密码保护，请您在工作时间联系客服工作人员协调解决此类问题");
+		mTextTips.setText((ConfigHolder.isOverseas?"Your current account ":"你的当前账号 ") + mAccount + 
+				(ConfigHolder.isOverseas?" has no password protection,please contact customer service staff at work time to coordinate the problem ":"未设置过密码保护，请您在工作时间联系客服工作人员协调解决此类问题"));
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("sign", AppUtils.MD5(ConfigHolder.gameId));
 		HttpUtils.post(mActivity, URLHolder.URL_LOGIN_SERVER_INFO, map, new HttpsCallback() {

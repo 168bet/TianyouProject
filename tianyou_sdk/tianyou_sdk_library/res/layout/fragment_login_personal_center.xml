@@ -26,7 +26,7 @@
                 style="@style/style_text_black"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="账号" />
+                android:text="@string/ty_account" />
 
             <TextView
                 android:id="@+id/text_center_account"
@@ -34,7 +34,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="bottom"
-                android:text="游客：" />
+                android:text="@string/ty_tourist" />
         </LinearLayout>
 
         <TextView
@@ -46,7 +46,7 @@
             android:paddingLeft="@dimen/layout_space_small"
             android:paddingRight="@dimen/layout_space_small"
             android:paddingTop="@dimen/layout_space_little"
-            android:text="切换账号" />
+            android:text="@string/ty_switch_account" />
     </LinearLayout>
 
     <View
@@ -105,7 +105,7 @@
                 android:layout_marginTop="@dimen/layout_space_big"
                 android:drawableLeft="@drawable/ty2_lock"
                 android:drawablePadding="@dimen/layout_space_small"
-                android:text="修改密码" />
+                android:text="@string/ty_center_modify" />
 
             <View
                 android:layout_width="match_parent"
@@ -124,7 +124,7 @@
                     android:layout_marginTop="@dimen/layout_space_big"
                     android:drawableLeft="@drawable/ty2_safety"
                     android:drawablePadding="@dimen/layout_space_small"
-                    android:text="账号安全设置" />
+                    android:text="@string/ty_security" />
 
                 <ImageView
                     android:id="@+id/img_center_point0"
@@ -140,7 +140,7 @@
                     android:layout_marginRight="@dimen/layout_space_big"
                     android:layout_marginTop="@dimen/layout_space_big"
                     android:gravity="right"
-                    android:text="未设置"
+                    android:text="@string/ty_unset"
                     android:textColor="@color/color_gray_0" />
             </LinearLayout>
 

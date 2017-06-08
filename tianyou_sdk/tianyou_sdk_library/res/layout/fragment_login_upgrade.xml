@@ -8,7 +8,7 @@
         android:id="@+id/text_upgrade_tip"
         style="@style/style_text_gray"
         android:layout_marginBottom="@dimen/layout_space_small"
-        android:text="@string/ty_upgrade_init"
+        android:text="@string/ty_upgrade_hint"
         android:visibility="gone" />
 
     <LinearLayout

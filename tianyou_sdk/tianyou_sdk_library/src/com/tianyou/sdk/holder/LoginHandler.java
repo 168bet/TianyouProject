@@ -17,6 +17,7 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -78,10 +79,16 @@ public class LoginHandler {
 		map.put("channel", ConfigHolder.channelId);
 		map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
 		String url = isPhone ? URLHolder.URL_UNION_PHONE_LOGIN : URLHolder.URL_UNION_ACCOUNT_LOGIN;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+		HttpUtils.post(mActivity, url, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
 				onLoginProcess(new Gson().fromJson(response, LoginInfo.class));
+			}
+			
+			@Override
+			public void onFailed() {
+				ToastUtils.show(mActivity, "网络连接失败，请检查网络~");
+				ProgressHandler.getInstance().closeProgressDialog();
 			}
 		});
     }
@@ -184,7 +191,7 @@ public class LoginHandler {
 				} else {
 					ProgressHandler.getInstance().closeProgressDialog();
 					ToastUtils.show(mActivity, request.getResult().getMsg());
-//					TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_LOGIN_FAILED, "");
+//					TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 				}
 			} 
 		}, 1500);
