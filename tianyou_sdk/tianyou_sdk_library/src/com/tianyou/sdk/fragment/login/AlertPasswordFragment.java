@@ -6,6 +6,12 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.InputType;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
@@ -19,12 +25,6 @@ import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-
-import android.text.InputType;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * 修改密码页面

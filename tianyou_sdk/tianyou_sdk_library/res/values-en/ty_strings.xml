@@ -140,10 +140,11 @@
     <string name="ty_welcome_back2">,welcome back!</string>
     
       <!-- 新版SDK -->
+    <string name="ty_tourist_tips">You are currently on a tourist account，unable to use account recharges，account after binding, instantly improve the security of the account, also can enjoy more benefits, binding quickly ~ ~ ~ </string>
     <string name="ty_tourist_login">Tourist login</string>
     <string name="ty_user_register">Quick Register</string>
-    <string name="ty_user_register_hint1">6-16-bit combination of letters or Numbers</string>
-    <string name="ty_user_register_hint2">6-16-bit combination of letters or Numbers</string>
+    <string name="ty_user_register_hint1">Username:6-16-bit</string>
+    <string name="ty_user_register_hint2">Password:6-16-bit</string>
     <string name="ty_user_register_hint3">Enter four captcha</string>
     <string name="ty_user_register_protocol">《User registration agreement》</string>
     <string name="ty_user_register_btn_register">Register now</string>
@@ -152,4 +153,13 @@
     <string name="ty_forget_username">Please enter your account for the password</string>
     <string name="ty_forget_hint">Please enter the current account </string>
     <string name="ty_forget_tv_next">Next step </string>
+    <string name="ty_upgrade_init">Upgrade to new user name</string>
+    <string name="ty_upgrade_commit">Upgrade</string>
+    <string name="ty_tourist_tips_exit">Another time</string>
+    <string name="ty_tourist_tips_upgrade">Upgrade</string>
+    
+    <string name="ty_alert_account_init">Enter your current account password for security</string>
+    <string name="ty_alert_current_pw">Enter the password for the current account</string>
+    <string name="ty_alert_forget_pw">Forgot password</string>
+    <string name="ty_alert_account_commit">Sure</string>
 </resources>

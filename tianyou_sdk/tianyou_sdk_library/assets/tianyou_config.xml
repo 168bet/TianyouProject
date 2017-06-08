@@ -6,7 +6,8 @@
     <union_mode>0</union_mode>
     <host_address>http://testapi.tianyouxi.com/api/</host_address>
     
-    <host_main>http://newsdk.tianyouxi.com/api/</host_main>
+    <host_inland_mian>http://newsdk.tianyouxi.com/api/</host_inland_mian>
+    <host_inland_cs>http://api.tianplay.com/api/</host_inland_cs>
     <host_overseas>http://bmapi.tianyouxi.com/api/</host_overseas>
     <host_union_cs>http://gh.tianyouxi.com/api/</host_union_cs>
     <host_union_zh>http://ghsdk.tianyouxi.com/newapi/</host_union_zh>

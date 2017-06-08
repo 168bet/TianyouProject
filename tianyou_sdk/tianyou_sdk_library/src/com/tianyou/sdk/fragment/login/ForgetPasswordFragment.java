@@ -20,6 +20,7 @@ import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
@@ -64,6 +65,7 @@ public class ForgetPasswordFragment extends BaseFragment {
 					try {
 						JSONObject jsonObject = new JSONObject(response);
 						JSONObject result = jsonObject.getJSONObject("result");
+						LogUtils.d(result.toString());
 						if (result.getInt("code") == 200) {
 							int mobile = result.getInt("mobile");
 							String phone = result.getString("mobileinfo");

@@ -28,7 +28,7 @@
             android:paddingLeft="@dimen/layout_space_small"
             android:paddingRight="@dimen/layout_space_small"
             android:paddingTop="@dimen/layout_space_little"
-            android:text="下次再说"
+            android:text="@string/ty_tourist_tips_exit"
             android:textSize="@dimen/text_size_common"
             android:textColor="@color/color_blue" />
 
@@ -43,7 +43,7 @@
             android:paddingLeft="@dimen/layout_space_small"
             android:paddingRight="@dimen/layout_space_small"
             android:paddingTop="@dimen/layout_space_little"
-            android:text="升级账号"
+            android:text="@string/ty_tourist_tips_upgrade"
             android:textSize="@dimen/text_size_common"
             android:textColor="@color/color_white" />
     </LinearLayout>

@@ -64,13 +64,13 @@ public class AccountFragment extends BaseFragment {
 		mEditUsername = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_username", "id"));
 		mEditPassword = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_password", "id"));
 		mImgSwitch = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_switch", "id"));
-		if (!ConfigHolder.isOverseas) {
+		if (ConfigHolder.isOverseas) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setOnClickListener(this);
+		} else {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_facebook", "id")).setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);
-		} else {
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setVisibility(View.GONE);
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_facebook", "id")).setOnClickListener(this);
 		}
 		mViewLogin = mContentView.findViewById(ResUtils.getResById(mActivity, "btn_account_login", "id"));
 		mImgPull = mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_pull", "id"));
@@ -125,7 +125,8 @@ public class AccountFragment extends BaseFragment {
 			bundle.putString("mEditUsername", username);
 			fpf.setArguments(bundle); 
 			mActivity.switchFragment(fpf);
-		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_google", "id") && !((LoginActivity) mActivity).getGoogleApiClient().isConnected()) {
+		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_google", "id")&& !((LoginActivity) mActivity).getGoogleApiClient().isConnected()) {
+			LogUtils.d("into google");
 			((LoginActivity) mActivity).setIsGoogleConnected(true);
 			ConnectionResult connectionResult = ((LoginActivity) mActivity).getConnectionResult();
 			if (connectionResult == null) {
