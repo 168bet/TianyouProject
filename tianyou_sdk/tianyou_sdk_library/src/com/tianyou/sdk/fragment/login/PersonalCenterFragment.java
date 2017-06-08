@@ -31,12 +31,12 @@ public class PersonalCenterFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
-		mActivity.setFragmentTitle("个人中心");
+		mActivity.setFragmentTitle(ConfigHolder.isOverseas?"Personal center":"个人中心");
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_logout", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_upgrade", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_alert", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_setting", "id")).setOnClickListener(this);
-		if (!ConfigHolder.isAuth) {
+		if (!ConfigHolder.isAuth && !ConfigHolder.isOverseas) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_identifi", "id")).setOnClickListener(this);
 		}
 		mLayoutTourist = mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_tourist", "id"));
@@ -47,14 +47,20 @@ public class PersonalCenterFragment extends BaseFragment {
 		mTextAccount = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_account", "id"));
 		mTextSet = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_set", "id"));
 		mTextAuth = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_auth", "id"));
+		if(ConfigHolder.isOverseas){
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_identifi", "id")).setVisibility(View.GONE);
+		}
 	}
 
 	@Override
 	protected void initData() {
 		mLayoutTourist.setVisibility(ConfigHolder.isTourist ? View.VISIBLE : View.GONE);
 		mLayoutNotTourist.setVisibility(ConfigHolder.isTourist ? View.GONE : View.VISIBLE);
-		mTextAccount.setText(ConfigHolder.isTourist ? "游客：" + ConfigHolder.userName : ConfigHolder.userName);
-		mTextSet.setText(ConfigHolder.isPhone ? "已设置" : "未设置");
+		mTextAccount.setText(ConfigHolder.isTourist ? (ConfigHolder.isOverseas?"Tourist:":"游客：") + ConfigHolder.userName : ConfigHolder.userName);
+		if(ConfigHolder.isOverseas) {
+			ConfigHolder.isPhone = false;
+		}
+		mTextSet.setText(ConfigHolder.isPhone ? "已设置" : (ConfigHolder.isOverseas?"Unset":"未设置"));
 		mTextAuth.setText(ConfigHolder.isAuth ? "已认证" : "未认证");
 		mViewPoint0.setVisibility(ConfigHolder.isPhone ? View.GONE : View.VISIBLE);
 		mViewPoint1.setVisibility(ConfigHolder.isAuth ? View.GONE : View.VISIBLE);

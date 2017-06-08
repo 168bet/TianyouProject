@@ -268,7 +268,7 @@ public class TianyouSdk {
 	private void createFloatMenu() {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
-		HttpUtils.post(mActivity, URLHolder.URL_FLOAT_CONTROL, map, new HttpUtils.HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_FLOAT_CONTROL, map, new HttpUtils.HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
 				FloatControl control = new Gson().fromJson(response, FloatControl.class);
@@ -286,6 +286,11 @@ public class TianyouSdk {
 				} else {
 					ToastUtils.show(mActivity, control.getResult().getMsg());
 				}
+			}
+
+			@Override
+			public void onFailed() {
+				ToastUtils.show(mActivity, "网络连接失败，请检查网络~");
 			}
 		});
 	}

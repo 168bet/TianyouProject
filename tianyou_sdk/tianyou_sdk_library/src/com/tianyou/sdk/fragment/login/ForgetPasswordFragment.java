@@ -44,6 +44,7 @@ public class ForgetPasswordFragment extends BaseFragment {
 		String username = bundle.getString("mEditUsername");  
 		if(!username.isEmpty()){
 			mEditUsername.setText(username);
+			mEditUsername.setSelection(username.length());
 		}
 		((LoginActivity)mActivity).setBackBtnVisible(true);
 	}

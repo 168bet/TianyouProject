@@ -7,7 +7,7 @@
     <TextView
         style="@style/style_text_gray"
         android:textSize="@dimen/text_size_small"
-        android:text="@string/ty_alert_account_init" />
+        android:text="@string/ty_alert_account_hint" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,8 +22,9 @@
             android:hint="@string/ty_alert_current_pw"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
-            android:inputType="textPassword"
-            android:textColor="@color/color_gray_2"
+            android:password="true"
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:textColor="@color/color_gray_1"
             android:textColorHint="@color/color_gray_1"
             android:textSize="@dimen/text_size_small" 
             android:maxLength="16"/>

@@ -153,13 +153,19 @@
     <string name="ty_forget_username">Please enter your account for the password</string>
     <string name="ty_forget_hint">Please enter the current account </string>
     <string name="ty_forget_tv_next">Next step </string>
-    <string name="ty_upgrade_init">Upgrade to new user name</string>
+    <string name="ty_upgrade_hint">Upgrade to new user name</string>
     <string name="ty_upgrade_commit">Upgrade</string>
     <string name="ty_tourist_tips_exit">Another time</string>
     <string name="ty_tourist_tips_upgrade">Upgrade</string>
     
-    <string name="ty_alert_account_init">Enter your current account password for security</string>
+    <string name="ty_alert_account_hint">Enter your current account password for security</string>
     <string name="ty_alert_current_pw">Enter the password for the current account</string>
     <string name="ty_alert_forget_pw">Forgot password</string>
-    <string name="ty_alert_account_commit">Sure</string>
+    <string name="ty_alert_account_commit">Comfirm</string>
+    <string name="ty_alert_pw_new_hint">Enter the password again</string>
+    <string name="ty_tourist">Tourist：</string>
+    <string name="ty_security">Security Settings</string>
+    <string name="ty_unset">Unset</string>
+    <string name="ty_center_modify">Modity password</string>
+    <string name="ty_popup_personal_center"> </string>
 </resources>
