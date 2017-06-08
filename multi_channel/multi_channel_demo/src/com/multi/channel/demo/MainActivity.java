@@ -1,16 +1,6 @@
 package com.multi.channel.demo;
 
-import android.R;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-
-<<<<<<< HEAD
-import com.ml.ly.qiguo.R;
-=======
->>>>>>> f5b60bcd3b7a2d1b3c7df9e6a32836f3a6687012
+import com.multi_channel_demo.R;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -18,6 +8,12 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
 
