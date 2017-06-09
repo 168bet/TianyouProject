@@ -29,8 +29,12 @@ public class TianyouSdk {
 				String className = ""; 
 				if ("ty000".equals(channelInfo.getChannelId())) {
 					className = "TianyouSdkService";
+				} else if ("ty001".equals(channelInfo.getChannelId())) {
+					className = "XiaoMiSdkService";
 				} else if ("ty011".equals(channelInfo.getChannelId())) {
 					className = "LeshiSpecialSdkService";
+				} else if ("ty066".equals(channelInfo.getChannelId())) {
+					className = "HanfengService";
 				}
 				LogUtils.d("className:" + className);
 				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();
