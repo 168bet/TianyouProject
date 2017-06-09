@@ -27,7 +27,7 @@ public class LszgLySpActivity extends MogeSplashActivity{
 			mainClass = Class.forName("org.cocos2dx.lua.AppActivity");
 			Intent intent = new Intent(LszgLySpActivity.this, mainClass);
 			startActivity(intent);
-			finish();
+			this.finish();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
