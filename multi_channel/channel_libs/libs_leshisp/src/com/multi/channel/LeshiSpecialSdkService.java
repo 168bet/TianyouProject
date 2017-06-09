@@ -27,7 +27,6 @@ public class LeshiSpecialSdkService extends BaseSdkService{
 	public void doApplicationCreate(Context context, boolean island) {
 		super.doApplicationCreate(context, island);
 		LeGameSDK.init(context);
-		
 	}
 	
 	@Override
