@@ -29,6 +29,8 @@ public class TianyouSdk {
 				String className = ""; 
 				if ("ty000".equals(channelInfo.getChannelId())) {
 					className = "TianyouSdkService";
+				} else if ("ty003".equals(channelInfo.getChannelId())) {
+					className = "QihooSdkService";
 				} else if ("ty011".equals(channelInfo.getChannelId())) {
 					className = "LeshiSpecialSdkService";
 				}

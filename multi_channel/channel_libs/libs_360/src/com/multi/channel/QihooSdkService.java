@@ -1,3 +1,4 @@
+package com.multi.channel;
 
 
 import java.util.HashMap;
@@ -100,12 +101,13 @@ public class QihooSdkService extends BaseSdkService {
 				try {
 					JSONObject jsonObject = new JSONObject(data);
 					JSONObject dataInfo = jsonObject.getJSONObject("data");
+					LogUtils.d("360:what sdklfs" + dataInfo.toString());
 					String accessToken = dataInfo.getString("access_token");
 					String phoneIMEI = AppUtils.getPhoeIMEI(mActivity);
 					String mdSignature = AppUtils
 							.MD5("session=" + accessToken + "&appid="
 									+ mChannelInfo.getAppId());
-					Log.d("TAG", "qihoo login token = " + accessToken);
+					LogUtils.d("qihoo login token = " + accessToken);
 					Map<String, String> param = new HashMap<String, String>();
 					param.put("uid", "");
 					param.put("appid", mChannelInfo.getGameId());
@@ -125,8 +127,7 @@ public class QihooSdkService extends BaseSdkService {
 										String code = tyDataInfo
 												.getString("code");
 										if ("200".equals(code)) {
-											mUserId = tyDataInfo
-													.getString("uid");
+											mLoginInfo.setTianyouUserId(tyDataInfo.getString("uid"));
 											payUrl = tyDataInfo
 													.getString("payurl");
 											mTianyouCallback
@@ -167,15 +168,17 @@ public class QihooSdkService extends BaseSdkService {
 	
 	@Override
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+		LogUtils.d("payinfo"+payInfo.toString());
+		LogUtils.d("orderinfo"+orderInfo.toString());
 		QihooPayInfo info = new QihooPayInfo();
-		info.setQihooUserId(orderInfo.getUserId());
+		info.setQihooUserId(orderInfo.getChanneluid());
 		info.setMoneyAmount(orderInfo.getMoNey());
 		info.setProductName(mPayInfo.getProductName());
 		info.setProductId(mPayInfo.getProductId());
 		info.setNotifyUri(payUrl);
 		info.setAppName("龙神之光");
 		info.setAppUserName(mRoleInfo.getRoleName());
-		info.setAppUserId(mRoleInfo.getRoleId());
+		info.setAppUserId(orderInfo.getChanneluid());
 		info.setAppOrderId(orderInfo.getOrderID());
 		// 支付基础参数
 		Intent intent = getPayIntent(true, info);
