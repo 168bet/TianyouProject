@@ -1,5 +1,6 @@
 {
     "channel_id": "ty001",
+    "channel_class": "XiaoMiSdkService"
     "channel_name": "小米",
 
     "game_name": "龙神之光",

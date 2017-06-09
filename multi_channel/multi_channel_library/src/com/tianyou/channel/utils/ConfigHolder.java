@@ -48,6 +48,11 @@ public class ConfigHolder {
 			LogUtils.d("channel_name为空");
 		}
 		try {
+			mChannelInfo.setChannelClass(info.getString("channel_class"));
+		} catch (JSONException e) {
+			LogUtils.d("channel_name为空");
+		}
+		try {
 			mChannelInfo.setAppId(info.getString("app_id"));
 		} catch (JSONException e) {
 			LogUtils.d("app_id为空");
