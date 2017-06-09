@@ -11,7 +11,6 @@ public class ChannelInfo {
 	//天游分配的渠道信息
 	private String channelId;
 	private String channelName;
-	private String channelClass;
 	
 	//渠道参数
 	private String appId;
@@ -51,14 +50,6 @@ public class ChannelInfo {
 
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
-	}
-
-	public String getChannelClass() {
-		return channelClass;
-	}
-
-	public void setChannelClass(String channelClass) {
-		this.channelClass = channelClass;
 	}
 
 	public String getPrivateKey() {

@@ -26,9 +26,14 @@ public class TianyouSdk {
 			ToastUtils.show(context, "需打入渠道资源");
 		} else {
 			try {
-				String className = "com.multi.channel." + channelInfo.getChannelClass();
+				String className = ""; 
+				if ("ty000".equals(channelInfo.getChannelId())) {
+					className = "TianyouSdkService";
+				} else if ("ty011".equals(channelInfo.getChannelId())) {
+					className = "LeshiSpecialSdkService";
+				}
 				LogUtils.d("className:" + className);
-				sdkService = (BaseSdkService) Class.forName(className).newInstance();
+				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
