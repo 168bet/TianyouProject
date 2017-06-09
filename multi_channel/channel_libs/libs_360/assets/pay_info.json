@@ -1,0 +1,25 @@
+{
+    "payinfo": [
+        {
+            "id": "tyxmulti_qihoo_01",
+            "money": "8",
+            "product_id": "tyxmulti_qihoo_02",
+            "product_name": "80钻石",
+            "product_desc": "购买此商品获得80钻石"
+        },
+        {
+            "id": "tyxmulti_qihoo_02",
+            "money": "12",
+            "product_id": "tyxmulti_qihoo_03",
+            "product_name": "120钻石",
+            "product_desc": "购买此商品获得120钻石"
+        },
+        {
+            "id": "tyxmulti_qihoo_03",
+            "money": "18",
+            "product_id": "tyxmulti_qihoo_04",
+            "product_name": "180钻石",
+            "product_desc": "购买此商品获得180钻石"
+        }
+    ]
+}
