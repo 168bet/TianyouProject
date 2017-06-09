@@ -8,6 +8,7 @@ import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
+import com.tianyou.channel.utils.AppUtils;
 import com.tianyou.channel.utils.LogUtils;
 import com.u8.sdk.IU8SDKListener;
 import com.u8.sdk.InitResult;
@@ -107,7 +108,7 @@ public class AsyxSdkService extends BaseSdkService{
 	@Override
 	public void doExitGame() {
 		LogUtils.d("调用退出游戏接口");
-		U8User.getInstance().submitExtraData(getUserExtraData(5, mRoleInfo));	// 调用SDK上传角色接口
+		if (mRoleInfo != null) U8User.getInstance().submitExtraData(getUserExtraData(5, mRoleInfo));	// 调用SDK上传角色接口
 		U8User.getInstance().exit();	// 调用SDK退出游戏接口
 	}
 	
@@ -128,7 +129,9 @@ public class AsyxSdkService extends BaseSdkService{
 		userExtraData.setRoleLevel(roleInfo.getRoleLevel());	// 玩家角色等级
 		userExtraData.setMoneyNum(Integer.parseInt(roleInfo.getBalance()));	// 当前角色身上剩余游戏币数量
 		userExtraData.setRoleCreateTime(Long.parseLong(roleInfo.getCreateTime()));	// 角色创建时间
-		userExtraData.setRoleLevelUpTime(Long.parseLong(roleInfo.getRoleLevelUpTime()));	// 角色等级变化时间
+		String roleLevelUpTime = (roleInfo.getRoleLevelUpTime() == null ? AppUtils.getSystemTime() : roleInfo.getRoleLevelUpTime());
+		LogUtils.d("roleLevelUpTime= "+roleLevelUpTime);
+		userExtraData.setRoleLevelUpTime(Long.parseLong(roleLevelUpTime));	// 角色等级变化时间
 		userExtraData.setVip(roleInfo.getVipLevel());	// 角色VIP等级
 		return userExtraData;
 	}

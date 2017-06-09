@@ -53,11 +53,12 @@ public class XiaoMiSdkService extends BaseSdkService{
 		String orderID = orderInfo.getOrderID();
 		MiBuyInfoOnline online = new MiBuyInfoOnline();
 		online.setCpOrderId(orderID); //订单号唯一(不为空)
-		online.setCpUserInfo(mRoleInfo.toString()); //此参数在用户支付成功后会透传给CP的服务器 
+		online.setCpUserInfo(orderInfo.getCustomInfo()); //此参数在用户支付成功后会透传给CP的服务器 
 		online.setMiBi(Integer.parseInt(orderInfo.getMoNey())); //必须是大于1的整数, 10代表10米币,即10元人民币(不为空)
 
 		//用户信息※必填※
 		Bundle mBundle = new Bundle();
+		LogUtils.d("xiaomi pay mRoleInfo= "+mRoleInfo.toString());
 		mBundle.putString( GameInfoField.GAME_USER_BALANCE, mRoleInfo.getBalance());  //用户余额
 		mBundle.putString( GameInfoField.GAME_USER_GAMER_VIP, mRoleInfo.getVipLevel() );  //vip 等级
 		mBundle.putString( GameInfoField.GAME_USER_LV, mRoleInfo.getRoleLevel() );          //角色等级
@@ -118,6 +119,7 @@ public class XiaoMiSdkService extends BaseSdkService{
 
 		@Override
 		public void finishPayProcess(int code) {
+			LogUtils.d("finishPayProcess Code= "+code);
 			switch(code) {
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_SUCCESS: 
 	             // 购买成功

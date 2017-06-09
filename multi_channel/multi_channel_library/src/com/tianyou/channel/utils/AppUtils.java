@@ -83,6 +83,13 @@ public class AppUtils {
 		return msg;
 	}
     
+	/**
+	 * 获取系统时间戳(10位)
+	 */
+	public static String getSystemTime(){
+		return System.currentTimeMillis()/1000+"";
+	}
+	
     public static String time;
     public static String getCurrentTime (Activity activity,final boolean isTimeStr){
     	
