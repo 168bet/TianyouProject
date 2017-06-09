@@ -1,5 +1,6 @@
 {
     "channel_id": "ty011",
+    "channel_class": "LeshiSpecialSdkService",
     "channel_name": "leshispecial",
 
     "game_name": "龙神之光",
