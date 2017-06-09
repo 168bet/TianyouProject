@@ -3,6 +3,7 @@ package com.tianyou.sdk.fragment.login;
 import java.util.List;
 import java.util.Map;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.gson.Gson;
 import com.tianyou.sdk.activity.LoginActivity;
 import com.tianyou.sdk.base.BaseFragment;
@@ -13,10 +14,12 @@ import com.tianyou.sdk.bean.LoginWay.ResultBean;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.SPHandler;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
 import android.app.Fragment;
+import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -37,6 +40,7 @@ public class AccountFragment extends BaseFragment {
 	private EditText mEditUsername;
 	private EditText mEditPassword;
 	private ImageView mImgSwitch;
+	private ImageView mImgQuick;
 	private View mImgPull;
 	private View mViewLogin;
 	
@@ -61,13 +65,21 @@ public class AccountFragment extends BaseFragment {
 		mEditUsername = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_username", "id"));
 		mEditPassword = (EditText) mContentView.findViewById(ResUtils.getResById(mActivity, "edit_account_password", "id"));
 		mImgSwitch = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_switch", "id"));
-		
+		mImgQuick = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_quick", "id"));
+		if (ConfigHolder.isOverseas) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setVisibility(View.GONE);
+			mImgQuick.setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setOnClickListener(this);
+		} else {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_facebook", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);
+		}
 		mViewLogin = mContentView.findViewById(ResUtils.getResById(mActivity, "btn_account_login", "id"));
 		mImgPull = mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_pull", "id"));
 		mViewTourist = mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_tourist", "id"));
 		
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_quick", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_account_forget", "id")).setOnClickListener(this);
 		
 		mImgPull.setOnClickListener(this);
@@ -78,15 +90,17 @@ public class AccountFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle("账号登录");
+		mActivity.setFragmentTitle(ResUtils.getString(mActivity, "ty_account_login2"));
 		((LoginActivity)mActivity).setCloseViw(false);
 		mViewTourist.setVisibility(ConfigHolder.isUnion ? View.GONE : View.VISIBLE);
 		mLoginInfos = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
+		LogUtils.d(mLoginInfos.toString());
 		if (mLoginInfos.size() == 0) {
 			mImgPull.setVisibility(View.GONE);
 		} else {
 			mImgPull.setVisibility(View.VISIBLE);
 			mEditUsername.setText(mLoginInfos.get(0).get(LoginInfoHandler.USER_ACCOUNT));
+			mEditUsername.setSelection(mLoginInfos.get(0).get(LoginInfoHandler.USER_ACCOUNT).length());
 			mEditPassword.setText(mLoginInfos.get(0).get(LoginInfoHandler.USER_PASSWORD));
 		}
 		mListView = new ListView(mActivity);
@@ -115,6 +129,21 @@ public class AccountFragment extends BaseFragment {
 			bundle.putString("mEditUsername", username);
 			fpf.setArguments(bundle); 
 			mActivity.switchFragment(fpf);
+		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_google", "id")&& !((LoginActivity) mActivity).getGoogleApiClient().isConnected()) {
+			LogUtils.d("into google");
+			((LoginActivity) mActivity).setIsGoogleConnected(true);
+			ConnectionResult connectionResult = ((LoginActivity) mActivity).getConnectionResult();
+			if (connectionResult == null) {
+				LogUtils.d("connection == null");
+			} else {
+				try {
+					connectionResult.startResolutionForResult(mActivity, 1);
+				} catch (SendIntentException e) {
+					connectionResult = null;
+					((LoginActivity) mActivity).getGoogleApiClient().connect();
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -123,10 +152,9 @@ public class AccountFragment extends BaseFragment {
 		LoginWay loginWay = new Gson().fromJson(response, LoginWay.class);
 		ResultBean result = loginWay.getResult();
 		if (result.getCode() == 200 && result.getCustominfo().getReg_quick() == 0) {
-			ToastUtils.show(mActivity, "暂未开放");
+			ToastUtils.show(mActivity, !ConfigHolder.isOverseas?"暂未开放":"Temporarily not opened");
 		} else {
-			((LoginActivity)mActivity).switchFragment(new PhoneRegisterFragment());
-//			mActivity.switchFragment(new RegisterFragment());
+			mActivity.switchFragment(!ConfigHolder.isOverseas?new PhoneRegisterFragment():new UserRegisterFragment());
 		}
 	}
 
@@ -134,11 +162,11 @@ public class AccountFragment extends BaseFragment {
 		String username = mEditUsername.getText().toString();
 		String password = mEditPassword.getText().toString();
 		if (username.isEmpty() || password.isEmpty()) {
-			ToastUtils.show(mActivity, "用户名或密码不能为空");
+			ToastUtils.show(mActivity,!ConfigHolder.isOverseas? "用户名或密码不能为空":"The user name or password cannot be empty");
 		} else if (username.length() < 6 || username.length() > 16) {
-			ToastUtils.show(mActivity, "用户名长度错误");
+			ToastUtils.show(mActivity, !ConfigHolder.isOverseas?"用户名长度错误":"User name length error");
 		} else if (password.length() < 6 || password.length() > 16) {
-			ToastUtils.show(mActivity, "密码长度错误");
+			ToastUtils.show(mActivity, !ConfigHolder.isOverseas?"密码长度错误":"Password length error");
 		} else {
 			mLoginHandler.doUserLogin(mEditUsername.getText().toString(), mEditPassword.getText().toString(), false);
 		}

@@ -17,6 +17,7 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.HttpUtils.HttpCallback;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
@@ -76,12 +77,19 @@ public class LoginHandler {
 		map.put("username", username);
 		map.put("password", password);
 		map.put("channel", ConfigHolder.channelId);
+		map.put("version", ConfigHolder.sdkVersion);
 		map.put("sign", AppUtils.MD5(username + password + ConfigHolder.gameId + ConfigHolder.gameToken));
 		String url = isPhone ? URLHolder.URL_UNION_PHONE_LOGIN : URLHolder.URL_UNION_ACCOUNT_LOGIN;
-		HttpUtils.post(mActivity, url, map, new HttpsCallback() {
+		HttpUtils.post(mActivity, url, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
 				onLoginProcess(new Gson().fromJson(response, LoginInfo.class));
+			}
+			
+			@Override
+			public void onFailed() {
+				ToastUtils.show(mActivity, "网络连接失败，请检查网络~");
+				ProgressHandler.getInstance().closeProgressDialog();
 			}
 		});
     }
@@ -89,7 +97,7 @@ public class LoginHandler {
 	// 1-2.快速注册登陆接口
 	public void doQuickRegister() {
 		if (ConfigHolder.isUnion) {
-			ToastUtils.show(mActivity, "暂未开放");
+			ToastUtils.show(mActivity, !ConfigHolder.isOverseas?"暂未开放":"Temporarily not opened");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("channel", ConfigHolder.channelId);
@@ -184,7 +192,7 @@ public class LoginHandler {
 				} else {
 					ProgressHandler.getInstance().closeProgressDialog();
 					ToastUtils.show(mActivity, request.getResult().getMsg());
-//					TianyouxiSdk.getInstance().mTianyouCallback.onResult(TianyouxiCallback.CODE_LOGIN_FAILED, "");
+//					TianyouSdk.getInstance().mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "");
 				}
 			} 
 		}, 1500);
@@ -209,7 +217,7 @@ public class LoginHandler {
 		info.put(LoginInfoHandler.USER_ACCOUNT, mResultBean.getUsername());
 		info.put(LoginInfoHandler.USER_NICKNAME, (mResultBean.getNickname() == null || mResultBean.getNickname().isEmpty()) ? "" : mResultBean.getNickname());
 		info.put(LoginInfoHandler.USER_PASSWORD, mResultBean.getPassword() == null ? mResultBean.getVerification() : mResultBean.getPassword());
-		info.put(LoginInfoHandler.USER_SERVER, "最近登录：" + ConfigHolder.gameName);
+		info.put(LoginInfoHandler.USER_SERVER, !ConfigHolder.isOverseas?"最近登录：":"Recently the login: " + ConfigHolder.gameName);
 		info.put(LoginInfoHandler.USER_LOGIN_WAY, mResultBean.getRegistertype() == null ? "" : mResultBean.getRegistertype());
 		//保存到手机登陆信息表
 		if (SPHandler.getBoolean(mActivity, SPHandler.SP_IS_PHONE)) {
@@ -239,7 +247,7 @@ public class LoginHandler {
   		TextView textUser = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_user", "id"));
   		TextView textSwitch = (TextView) view.findViewById(ResUtils.getResById(TianyouSdk.getInstance().mActivity, "text_welcome_switch", "id"));
   		LogUtils.d("nickName= "+ConfigHolder.userNickname+",account= "+ConfigHolder.userName);
-		textUser.setText("欢迎" + ConfigHolder.userName + "回来");
+		textUser.setText(!ConfigHolder.isOverseas?"欢迎 ":"Welcome "+ ConfigHolder.userName + (!ConfigHolder.isOverseas?" 回来":" Come Back"));
   		final PopupWindow popupWindow = new PopupWindow(view, 0, 0);
   		popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
   		popupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -249,7 +257,7 @@ public class LoginHandler {
   		final Runnable runnable = new Runnable() {
   			@Override
   			public void run() {
-  				if ((ConfigHolder.isTourist && !ConfigHolder.isUnion) || !ConfigHolder.isAuth) {
+  				if ((ConfigHolder.isTourist && !ConfigHolder.isUnion || !ConfigHolder.isAuth)) {
 					Intent intent = new Intent(TianyouSdk.getInstance().mActivity, LoginActivity.class);
 		  			intent.putExtra("show_tourist_tip", true);
 					TianyouSdk.getInstance().mActivity.startActivity(intent);

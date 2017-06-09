@@ -20,6 +20,7 @@ import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
 import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
@@ -38,11 +39,12 @@ public class ForgetPasswordFragment extends BaseFragment {
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle("忘记密码");
+		mActivity.setFragmentTitle(ResUtils.getString(mActivity, "ty_forget_password"));
 		Bundle bundle = getArguments();  
 		String username = bundle.getString("mEditUsername");  
 		if(!username.isEmpty()){
 			mEditUsername.setText(username);
+			mEditUsername.setSelection(username.length());
 		}
 		((LoginActivity)mActivity).setBackBtnVisible(true);
 	}
@@ -51,9 +53,9 @@ public class ForgetPasswordFragment extends BaseFragment {
 	public void onClick(View v) {
 		final String username = mEditUsername.getText().toString();
 		if (username.isEmpty()) {
-			ToastUtils.show(mActivity, "账号不能为空");
+			ToastUtils.show(mActivity,!ConfigHolder.isOverseas?"账号不能为空":"The account cannot be empty");
 		} else if (username.length() < 6 || username.length() > 16) {
-			ToastUtils.show(mActivity, "账号长度错误");
+			ToastUtils.show(mActivity,!ConfigHolder.isOverseas?"账号长度错误":"Length error");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("username", username);
@@ -64,6 +66,7 @@ public class ForgetPasswordFragment extends BaseFragment {
 					try {
 						JSONObject jsonObject = new JSONObject(response);
 						JSONObject result = jsonObject.getJSONObject("result");
+						LogUtils.d(result.toString());
 						if (result.getInt("code") == 200) {
 							int mobile = result.getInt("mobile");
 							String phone = result.getString("mobileinfo");

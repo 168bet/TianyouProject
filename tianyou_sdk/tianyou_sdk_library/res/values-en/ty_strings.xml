@@ -134,9 +134,38 @@
     <string name="ty_hot_game2">hot game</string>
     <string name="ty_platform_pay2">platform pay</string>
     <string name="ty_server_info2">server info</string>
-    <string name="ty_qq_login2">qq login</string>
+    <string name="ty_qq_login2">Facebook</string>
     <string name="ty_currency">$</string>
     <string name="ty_tianyou">tianyou</string>
     <string name="ty_welcome_back2">,welcome back!</string>
     
+      <!-- 新版SDK -->
+    <string name="ty_tourist_tips">You are currently on a tourist account，unable to use account recharges，account after binding, instantly improve the security of the account, also can enjoy more benefits, binding quickly ~ ~ ~ </string>
+    <string name="ty_tourist_login">Tourist login</string>
+    <string name="ty_user_register">Quick Register</string>
+    <string name="ty_user_register_hint1">Username:6-16-bit</string>
+    <string name="ty_user_register_hint2">Password:6-16-bit</string>
+    <string name="ty_user_register_hint3">Enter four captcha</string>
+    <string name="ty_user_register_protocol">《User registration agreement》</string>
+    <string name="ty_user_register_btn_register">Register now</string>
+    <string name="ty_user_register_back">&lt; go back</string>
+    <string name="ty_account_hint">Enter the password</string>
+    <string name="ty_forget_username">Please enter your account for the password</string>
+    <string name="ty_forget_hint">Please enter the current account </string>
+    <string name="ty_forget_tv_next">Next step </string>
+    <string name="ty_upgrade_hint">Upgrade to new user name</string>
+    <string name="ty_upgrade_commit">Upgrade</string>
+    <string name="ty_tourist_tips_exit">Another time</string>
+    <string name="ty_tourist_tips_upgrade">Upgrade</string>
+    
+    <string name="ty_alert_account_hint">Enter your current account password for security</string>
+    <string name="ty_alert_current_pw">Enter the password for the current account</string>
+    <string name="ty_alert_forget_pw">Forgot password</string>
+    <string name="ty_alert_account_commit">Comfirm</string>
+    <string name="ty_alert_pw_new_hint">Enter the password again</string>
+    <string name="ty_tourist">Tourist：</string>
+    <string name="ty_security">Security Settings</string>
+    <string name="ty_unset">Unset</string>
+    <string name="ty_center_modify">Modity password</string>
+    <string name="ty_popup_personal_center"> </string>
 </resources>

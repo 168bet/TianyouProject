@@ -1,7 +1,5 @@
 package com.tianyou.channel.interfaces;
 
-import android.content.Context;
-
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.business.AipuSdkService;
 import com.tianyou.channel.business.AiqiyiSdkService;
@@ -10,12 +8,12 @@ import com.tianyou.channel.business.AsyxSdkService;
 import com.tianyou.channel.business.AyxSdkService;
 import com.tianyou.channel.business.BaiduSdkService;
 import com.tianyou.channel.business.CCSdkService;
-import com.tianyou.channel.business.DouquSdkService;
 import com.tianyou.channel.business.CaoxieSdkService;
+import com.tianyou.channel.business.DouquSdkService;
 import com.tianyou.channel.business.DownJoySdkService;
 import com.tianyou.channel.business.DuoquSdkService;
 import com.tianyou.channel.business.ErWuOUSdkService;
-import com.tianyou.channel.business.GameBeginSdkService;
+import com.tianyou.channel.business.YilingSdkService;
 import com.tianyou.channel.business.HSZSdkService;
 import com.tianyou.channel.business.HaiMaSdkService;
 import com.tianyou.channel.business.HanfengService;
@@ -24,26 +22,24 @@ import com.tianyou.channel.business.JinliSdkService;
 import com.tianyou.channel.business.KakaoSdkService;
 import com.tianyou.channel.business.KupaiSdkService;
 import com.tianyou.channel.business.LenovoSdkService;
-import com.tianyou.channel.business.LeshiSdkService;
 import com.tianyou.channel.business.LeshiSpecialSdkService;
 import com.tianyou.channel.business.LeyouSdkService;
 import com.tianyou.channel.business.M4399SdkService;
 import com.tianyou.channel.business.MeizuSdkService;
-import com.tianyou.channel.business.QiguoSdkService;
-import com.tianyou.channel.business.QuickSdkService;
-import com.tianyou.channel.business.SamsungSdkService;
-import com.tianyou.channel.business.TestYingyongbaoSdkService;
-import com.tianyou.channel.business.YijieSdkService;
 import com.tianyou.channel.business.MoguSdkService;
 import com.tianyou.channel.business.OppoSdkService;
 import com.tianyou.channel.business.PYWSdkService;
 import com.tianyou.channel.business.PangGooglepaySdkService;
 import com.tianyou.channel.business.PangSdkService;
+import com.tianyou.channel.business.QiguoSdkService;
 import com.tianyou.channel.business.QihooSdkService;
+import com.tianyou.channel.business.QuickSdkService;
+import com.tianyou.channel.business.SamsungSdkService;
 import com.tianyou.channel.business.ShanyouSdkService;
 import com.tianyou.channel.business.ShenqiSdkService;
 import com.tianyou.channel.business.SogouSdkService;
 import com.tianyou.channel.business.TTSdkService;
+import com.tianyou.channel.business.TestYingyongbaoSdkService;
 import com.tianyou.channel.business.TianTianSdkService;
 import com.tianyou.channel.business.TianyouSdkService;
 import com.tianyou.channel.business.UCSdkService;
@@ -52,9 +48,12 @@ import com.tianyou.channel.business.WandoujiaSdkService;
 import com.tianyou.channel.business.WuyouwanSdkService;
 import com.tianyou.channel.business.XianquChSdkService;
 import com.tianyou.channel.business.XiaoMiSdkService;
+import com.tianyou.channel.business.YijieSdkService;
 import com.tianyou.channel.business.YingyongbaoSdkService;
 import com.tianyou.channel.utils.ConfigHolder;
 import com.tianyou.channel.utils.LogUtils;
+
+import android.content.Context;
 
 /**
  * 多渠道入口类
@@ -165,8 +164,11 @@ public class TianyouSdk {
 			sdkService = new LeyouSdkService();
 		} else if ("ty068".equals(channelInfo.getChannelId())) {
 			sdkService = new QuickSdkService();
+<<<<<<< HEAD
 		} else if ("ty069".equals(channelInfo.getChannelId())){
 			sdkService = new LeshiSdkService();
+=======
+>>>>>>> 2d351384e6cdbf8446d6c5567a610d0fbde04f75
 		} else if ("ty069".equals(channelInfo.getChannelId())) {
 			sdkService = new LeshiSpecialSdkService();
 		} else if ("ty070".equals(channelInfo.getChannelId())) {
@@ -176,7 +178,7 @@ public class TianyouSdk {
 		} else if ("ty074".equals(channelInfo.getChannelId())) {
 			sdkService = new AsyxSdkService();
 		} else if ("bm105".equals(channelInfo.getChannelId())) {
-			sdkService = new GameBeginSdkService();
+			sdkService = new YilingSdkService();
 		} else if ("bm106".equals(channelInfo.getChannelId())) {
 			sdkService = new KakaoSdkService();
 		}

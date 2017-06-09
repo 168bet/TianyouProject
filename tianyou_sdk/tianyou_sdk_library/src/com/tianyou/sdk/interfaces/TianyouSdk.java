@@ -73,6 +73,7 @@ public class TianyouSdk {
 		if (configInfo != null) {
 			LogUtils.d("configInfo:" + configInfo.toString());
 			ConfigHolder.channelId = configInfo.get("channel_id");
+			ConfigHolder.sdkVersion = configInfo.get("sdk_version");
 			ConfigHolder.isOverseas = "1".equals(configInfo.get("is_overseas"));
 			ConfigHolder.isOpenLog = "1".equals(configInfo.get("log_switch"));
 			ConfigHolder.isUnion = "1".equals(configInfo.get("union_mode"));
@@ -267,7 +268,7 @@ public class TianyouSdk {
 	private void createFloatMenu() {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken));
-		HttpUtils.post(mActivity, URLHolder.URL_FLOAT_CONTROL, map, new HttpUtils.HttpsCallback() {
+		HttpUtils.post(mActivity, URLHolder.URL_FLOAT_CONTROL, map, new HttpUtils.HttpCallback() {
 			@Override
 			public void onSuccess(String response) {
 				FloatControl control = new Gson().fromJson(response, FloatControl.class);
@@ -285,6 +286,11 @@ public class TianyouSdk {
 				} else {
 					ToastUtils.show(mActivity, control.getResult().getMsg());
 				}
+			}
+
+			@Override
+			public void onFailed() {
+				ToastUtils.show(mActivity, "网络连接失败，请检查网络~");
 			}
 		});
 	}

@@ -3,6 +3,6 @@
     android:id="@+id/splash_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white"
     android:gravity="center"
+    android:background="@drawable/ty_splash"
     android:orientation="vertical" />

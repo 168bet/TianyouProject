@@ -54,11 +54,16 @@ public class UpgradeFragment extends BaseFragment {
 		mViewCode = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_upgrade_code", "id"));
 		mTextAccount.setOnClickListener(this);
 		mViewCode.setOnClickListener(this);
+		if (ConfigHolder.isOverseas) {
+			mIsAccountUpgrade = false;
+			switchUpgradeWay();
+			mTextAccount.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
 	protected void initData() {
-		mActivity.setFragmentTitle("账号升级");
+		mActivity.setFragmentTitle(ConfigHolder.isOverseas?"Account upgrade":"账号升级");
 		((LoginActivity)mActivity).setBackBtnVisible(true);
 	}
 
@@ -89,28 +94,28 @@ public class UpgradeFragment extends BaseFragment {
 		String editText1 = mEditCode.getText().toString();
 		String editText2 = mEditPassword.getText().toString();
 		if (editText0.isEmpty()) {
-			ToastUtils.show(mActivity, (mIsAccountUpgrade ? "账号" : "手机号") + "不能为空");
+			ToastUtils.show(mActivity, (mIsAccountUpgrade ?(ConfigHolder.isOverseas?"Account":"账号") : "手机号") + (ConfigHolder.isOverseas?"can't be empty":"不能为空"));
 		} else if (!mIsAccountUpgrade && !AppUtils.verifyPhoneNumber(editText0)) {
 			ToastUtils.show(mActivity, "手机号格式错误");
 		} else if (mIsAccountUpgrade && (editText0.length() < 6 || editText0.length() > 16)) {
-			ToastUtils.show(mActivity, "账号长度错误");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Account length error":"账号长度错误");
 		} else if (mIsAccountUpgrade && (editText1.length() < 6 || editText1.length() > 16)) {
-			ToastUtils.show(mActivity, "密码长度错误");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Password length error":"密码长度错误");
 		} else if (editText1.isEmpty()) {
-			ToastUtils.show(mActivity, (mIsAccountUpgrade ? "密码" : "验证码") + "不能为空");
+			ToastUtils.show(mActivity, (mIsAccountUpgrade ? (ConfigHolder.isOverseas?"Password":"密码"): "验证码") + (ConfigHolder.isOverseas?"can't be empty":"不能为空"));
 		} else if (mIsAccountUpgrade && !editText2.equals(editText1)) {
-			ToastUtils.show(mActivity, "两次密码不一致");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Two passwords do not agree":"两次密码不一致");
 		} else if (!mIsAccountUpgrade && editText2.isEmpty()) {
 			ToastUtils.show(mActivity, "密码不能为空");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("userid", ConfigHolder.userId);
-			map.put("mobile", editText0);
-			map.put("mobilecode", editText1);
 			if (mIsAccountUpgrade) {
 				map.put("newname", editText0);
 				map.put("password", editText1);
 			} else {
+				map.put("mobile", editText0);
+				map.put("mobilecode", editText1);
 				map.put("password", editText2);
 			}
 			map.put("sign", AppUtils.MD5(ConfigHolder.gameId + ConfigHolder.gameToken + ConfigHolder.userId));
@@ -165,9 +170,9 @@ public class UpgradeFragment extends BaseFragment {
 		mEditPassword.setText("");
 		mEditPhone.setInputType(mIsAccountUpgrade ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_PHONE);
 		mEditCode.setInputType(mIsAccountUpgrade ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_PHONE);
-		mEditPhone.setHint(mIsAccountUpgrade ? "账号：请输入6-16位字母或数字组合" : "请输入11位手机号");
-		mEditCode.setHint(mIsAccountUpgrade ? "密码：请输入6-16位字母或数字组合" : "请输入验证码");
-		mEditPassword.setHint(mIsAccountUpgrade ? "请再次输入密码" : "密码：请输入6-16位字母或数字组合");
+		mEditPhone.setHint(mIsAccountUpgrade ? (ConfigHolder.isOverseas?"Username: 6-16-bit":"账号：请输入6-16位字母或数字组合" ): "请输入11位手机号");
+		mEditCode.setHint(mIsAccountUpgrade ? (ConfigHolder.isOverseas?"Password: 6-16-bit":"密码：请输入6-16位字母或数字组合" ): "请输入验证码");
+		mEditPassword.setHint(mIsAccountUpgrade ?(ConfigHolder.isOverseas?"Please enter the password again":"请再次输入密码") : "密码：请输入6-16位字母或数字组合");
 		mViewTip.setVisibility(mIsAccountUpgrade ? View.VISIBLE : View.GONE);
 		mViewCode.setVisibility(mIsAccountUpgrade ? View.GONE : View.VISIBLE);
 		mTextAccount.setText(mIsAccountUpgrade ? "升级手机号账号" : "升级用户名账号");

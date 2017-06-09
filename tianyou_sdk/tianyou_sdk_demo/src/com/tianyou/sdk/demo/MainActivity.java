@@ -59,7 +59,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mActivity = this;
-		LogUtils.d("---onCreate");
 		findViewById(R.id.btn_login).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_pay_1).setOnClickListener(this);
@@ -68,32 +67,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		findViewById(R.id.btn_update_role_info).setOnClickListener(this);
 		findViewById(R.id.btn_exit_game).setOnClickListener(this);
 		TianyouSdk.getInstance().activityInit(this, mTianyouCallback);
-		LogUtils.d("---login");
-		TianyouSdk.getInstance().login();
-	}
-	
-	@Override
-	protected void onPause() {
-		LogUtils.d("---onPause");
-		super.onPause();
-	}
-	
-	@Override
-	protected void onResume() {
-		LogUtils.d("---onResume");
-		super.onResume();
-	}
-	
-	@Override
-	protected void onStop() {
-		LogUtils.d("---onStop");
-		super.onStop();
-	}
-	
-	@Override
-	protected void onDestroy() {
-		LogUtils.d("---onDestroy");
-		super.onDestroy();
 	}
 	
 	@Override

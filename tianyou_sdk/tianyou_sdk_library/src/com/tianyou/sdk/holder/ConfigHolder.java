@@ -28,6 +28,8 @@ public class ConfigHolder {
 	public static boolean isOpenLog = true;
 	// 是否是工会模式
 	public static boolean isUnion;
+	// sdk版本
+	public static String sdkVersion;
 
 	// 存储游戏id
 	public static String gameId;

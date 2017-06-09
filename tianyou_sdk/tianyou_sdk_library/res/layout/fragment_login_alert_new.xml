@@ -19,7 +19,7 @@
             android:inputType="textPassword"
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
             android:maxLength="16"
-            android:hint="密码：请输入6-16位字母或数字组合" />
+            android:hint="@string/ty_user_register_hint2" />
 
         <View
             android:layout_width="match_parent"
@@ -34,12 +34,12 @@
             android:inputType="textPassword"
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
             android:maxLength="16"
-            android:hint="请再次输入密码" />
+            android:hint="@string/ty_alert_pw_new_hint" />
     </LinearLayout>
     
     <TextView
         android:id="@+id/text_alert_confirm"
         style="@style/style_text_red_long"
-        android:text="确定" />
+        android:text="@string/ty_alert_account_commit" />
 
 </LinearLayout>

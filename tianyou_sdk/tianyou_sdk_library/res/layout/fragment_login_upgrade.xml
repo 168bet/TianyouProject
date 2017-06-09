@@ -8,7 +8,7 @@
         android:id="@+id/text_upgrade_tip"
         style="@style/style_text_gray"
         android:layout_marginBottom="@dimen/layout_space_small"
-        android:text="升级为新用户名账号"
+        android:text="@string/ty_upgrade_hint"
         android:visibility="gone" />
 
     <LinearLayout
@@ -75,7 +75,7 @@
     <TextView
         android:id="@+id/text_upgrade_confirm"
         style="@style/style_text_red_long"
-        android:text="账号升级" />
+        android:text="@string/ty_upgrade_commit" />
 
     <TextView
         android:id="@+id/text_upgrade_account"

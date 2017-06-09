@@ -21,7 +21,7 @@
             android:id="@+id/popup_menu_0"
             style="@style/style_popup_menu"
             android:drawableTop="@drawable/selector_menu_0"
-            android:text="个人中心" />
+            android:text="@string/ty_popup_personal_center" />
         
         <TextView
             android:id="@+id/popup_menu_1"

@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.android.vending.billing.IInAppBillingService;
+//import com.android.vending.billing.IInAppBillingService;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
@@ -61,7 +61,7 @@ public class PayActivity extends BaseActivity {
 	
 	public  int ACTIVITY_FINISH = 1;
 	
-	public IInAppBillingService mBillingService;
+//	public IInAppBillingService mBillingService;
 	protected ServiceConnection mServiceConn;
 	
 	private static final int REQUEST_CODE_PAYMENT = 1;
@@ -105,15 +105,15 @@ public class PayActivity extends BaseActivity {
 				break;
 			case 8:
 				try {
-                    Bundle buyIntentBundle = mBillingService.getBuyIntent(3,mActivity.getPackageName(),
-                    		mPayHandler.mPayInfo.getGoogleProductID(),"inapp",mPayHandler.mPayInfo.getOrderId());
-                    int code = buyIntentBundle.getInt("RESPONSE_CODE");
-                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+//                    Bundle buyIntentBundle = mBillingService.getBuyIntent(3,mActivity.getPackageName(),
+//                    		mPayHandler.mPayInfo.getGoogleProductID(),"inapp",mPayHandler.mPayInfo.getOrderId());
+//                    int code = buyIntentBundle.getInt("RESPONSE_CODE");
+//                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
                     mPayHandler.PAY_FLAG = false;
 
-                    mActivity.startIntentSenderForResult(pendingIntent.getIntentSender(),
-                            1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
-                            Integer.valueOf(0));
+//                    mActivity.startIntentSenderForResult(pendingIntent.getIntentSender(),
+//                            1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0),
+//                            Integer.valueOf(0));
                 } catch (Exception e) { 
                 	e.printStackTrace();
                 	LogUtils.d(e.getMessage());
@@ -153,12 +153,12 @@ public class PayActivity extends BaseActivity {
 		mServiceConn = new ServiceConnection() {
 			@Override
 			public void onServiceConnected(ComponentName componentName, android.os.IBinder service) {
-				mBillingService = IInAppBillingService.Stub.asInterface(service);
+//				mBillingService = IInAppBillingService.Stub.asInterface(service);
 			}
 
 			@Override
 			public void onServiceDisconnected(ComponentName componentName) {
-				mBillingService = null;
+//				mBillingService = null;
 			}
 		};
 		Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
@@ -240,9 +240,9 @@ public class PayActivity extends BaseActivity {
         					JSONObject dataObject = new JSONObject(purchaseData);
         					String purchaseToken = dataObject.getString("purchaseToken");
         					LogUtils.d("purchaseToken= "+purchaseToken);
-        					int response = mBillingService.consumePurchase(3, mActivity.getPackageName(), purchaseToken);
+//        					int response = mBillingService.consumePurchase(3, mActivity.getPackageName(), purchaseToken);
         					LogUtils.d("packageName= "+mActivity.getPackageName()+",purchaseToken= "+purchaseToken);
-        					LogUtils.d("onActivityRestul response= "+response);
+//        					LogUtils.d("onActivityRestul response= "+response);
         				} catch (Exception e) {
         					LogUtils.d("consumePurchase= "+e.getMessage());
         					e.printStackTrace();

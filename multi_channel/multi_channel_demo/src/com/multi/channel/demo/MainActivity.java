@@ -1,5 +1,6 @@
 package com.multi.channel.demo;
 
+<<<<<<< HEAD
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.ml.ly.asyx.R;
+=======
+import com.multi_channel_demo.R;
+>>>>>>> 2d351384e6cdbf8446d6c5567a610d0fbde04f75
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -14,6 +18,12 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -105,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("2016001");
+		payParam.setPayCode("tyxmulti_qihoo_01");
 		payParam.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
 		payParam.setAmount("1");
 		return payParam;
