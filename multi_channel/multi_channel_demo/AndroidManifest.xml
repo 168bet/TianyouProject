@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    package="com.ml.ly.asyx"
-=======
     package="com.multi_channel_demo"
->>>>>>> 2d351384e6cdbf8446d6c5567a610d0fbde04f75
     android:versionCode="1"
     android:versionName="1.0" >
 

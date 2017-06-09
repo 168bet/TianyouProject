@@ -1,16 +1,6 @@
 package com.multi.channel.demo;
 
-<<<<<<< HEAD
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-
-import com.ml.ly.asyx.R;
-=======
 import com.multi_channel_demo.R;
->>>>>>> 2d351384e6cdbf8446d6c5567a610d0fbde04f75
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
