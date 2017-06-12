@@ -3,13 +3,11 @@ package com.tianyou.channel.interfaces;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.CheckLogin;
 import com.tianyou.channel.bean.CheckLogin.ResultBean;
+import com.tianyou.channel.bean.CheckOrder;
 import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
@@ -154,7 +152,7 @@ public class BaseSdkService implements SdkServiceInterface {
 			public void onSuccess(String data) {
 				CheckLogin checkLogin = new Gson().fromJson(data, CheckLogin.class);
 				ResultBean result = checkLogin.getResult();
-				if (result.getCode().equals(200)) {
+				if (result.getCode().equals("200")) {
 					mLoginInfo.setHanfengUid(result.getChanneluid());
 					mLoginInfo.setTianyouUserId(result.getUid());
 					doNoticeGame(TianyouCallback.CODE_LOGIN_SUCCESS, result.getUid());
@@ -214,24 +212,18 @@ public class BaseSdkService implements SdkServiceInterface {
 		param.put("orderID", orderId);
 		param.put("userId", mLoginInfo.getTianyouUserId());
 		param.put("promotion", mChannelInfo.getChannelId());
-		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_ORDER_URL;
+		String url = (mLoginInfo.getIsOverseas() ? 
+				URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_ORDER_URL;
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
-				try {
-					JSONObject jsonObject = new JSONObject(data);
-					JSONObject result = jsonObject.getJSONObject("result");
-					String code = result.getString("code");
-					String msg = result.getString("msg");
-					if ("200".equals(code)) {
-						doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, msg);
-					} else {
-						ToastUtils.show(mActivity, msg);
-						doNoticeGame(TianyouCallback.CODE_PAY_FAILED, msg);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
+				CheckOrder checkOrder = new Gson().fromJson(data, CheckOrder.class);
+				com.tianyou.channel.bean.CheckOrder.ResultBean result = checkOrder.getResult();
+				if (result.getCode().equals("200")) {
+					doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, result.getMsg());
+				} else {
+					ToastUtils.show(mActivity, result.getMsg());
+					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, result.getMsg());
 				}
 			}
 			

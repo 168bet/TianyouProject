@@ -33,6 +33,8 @@ public class TianyouSdk {
 					className = "XiaoMiSdkService";
 				} else if ("ty011".equals(channelInfo.getChannelId())) {
 					className = "LeshiSpecialSdkService";
+				} else if ("ty025".equals(channelInfo.getChannelId())) {
+					className = "M4399SdkService";
 				} else if ("ty066".equals(channelInfo.getChannelId())) {
 					className = "HanfengService";
 				}
