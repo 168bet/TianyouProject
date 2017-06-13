@@ -1,5 +1,11 @@
 package com.multi.channel.demo;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+
 import com.gamebegin.smcsj.R;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
@@ -8,16 +14,6 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
-<<<<<<< HEAD
-import com.tianyouxi.lszg.vivo.R;
-=======
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
->>>>>>> 9e502e78ae7e1731a84031db0dd8e05524d67bc1
 
 public class MainActivity extends Activity implements OnClickListener {
 

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gamebegin.smcsj"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -13,6 +13,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
+        
         <activity
             android:name="com.multi.channel.demo.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -21,7 +22,6 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -36,6 +36,7 @@
                     android:scheme="gamebegin-smcsj" />
             </intent-filter>
         </activity>
+        
     </application>
 
 </manifest>
