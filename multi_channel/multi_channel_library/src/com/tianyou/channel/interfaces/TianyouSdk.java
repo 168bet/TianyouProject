@@ -48,6 +48,8 @@ public class TianyouSdk {
 					className = "LeshiSpecialSdkService";
 				} else if ("ty073".equals(channelInfo.getChannelId())) {
 					className = "SamsungSdkService";
+				} else if ("bm105".equals(channelInfo.getChannelId())) {
+					className = "YilingSdkService";
 				}
 				LogUtils.d("className:" + className);
 				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();

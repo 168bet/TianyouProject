@@ -77,12 +77,18 @@ public class M4399SdkService extends BaseSdkService {
 	
 	@Override
 	public void doExitGame() {
-		mOpeCenter.shouldQuitGame(mActivity, new OnQuitGameListener() {
+		LogUtils.d("调用退出游戏接口");
+		mActivity.runOnUiThread(new Runnable() {
 			@Override
-			public void onQuitGame(boolean flag) {
-				if (flag) {
-					mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
-				}
+			public void run() {
+				mOpeCenter.shouldQuitGame(mActivity, new OnQuitGameListener() {
+					@Override
+					public void onQuitGame(boolean flag) {
+						if (flag) {
+							mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
+						}
+					}
+				});				
 			}
 		});
 	}
