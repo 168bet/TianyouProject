@@ -1,11 +1,6 @@
 package com.multi.channel.demo;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-
+import com.gamebegin.smcsj.R;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -13,7 +8,16 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
+<<<<<<< HEAD
 import com.tianyouxi.lszg.vivo.R;
+=======
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+>>>>>>> 9e502e78ae7e1731a84031db0dd8e05524d67bc1
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -75,7 +79,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_FAILED:
-				ToastUtils.show(mActivity, "登录失败：" + msg);
 				break;
 			case TianyouCallback.CODE_LOGIN_CANCEL:
 				ToastUtils.show(mActivity, "登录取消：" + msg);
@@ -105,7 +108,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("tyxmulti_qihoo_01");
+		payParam.setPayCode("2016001");
 		payParam.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
 		payParam.setAmount("1");
 		return payParam;

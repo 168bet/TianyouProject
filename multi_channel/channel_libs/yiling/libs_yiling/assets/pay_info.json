@@ -2,24 +2,24 @@
     "payinfo": [
         {
             "id": "2016001",
-            "money": "8",
-            "product_id": "2016001",
+            "money": "1.99",
+            "product_id": "jlqy_weeklycard",
             "product_name": "周卡",
-            "product_desc": "购买后7天内每日获得100元宝"
+            "product_desc": "立马到帐100元宝，连续7日，每日可领取100绑定元宝"
         },
         {
             "id": "2016002",
-            "money": "25",
-            "product_id": "2016002",
+            "money": "3.99",
+            "product_id": "jlqy_monthlycard",
             "product_name": "月卡",
-            "product_desc": "购买后30天内每日获得120元宝"
+            "product_desc": "立马到帐120元宝，连续30日，每日可领取100绑定元宝"
         },
         {
             "id": "2016003",
-            "money": "648",
-            "product_id": "2016003",
-            "product_name": "6480元宝",
-            "product_desc": "购买此商品获得6480元宝"
+            "money": "9.99",
+            "product_id": "jlqy_growthfund",
+            "product_name": "成长基金",
+            "product_desc": "购买即得680元宝，达到一定等级可以领取数额元宝"
         },
         {
             "id": "2016004",
