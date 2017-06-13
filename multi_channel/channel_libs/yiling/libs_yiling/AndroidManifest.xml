@@ -45,6 +45,14 @@
 
     <application
         android:allowBackup="false">
+        
+	    <!-- <intent-filter>
+	        <action android:name="android.intent.action.VIEW" />
+	        <category android:name="android.intent.category.DEFAULT" />
+	        <category android:name="android.intent.category.BROWSABLE" />
+	        <data android:scheme="gamebegin-smcsj" android:host="smcsj" android:path="'/smcsj'" />
+	    </intent-filter> -->
+    
         <!-- Google Service-->
         <service
             android:name="com.gamebegin.sdk.expansion.ExpansionDownloaderService"
