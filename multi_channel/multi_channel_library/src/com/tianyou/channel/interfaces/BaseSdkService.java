@@ -6,6 +6,12 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.CheckLogin;
@@ -23,12 +29,6 @@ import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.channel.utils.URLHolder;
-
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
 
 /**
  * 多渠道接口默认实现
@@ -218,7 +218,8 @@ public class BaseSdkService implements SdkServiceInterface {
 		param.put("orderID", orderId);
 		param.put("userId", mLoginInfo.getTianyouUserId());
 		param.put("promotion", mChannelInfo.getChannelId());
-		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_ORDER_URL;
+		String url = (mLoginInfo.getIsOverseas() ? 
+				URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_ORDER_URL;
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
@@ -237,7 +238,16 @@ public class BaseSdkService implements SdkServiceInterface {
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
+					
+				}
 					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
+				CheckOrder checkOrder = new Gson().fromJson(data, CheckOrder.class);
+				com.tianyou.channel.bean.CheckOrder.ResultBean result = checkOrder.getResult();
+				if (result.getCode().equals("200")) {
+					doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, result.getMsg());
+				} else {
+					ToastUtils.show(mActivity, result.getMsg());
+					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, result.getMsg());
 				}
 			}
 			

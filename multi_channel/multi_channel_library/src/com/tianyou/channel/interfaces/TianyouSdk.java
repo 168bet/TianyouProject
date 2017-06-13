@@ -35,10 +35,18 @@ public class TianyouSdk {
 					className = "QihooSdkService"; 
 				} else if ("ty004".equals(channelInfo.getChannelId())){
 					className = "VivoSdkService"; 
+				} else if ("ty009".equals(channelInfo.getChannelId())) {
+					className = "JinliSdkService";
 				} else if ("ty011".equals(channelInfo.getChannelId())) {
 					className = "LeshiSpecialSdkService";
+				} else if ("ty025".equals(channelInfo.getChannelId())) {
+					className = "M4399SdkService";
 				} else if ("ty066".equals(channelInfo.getChannelId())) {
 					className = "HanfengService";
+				} else if ("ty067".equals(channelInfo.getChannelId())) {
+					className = "LeyouSdkService";
+				} else if ("ty073".equals(channelInfo.getChannelId())) {
+					className = "SamsungSdkService";
 				}
 				LogUtils.d("className:" + className);
 				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();
