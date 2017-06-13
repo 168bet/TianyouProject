@@ -38,7 +38,7 @@ import com.tianyou.channel.utils.URLHolder;
 public class QihooSdkService extends BaseSdkService {
 
 	private static String payUrl;
-	private String mUserId;
+//	private String mUserId;
 	private boolean isLand;
 
 	@Override
@@ -63,7 +63,7 @@ public class QihooSdkService extends BaseSdkService {
 					// SDK初始化成功
 					mTianyouCallback.onResult(TianyouCallback.CODE_INIT,
 							"SDK初始化完成");
-				}else if (code == ProtocolConfigs.FUNC_CODE_SWITCH_ACCOUNT) {
+				} else if (code == ProtocolConfigs.FUNC_CODE_SWITCH_ACCOUNT) {
 					// 切换账号
 				}
 			}
@@ -133,7 +133,7 @@ public class QihooSdkService extends BaseSdkService {
 											mTianyouCallback
 													.onResult(
 															TianyouCallback.CODE_LOGIN_SUCCESS,
-															mUserId);
+															mLoginInfo.getTianyouUserId());
 										} else {
 											mTianyouCallback
 													.onResult(
@@ -169,7 +169,7 @@ public class QihooSdkService extends BaseSdkService {
 	@Override
 	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
 		LogUtils.d("payinfo"+payInfo.toString());
-		LogUtils.d("orderinfo"+orderInfo.toString());
+		LogUtils.d("orderinfo"+orderInfo.getOrderID());
 		QihooPayInfo info = new QihooPayInfo();
 		info.setQihooUserId(orderInfo.getChanneluid());
 		info.setMoneyAmount(orderInfo.getMoNey());
@@ -189,14 +189,14 @@ public class QihooSdkService extends BaseSdkService {
 		// 可选参数，登录界面的背景图片路径，必须是本地图片路径
 		intent.putExtra(ProtocolKeys.UI_BACKGROUND_PICTRUE, "");
 		IDispatcherCallback mPayCallback = new MyResultCancleCallBack(
-				mPayInfo.getProductId());
+				orderInfo.getOrderID());
 		Matrix.invokeActivity(mActivity, intent, mPayCallback);
 	};
 
 	@Override
 	public void doExitGame() {
 		super.doExitGame();
-		doSdkGetUserInfoByCP("enterServer", mRoleInfo);
+		doSdkGetUserInfoByCP("exitServer", mRoleInfo);
 		Bundle bundle = new Bundle();
 		// 界面相关参数，360SDK界面是否以横屏显示。
 		bundle.putBoolean(ProtocolKeys.IS_SCREEN_ORIENTATION_LANDSCAPE, true);
@@ -229,12 +229,12 @@ public class QihooSdkService extends BaseSdkService {
 	@Override
 	public void doUpdateRoleInfo(RoleInfo roleInfo) {
 		super.doUpdateRoleInfo(roleInfo);
-		doSdkGetUserInfoByCP("enterServer", mRoleInfo);
+		doSdkGetUserInfoByCP("levelUp", mRoleInfo);
 	}
 	@Override
 	public void doCreateRole(RoleInfo roleInfo) {
 		super.doCreateRole(roleInfo);
-		doSdkGetUserInfoByCP("enterServer", mRoleInfo);
+		doSdkGetUserInfoByCP("createRole", mRoleInfo);
 	}
 	@Override
 	public void doDestory() {
@@ -311,10 +311,9 @@ public class QihooSdkService extends BaseSdkService {
 		public MyResultCancleCallBack(String orderID) {
 			this.orderID = orderID;
 		}
-
 		@Override
 		public void onFinished(String data) {
-			Log.d("TAG", "qihoo pay json = " + data);
+			LogUtils.d("qihoo pay json = " + data);
 			try {
 				JSONObject jsonObject = new JSONObject(data);
 				int errorCode = jsonObject.optInt("error_code");
@@ -322,9 +321,9 @@ public class QihooSdkService extends BaseSdkService {
 					// 支付成功
 					Map<String, String> param = new HashMap<String, String>();
 					param.put("orderID", orderID);
-					param.put("userId", mUserId);
+					param.put("userId", mLoginInfo.getTianyouUserId());
 					param.put("promotion", mChannelInfo.getChannelId());
-					HttpUtils.post(mActivity, URLHolder.CHECK_ORDER_URL, param,
+					HttpUtils.post(mActivity, URLHolder.URL_BASE + URLHolder.CHECK_ORDER_URL, param,
 							new HttpCallback() {
 								@Override
 								public void onSuccess(String tyData) {
@@ -334,6 +333,7 @@ public class QihooSdkService extends BaseSdkService {
 										JSONObject result = (JSONObject) jsonObject
 												.get("result");
 										String code = result.getString("code");
+										LogUtils.d("onSuccess"+result.toString());
 										if ("200".equals(code)) {
 											mTianyouCallback
 													.onResult(
@@ -356,8 +356,7 @@ public class QihooSdkService extends BaseSdkService {
 
 								@Override
 								public void onFailed(String code) {
-									Log.d("TAG", "qihoo pay tycheck data= "
-											+ code);
+									LogUtils.d("qihoo pay onFailed data= "+ code);
 									mTianyouCallback
 											.onResult(
 													TianyouCallback.CODE_PAY_FAILED,

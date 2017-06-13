@@ -2,11 +2,11 @@
 
 ## 天游项目仓库
 
+* **document**: 项目文档
+
 * **multi_channel**: 多渠道SDK
 
 * **package_tools**: BS打包工具
-
-* **tianyou_library**: 天游依赖库
 
 * **tianyou_sdk**: 天游SDK
 

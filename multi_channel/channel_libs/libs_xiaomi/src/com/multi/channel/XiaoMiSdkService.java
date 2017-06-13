@@ -38,7 +38,7 @@ public class XiaoMiSdkService extends BaseSdkService{
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		super.doActivityInit(activity, tianyouCallback);
-		doNoticeGameInit();
+		doNoticeGame(TianyouCallback.CODE_INIT, "");
 	}
 	
 	@Override
@@ -81,29 +81,24 @@ public class XiaoMiSdkService extends BaseSdkService{
 	            long sid = info.getUid();
 	            //获取用户的登陆的 Session(请参考 3.3用户session验证接口) 
 	            String session = info.getSessionId();//若没有登录返回 null
-	            LogUtils.d("sid= "+sid+",token= "+session);
-//	            checkLogin(sid+"", session);
-	            
 	            mLoginInfo.setChannelUserId(sid+"");
 	            mLoginInfo.setUserToken(session);
 	            checkLogin();
 	            break;
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_LOGIN_FAIL: 
 	            // 登陆失败
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
+	        	doNoticeGame(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 	            break;
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_CANCEL:
 	            // 取消登录 
-//	        	callback.onFailed(info.toString());
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_CANCEL, "登录取消");
+	        	doNoticeGame(TianyouCallback.CODE_LOGIN_CANCEL, "登录取消");
 	            break;
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_ACTION_EXECUTED:
 	            // 登录操作正在进行中 
 	            break;
 	        default:
 	            // 登录失败
-//	        	callback.onFailed("登录失败");
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
+	        	doNoticeGame(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 	            break;
 			}
 		}
@@ -127,25 +122,20 @@ public class XiaoMiSdkService extends BaseSdkService{
 	             break;
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_PAY_CANCEL:
 	             // 取消购买 
-//	        	callback.onCancel("xiaomi errorCode= "+code);
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_PAY_CANCEL,"支付取消");
+	        	doNoticeGame(TianyouCallback.CODE_PAY_CANCEL, "支付取消");
 	             break;
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_PAY_FAILURE: 
 	             // 购买失败
-//	        	callback.onFailed("xiaomi errorCode= "+code);
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");
-//	        	checkPay(orderID, callback);
+	        	doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "支付失败");
 	             break;
 	        case MiErrorCode.MI_XIAOMI_GAMECENTER_ERROR_ACTION_EXECUTED:
 	             //操作正在进行中 
 	             break;
 	        default:
 	             // 购买失败
-//	        	callback.onFailed("xiaomi errorCode= "+code);
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "支付失败");
+	        	doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "支付失败");
 	             break; 
 	        }			
 		}
 	}
-	
 }

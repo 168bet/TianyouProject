@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
+import com.tianyou.channel.bean.CheckLogin;
+import com.tianyou.channel.bean.CheckLogin.ResultBean;
 import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
@@ -46,32 +48,33 @@ public class BaseSdkService implements SdkServiceInterface {
 	
 	@Override
 	public void doApplicationCreate(Context context, boolean island) {
-		LogUtils.d("调用doApplicationCreate");
+		LogUtils.d("调用doApplicationCreate接口");
 		mChannelInfo = ConfigHolder.getChannelInfo(context);
 	}
 
 	@Override
-	public void doApplicationAttach(Context base) { LogUtils.d("调用doApplicationAttach"); }
+	public void doApplicationAttach(Context base) { LogUtils.d("调用doApplicationAttach接口"); }
 	
 	@Override
-	public void doApplicationTerminate() { LogUtils.d("调用doApplicationTerminate"); }
+	public void doApplicationTerminate() { LogUtils.d("调用doApplicationTerminate接口"); }
 	
 	@Override
 	public void doApplicationConfigurationChanged(Application application,Configuration newConfig) { 
-		LogUtils.d("调用doApplicationConfigurationChanged"); 
+		LogUtils.d("调用doApplicationConfigurationChanged接口"); 
 	}
 
 	@Override
 	public void doActivityInit(Activity activity, TianyouCallback tianyouCallback) {
 		LogUtils.d("调用初始化接口");
 		mActivity = activity;
-		mTianyouCallback = tianyouCallback;
 		mLoginInfo = new LoginInfo();
+		mTianyouCallback = tianyouCallback;
 	}
 	
-	protected void doNoticeGameInit() {
-		LogUtils.d("通知游戏初始化成功");
-		mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
+	//通知游戏回调方法
+	protected void doNoticeGame(int type, String msg) {
+		LogUtils.d("通知游戏成功：" + type);
+		mTianyouCallback.onResult(type, msg);
 	}
 	
 	@Override
@@ -109,7 +112,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	
 	@Override
 	public void doUpdateRoleInfo(RoleInfo roleInfo) { 
-		LogUtils.d("调用更新角色信息接口：" + roleInfo.toString()); 
+		LogUtils.d("调用更新角色信息接口：" + roleInfo); 
 		mRoleInfo = roleInfo;
 	}
 
@@ -122,75 +125,51 @@ public class BaseSdkService implements SdkServiceInterface {
 		}
 		mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
 		if (mPayInfo == null) {
-			ToastUtils.show(mActivity, "需打入渠道资源");
+			ToastUtils.show(mActivity, "需配置支付参数");
 		} else {
 			createOrder(payInfo);
 		}
 	}
-	
-	@Override
-	public void doExitGame() {
-		LogUtils.d("调用退出游戏接口");
-		mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
-	}
-	
-	@Override
-	public void doOpenNaverCafe() { LogUtils.d("调用doOpenNaverCafe接口"); }
 	
 	// 查询登录信息
 	protected void checkLogin() { checkLogin(null); }
 	
 	// 查询登录信息
 	protected void checkLogin(final LoginCallback callback) {
-		String gameId = mChannelInfo.getGameId();
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid", mLoginInfo.getChannelUserId());
 		map.put("session", mLoginInfo.getUserToken());
 		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("appid", gameId);
+		map.put("appid", mChannelInfo.getGameId());
 		map.put("playerid", mLoginInfo.getUserToken());
 		map.put("nickname", mLoginInfo.getNickname());
 		map.put("promotion", mChannelInfo.getChannelId());
 		map.put("is_guest", mLoginInfo.getIsGuest());
 		map.put("yijie_appid",mLoginInfo.getYijieAppId());
-		map.put("signature", AppUtils.MD5("session=" + mLoginInfo.getUserToken() + "&uid="
-				+ mLoginInfo.getChannelUserId() + "&appid=" + gameId));
+		map.put("signature", AppUtils.MD5("session=" + mLoginInfo.getUserToken()
+			+ "&uid=" + mLoginInfo.getChannelUserId() + "&appid=" + mChannelInfo.getGameId()));
 		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
 		HttpUtils.post(mActivity, url, map, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
-				try {
-					JSONObject jsonObject = new JSONObject(data);
-					JSONObject result = (JSONObject) jsonObject.get("result");
-					String code = result.getString("code");
-					if ("200".equals(code)) {
-						String userId = result.getString("uid");
-						mLoginInfo.setHanfengUid(result.getString("channeluid"));
-						LogUtils.d("userid= "+userId);
-						LogUtils.d("tianyouuserId= "+mLoginInfo.getTianyouUserId());
-						if (mLoginInfo.getTianyouUserId() != null && !userId.equals(mLoginInfo.getTianyouUserId())) {
-							LogUtils.d("current uid= "+mLoginInfo.getTianyouUserId()+",new uid= "+userId);
-							mLoginInfo.setTianyouUserId(userId);
-							mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
-						} else {
-							LogUtils.d("uid= "+userId);
-							mLoginInfo.setTianyouUserId(userId);
-							LogUtils.d("CODE_LOGIN_SUCCESS");
-							mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
-						}
-						if (callback != null) callback.onSuccess("");
-					} else {
-						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-					mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
+				CheckLogin checkLogin = new Gson().fromJson(data, CheckLogin.class);
+				ResultBean result = checkLogin.getResult();
+				LogUtils.d("checkLogin"+result.toString());
+				LogUtils.d("checkLogin getCode"+result.getCode());
+				if (result.getCode().equals("200")) {
+					mLoginInfo.setHanfengUid(result.getChanneluid());
+					mLoginInfo.setTianyouUserId(result.getUid());
+					doNoticeGame(TianyouCallback.CODE_LOGIN_SUCCESS, result.getUid());
+				} else {
+					LogUtils.d("走这里了？");
+					ToastUtils.show(mActivity, result.getMsg());
+					doNoticeGame(TianyouCallback.CODE_LOGIN_FAILED, result.getMsg());
 				}
 			}
 			
 			@Override
 			public void onFailed(String code) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败" + code);
+				doNoticeGame(TianyouCallback.CODE_LOGIN_FAILED, "网络异常");
 			}
 		});
 	}
@@ -211,8 +190,8 @@ public class BaseSdkService implements SdkServiceInterface {
 		param.put("promotion", mChannelInfo.getChannelId());
 		param.put("playerid", mLoginInfo.getChannelUserId());
 		param.put("roleName", mRoleInfo.getRoleName());
-		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CREATE_ORDER_URL;
-		LogUtils.d("url= "+url);
+		String url = (mLoginInfo.getIsOverseas() ? 
+				URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CREATE_ORDER_URL;
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
@@ -220,19 +199,21 @@ public class BaseSdkService implements SdkServiceInterface {
 				if ("200".equals(orderInfo.getResult().getCode())) {
 					doChannelPay(payInfo, orderInfo.getResult().getOrderinfo());
 				} else {
-					mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "创建订单失败");
+					ToastUtils.show(mActivity, orderInfo.getResult().getMsg());
+					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, orderInfo.getResult().getMsg());
 				}
 			}
 			
 			@Override
 			public void onFailed(String code) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, "创建订单失败");
+				doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "网络连接失败");
 			}
 		});
 	}
 	
 	// 查询订单
 	protected void checkOrder(String orderId) {
+		LogUtils.d("into:checkOrder");
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("orderID", orderId);
 		param.put("userId", mLoginInfo.getTianyouUserId());
@@ -241,29 +222,41 @@ public class BaseSdkService implements SdkServiceInterface {
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
+				LogUtils.d("into:checkOrder onSuccess");
 				try {
 					JSONObject jsonObject = new JSONObject(data);
 					JSONObject result = jsonObject.getJSONObject("result");
 					String code = result.getString("code");
 					String msg = result.getString("msg");
+					LogUtils.d("checkOrder_result"+result.toString());
 					if ("200".equals(code)) {
-						LogUtils.d("支付成功");
-						mTianyouCallback.onResult(TianyouCallback.CODE_PAY_SUCCESS, msg);
+						doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, msg);
 					} else {
-						mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, data);
+						ToastUtils.show(mActivity, msg);
+						doNoticeGame(TianyouCallback.CODE_PAY_FAILED, msg);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-					mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, e.getMessage());
+					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
 				}
 			}
 			
 			@Override
 			public void onFailed(String code) {
-				mTianyouCallback.onResult(TianyouCallback.CODE_PAY_FAILED, code);
+				LogUtils.d("into:checkOrder onFailed");
+				doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "网络异常");
 			}
 		});
 	}
+	
+	@Override
+	public void doExitGame() {
+		LogUtils.d("调用退出游戏接口");
+		doNoticeGame(TianyouCallback.CODE_QUIT_SUCCESS, "退出成功");
+	}
+	
+	@Override
+	public void doOpenNaverCafe() { LogUtils.d("调用doOpenNaverCafe接口"); }
 	
 	@Override
 	public void doGoogleAchieve(String achieve) { LogUtils.d("完成谷歌成就：" + achieve); }
@@ -335,5 +328,4 @@ public class BaseSdkService implements SdkServiceInterface {
 		
 		void onSuccess(String data); 
 	}
-
 }

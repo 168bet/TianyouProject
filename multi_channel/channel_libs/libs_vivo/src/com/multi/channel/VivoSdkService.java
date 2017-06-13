@@ -24,6 +24,8 @@ public class VivoSdkService extends BaseSdkService {
 		super.doApplicationCreate(context, island);
 
 		VivoUnionSDK.initSdk(context, mChannelInfo.getAppId(), false);
+		
+	
 
 	}
 
@@ -58,6 +60,7 @@ public class VivoSdkService extends BaseSdkService {
 								TianyouCallback.CODE_LOGIN_CANCEL, "");
 					}
 				});
+		doNoticeGame(TianyouCallback.CODE_INIT, "初始化成功");
 	}
 
 	@Override
@@ -79,18 +82,18 @@ public class VivoSdkService extends BaseSdkService {
 		super.doChannelPay(payInfo, orderInfo);
 
 		VivoPayInfo vivoPayInfo = new VivoPayInfo(orderInfo.getProduct_name(),
-				orderInfo.getProductDesc(), payInfo.getAmount(),
-				orderInfo.getAccessKey(), orderInfo.getAppID(),
+				orderInfo.getProductDesc(), orderInfo.getMoNey(),
+				orderInfo.getAccessKey(), mChannelInfo.getAppId(),
 				orderInfo.getOrderNumber(), mLoginInfo.getChannelUserId());
 		
-		Log.d("tianyou", vivoPayInfo.toString());
-		
+		LogUtils.d(vivoPayInfo.toString());
+		LogUtils.d("uid:" + mLoginInfo.getChannelUserId());
 		VivoUnionSDK.pay(mActivity, vivoPayInfo, new VivoPayCallback() {
 
 			@Override
 			public void onVivoPayResult(String transNo, boolean isSucc,
 					String errorCode) {
-				LogUtils.d(errorCode);
+				LogUtils.d("do?" + transNo + isSucc + errorCode);
 			}
 		});
 	}
