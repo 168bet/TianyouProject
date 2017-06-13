@@ -16,6 +16,6 @@
     <TextView
         style="@style/style_text_black"
         android:layout_marginTop="@dimen/layout_space_small"
-        android:text="登录中，请稍后~" />
+        android:text="@string/ty_dialog_loading" />
 
 </LinearLayout>

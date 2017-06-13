@@ -83,7 +83,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- android host的值必须为游戏的包名 -->
-                <data android:host="游戏包名" />
+                <data android:host="com.tianyouxi.lszg" />
                 <!-- android scheme的值必须不能变 -->
                 <data android:scheme="qihooonlinepay" />
             </intent-filter>
@@ -184,7 +184,7 @@
 
         <provider
             android:name="com.qihoo.pushsdk.keepalive.account.SyncProvider"
-            android:authorities="com.qihoo.pushsdk.accounts.syncprovider" />
+            android:authorities="com.tianyouxi.lszg.cx.accounts.syncprovider" />
 
         <receiver android:name="com.qihoo.pushsdk.cx.PushWakeUpReceiver" >
             <intent-filter>
@@ -246,7 +246,11 @@ Manifest中的QHOPENSDK_WEIXIN_APPID 字段可以先配成默认值，后续申�
             android:name="QHOPENSDK_APPID"
             android:value="203231926" >
         </meta-data>
-
+	<!-- 从微信开放平台申请的appid，游戏需要去申请自己的appid -->
+        <meta-data
+            android:name="QHOPENSDK_WEIXIN_APPID"
+            android:value="wx02faa6a503e262e5" >
+        </meta-data>
         <!-- 默认参数，不需要修改，直接复制就行 -->
         <meta-data
             android:name="DC_APPKEY"

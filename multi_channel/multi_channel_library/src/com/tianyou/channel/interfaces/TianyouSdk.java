@@ -37,7 +37,7 @@ public class TianyouSdk {
 					className = "VivoSdkService"; 
 				} else if ("ty009".equals(channelInfo.getChannelId())) {
 					className = "JinliSdkService";
-				} else if ("ty011".equals(channelInfo.getChannelId())) {
+				} else if ("ty069".equals(channelInfo.getChannelId())) {
 					className = "LeshiSpecialSdkService";
 				} else if ("ty025".equals(channelInfo.getChannelId())) {
 					className = "M4399SdkService";

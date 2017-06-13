@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.CheckLogin;
 import com.tianyou.channel.bean.CheckLogin.ResultBean;
+import com.tianyou.channel.bean.CheckOrder;
 import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo;
 import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
@@ -237,10 +238,9 @@ public class BaseSdkService implements SdkServiceInterface {
 						doNoticeGame(TianyouCallback.CODE_PAY_FAILED, msg);
 					}
 				} catch (JSONException e) {
-					e.printStackTrace();
-					
-				}
 					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
+					e.printStackTrace();
+				}
 				CheckOrder checkOrder = new Gson().fromJson(data, CheckOrder.class);
 				com.tianyou.channel.bean.CheckOrder.ResultBean result = checkOrder.getResult();
 				if (result.getCode().equals("200")) {
