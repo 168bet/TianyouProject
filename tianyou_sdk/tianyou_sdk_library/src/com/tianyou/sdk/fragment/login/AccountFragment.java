@@ -22,7 +22,6 @@ import android.app.Fragment;
 import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,7 +57,8 @@ public class AccountFragment extends BaseFragment {
 	}
 	
 	@Override
-	protected String setContentView() { return "fragment_login_account"; }
+	protected String setContentView() { return ConfigHolder.isOverseas ? 
+			"fragment_login_account_oversear" : "fragment_login_account"; }
 
 	@Override
 	protected void initView() {
@@ -71,8 +71,8 @@ public class AccountFragment extends BaseFragment {
 			mImgQuick.setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setOnClickListener(this);
 		} else {
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setVisibility(View.GONE);
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_facebook", "id")).setVisibility(View.GONE);
+//			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setVisibility(View.GONE);
+//			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_facebook", "id")).setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);
 		}
 		mViewLogin = mContentView.findViewById(ResUtils.getResById(mActivity, "btn_account_login", "id"));

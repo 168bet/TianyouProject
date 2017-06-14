@@ -215,6 +215,11 @@ public class BaseSdkService implements SdkServiceInterface {
 	// 查询订单
 	protected void checkOrder(String orderId) {
 		LogUtils.d("into:checkOrder");
+		checkOrder(orderId, null);
+	}
+	
+	// 查询订单
+	protected void checkOrder(String orderId, final PayCallback callback) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("orderID", orderId);
 		param.put("userId", mLoginInfo.getTianyouUserId());
@@ -244,6 +249,7 @@ public class BaseSdkService implements SdkServiceInterface {
 				CheckOrder checkOrder = new Gson().fromJson(data, CheckOrder.class);
 				com.tianyou.channel.bean.CheckOrder.ResultBean result = checkOrder.getResult();
 				if (result.getCode().equals("200")) {
+					if (callback != null) callback.onSuccess();
 					doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, result.getMsg());
 				} else {
 					ToastUtils.show(mActivity, result.getMsg());
@@ -337,5 +343,11 @@ public class BaseSdkService implements SdkServiceInterface {
 	public interface LoginCallback {
 		
 		void onSuccess(String data); 
+	}
+	
+	//登陆成功回调接口
+	public interface PayCallback {
+		
+		void onSuccess(); 
 	}
 }

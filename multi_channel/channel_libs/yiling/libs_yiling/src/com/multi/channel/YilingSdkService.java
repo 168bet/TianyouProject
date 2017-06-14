@@ -41,12 +41,12 @@ public class YilingSdkService extends BaseSdkService {
 	    GameBegin.initExitDialog("退出", "确定退出？", "确定", new ExitDialogListener() {
 	        @Override
 	        public void onClick() {
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_SUCCESS, "");
+	        	doNoticeGame(TianyouCallback.CODE_QUIT_SUCCESS, "退出成功");
 	        }
 	    }, "取消", new ExitDialogListener() {
 	        @Override
 	        public void onClick() {
-	        	mTianyouCallback.onResult(TianyouCallback.CODE_QUIT_CANCEL, "");
+	        	doNoticeGame(TianyouCallback.CODE_QUIT_CANCEL, "退出成功");
 	        }
 	    });
 	    gameBegin.floatMenuOn(100, 100);
@@ -70,11 +70,17 @@ public class YilingSdkService extends BaseSdkService {
 	@Override
 	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
-		LogUtils.d("doChannelPay：" + orderInfo.getProductId() + orderInfo.getCustomInfo());
+		gameBegin.trackPurchaseClick(orderInfo.getProductName(), orderInfo.getMoNey(), orderInfo.getProductName());
 		gameBegin.charge(orderInfo.getProductId(), 1, orderInfo.getCustomInfo(), new ChargeDialogListener() {
 		    @Override
 		    public void afterClose(String result) {
-		    	checkOrder(orderInfo.getOrderID());
+		    	checkOrder(orderInfo.getOrderID(), new PayCallback() {
+					@Override
+					public void onSuccess() {
+						gameBegin.trackPurchaseSuccess(
+								orderInfo.getProductName(), orderInfo.getMoNey(), orderInfo.getProductName());
+					}
+				});
 		    }
 		});
 	}
@@ -82,6 +88,8 @@ public class YilingSdkService extends BaseSdkService {
 	@Override
 	public void doEntryGame() {
 		super.doEntryGame();
+		gameBegin.trackUpdate("1.03.00");
+		gameBegin.gameReady(mActivity);
 		Map<String, String> playMap = new HashMap<String, String>();
 		playMap.put(SDKStatsExtra.SERVER_ID, mRoleInfo.getServerId());
 		playMap.put(SDKStatsExtra.ROLE_ID, mRoleInfo.getRoleId());
@@ -101,7 +109,13 @@ public class YilingSdkService extends BaseSdkService {
 	@Override
 	public void doUpdateRoleInfo(RoleInfo roleInfo) {
 		super.doUpdateRoleInfo(roleInfo);
-		gameBegin.trackUpdate("3.2.1");
+		gameBegin.trackLevel(Integer.parseInt(roleInfo.getRoleLevel()));
+	}
+	
+	@Override
+	public void doExitGame() {
+		LogUtils.d("调用退出游戏接口");
+		GameBegin.showExitDialog();
 	}
 	
 	@Override
@@ -119,7 +133,7 @@ public class YilingSdkService extends BaseSdkService {
 	@Override
 	public void doResume() {
 		super.doResume();
-		GameBegin.onResume(mActivity);
+//		GameBegin.onResume(mActivity);
 	}
 	
 	@Override

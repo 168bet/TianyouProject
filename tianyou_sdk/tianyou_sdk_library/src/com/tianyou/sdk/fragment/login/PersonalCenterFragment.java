@@ -49,6 +49,7 @@ public class PersonalCenterFragment extends BaseFragment {
 		mTextAuth = (TextView) mContentView.findViewById(ResUtils.getResById(mActivity, "text_center_auth", "id"));
 		if(ConfigHolder.isOverseas){
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_identifi", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_setting", "id")).setVisibility(View.GONE);
 		}
 	}
 

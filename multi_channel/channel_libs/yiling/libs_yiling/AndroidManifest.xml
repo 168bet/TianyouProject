@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- BluePay Permission -->
     <uses-permission android:name="android.permission.WRITE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
@@ -47,10 +48,17 @@
         android:allowBackup="false">
         
 	    <!-- <intent-filter>
-	        <action android:name="android.intent.action.VIEW" />
-	        <category android:name="android.intent.category.DEFAULT" />
-	        <category android:name="android.intent.category.BROWSABLE" />
-	        <data android:scheme="gamebegin-smcsj" android:host="smcsj" android:path="'/smcsj'" />
+	        <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="smcsj"
+                    android:path="/smcsj"
+                    android:scheme="gamebegin-smcsj" />
+            </intent-filter>
 	    </intent-filter> -->
     
         <!-- Google Service-->
