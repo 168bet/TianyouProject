@@ -73,7 +73,7 @@ public class LeshiSpecialSdkService extends BaseSdkService{
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				mLeGameSDK.doPay(mActivity, lePayInfo, new PayCallback() {
+				mLeGameSDK.doPay(mActivity, lePayInfo, new LeGameSDK.PayCallback() {
 					
 					@Override
 					public void onPayResult(String status, String msg) {

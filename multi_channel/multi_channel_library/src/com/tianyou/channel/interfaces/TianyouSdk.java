@@ -24,10 +24,13 @@ public class TianyouSdk {
 		LogUtils.d("channelInfo:" + channelInfo);
 		if (channelInfo == null) {
 			ToastUtils.show(context, "需打入渠道资源");
+			sdkService = new BaseSdkService();
 		} else {
 			try {
 				String className = ""; 
 				if ("ty000".equals(channelInfo.getChannelId())) {
+					className = "TianyouSdkService";
+				} else if ("ty000".equals(channelInfo.getChannelId())) {
 					className = "TianyouSdkService";
 				} else if ("ty001".equals(channelInfo.getChannelId())) {
 					className = "XiaoMiSdkService";
@@ -48,12 +51,10 @@ public class TianyouSdk {
 				}
 				LogUtils.d("className:" + className);
 				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();
-			} catch (InstantiationException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				ToastUtils.show(context, "渠道类没有找到");
+				sdkService = new BaseSdkService();
 			}
 		}
 		return sdkService;

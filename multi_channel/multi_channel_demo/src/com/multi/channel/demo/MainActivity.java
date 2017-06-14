@@ -1,6 +1,6 @@
 package com.multi.channel.demo;
 
-import com.gamebegin.smcsj.R;
+import com.multi_channel.demo.R;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
