@@ -48,10 +48,17 @@
         android:allowBackup="false">
         
 	    <!-- <intent-filter>
-	        <action android:name="android.intent.action.VIEW" />
-	        <category android:name="android.intent.category.DEFAULT" />
-	        <category android:name="android.intent.category.BROWSABLE" />
-	        <data android:scheme="gamebegin-smcsj" android:host="smcsj" android:path="'/smcsj'" />
+	        <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="smcsj"
+                    android:path="/smcsj"
+                    android:scheme="gamebegin-smcsj" />
+            </intent-filter>
 	    </intent-filter> -->
     
         <!-- Google Service-->
