@@ -199,6 +199,7 @@ public class FloatMenu implements OnClickListener, OnTouchListener {
 	public void onClick(View v) {
 		int id = v.getId();
 		if (id == ResUtils.getResById(mActivity, "img_popup_logo", "id")) {
+			mImgPopupLogo.setVisibility(View.GONE);
 			mImgPopupLogo.setImageResource(ResUtils.getResById(mActivity, "ty_popup_menu_logo", "drawable"));
 			isShowFloat = false;
 			mImgPopupLogo.setVisibility(View.INVISIBLE);

@@ -67,12 +67,8 @@ public class AccountFragment extends BaseFragment {
 		mImgSwitch = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_switch", "id"));
 		mImgQuick = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_quick", "id"));
 		if (ConfigHolder.isOverseas) {
-			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setVisibility(View.GONE);
-			mImgQuick.setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setOnClickListener(this);
 		} else {
-//			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setVisibility(View.GONE);
-//			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_facebook", "id")).setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);
 		}
 		mViewLogin = mContentView.findViewById(ResUtils.getResById(mActivity, "btn_account_login", "id"));

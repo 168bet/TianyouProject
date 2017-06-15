@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tianyouxi.lszg"
-    android:versionCode="1"
-    android:versionName="1.0" >
+	android:versionCode="544"
+    android:versionName="1.8.0" 
+	android:installLocation="auto" >
 
     <!-- 360渠道 -->
     <uses-sdk
@@ -65,6 +66,23 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- 借贷权限 -->
+     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+     <uses-permission android:name="android.permission.CAMERA" />
+     <uses-feature android:name="android.hardware.camera" />
+     <uses-feature android:name="android.hardware.camera.autofocus" />
+     <uses-permission android:name="android.permission.BLUETOOTH" />
+     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+     <uses-permission android:name="android.permission.READ_CALL_LOG" />
+     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+     <uses-permission android:name="android.permission.READ_SMS"/>
+     <uses-permission android:name="android.permission.BATTERY_STATS" />
+     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
+     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application android:allowBackup="true" >
 
@@ -233,6 +251,29 @@ Manifest中的QHOPENSDK_WEIXIN_APPID 字段可以先配成默认值，后续申�
             android:configChanges="fontScale|orientation|keyboardHidden|locale|navigation|screenSize|uiMode|layoutDirection"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- gameunion plugin end -->
+        
+         <!-- ***************借条meta begin**************** -->
+		<!-- 借条提供 -->
+		<meta-data
+			android:name="PARTNER_CODE"
+			android:value="360jie" />
+		<!--  借条提供 -->
+		<meta-data
+			android:name="loan_channelname"
+			android:value="" />
+		<!--  借条提供 -->
+		<meta-data
+			android:name="loan_channelid"
+			android:value="" />
+		<!--  借条提供 -->
+		<meta-data
+			android:name="loan_qk"
+			android:value="" />
+		<!-- 宿主用自己包名申请的高德定位key -->
+		<meta-data
+			android:name="loan_gaodekey"
+			android:value="" />
+		<!-- ***************借条meta end**************** -->
 
         <meta-data
             android:name="QHOPENSDK_APPKEY"
@@ -255,6 +296,21 @@ Manifest中的QHOPENSDK_WEIXIN_APPID 字段可以先配成默认值，后续申�
         <meta-data
             android:name="DC_APPKEY"
             android:value="02522a2b2726fb0a03bb19f2d8d9524d" />
+        
+        <!--deeplink  -->
+         <activity
+            android:name="com.qihoo.gamecenter.sdk.activity.QhDeepLinkActivity" >
+            <intent-filter >
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- host必须是游戏cp自己的appkey -->
+                <data android:host="ecc086ec4120b3785195ad91a47edc3d"
+                    android:pathPrefix="/opengames"
+                    android:scheme="qihoosdkgame"/>
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

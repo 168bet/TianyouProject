@@ -104,11 +104,6 @@
             android:background="@drawable/shape_bg_jacinth_fill"
             android:gravity="center" >
 
-            <ImageView
-                android:id="@+id/img_account_quick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ty_one_way_1" />
 
             <TextView
                 style="@style/style_text_black"
@@ -117,27 +112,6 @@
                 android:textColor="@color/color_white" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_account_qq"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/notify_btn_height"
-            android:layout_marginLeft="@dimen/layout_space_small"
-            android:layout_weight="1"
-            android:background="@drawable/shape_btn_blue_fill"
-            android:gravity="center" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ty_one_way_2" />
-
-            <TextView
-                style="@style/style_text_black"
-                android:singleLine="true"
-                android:text="@string/ty_qq_login2"
-                android:textColor="@color/color_white" />
-        </LinearLayout>
-        
         <com.facebook.login.widget.LoginButton
          android:id="@+id/layout_account_facebook"
          android:layout_width="match_parent"
