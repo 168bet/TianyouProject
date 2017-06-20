@@ -113,15 +113,15 @@
         </LinearLayout>
 
         <com.facebook.login.widget.LoginButton
-         android:id="@+id/layout_account_facebook"
-         android:layout_width="match_parent"
-         android:layout_height="@dimen/notify_btn_height"
-         android:layout_marginLeft="@dimen/layout_space_small"
-         android:layout_weight="1"
-         android:background="@drawable/shape_btn_blue_fill"
-         android:text="Facebook"
-         android:gravity="center"
-         android:textSize="@dimen/text_size_common" />
+	         android:id="@+id/btn_facebook_login"
+	         android:layout_width="match_parent"
+	         android:layout_height="@dimen/notify_btn_height"
+	         android:layout_marginLeft="@dimen/layout_space_small"
+	         android:layout_weight="1"
+	         android:background="@drawable/shape_btn_blue_fill"
+	         android:text="Facebook"
+	         android:gravity="center"
+	         android:textSize="@dimen/text_size_common" />
         
         <LinearLayout
             android:id="@+id/layout_account_google"
