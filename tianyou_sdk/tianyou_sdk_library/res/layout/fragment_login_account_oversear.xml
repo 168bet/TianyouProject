@@ -99,9 +99,9 @@
         <LinearLayout
             android:id="@+id/layout_account_quick"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/notify_btn_height"
+            android:layout_height="@dimen/notify_btn_height_s"
             android:layout_weight="1"
-            android:background="@drawable/shape_bg_jacinth_fill"
+            android:background="@drawable/shape_bg_ff9832_fill"
             android:gravity="center" >
 
 
@@ -126,10 +126,10 @@
         <LinearLayout
             android:id="@+id/layout_account_google"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/notify_btn_height"
+            android:layout_height="@dimen/notify_btn_height_s"
             android:layout_marginLeft="@dimen/layout_space_small"
             android:layout_weight="1"
-            android:background="@drawable/shape_btn_blue_fill"
+            android:background="@drawable/shape_bg_32adff_fill"
             android:gravity="center" >
             <TextView
                 style="@style/style_text_black"

@@ -291,7 +291,7 @@ public class HomeFragment extends BaseFragment {
 					JSONObject jsonObject = new JSONObject(response);
 					JSONObject result = jsonObject.getJSONObject("result");
 					if (result.getInt("code") == 200) {
-						mTextWalletMoney.setText(result.getString("money") + "天游币");
+						mTextWalletMoney.setText(result.getString("money") + (ConfigHolder.isOverseas?"T coins":"天游币"));
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -493,7 +493,7 @@ public class HomeFragment extends BaseFragment {
 	private void startPayment() {
 		String other = mEditOther.getText().toString();
 		if (mMoneyIndex == -1 && other.isEmpty()) {
-			ToastUtils.show(mActivity, "充值金额不能为0");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The value cannot be 0":"充值金额不能为0");
 			return;
 		}
 		if (mPayHandler.mIsShowChoose) {
@@ -503,11 +503,11 @@ public class HomeFragment extends BaseFragment {
 		mPaymentInfo.setPayMoney((mMoneyIndex == -1 ? Integer.parseInt(other) : mMoneyList.get(mMoneyIndex))
 				* mPayHandler.mPayInfo.getScale() + mPayHandler.mPayInfo.getCurrency());
 		if (mPayHandler.mPayType == PayType.WECHAT && Integer.parseInt(mPaymentInfo.getMoney()) > 50000) {
-			ToastUtils.show(mActivity, "充值金额不能大于50000");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The value should not greater than 50000":"充值金额不能大于50000");
 		} else if (mPayHandler.mPayType == PayType.QQPAY && Integer.parseInt(mPaymentInfo.getMoney()) > 3000) {
-			ToastUtils.show(mActivity, "充值金额不能大于3000");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The value should not greater than 3000":"充值金额不能大于3000");
 		} else if (mMoneyIndex == -1 && Integer.parseInt(mPaymentInfo.getMoney()) < 10) {
-			ToastUtils.show(mActivity, "充值金额不能低于10元");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The value should not less than 10":"充值金额不能低于10元");
 		} else {
 			if (!mPayHandler.PAY_FLAG) {
 				mPayHandler.PAY_FLAG = true;

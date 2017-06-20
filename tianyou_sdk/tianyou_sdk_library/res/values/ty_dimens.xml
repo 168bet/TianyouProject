@@ -7,6 +7,7 @@
     
     <!-- 登陆按钮高度 -->
     <dimen name="notify_btn_height">40dp</dimen>
+    <dimen name="notify_btn_height_s">32dp</dimen>
     
     <!-- 对话框宽高 -->
     <dimen name="dialog_login_width">320dp</dimen>

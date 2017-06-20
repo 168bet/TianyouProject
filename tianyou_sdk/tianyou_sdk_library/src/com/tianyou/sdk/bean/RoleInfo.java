@@ -9,8 +9,8 @@ public class RoleInfo {
 	private String profession;
 	private String level;
 	private String vipLevel;
-	private String balance;
-	private String amount;
+	private String balance; //账户余额
+	private String amount; //总充值金额
 	private String sociaty;
 	
 	public String getServerId() {

@@ -7,9 +7,9 @@
     <LinearLayout
         android:id="@+id/layout_one_key_tourist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/notify_btn_height"
         android:layout_marginTop="@dimen/layout_space_small"
-        android:background="@drawable/shape_bg_jacinth_fill"
+        android:background="@drawable/shape_bg_8761dc_fill"
         android:gravity="center"
         android:padding="@dimen/layout_space_small" >
 
@@ -26,9 +26,9 @@
      <LinearLayout
         android:id="@+id/layout_one_key_quicklogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/notify_btn_height"
         android:layout_marginTop="@dimen/layout_space_small"
-        android:background="@drawable/shape_bg_orange_fill"
+        android:background="@drawable/shape_bg_ff9832_fill"
         android:gravity="center"
         android:padding="@dimen/layout_space_small" >
 
@@ -45,7 +45,7 @@
      <com.facebook.login.widget.LoginButton
          android:id="@+id/btn_facebook_login"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+         android:layout_height="@dimen/notify_btn_height"
          android:layout_marginTop="@dimen/layout_space_small"
          android:padding="@dimen/layout_space_small"
          android:textSize="@dimen/text_size_common"
@@ -54,7 +54,7 @@
     <Button
          android:id="@+id/btn_google_login"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+         android:layout_height="@dimen/notify_btn_height"
          android:layout_marginTop="@dimen/layout_space_small"
          android:background="@drawable/ty_login_way_4"
          android:padding="@dimen/layout_space_small"

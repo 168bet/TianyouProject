@@ -107,6 +107,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		roleInfo.setProfession("法师");
 		roleInfo.setLevel("50");
 		roleInfo.setSociaty("阴阳寮");
+		roleInfo.setVipLevel("3");
+		roleInfo.setAmount("1");
 		TianyouSdk.getInstance().updateRoleInfo(roleInfo);
 	}
 

@@ -74,7 +74,7 @@ public class PayHandler {
         	Intent intent = new Intent(mActivity, PayActivity.class);
     		mActivity.startActivity(intent);
         } else {
-        	ToastUtils.show(mActivity, checkoutPayInfo() + "不能为空");
+        	ToastUtils.show(mActivity, checkoutPayInfo() + (ConfigHolder.isOverseas?"connot be empty":"不能为空"));
 		}
     }
     
@@ -136,16 +136,16 @@ public class PayHandler {
     //余额不足
     private void showWalletTip() {
         AlertDialog.Builder builder = new Builder(mActivity);
-        builder.setMessage("天游币余额不足，是否给天游币充值？");  
-        builder.setTitle("提示");
-        builder.setPositiveButton("确认", new OnClickListener() {
+        builder.setMessage(ConfigHolder.isOverseas?"The balance of the currency is not enough,whether top-up?":"天游币余额不足，是否给天游币充值?");  
+        builder.setTitle(ConfigHolder.isOverseas?"Prompt":"提示");
+        builder.setPositiveButton(ConfigHolder.isOverseas?"Confirm":"确认", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
                 mHandler.sendEmptyMessage(2);
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("取消", new OnClickListener() {
+        builder.setNegativeButton(ConfigHolder.isOverseas?"Cancel":"取消", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int arg1) {
                 PAY_FLAG = false;

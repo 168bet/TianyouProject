@@ -54,7 +54,7 @@ public class SuccessFragment extends BaseFragment {
     			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_call_service", "id")).setVisibility(View.GONE);
     		} else {
     			mBtnCallService = (Button) mContentView.findViewById(ResUtils.getResById(mActivity, "btn_success_call_service", "id"));
-    			mBtnCallService.setText("客服电话："+SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
+    			mBtnCallService.setText((ConfigHolder.isOverseas?"Service Tel:":"客服电话：")+SPHandler.getString(mActivity, SPHandler.SP_TEXT_PHONE));
     			mBtnCallService.setOnClickListener(this);
     		}
 		} else {
