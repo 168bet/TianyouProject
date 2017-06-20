@@ -189,12 +189,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/color_black"
                         android:text="@string/ty_tianyou_balance"
                         android:textSize="@dimen/text_size_common" />
 
                     <TextView
                         android:id="@+id/text_pay_wallet"
-                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_jacinth"
                         android:textSize="@dimen/text_size_common" />

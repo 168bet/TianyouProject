@@ -172,4 +172,5 @@
     <string name="ty_unset">未设置</string>
     <string name="ty_center_modify">修改密码</string>
     <string name="ty_popup_personal_center">个人中心</string>
+    <string name="ty_dialog_loading">登录中，请稍后~</string>
 </resources>

@@ -23,43 +23,43 @@
         },
         {
             "id": "2016004",
-            "money": "328",
-            "product_id": "2016004",
+            "money": "49.99",
+            "product_id": "jlqy_gold_3280",
             "product_name": "3280元宝",
             "product_desc": "购买此商品获得3280元宝"
         },
         {
             "id": "2016005",
-            "money": "198",
-            "product_id": "2016005",
+            "money": "29.99",
+            "product_id": "jlqy_gold_1980",
             "product_name": "1980元宝",
             "product_desc": "购买此商品获得1980元宝"
         },
         {
             "id": "2016006",
-            "money": "6",
-            "product_id": "2016006",
+            "money": "0.99",
+            "product_id": "jlqy_gold_60",
             "product_name": "60元宝",
             "product_desc": "购买此商品获得60元宝"
         },
         {
             "id": "2016007",
-            "money": "30",
-            "product_id": "2016007",
+            "money": "4.99",
+            "product_id": "jlqy_gold_300",
             "product_name": "300元宝",
             "product_desc": "购买此商品获得300元宝"
         },
         {
             "id": "2016008",
-            "money": "98",
-            "product_id": "2016008",
+            "money": "14.99",
+            "product_id": "jlqy_gold_980",
             "product_name": "980元宝",
             "product_desc": "购买此商品获得980元宝"
         },
         {
             "id": "2016009",
-            "money": "68",
-            "product_id": "2016009",
+            "money": "99.99",
+            "product_id": "jlqy_gold_6480",
             "product_name": "680元宝",
             "product_desc": "首次购买此商品可激活成长基金"
         },

@@ -3,6 +3,15 @@ package com.tianyou.channel.interfaces;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.CheckLogin;
@@ -21,12 +30,6 @@ import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.channel.utils.URLHolder;
-
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
 
 /**
  * 多渠道接口默认实现
@@ -115,18 +118,27 @@ public class BaseSdkService implements SdkServiceInterface {
 	}
 
 	@Override
-	public void doPay(PayParam payInfo) {
-		LogUtils.d("调用支付接口:" + payInfo);
+	public void doPay(final PayParam payInfo) {
+		LogUtils.d("调用支付接口#:" + payInfo);
+		LogUtils.d("调用支付接口&:" + payInfo);
 		if (mRoleInfo == null) {
+			LogUtils.d("调用支付接口0");
 			ToastUtils.show(mActivity, "请先上传角色信息");
 			return;
 		}
-		mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
-		if (mPayInfo == null) {
-			ToastUtils.show(mActivity, "需配置支付参数");
-		} else {
-			createOrder(payInfo);
-		}
+		LogUtils.d("调用支付接口1");
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				LogUtils.d("调用支付接口2");
+				mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
+				if (mPayInfo == null) {
+					ToastUtils.show(mActivity, "需配置支付参数");
+				} else {
+					createOrder(payInfo);
+				}
+			}
+		});
 	}
 	
 	// 查询登录信息
@@ -152,11 +164,15 @@ public class BaseSdkService implements SdkServiceInterface {
 			public void onSuccess(String data) {
 				CheckLogin checkLogin = new Gson().fromJson(data, CheckLogin.class);
 				ResultBean result = checkLogin.getResult();
+				LogUtils.d("checkLogin"+result.toString());
+				LogUtils.d("checkLogin getCode"+result.getCode());
 				if (result.getCode().equals("200")) {
 					mLoginInfo.setHanfengUid(result.getChanneluid());
 					mLoginInfo.setTianyouUserId(result.getUid());
+					if(callback != null) callback.onSuccess();
 					doNoticeGame(TianyouCallback.CODE_LOGIN_SUCCESS, result.getUid());
 				} else {
+					LogUtils.d("走这里了？");
 					ToastUtils.show(mActivity, result.getMsg());
 					doNoticeGame(TianyouCallback.CODE_LOGIN_FAILED, result.getMsg());
 				}
@@ -208,6 +224,12 @@ public class BaseSdkService implements SdkServiceInterface {
 	
 	// 查询订单
 	protected void checkOrder(String orderId) {
+		LogUtils.d("into:checkOrder");
+		checkOrder(orderId, null);
+	}
+	
+	// 查询订单
+	protected void checkOrder(String orderId, final PayCallback callback) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("orderID", orderId);
 		param.put("userId", mLoginInfo.getTianyouUserId());
@@ -217,9 +239,27 @@ public class BaseSdkService implements SdkServiceInterface {
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
+				LogUtils.d("into:checkOrder onSuccess");
+				try {
+					JSONObject jsonObject = new JSONObject(data);
+					JSONObject result = jsonObject.getJSONObject("result");
+					String code = result.getString("code");
+					String msg = result.getString("msg");
+					LogUtils.d("checkOrder_result"+result.toString());
+					if ("200".equals(code)) {
+						doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, msg);
+					} else {
+						ToastUtils.show(mActivity, msg);
+						doNoticeGame(TianyouCallback.CODE_PAY_FAILED, msg);
+					}
+				} catch (JSONException e) {
+					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
+					e.printStackTrace();
+				}
 				CheckOrder checkOrder = new Gson().fromJson(data, CheckOrder.class);
 				com.tianyou.channel.bean.CheckOrder.ResultBean result = checkOrder.getResult();
 				if (result.getCode().equals("200")) {
+					if (callback != null) callback.onSuccess();
 					doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, result.getMsg());
 				} else {
 					ToastUtils.show(mActivity, result.getMsg());
@@ -229,6 +269,7 @@ public class BaseSdkService implements SdkServiceInterface {
 			
 			@Override
 			public void onFailed(String code) {
+				LogUtils.d("into:checkOrder onFailed");
 				doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "网络异常");
 			}
 		});
@@ -311,6 +352,12 @@ public class BaseSdkService implements SdkServiceInterface {
 	//登陆成功回调接口
 	public interface LoginCallback {
 		
-		void onSuccess(String data); 
+		void onSuccess(); 
+	}
+	
+	//登陆成功回调接口
+	public interface PayCallback {
+		
+		void onSuccess(); 
 	}
 }

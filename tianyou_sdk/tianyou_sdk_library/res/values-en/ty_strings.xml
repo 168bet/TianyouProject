@@ -70,7 +70,7 @@
     <string name="ty_otner_money">Other amount</string>
     <string name="ty_money">Amount:</string>
     <string name="ty_immediately_pay">Immedicate payment</string>
-    <string name="ty_tianyou_balance">The balance of TianYou coins:</string>
+    <string name="ty_tianyou_balance">Balance coins:</string>
     <string name="ty_pay_way">The way of payment</string>
     <string name="ty_switch_pay_way">Switch the way of payment</string>
     
@@ -159,13 +159,14 @@
     <string name="ty_tourist_tips_upgrade">Upgrade</string>
     
     <string name="ty_alert_account_hint">Enter your current account password for security</string>
-    <string name="ty_alert_current_pw">Enter the password for the current account</string>
+    <string name="ty_alert_current_pw">Enter the password for the account</string>
     <string name="ty_alert_forget_pw">Forgot password</string>
-    <string name="ty_alert_account_commit">Comfirm</string>
+    <string name="ty_alert_account_commit">Confirm</string>
     <string name="ty_alert_pw_new_hint">Enter the password again</string>
     <string name="ty_tourist">Tourist：</string>
     <string name="ty_security">Security Settings</string>
     <string name="ty_unset">Unset</string>
     <string name="ty_center_modify">Modity password</string>
     <string name="ty_popup_personal_center"> </string>
+    <string name="ty_dialog_loading">Loading...</string>
 </resources>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.sdk.activity.MenuActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.ExitGame;
@@ -33,6 +34,8 @@ public class HomeFragment extends BaseFragment {
 	private LinearLayout mLayoutList;
 	private Bundle bundle;
 	private TextView mTextTips;
+	
+	private boolean mIsClose;
 
 	@Override
 	protected String setContentView() {
@@ -72,6 +75,7 @@ public class HomeFragment extends BaseFragment {
 						mLayoutList.addView(view);
 					}
 				} else {
+					mIsClose = true;
 					mTextTips.setText(result.getMsg());
 				}
 			}
@@ -99,9 +103,13 @@ public class HomeFragment extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "text_home_recommend", "id")) {
-			Intent intent = new Intent(mActivity, MenuActivity.class);
-			intent.putExtra("menu_type", MenuActivity.POPUP_MENU_5);
-			mActivity.startActivity(intent);
+			if (mIsClose) {
+				ToastUtils.show(mActivity, "暂未开放");
+			} else {
+				Intent intent = new Intent(mActivity, MenuActivity.class);
+				intent.putExtra("menu_type", MenuActivity.POPUP_MENU_5);
+				mActivity.startActivity(intent);
+			}
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_home_exit_game", "id")) {
 			MobclickAgent.onProfileSignOff();
 			MobclickAgent.onKillProcess(mActivity);

@@ -74,6 +74,7 @@ public class OrderInfo {
             private String appID;
             private String productName;
             private String userId;
+            private String channeluid;
             private String productDesc;
             private String productId;
             private String serverID;
@@ -98,7 +99,15 @@ public class OrderInfo {
             private String currency;
             private String rate;
             
-            public String getCurrency() {
+            public String getChanneluid() {
+				return channeluid;
+			}
+
+			public void setChanneluid(String channeluid) {
+				this.channeluid = channeluid;
+			}
+
+			public String getCurrency() {
 				return currency;
 			}
 

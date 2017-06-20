@@ -167,7 +167,7 @@ public class TianyouSdk {
 	// 创建角色
 	public void createRole(RoleInfo roleInfo) {
 		if (!ConfigHolder.userIsLogin) {
-			ToastUtils.show(mActivity, "请先登录！");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Please login first!":"请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
@@ -190,7 +190,7 @@ public class TianyouSdk {
 	// 更新角色信息
 	public void updateRoleInfo(RoleInfo roleInfo) {
 		if (!ConfigHolder.userIsLogin) {
-			ToastUtils.show(mActivity, "请先登录！");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Please login first!":"请先登录！");
 			return;
 		}
 		Map<String, String> map = new HashMap<String, String>();
@@ -218,7 +218,7 @@ public class TianyouSdk {
 		if (ConfigHolder.userIsLogin) {
 			PayHandler.getInstance(mActivity).doPay(payInfo, false);
 		} else {
-			ToastUtils.show(mActivity, "请先登录！");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Please login first!":"请先登录！");
 		}
 	}
 	
@@ -227,7 +227,7 @@ public class TianyouSdk {
 		if (ConfigHolder.userIsLogin) {
 			PayHandler.getInstance(mActivity).doPay(payInfo, isShowChooseMoney);
 		} else {
-			ToastUtils.show(mActivity, "请先登录！");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Please login first!":"请先登录！");
 		}
 	}
 	
@@ -290,7 +290,7 @@ public class TianyouSdk {
 
 			@Override
 			public void onFailed() {
-				ToastUtils.show(mActivity, "网络连接失败，请检查网络~");
+				ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Please check your internet!":"网络连接失败，请检查网络~");
 			}
 		});
 	}

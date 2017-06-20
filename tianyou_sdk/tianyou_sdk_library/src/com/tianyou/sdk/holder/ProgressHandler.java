@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,8 @@ import android.widget.RelativeLayout;
 public class ProgressHandler {
 
 	private static ProgressHandler mProgressHandler;
-	private ProgressDialog mProgressDialog;
+//	private ProgressDialog mProgressDialog;
+	private Dialog mLoadingDialog;
 	
 	private ProgressHandler() { }
 	
@@ -66,15 +66,15 @@ public class ProgressHandler {
 		animator.setRepeatMode(ValueAnimator.INFINITE);
 		animator.start();
 		
-		Dialog loadingDialog = new Dialog(activity, ResUtils.getResById(activity, "style_my_dialog", "style"));
-		loadingDialog.setCancelable(false);
-		loadingDialog.setContentView(v, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+		mLoadingDialog = new Dialog(activity, ResUtils.getResById(activity, "style_my_dialog", "style"));
+		mLoadingDialog.setCancelable(false);
+		mLoadingDialog.setContentView(v, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT));
-		loadingDialog.show();
+		mLoadingDialog.show();
 	}
 	
 	//关闭进度条对话框
 	public void closeProgressDialog() {
-		if (mProgressDialog != null) mProgressDialog.dismiss();
+		if (mLoadingDialog != null) mLoadingDialog.dismiss();
 	}
 }

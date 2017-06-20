@@ -1,5 +1,15 @@
 package com.multi.channel.demo;
 
+<<<<<<< HEAD
+=======
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+
+import com.gamebegin.smcsj.R;
+>>>>>>> b62ff623fbfb6e2d609d805af8ea393af0ec5f0e
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -7,7 +17,10 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
+<<<<<<< HEAD
 import com.tianyouxi.lszg.leshi.R;
+=======
+>>>>>>> b62ff623fbfb6e2d609d805af8ea393af0ec5f0e
 
 import android.app.Activity;
 import android.content.Intent;
@@ -59,7 +72,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			mTianyouSdk.doUpdateRoleInfo(getRoleInfo());	//在角色信息发生变化后（比如升级）调用，许多次调用
 			break;
 		case R.id.btn_pay_1:
-			mTianyouSdk.doPay(getPayParam());
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					mTianyouSdk.doPay(getPayParam());
+				}
+			}).start();
 			break;
 		}
 	}
@@ -69,7 +87,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		public void onResult(int code, String msg) {
 			switch (code) {
 			case TianyouCallback.CODE_INIT:
-				ToastUtils.show(mActivity, "初始化：" + msg);
+				ToastUtils.show(mActivity, "初始成功");
 				break;
 			case TianyouCallback.CODE_LOGIN_SUCCESS:
 				ToastUtils.show(mActivity, "登录成功：uid=" + msg);
@@ -104,8 +122,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("2016001");
-		payParam.setCustomInfo("21689575c5284a334ca8f6630127915f9058");
+		payParam.setPayCode("pay_code_0");
+		payParam.setCustomInfo("");
 		payParam.setAmount("1");
 		return payParam;
 	}

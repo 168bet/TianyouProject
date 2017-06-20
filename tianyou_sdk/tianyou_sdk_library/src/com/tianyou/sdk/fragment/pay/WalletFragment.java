@@ -129,9 +129,9 @@ public class WalletFragment extends BaseFragment {
 		mLayoutMenu2.setText(mPaymentInfo.getProductDesc());
 		mPaymentInfo = mPayHandler.mPayInfo;
 		mMoneyList = new ArrayList<Integer>();
-		mTextAccount.setText("账号：" + ConfigHolder.userName);
-		mTextServer.setText("T币：天游币充值");
-		mTextScale.setText("比例：1:1");
+		mTextAccount.setText(ConfigHolder.isOverseas?"Account:":"账号：" + ConfigHolder.userName);
+		mTextServer.setText(ConfigHolder.isOverseas?"T coins: Tianyou coins top-up":"T币：天游币充值");
+		mTextScale.setText(ConfigHolder.isOverseas?"Proportion: 1:1":"比例：1:1");
 		getPayMoneyValue();
 		setPayWayState(mPayHandler.mPayType);
 		getWalletMoney();
@@ -195,13 +195,16 @@ public class WalletFragment extends BaseFragment {
 		@Override
 		public void afterTextChanged(Editable text) {
 			String value = text.toString();
+			LogUtils.d("into:afterTextChanged");
 			if (value.matches("\\d+") && !value.isEmpty()) {
+				LogUtils.d("into:afterTextChanged into:if");
 				mPaymentInfo.setMoney(value);
-				mTextMoney.setText("（获得" + value + "天游币）");
+				mTextMoney.setText("（"+(ConfigHolder.isOverseas?"Get":"获得") + value + (ConfigHolder.isOverseas?"T coins":"天游币")+"）");
 				mPaymentInfo.setPayMoney(Integer.parseInt(value) * mPayHandler.mPayInfo.getScale() + mPayHandler.mPayInfo.getCurrency());
 			} else {
+				LogUtils.d("into:afterTextChanged into:else");
 				mPaymentInfo.setMoney("0");
-				mTextMoney.setText("（获得0天游币）");
+				mTextMoney.setText(ConfigHolder.isOverseas?"(Get 0 T coins)":"（获得0天游币）");
 			}
 		}
 	};
@@ -226,7 +229,7 @@ public class WalletFragment extends BaseFragment {
 					JSONObject jsonObject = new JSONObject(response);
 					JSONObject result = jsonObject.getJSONObject("result");
 					if (result.getInt("code") == 200) {
-						mTextWalletMoney.setText(result.getString("money") + "天游币");
+						mTextWalletMoney.setText(result.getString("money") + (ConfigHolder.isOverseas?"T coins":"天游币"));
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -314,12 +317,12 @@ public class WalletFragment extends BaseFragment {
 		}
 		if (mMoneyIndex == -1) {
 			mEditOther.setBackgroundResource(ResUtils.getResById(mActivity, "shape_bg_jacinth", "drawable"));
-			mTextMoney.setText("(获得0天游币)");
+			mTextMoney.setText(ConfigHolder.isOverseas?"(Get 0 T coins)":"(获得0天游币)");
 		} else {
 			mEditOther.setBackgroundResource(ResUtils.getResById(mActivity, "shape_bg_gray_2", "drawable"));
 			mPayMoneyList.get(mMoneyIndex).setTextColor(Color.parseColor("#FFFFFF"));
 			mPayMoneyList.get(mMoneyIndex).setBackgroundColor(Color.parseColor("#FE623F"));
-			mTextMoney.setText("（获得" + mMoneyList.get(mMoneyIndex) + "天游币）");
+			mTextMoney.setText((ConfigHolder.isOverseas?"(Get":"（获得") + mMoneyList.get(mMoneyIndex) + (ConfigHolder.isOverseas?"T coins)":"天游币）"));
 		}
 	}
 
@@ -330,11 +333,11 @@ public class WalletFragment extends BaseFragment {
 		mPaymentInfo.setPayMoney((mMoneyIndex == -1 ? Integer.parseInt(other) : mMoneyList.get(mMoneyIndex))
 				* mPayHandler.mPayInfo.getScale() + mPayHandler.mPayInfo.getCurrency());
 		if (mPayHandler.mPayType == PayType.WECHAT && Integer.parseInt(mPaymentInfo.getMoney()) > 50000) {
-			ToastUtils.show(mActivity, "充值金额不能大于50000");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The value should not greater than 50000":"充值金额不能大于50000");
 		} else if (mPayHandler.mPayType == PayType.QQPAY && Integer.parseInt(mPaymentInfo.getMoney()) > 3000) {
-			ToastUtils.show(mActivity, "充值金额不能大于3000");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The value should not greater than 3000":"充值金额不能大于3000");
 		} else if (mMoneyIndex == -1 && Integer.parseInt(mPaymentInfo.getMoney()) < 10) {
-			ToastUtils.show(mActivity, "充值金额不能低于10元");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The value should not less than 10":"充值金额不能低于10元");
 		} else {				
 //			if (mPayHandler.mPayType == PayHandler.PAY_TYPE_UNION) {
 				if (!mPayHandler.PAY_FLAG) {

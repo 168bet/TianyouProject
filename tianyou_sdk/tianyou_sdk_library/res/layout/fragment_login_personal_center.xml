@@ -86,7 +86,7 @@
                 android:paddingLeft="@dimen/layout_space_big"
                 android:paddingRight="@dimen/layout_space_big"
                 android:paddingTop="@dimen/layout_space_little"
-                android:text="账号升级"
+                android:text="@string/ty_upgrade_commit"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/text_size_common" />
         </LinearLayout>
