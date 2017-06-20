@@ -85,11 +85,11 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 			.addApi(Plus.API,Plus.PlusOptions.builder()
 					.setServerClientId(AppUtils.getMetaDataValue(LoginActivity.this, "google_client_id"))//"775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com")
 					.build())
-					.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(mConnectionCallbacks).addOnConnectionFailedListener(mOnConnectionFailedListener)
+					.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this)
 					.build();
 //			facebookLogin();
 		}
-		googleInit();
+//		googleInit();
 	}
 	
 	@Override
