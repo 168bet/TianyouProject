@@ -77,6 +77,7 @@ public class HomeFragment extends BaseFragment {
 				} else {
 					mIsClose = true;
 					mTextTips.setText(result.getMsg());
+					LogUtils.d(result.getMsg());
 				}
 			}
 		});
@@ -104,7 +105,7 @@ public class HomeFragment extends BaseFragment {
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "text_home_recommend", "id")) {
 			if (mIsClose) {
-				ToastUtils.show(mActivity, "暂未开放");
+				ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Temporarily not opened":"暂未开放");
 			} else {
 				Intent intent = new Intent(mActivity, MenuActivity.class);
 				intent.putExtra("menu_type", MenuActivity.POPUP_MENU_5);

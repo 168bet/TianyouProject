@@ -39,7 +39,7 @@ import com.tianyou.sdk.utils.ResUtils;
  * @author itstrong
  * 
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements ConnectionCallbacks,OnConnectionFailedListener{
 
 	private View mLayoutRegisterTitle;
 	private View mLayoutTitle;
@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	protected void initView() {
-		googleInit();
+		
 		
 		mImgClose = (ImageView) findViewById(ResUtils.getResById(mActivity, "img_login_close", "id"));
 		
@@ -89,6 +89,7 @@ public class LoginActivity extends BaseActivity {
 					.build();
 //			facebookLogin();
 		}
+		googleInit();
 	}
 	
 	@Override
@@ -302,5 +303,54 @@ public class LoginActivity extends BaseActivity {
 	
 	public void setIsGoogleConnected (boolean isGoogleConnected) {
 		isGoogleConnected= isGoogleConnected;
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult result) {
+		LogUtils.d("onConnecton failed-------------");
+		if (result == null) {
+			LogUtils.d("----------------");
+		} else {
+			LogUtils.d("=============");
+		}
+		mConnectionResult = result;
+	}
+
+	@Override
+	public void onConnected(Bundle arg0) {
+		if (isGoogleConnected) {
+			isGoogleConnected = false;
+			final String accountName = Plus.AccountApi.getAccountName(mApiClient);
+			Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
+			final String nickname = person.getDisplayName();
+			final String id = person.getId();
+//			final String nickname = person.getNickname();
+			LogUtils.d("id= "+id+",accountName= "+accountName+",displayname= "+nickname);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						String token = GoogleAuthUtil.getToken(mActivity, accountName, "audience:server:client_id:"+AppUtils.getMetaDataValue(mActivity, "google_client_id"));//775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com");
+						LogUtils.d("token= "+token);
+	//					checkGoogleLogin(id,token);
+						Bundle bundle = new Bundle();
+						bundle.putString("id", id);
+						bundle.putString("token", token);
+						bundle.putString("nickname", nickname);
+						Message msg = new Message();
+						msg.what = 1;
+						msg.setData(bundle);
+						mHandler.sendMessage(msg);
+					} catch (Exception e) {
+						LogUtils.d("Exception= "+e.getMessage());
+					}
+				}
+			}).start();
+		}
+	}
+
+	@Override
+	public void onConnectionSuspended(int arg0) {
+		mApiClient.connect();
 	}
 }
