@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
     package="com.tianyouxi.lszg.leshi"
-=======
-    package="com.gamebegin.smcsj"
->>>>>>> 9e502e78ae7e1731a84031db0dd8e05524d67bc1
     android:versionCode="1"
     android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="15"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="25" />
+    
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name="com.multi.channel.demo.DemoAppliction"
@@ -27,17 +25,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="smcsj"
-                    android:path="/smcsj"
-                    android:scheme="gamebegin-smcsj" />
             </intent-filter>
         </activity>
         

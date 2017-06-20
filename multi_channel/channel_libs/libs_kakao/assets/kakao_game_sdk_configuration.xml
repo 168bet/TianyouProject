@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuartion-list>
 
+    <!-- appId=APP ID
+    	appSecret = native app key
+    	appVersion=游戏版本
+    	market = 谷歌包填googlePlay oneStore包填oneStore
+    	debugLevel = none
+    	serverType = real -->
+    	
     <configuration
         key="appId"
-        value="103815" />
+        value="134784" />
 
     <configuration
         key="appSecret"
-        value="951b75bf17fe0885ab5106ba2a9f9bc9" />
+        value="c1d4b7c5b93031a6ff340dca567915f9" />
 
     <configuration
         key="appVersion"
@@ -19,10 +26,10 @@
 
     <configuration
         key="serverType"
-        value="qa" />
+        value="real" />
 
     <configuration
         key="debugLevel"
-        value="verbose" />
+        value="none" />
 
 </configuartion-list>
