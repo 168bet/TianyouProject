@@ -1,5 +1,7 @@
 package com.multi.channel.demo;
 
+<<<<<<< HEAD
+=======
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.gamebegin.smcsj.R;
+>>>>>>> b62ff623fbfb6e2d609d805af8ea393af0ec5f0e
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -14,6 +17,10 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
+<<<<<<< HEAD
+import com.tianyouxi.lszg.leshi.R;
+=======
+>>>>>>> b62ff623fbfb6e2d609d805af8ea393af0ec5f0e
 
 import android.app.Activity;
 import android.content.Intent;

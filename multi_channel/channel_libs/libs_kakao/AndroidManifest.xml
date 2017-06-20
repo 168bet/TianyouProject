@@ -109,7 +109,7 @@
         <!-- Kakao Game SDK Auth END -->
 
 
-        <!-- Kakao IDP Auth START -->
+        <!-- Kakao IDP Auth START
         <activity
             android:name="com.kakao.auth.authorization.authcode.KakaoWebViewActivity"
             android:launchMode="singleTop"
@@ -119,7 +119,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+        </activity> -->
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
