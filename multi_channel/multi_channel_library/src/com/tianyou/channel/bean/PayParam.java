@@ -32,8 +32,6 @@ public class PayParam {
 
 	@Override
 	public String toString() {
-		return "PayParam [customInfo=" + customInfo + ", buyAmount="
-				+ amount + "payCode= "+payCode+"]";
+		return "PayParam [payCode=" + payCode + ", customInfo=" + customInfo + ", amount=" + amount + "]";
 	}
-
 }

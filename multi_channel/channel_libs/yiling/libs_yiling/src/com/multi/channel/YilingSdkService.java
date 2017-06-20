@@ -49,7 +49,6 @@ public class YilingSdkService extends BaseSdkService {
 	        	doNoticeGame(TianyouCallback.CODE_QUIT_CANCEL, "退出成功");
 	        }
 	    });
-	    gameBegin.floatMenuOn(100, 100);
 	    mTianyouCallback.onResult(TianyouCallback.CODE_INIT, "");
 	}
 	
@@ -62,7 +61,12 @@ public class YilingSdkService extends BaseSdkService {
 		    	mLoginInfo.setChannelUserId(uid + "");
 		    	mLoginInfo.setUserToken(token);
 		    	mLoginInfo.setIsOverseas(true);
-		    	checkLogin();
+		    	checkLogin(new LoginCallback() {
+					@Override
+					public void onSuccess() {
+						gameBegin.floatMenuOn(100, 100);
+					}
+				});
 		    }
 		});
 	}
@@ -71,7 +75,7 @@ public class YilingSdkService extends BaseSdkService {
 	public void doChannelPay(PayParam payInfo, final OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
 		gameBegin.trackPurchaseClick(orderInfo.getProductName(), orderInfo.getMoNey(), orderInfo.getProductName());
-		gameBegin.charge(orderInfo.getProductId(), 1, orderInfo.getCustomInfo(), new ChargeDialogListener() {
+		gameBegin.charge(orderInfo.getProductId(), 1, orderInfo.getOrderID(), new ChargeDialogListener() {
 		    @Override
 		    public void afterClose(String result) {
 		    	checkOrder(orderInfo.getOrderID(), new PayCallback() {

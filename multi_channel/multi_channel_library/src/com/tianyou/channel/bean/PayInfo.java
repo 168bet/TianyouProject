@@ -52,4 +52,10 @@ public class PayInfo {
 	public void setProductDesc(String productDesc) {
 		this.productDesc = productDesc;
 	}
+
+	@Override
+	public String toString() {
+		return "PayInfo [id=" + id + ", money=" + money + ", productId=" + productId + ", productName=" + productName
+				+ ", productDesc=" + productDesc + "]";
+	}
 }

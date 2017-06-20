@@ -130,9 +130,11 @@ public class TianyouSdkService extends BaseSdkService {
     public void doPay(PayParam payInfo) {
     	LogUtils.d("调用支付接口:" + payInfo);
 		if (mRoleInfo == null) {
+			LogUtils.d("调用支付接口1");
 			ToastUtils.show(mActivity, "请先上传角色信息");
 			return;
 		}
+		LogUtils.d("调用支付接口2");
 		mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
 		if (mPayInfo == null) {
 			ToastUtils.show(mActivity, "需打入渠道资源");
