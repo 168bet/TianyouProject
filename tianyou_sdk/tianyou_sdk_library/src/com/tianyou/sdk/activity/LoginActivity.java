@@ -124,8 +124,8 @@ public class LoginActivity extends BaseActivity {
 				switchFragment(new AccountFragment());
 			} else {
 				List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
-				List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
-				if (info1.size() == 0 && info2.size() == 0) {
+//				List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
+				if (info1.size() == 0) {
 					switchFragment(new OneKeyFragment());
 				} else {
 					switchFragment(new AccountFragment());
