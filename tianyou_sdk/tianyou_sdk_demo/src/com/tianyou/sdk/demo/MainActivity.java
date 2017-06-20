@@ -13,6 +13,7 @@ import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
+import com.tianyouxi.lszg.bm.R;
 
 public class MainActivity extends Activity implements OnClickListener {
 
