@@ -1,16 +1,15 @@
 package com.tianyou.sdk.activity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Message;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -18,7 +17,10 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.google.gson.Gson;
 import com.tianyou.sdk.base.BaseActivity;
+import com.tianyou.sdk.bean.FacebookLogin;
+import com.tianyou.sdk.bean.FacebookLogin.ResultBean;
 import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.IdentifiFragment;
 import com.tianyou.sdk.fragment.login.OneKeyFragment;
@@ -30,9 +32,21 @@ import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
 import com.tianyou.sdk.holder.LoginInfoHandler;
 import com.tianyou.sdk.holder.ProgressHandler;
+import com.tianyou.sdk.holder.URLHolder;
 import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Message;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * 登录Activity
@@ -52,12 +66,15 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 	private static GoogleApiClient mApiClient;
 	public ConnectionResult mConnectionResult;
 	private static boolean isGoogleConnected = false;
+	private CallbackManager callbackManager;
 	
 	private boolean mIsAccountRegister;
 	private ConnectionCallbacks mConnectionCallbacks;
 	private OnConnectionFailedListener mOnConnectionFailedListener;
 	
-	protected int setContentView() { return ResUtils.getResById(this, "activity_login", "layout"); }
+	protected int setContentView() {
+		return ResUtils.getResById(this, ConfigHolder.isOverseas ? "activity_login2" : "activity_login", "layout");
+	}
 
 	@Override
 	protected void initView() {
@@ -87,7 +104,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 					.build())
 					.addScope(Plus.SCOPE_PLUS_LOGIN).addConnectionCallbacks(this).addOnConnectionFailedListener(this)
 					.build();
-//			facebookLogin();
+			facebookLogin();
 		}
 //		googleInit();
 	}
@@ -108,8 +125,8 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 				switchFragment(new AccountFragment());
 			} else {
 				List<Map<String, String>> info1 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_ACCOUNT);
-				List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
-				if (info1.size() == 0 && info2.size() == 0) {
+//				List<Map<String, String>> info2 = LoginInfoHandler.getLoginInfo(LoginInfoHandler.LOGIN_INFO_PHONE);
+				if (info1.size() == 0) {
 					switchFragment(new OneKeyFragment());
 				} else {
 					switchFragment(new AccountFragment());
@@ -192,6 +209,54 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 		mImgClose.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
 	}
 	
+	private LoginButton btnLogin;
+	
+	public void clickFacebook() {
+		btnLogin.performClick();
+	}
+
+	//facebook登录
+	private void facebookLogin() {
+		FacebookSdk.sdkInitialize(this);
+		callbackManager = CallbackManager.Factory.create();
+		btnLogin = (LoginButton) findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id"));
+		btnLogin.setReadPermissions("email");
+		btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+			@Override
+			public void onSuccess(LoginResult loginResult) {
+				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login successfully" : "Facebook登陆成功"));
+				String userId = loginResult.getAccessToken().getUserId();
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("uid", userId);
+				map.put("usertoken", loginResult.getAccessToken().getToken());
+				map.put("channel", ConfigHolder.channelId);
+				map.put("sign", AppUtils.MD5(userId + ConfigHolder.gameId + ConfigHolder.gameToken));
+				HttpUtils.post(mActivity, URLHolder.URL_PAY_FACEBOOK, map, new HttpUtils.HttpsCallback() {
+					@Override
+					public void onSuccess(String response) {
+						FacebookLogin login = new Gson().fromJson(response, FacebookLogin.class);
+						ResultBean result = login.getResult();
+						if (result.getCode() == 200) {
+							String username = result.getUsername();
+							int password = result.getPassword();
+							LoginHandler.getInstance(mActivity, mHandler).doUserLogin(username, password + "", false);
+						} else {
+							ToastUtils.show(mActivity, result.getMsg());
+						}
+					}
+				});
+			}
+
+			@Override
+			public void onCancel() { 
+				LogUtils.d("onCancel:"); }
+
+			@Override
+			public void onError(FacebookException e) { 
+				LogUtils.d("onError:"); }
+		});
+	}
+	
 	private int mBgHeight;
 	
 	public void setBgHeight(boolean flag) {
@@ -219,6 +284,22 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 			return;
 		}
 		finish();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		LogUtils.d("requestCode, resultCode, data");
+		if (ConfigHolder.isOverseas) {
+			callbackManager.onActivityResult(requestCode, resultCode, data);
+//			if (requestCode == REQUEST_CODE_SIGN_IN|| requestCode == REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES) {
+//	            if (resultCode == mActivity.RESULT_CANCELED) {
+//	            } else if (resultCode == mActivity.RESULT_OK && !mApiClient.isConnected()
+//	                    && !mApiClient.isConnecting()) {
+//	            	mApiClient.connect();
+//	            }
+//	        }
+		}
 	}
 	
 	//设置注册类型

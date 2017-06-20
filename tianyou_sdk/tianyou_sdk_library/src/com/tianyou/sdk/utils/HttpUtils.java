@@ -124,6 +124,7 @@ public class HttpUtils {
 			map.put("appid", ConfigHolder.gameId);
 			map.put("token", ConfigHolder.gameToken);
 			map.put("imei", AppUtils.getPhoeIMEI(activity));
+			map.put("lang", ConfigHolder.isOverseas ? "en-us" : "zh-cn");
 			map.put("type", "android");
 			map.put("signtype", "md5");
 			LogUtils.d("请求参数:" + map);
@@ -169,6 +170,7 @@ public class HttpUtils {
 			map.put("appid", ConfigHolder.gameId);
 			map.put("token", ConfigHolder.gameToken);
 			map.put("imei", AppUtils.getPhoeIMEI(activity));
+			map.put("lang", ConfigHolder.isOverseas ? "en-us" : "zh-cn");
 			map.put("type", "android");
 			map.put("signtype", "md5");
 			LogUtils.d("请求参数:" + map);
