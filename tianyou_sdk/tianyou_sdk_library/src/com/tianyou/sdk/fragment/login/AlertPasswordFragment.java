@@ -198,7 +198,7 @@ public class AlertPasswordFragment extends BaseFragment {
 		} else if (password.length() < 6 || password.length() > 16) {
 			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Length error":"密码长度错误");
 		} else if (!again.equals(password)) {
-			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The input password is inconsisten":"两次输入密码不一致");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The input password is inconformity":"两次输入密码不一致");
 		} else {
 			postAlertPassword(password);
 		}

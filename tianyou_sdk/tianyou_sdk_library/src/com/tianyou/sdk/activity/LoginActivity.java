@@ -72,6 +72,10 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 	private ConnectionCallbacks mConnectionCallbacks;
 	private OnConnectionFailedListener mOnConnectionFailedListener;
 	
+	private static final int REQUEST_CODE_SIGN_IN = 1;
+	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
+	private static final int REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES = 2;
+	
 	protected int setContentView() {
 		return ResUtils.getResById(this, ConfigHolder.isOverseas ? "activity_login2" : "activity_login", "layout");
 	}
@@ -292,13 +296,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 		LogUtils.d("requestCode, resultCode, data");
 		if (ConfigHolder.isOverseas) {
 			callbackManager.onActivityResult(requestCode, resultCode, data);
-//			if (requestCode == REQUEST_CODE_SIGN_IN|| requestCode == REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES) {
-//	            if (resultCode == mActivity.RESULT_CANCELED) {
-//	            } else if (resultCode == mActivity.RESULT_OK && !mApiClient.isConnected()
-//	                    && !mApiClient.isConnecting()) {
-//	            	mApiClient.connect();
-//	            }
-//	        }
+			if (requestCode == REQUEST_CODE_SIGN_IN|| requestCode == REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES) {
+	            if (resultCode == mActivity.RESULT_CANCELED) {
+	            } else if (resultCode == mActivity.RESULT_OK && !mApiClient.isConnected()
+	                    && !mApiClient.isConnecting()) {
+	            	mApiClient.connect();
+	            }
+	        }
 		}
 	}
 	

@@ -4,24 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <LinearLayout
-        android:id="@+id/layout_one_key_tourist"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/notify_btn_height"
-        android:layout_marginTop="@dimen/layout_space_small"
-        android:background="@drawable/shape_bg_8761dc_fill"
-        android:gravity="center"
-        android:padding="@dimen/layout_space_small" >
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_space_small"
-            android:text="@string/ty_tourist_login"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/text_size_common" />
-    </LinearLayout>
+   
     
      <LinearLayout
         android:id="@+id/layout_one_key_quicklogin"
@@ -61,6 +44,25 @@
          android:text="@string/ty_google_login"
          android:textColor="@color/color_gray_1"
          android:textSize="@dimen/text_size_common" />
+    
+     <LinearLayout
+        android:id="@+id/layout_one_key_tourist"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_btn_height"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_8761dc_fill"
+        android:gravity="center"
+        android:padding="@dimen/layout_space_small" >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:text="@string/ty_tourist_login"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
