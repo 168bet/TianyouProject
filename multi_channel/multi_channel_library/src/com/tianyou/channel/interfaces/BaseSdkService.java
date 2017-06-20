@@ -115,18 +115,27 @@ public class BaseSdkService implements SdkServiceInterface {
 	}
 
 	@Override
-	public void doPay(PayParam payInfo) {
-		LogUtils.d("调用支付接口:" + payInfo);
+	public void doPay(final PayParam payInfo) {
+		LogUtils.d("调用支付接口#:" + payInfo);
+		LogUtils.d("调用支付接口&:" + payInfo);
 		if (mRoleInfo == null) {
+			LogUtils.d("调用支付接口0");
 			ToastUtils.show(mActivity, "请先上传角色信息");
 			return;
 		}
-		mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
-		if (mPayInfo == null) {
-			ToastUtils.show(mActivity, "需配置支付参数");
-		} else {
-			createOrder(payInfo);
-		}
+		LogUtils.d("调用支付接口1");
+		mActivity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				LogUtils.d("调用支付接口2");
+				mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
+				if (mPayInfo == null) {
+					ToastUtils.show(mActivity, "需配置支付参数");
+				} else {
+					createOrder(payInfo);
+				}
+			}
+		});
 	}
 	
 	// 查询登录信息
@@ -155,6 +164,7 @@ public class BaseSdkService implements SdkServiceInterface {
 				if (result.getCode().equals("200")) {
 					mLoginInfo.setHanfengUid(result.getChanneluid());
 					mLoginInfo.setTianyouUserId(result.getUid());
+					if(callback != null) callback.onSuccess();
 					doNoticeGame(TianyouCallback.CODE_LOGIN_SUCCESS, result.getUid());
 				} else {
 					ToastUtils.show(mActivity, result.getMsg());
@@ -317,7 +327,7 @@ public class BaseSdkService implements SdkServiceInterface {
 	//登陆成功回调接口
 	public interface LoginCallback {
 		
-		void onSuccess(String data); 
+		void onSuccess(); 
 	}
 	
 	//登陆成功回调接口
