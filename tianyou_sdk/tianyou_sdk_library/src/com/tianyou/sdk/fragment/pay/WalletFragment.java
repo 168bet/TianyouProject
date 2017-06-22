@@ -130,7 +130,7 @@ public class WalletFragment extends BaseFragment {
 		mPaymentInfo = mPayHandler.mPayInfo;
 		mMoneyList = new ArrayList<Integer>();
 		mTextAccount.setText(ConfigHolder.isOverseas?"Account:":"账号：" + ConfigHolder.userName);
-		mTextServer.setText(ConfigHolder.isOverseas?"T coins: Tianyou coins top-up":"T币：天游币充值");
+		mTextServer.setText(ConfigHolder.isOverseas?"T coins: Tianyou coins payment":"T币：天游币充值");
 		mTextScale.setText(ConfigHolder.isOverseas?"Proportion: 1:1":"比例：1:1");
 		getPayMoneyValue();
 		setPayWayState(mPayHandler.mPayType);

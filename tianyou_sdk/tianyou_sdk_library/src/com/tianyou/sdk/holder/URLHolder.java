@@ -94,6 +94,8 @@ public class URLHolder {
 	// 去品台支付
 	public static final String URL_PAY_ONPLAT = "http://www.tianyouxi.com/svnonethink/mobilesdk.php?s=/CheckSdk/sdkpayCentre&";
 	
+	public static final String URL_USER_AGREEMENT = getHostAddrs() + "sdkinfo/getagreement";
+	
 	private static String getHostAddrs() {
 		return ConfigHolder.hostAddress;
 	}

@@ -22,7 +22,6 @@
             android:hint="@string/ty_alert_current_pw"
             android:padding="@dimen/layout_space_small"
             android:singleLine="true"
-            android:password="true"
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
             android:textColor="@color/color_gray_1"
             android:textColorHint="@color/color_gray_1"

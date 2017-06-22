@@ -1,10 +1,21 @@
 package com.tianyou.sdk.base;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.tianyou.sdk.fragment.login.AccountFragment;
 import com.tianyou.sdk.fragment.login.PerfectInfoFragment;
 import com.tianyou.sdk.holder.ConfigHolder;
 import com.tianyou.sdk.holder.LoginHandler;
+import com.tianyou.sdk.holder.URLHolder;
+import com.tianyou.sdk.utils.AppUtils;
+import com.tianyou.sdk.utils.HttpUtils;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
@@ -39,6 +50,11 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 	protected Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
+			case 1:
+				Bundle data = msg.getData();
+				LogUtils.d("start check google login------");
+				checkGoogleLogin(data.getString("id"), data.getString("token"),data.getString("nickname"));
+				break;
 			case 2:	//完善QQ登陆信息
 				switchFragment(PerfectInfoFragment.getInstance((String)msg.obj));
 				break;
@@ -171,5 +187,42 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     		InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     		im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
     	}
+    }
+    
+    private void checkGoogleLogin(String id,String token,String nickname) {
+		Map<String,String> googleParam = new HashMap<String, String>();
+		googleParam.put("id_token",token);
+		googleParam.put("id",id);
+		googleParam.put("nickname",nickname);
+		googleParam.put("googleappid", AppUtils.getMetaDataValue(mActivity,"google_client_id"));
+		googleParam.put("channel", ConfigHolder.channelId);
+		googleParam.put("sign", AppUtils.MD5(id+ConfigHolder.gameId+ConfigHolder.gameToken));
+		HttpUtils.post(mActivity, URLHolder.URL_PAY_GOOGLE, googleParam, new HttpUtils.HttpCallback() {
+			@Override
+			public void onSuccess(String response) {
+				LogUtils.d("login success response= "+response);
+				try {
+					JSONObject jsonObject = new JSONObject(response);
+					JSONObject result = jsonObject.getJSONObject("result");
+					int code = result.getInt("code");
+					if (code == 200) {
+						String userName = result.getString("username");
+						String userPass = result.getString("password");
+						LoginHandler.getInstance().doUserLogin(userName, userPass, false);
+//						LogUtils.d("google login success userName= "+userName+",userPass= "+userPass);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "The server seems deserted..." : "服务器好像开小差了..."));
+					LogUtils.d(e.getMessage());
+				}
+			}
+
+			@Override
+			public void onFailed() {
+				LogUtils.d("login failed-------------");
+				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Network connection error, please check your network Settings..." : "网络连接出错,请检查您的网络设置..."));
+			}
+		});
     }
 }

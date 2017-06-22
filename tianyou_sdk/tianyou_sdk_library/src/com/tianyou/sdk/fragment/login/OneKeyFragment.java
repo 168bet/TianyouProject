@@ -28,6 +28,7 @@ public class OneKeyFragment extends BaseFragment {
 		((LoginActivity)mActivity).setBgHeight(true);
 		mActivity.setFragmentTitle(ResUtils.getString(mActivity, "ty_one_key_login"));
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_tourist", "id")).setOnClickListener(this);
+		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_simulate_facebook", "id")).setOnClickListener(this);
 		mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_account", "id")).setOnClickListener(this);
 		if(ConfigHolder.isOverseas) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_quicklogin", "id")).setOnClickListener(this);
@@ -50,6 +51,8 @@ public class OneKeyFragment extends BaseFragment {
 			((LoginActivity)mActivity).switchFragment(new PhoneRegisterFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_qq", "id")) {
 			doQQLogin();
+		} else if(v.getId() == ResUtils.getResById(mActivity, "layout_one_key_simulate_facebook", "id")){
+			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id")).performClick(); 
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_one_key_account", "id")) {
 			mActivity.switchFragment(new AccountFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_one_key_quicklogin", "id")) {

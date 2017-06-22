@@ -68,6 +68,7 @@ public class AccountFragment extends BaseFragment {
 		mImgQuick = (ImageView) mContentView.findViewById(ResUtils.getResById(mActivity, "img_account_quick", "id"));
 		if (ConfigHolder.isOverseas) {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_google", "id")).setOnClickListener(this);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_simulate_facebook", "id")).setOnClickListener(this);
 		} else {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_account_qq", "id")).setOnClickListener(this);
 		}
@@ -118,6 +119,8 @@ public class AccountFragment extends BaseFragment {
 			mLoginHandler.doQuickRegister();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "img_account_switch", "id")) {
 			switchPassword();
+		} else if (v.getId() == ResUtils.getResById(mActivity, "layout_account_simulate_facebook", "id")) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id")).performClick();
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_account_forget", "id")) {
 			String username = mEditUsername.getText().toString();
 			ForgetPasswordFragment fpf=new ForgetPasswordFragment();

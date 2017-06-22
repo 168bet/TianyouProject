@@ -59,7 +59,7 @@ public class HttpUtils {
 				activity.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						ToastUtils.show(activity, "网络连接失败，请检查网络~");
+						ToastUtils.show(activity, ConfigHolder.isOverseas?"Network connection failed,please check~":"网络连接失败，请检查网络~");
 					}
 				});
 			}
