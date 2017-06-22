@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
     <LinearLayout
         android:id="@+id/layout_one_key_tourist"
         android:layout_width="match_parent"
@@ -13,7 +13,6 @@
         android:gravity="center"
         android:padding="@dimen/layout_space_small" >
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,8 +21,8 @@
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_size_common" />
     </LinearLayout>
-    
-     <LinearLayout
+
+    <LinearLayout
         android:id="@+id/layout_one_key_quicklogin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/notify_btn_height"
@@ -41,26 +40,29 @@
             android:textSize="@dimen/text_size_common" />
     </LinearLayout>
 
-    
-     <com.facebook.login.widget.LoginButton
-         android:id="@+id/btn_facebook_login"
-         android:layout_width="match_parent"
-         android:layout_height="@dimen/notify_btn_height"
-         android:layout_marginTop="@dimen/layout_space_small"
-         android:padding="@dimen/layout_space_small"
-         android:textSize="@dimen/text_size_common"
-         android:visibility="visible" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_btn_height" 
+        android:layout_marginTop="@dimen/layout_space_small">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_bg_ff9832_fill2"
+            android:textSize="@dimen/text_size_common" />
+    </RelativeLayout>
 
     <Button
-         android:id="@+id/btn_google_login"
-         android:layout_width="match_parent"
-         android:layout_height="@dimen/notify_btn_height"
-         android:layout_marginTop="@dimen/layout_space_small"
-         android:background="@drawable/ty_login_way_4"
-         android:padding="@dimen/layout_space_small"
-         android:text="@string/ty_google_login"
-         android:textColor="@color/color_gray_1"
-         android:textSize="@dimen/text_size_common" />
+        android:id="@+id/btn_google_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_btn_height"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/ty_login_way_4"
+        android:padding="@dimen/layout_space_small"
+        android:text="@string/ty_google_login"
+        android:textColor="@color/color_gray_1"
+        android:textSize="@dimen/text_size_common" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -71,12 +73,10 @@
             android:id="@+id/text_one_key_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ty_account_login"
             android:layout_alignParentRight="true"
+            android:text="@string/ty_account_login"
             android:textColor="@color/color_gray_1"
             android:textSize="@dimen/text_size_small" />
-
     </RelativeLayout>
-   
 
 </LinearLayout>

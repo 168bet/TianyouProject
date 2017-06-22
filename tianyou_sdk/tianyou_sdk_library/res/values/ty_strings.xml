@@ -2,6 +2,7 @@
 <resources>
 
     <string name="facebook_app_id">1026966590741849</string>
+    <string name="string_verify">abcdefghijklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM0123456789</string>
     
     <string name="ty_company_name">天游戏</string>
     <string name="ty_company_name2">[天游戏]</string>

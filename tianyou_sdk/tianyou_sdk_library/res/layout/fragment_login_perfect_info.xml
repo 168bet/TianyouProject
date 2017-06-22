@@ -22,7 +22,7 @@
             style="@style/style_edit_common"
             android:singleLine="true"
             android:maxLength="14"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:hint="账号：请输入6-16位字母或数字组合" />
 
         <View
@@ -38,7 +38,7 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:maxLength="16"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:hint="密码：请输入6-16位字母或数字组合" />
 
         <View
@@ -54,7 +54,7 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:maxLength="16"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:hint="请再次输入密码" />
     </LinearLayout>
 

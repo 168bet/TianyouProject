@@ -20,7 +20,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_bg_white_fill"
-                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+                android:digits="@string/string_verify"
                 android:hint="@string/ty_user_register_hint1"
                 android:maxLength="16"
                 android:padding="@dimen/layout_space_small"
@@ -56,7 +56,7 @@
                 android:hint="@string/ty_account_hint"
                 android:padding="@dimen/layout_space_small"
                 android:password="true"
-                android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+                android:digits="@string/string_verify"
                 android:singleLine="true"
                 android:maxLength="16"
                 android:textColorHint="@color/color_gray_0" />

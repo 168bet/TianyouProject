@@ -14,7 +14,7 @@
         <EditText
             android:id="@+id/edit_register_username"
             style="@style/style_edit_common"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:hint="请输入11位手机号"
             android:maxLength="16"
             android:singleLine="true" />

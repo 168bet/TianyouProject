@@ -140,7 +140,7 @@
             style="@style/style_text_black"
             android:layout_width="match_parent"
             android:background="@drawable/shape_bg_white_fill"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:hint="请输入身份证号"
             android:inputType="textCapCharacters"
             android:singleLine="true"
