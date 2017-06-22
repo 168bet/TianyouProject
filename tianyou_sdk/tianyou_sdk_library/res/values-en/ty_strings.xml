@@ -167,6 +167,6 @@
     <string name="ty_security">Security Settings</string>
     <string name="ty_unset">Unset</string>
     <string name="ty_center_modify">Modity password</string>
-    <string name="ty_popup_personal_center"> </string>
+    <string name="ty_popup_personal_center">User center</string>
     <string name="ty_dialog_loading">Loading...</string>
 </resources>

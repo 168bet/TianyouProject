@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+<<<<<<< HEAD
 
     <LinearLayout
         android:id="@+id/layout_one_key_tourist"
@@ -23,6 +24,12 @@
     </LinearLayout>
 
     <LinearLayout
+=======
+    
+   
+    
+     <LinearLayout
+>>>>>>> 3e51e85ae4985ae1bd6125329a5f1e83f50e6ac1
         android:id="@+id/layout_one_key_quicklogin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/notify_btn_height"
@@ -54,6 +61,7 @@
     </RelativeLayout>
 
     <Button
+<<<<<<< HEAD
         android:id="@+id/btn_google_login"
         android:layout_width="match_parent"
         android:layout_height="@dimen/notify_btn_height"
@@ -63,6 +71,36 @@
         android:text="@string/ty_google_login"
         android:textColor="@color/color_gray_1"
         android:textSize="@dimen/text_size_common" />
+=======
+         android:id="@+id/btn_google_login"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/notify_btn_height"
+         android:layout_marginTop="@dimen/layout_space_small"
+         android:background="@drawable/ty_login_way_4"
+         android:padding="@dimen/layout_space_small"
+         android:text="@string/ty_google_login"
+         android:textColor="@color/color_gray_1"
+         android:textSize="@dimen/text_size_common" />
+    
+     <LinearLayout
+        android:id="@+id/layout_one_key_tourist"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_btn_height"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_8761dc_fill"
+        android:gravity="center"
+        android:padding="@dimen/layout_space_small" >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:text="@string/ty_tourist_login"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+>>>>>>> 3e51e85ae4985ae1bd6125329a5f1e83f50e6ac1
 
     <RelativeLayout
         android:layout_width="match_parent"
