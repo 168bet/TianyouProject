@@ -27,45 +27,7 @@ public class TianyouSdk {
 			sdkService = new BaseSdkService();
 		} else {
 			try {
-				String className = ""; 
-				if ("ty000".equals(channelInfo.getChannelId())) {
-					className = "TianyouSdkService";
-				} else if ("ty000".equals(channelInfo.getChannelId())) {
-					className = "TianyouSdkService";
-				} else if ("ty001".equals(channelInfo.getChannelId())) {
-					className = "XiaoMiSdkService";
-				} else if ("ty003".equals(channelInfo.getChannelId())) {
-					className = "QihooSdkService"; 
-				} else if ("ty004".equals(channelInfo.getChannelId())){
-					className = "VivoSdkService"; 
-				} else if ("ty009".equals(channelInfo.getChannelId())) {
-					className = "JinliSdkService";
-				} else if ("ty069".equals(channelInfo.getChannelId())) {
-					className = "LeshiSpecialSdkService";
-				} else if ("ty007".equals(channelInfo.getChannelId())) {
-					className = "DownJoySdkService";
-				} else if ("ty009".equals(channelInfo.getChannelId())) {
-					className = "JinliSdkService";
-				} else if ("ty011".equals(channelInfo.getChannelId())) {
-//					className = "LeshiSpecialSdkService";
-					className = "LeshiSdkService";
-				} else if ("ty025".equals(channelInfo.getChannelId())) {
-					className = "M4399SdkService";
-				} else if ("ty066".equals(channelInfo.getChannelId())) {
-					className = "HanfengService";
-				} else if ("ty067".equals(channelInfo.getChannelId())) {
-					className = "LeyouSdkService";
-				} else if ("ty069".equals(channelInfo.getChannelId())) {
-					className = "LeshiSpecialSdkService";
-				} else if ("ty073".equals(channelInfo.getChannelId())) {
-					className = "SamsungSdkService";
-				} else if ("bm105".equals(channelInfo.getChannelId())) {
-					className = "YilingSdkService";
-				} else if ("bm106".equals(channelInfo.getChannelId())) {
-					className = "KakaoSdkService";
-				}
-				LogUtils.d("className:" + className);
-				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();
+				sdkService = (BaseSdkService) Class.forName("com.multi.channel.ChannelService").newInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
 				ToastUtils.show(context, "渠道类没有找到");
