@@ -3,18 +3,18 @@ package com.multi.channel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.utils.ConfigHolder;
-import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.sdk.bean.PayInfo;
 import com.tianyou.sdk.interfaces.TianyouCallback;
 import com.tianyou.sdk.interfaces.TianyouSdk;
+import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
-
-import android.app.Activity;
-import android.content.Context;
 
 public class TianyouSdkService extends BaseSdkService {
     

@@ -4,8 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.google.gson.Gson;
-import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.sdk.activity.MenuActivity;
 import com.tianyou.sdk.base.BaseFragment;
 import com.tianyou.sdk.bean.ExitGame;
@@ -19,15 +26,8 @@ import com.tianyou.sdk.utils.HttpUtils;
 import com.tianyou.sdk.utils.HttpUtils.HttpsCallback;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ResUtils;
+import com.tianyou.sdk.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class HomeFragment extends BaseFragment {
 
