@@ -22,6 +22,7 @@ public class ChannelService extends BaseSdkService {
 		super.doActivityInit(activity, tianyouCallback);
 		EventBus.getDefault().register(this);
 		YouxunProxy.init(mChannelInfo.getAppId(), mChannelInfo.getAppKey());
+		YouxunXF.onCreate(mActivity, 0.4f);
 		doNoticeGame(TianyouCallback.CODE_INIT, "");
 	}
 
