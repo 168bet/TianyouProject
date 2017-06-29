@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.rzwan.game.sszg.R;
 import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
@@ -13,7 +14,6 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
-import com.tianyouxi.lszg.leshi.R;
 
 public class MainActivity extends Activity implements OnClickListener {
 
