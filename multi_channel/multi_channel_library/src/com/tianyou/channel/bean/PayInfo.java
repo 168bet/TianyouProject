@@ -12,6 +12,7 @@ public class PayInfo {
 	private String productId;
 	private String productName;
 	private String productDesc;
+	private String orderId;
 
 	public String getId() {
 		return id;
@@ -19,6 +20,14 @@ public class PayInfo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public String getMoney() {

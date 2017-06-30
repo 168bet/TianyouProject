@@ -119,18 +119,14 @@ public class BaseSdkService implements SdkServiceInterface {
 
 	@Override
 	public void doPay(final PayParam payInfo) {
-		LogUtils.d("调用支付接口#:" + payInfo);
-		LogUtils.d("调用支付接口&:" + payInfo);
+		LogUtils.d("调用支付接口:" + payInfo);
 		if (mRoleInfo == null) {
-			LogUtils.d("调用支付接口0");
 			ToastUtils.show(mActivity, "请先上传角色信息");
 			return;
 		}
-		LogUtils.d("调用支付接口1");
 		mActivity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				LogUtils.d("调用支付接口2");
 				mPayInfo = ConfigHolder.getPayInfo(mActivity, payInfo.getPayCode());
 				if (mPayInfo == null) {
 					ToastUtils.show(mActivity, "需配置支付参数");
@@ -207,6 +203,7 @@ public class BaseSdkService implements SdkServiceInterface {
 			@Override
 			public void onSuccess(String data) {
 				OrderInfo orderInfo = new Gson().fromJson(data, OrderInfo.class);
+				mPayInfo.setOrderId(orderInfo.getResult().getOrderinfo().getOrderID());
 				if ("200".equals(orderInfo.getResult().getCode())) {
 					doChannelPay(payInfo, orderInfo.getResult().getOrderinfo());
 				} else {
@@ -224,7 +221,6 @@ public class BaseSdkService implements SdkServiceInterface {
 	
 	// 查询订单
 	protected void checkOrder(String orderId) {
-		LogUtils.d("into:checkOrder");
 		checkOrder(orderId, null);
 	}
 	

@@ -53,7 +53,8 @@ public class ChannelService extends BaseSdkService {
 		if (code == 0) {
 			if (data.getStringExtra("data").equals("success")) {
 				String userid = data.getStringExtra("userid");
-				doNoticeGame(TianyouCallback.CODE_LOGIN_SUCCESS, userid);
+				mLoginInfo.setChannelUserId(userid);
+				checkLogin();
 				YouxunProxy.updateDialog(mActivity, data);
 				YouxunXF.hintUserInfo(mActivity);
 			} else {
@@ -63,7 +64,7 @@ public class ChannelService extends BaseSdkService {
 
 		if (code == 1) {
 			if (data.getStringExtra("data").equals("success")) {
-				doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, "");
+				checkOrder(mPayInfo.getOrderId());
 			} else {
 				doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
 			}
