@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>com.k3k.unplat</groupId>
-  <artifactId>UnionPlatform</artifactId>
+  <artifactId>unplat</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>unplat</name>

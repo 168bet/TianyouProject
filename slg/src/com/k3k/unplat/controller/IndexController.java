@@ -14,6 +14,7 @@ public class IndexController {
 
     @RequestMapping("/index")
     public String index() {
+    	System.out.println("do_index");
         return "admin/index";
     }
 

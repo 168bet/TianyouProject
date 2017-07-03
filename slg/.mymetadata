@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="K3KConsole"
+  name="k3kconsole"
   id="myeclipse.1406087975757"
   context-root="/unplat"
-  j2ee-spec="5.0"
+  j2ee-spec="6.0"
   archive="K3KConsole.war">
   <attributes>
-    <attribute name="webrootdir" value="/WebRoot" />
+    <attribute name="webrootdir" value="WebRoot" />
   </attributes>
 </project-module>
 
