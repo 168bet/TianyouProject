@@ -24,8 +24,6 @@ public class ChannelService extends BaseSdkService {
 		EventBus.getDefault().register(this);
 		//初始化 game key
 		YouxunProxy.init(mChannelInfo.getGameName(), mChannelInfo.getAppId());
-		//创建悬浮图标          悬浮图标占屏幕的比例  0.4=>竖屏的十分之四处 
-		YouxunXF.onCreate(mActivity, 0.4f);
 		
 		doNoticeGame(TianyouCallback.CODE_INIT, "初始化成功");
 	}
@@ -45,9 +43,17 @@ public class ChannelService extends BaseSdkService {
 			if (data.getStringExtra("data").equals("success")) {
 				//登入成功
 				String userid = data.getStringExtra("userid");
-				doNoticeGame(TianyouCallback.CODE_LOGIN_SUCCESS, userid);
+				mLoginInfo.setChannelUserId(userid);
+				checkLogin(new LoginCallback() {
+					@Override
+					public void onSuccess() {
+						//创建悬浮图标          悬浮图标占屏幕的比例  0.4=>竖屏的十分之四处 
+						YouxunXF.onCreate(mActivity, 0.4f);
+					}
+				});
 				//检测版本
 				YouxunProxy.updateDialog(mActivity, data);
+				
 				//提示用户账号信息
 				YouxunXF.hintUserInfo(mActivity);
 			}else {
@@ -60,7 +66,7 @@ public class ChannelService extends BaseSdkService {
 		if (code == 1) {
 			if (data.getStringExtra("data").equals("success")) {
 				//支付成功
-				doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, "");
+				checkOrder(mPayInfo.getOrderId());
 			}else {
 				//支付失败
 				doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
