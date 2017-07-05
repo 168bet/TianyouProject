@@ -19,7 +19,7 @@ import com.tianyou.channel.utils.LogUtils;
 import android.app.Activity;
 import android.content.Intent;
 
-public class YilingSdkService extends BaseSdkService {
+public class ChannelService extends BaseSdkService {
 
 	private GameBegin gameBegin;
 

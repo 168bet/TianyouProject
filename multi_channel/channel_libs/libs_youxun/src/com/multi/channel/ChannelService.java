@@ -22,7 +22,6 @@ public class ChannelService extends BaseSdkService {
 		super.doActivityInit(activity, tianyouCallback);
 		EventBus.getDefault().register(this);
 		YouxunProxy.init(mChannelInfo.getAppId(), mChannelInfo.getAppKey());
-		YouxunXF.onCreate(mActivity, 0.4f);
 		doNoticeGame(TianyouCallback.CODE_INIT, "");
 	}
 
@@ -54,7 +53,12 @@ public class ChannelService extends BaseSdkService {
 			if (data.getStringExtra("data").equals("success")) {
 				String userid = data.getStringExtra("userid");
 				mLoginInfo.setChannelUserId(userid);
-				checkLogin();
+				checkLogin(new LoginCallback() {
+					@Override
+					public void onSuccess() {
+						YouxunXF.onCreate(mActivity, 0.4f);
+					}
+				});
 				YouxunProxy.updateDialog(mActivity, data);
 				YouxunXF.hintUserInfo(mActivity);
 			} else {

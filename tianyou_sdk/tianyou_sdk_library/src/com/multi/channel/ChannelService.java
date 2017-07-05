@@ -16,7 +16,7 @@ import com.tianyou.sdk.interfaces.TianyouSdk;
 import com.tianyou.sdk.utils.LogUtils;
 import com.tianyou.sdk.utils.ToastUtils;
 
-public class TianyouSdkService extends BaseSdkService {
+public class ChannelService extends BaseSdkService {
     
 	private TianyouCallback mTianyouxiCallback = new TianyouCallback() {
 		@Override
