@@ -53,7 +53,7 @@ import android.widget.TextView;
  * @author itstrong
  * 
  */
-public class LoginActivity extends BaseActivity implements ConnectionCallbacks,OnConnectionFailedListener{
+public class LoginActivity extends BaseActivity {//implements ConnectionCallbacks,OnConnectionFailedListener{
 
 	private View mLayoutRegisterTitle;
 	private View mLayoutTitle;
@@ -65,12 +65,16 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 	
 	private static GoogleApiClient mApiClient;
 	public ConnectionResult mConnectionResult;
-	private static boolean isGoogleConnected = false;
+	private static boolean mIsGoogleConnected = false;
 	private CallbackManager callbackManager;
 	
 	private boolean mIsAccountRegister;
 	private ConnectionCallbacks mConnectionCallbacks;
 	private OnConnectionFailedListener mOnConnectionFailedListener;
+	
+	private static final int REQUEST_CODE_SIGN_IN = 1;
+	private static final int DIALOG_GET_GOOGLE_PLAY_SERVICES = 1;
+	private static final int REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES = 2;
 	
 	protected int setContentView() {
 		return ResUtils.getResById(this, ConfigHolder.isOverseas ? "activity_login2" : "activity_login", "layout");
@@ -79,6 +83,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 	@Override
 	protected void initView() {
 		
+		googleInit();
 		
 		mImgClose = (ImageView) findViewById(ResUtils.getResById(mActivity, "img_login_close", "id"));
 		
@@ -106,7 +111,6 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 					.build();
 			facebookLogin();
 		}
-		googleInit();
 	}
 	
 	@Override
@@ -146,8 +150,8 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 				
 				@Override
 				public void onConnected(Bundle arg0) {
-					if (isGoogleConnected) {
-						isGoogleConnected = false;
+					if (mIsGoogleConnected) {
+						mIsGoogleConnected = false;
 						final String accountName = Plus.AccountApi.getAccountName(mApiClient);
 						Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
 						final String nickname = person.getDisplayName();
@@ -192,6 +196,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 			};
 		}
 	}
+	
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "img_login_close", "id")) {
@@ -224,7 +229,7 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 		btnLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 			@Override
 			public void onSuccess(LoginResult loginResult) {
-				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login successfully" : "Facebook登陆成功"));
+//				ToastUtils.show(mActivity, (ConfigHolder.isOverseas? "Facebook login successfully" : "Facebook登陆成功"));
 				String userId = loginResult.getAccessToken().getUserId();
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("uid", userId);
@@ -292,13 +297,13 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 		LogUtils.d("requestCode, resultCode, data");
 		if (ConfigHolder.isOverseas) {
 			callbackManager.onActivityResult(requestCode, resultCode, data);
-//			if (requestCode == REQUEST_CODE_SIGN_IN|| requestCode == REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES) {
-//	            if (resultCode == mActivity.RESULT_CANCELED) {
-//	            } else if (resultCode == mActivity.RESULT_OK && !mApiClient.isConnected()
-//	                    && !mApiClient.isConnecting()) {
-//	            	mApiClient.connect();
-//	            }
-//	        }
+			if (requestCode == REQUEST_CODE_SIGN_IN || requestCode == REQUEST_CODE_GET_GOOGLE_PLAY_SERVICES) {
+	            if (resultCode == mActivity.RESULT_CANCELED) {
+	            	LogUtils.d("result_cancle");
+	            } else if (resultCode == mActivity.RESULT_OK && !mApiClient.isConnected() && !mApiClient.isConnecting()) {
+	            	mApiClient.connect();
+	            }
+	        }
 		}
 	}
 	
@@ -379,59 +384,12 @@ public class LoginActivity extends BaseActivity implements ConnectionCallbacks,O
 	
 	
 	public boolean getIsGoogleConnected (){
-		return isGoogleConnected;
+		return mIsGoogleConnected;
 	}
 	
 	public void setIsGoogleConnected (boolean isGoogleConnected) {
-		isGoogleConnected= isGoogleConnected;
+//		isGoogleConnected= isGoogleConnected;
+		mIsGoogleConnected = isGoogleConnected;
 	}
 
-	@Override
-	public void onConnectionFailed(ConnectionResult result) {
-		LogUtils.d("onConnecton failed-------------");
-		if (result == null) {
-			LogUtils.d("----------------");
-		} else {
-			LogUtils.d("=============");
-		}
-		mConnectionResult = result;
-	}
-
-	@Override
-	public void onConnected(Bundle arg0) {
-		if (isGoogleConnected) {
-			isGoogleConnected = false;
-			final String accountName = Plus.AccountApi.getAccountName(mApiClient);
-			Person person = Plus.PeopleApi.getCurrentPerson(mApiClient);
-			final String nickname = person.getDisplayName();
-			final String id = person.getId();
-//			final String nickname = person.getNickname();
-			LogUtils.d("id= "+id+",accountName= "+accountName+",displayname= "+nickname);
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						String token = GoogleAuthUtil.getToken(mActivity, accountName, "audience:server:client_id:"+AppUtils.getMetaDataValue(mActivity, "google_client_id"));//775358139434-v3h256aimo98rno1colkjevmqo6966kp.apps.googleusercontent.com");
-						LogUtils.d("token= "+token);
-	//					checkGoogleLogin(id,token);
-						Bundle bundle = new Bundle();
-						bundle.putString("id", id);
-						bundle.putString("token", token);
-						bundle.putString("nickname", nickname);
-						Message msg = new Message();
-						msg.what = 1;
-						msg.setData(bundle);
-						mHandler.sendMessage(msg);
-					} catch (Exception e) {
-						LogUtils.d("Exception= "+e.getMessage());
-					}
-				}
-			}).start();
-		}
-	}
-
-	@Override
-	public void onConnectionSuspended(int arg0) {
-		mApiClient.connect();
-	}
 }

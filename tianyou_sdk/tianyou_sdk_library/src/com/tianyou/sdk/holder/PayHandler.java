@@ -136,7 +136,7 @@ public class PayHandler {
     //余额不足
     private void showWalletTip() {
         AlertDialog.Builder builder = new Builder(mActivity);
-        builder.setMessage(ConfigHolder.isOverseas?"The balance of the currency is not enough,whether top-up?":"天游币余额不足，是否给天游币充值?");  
+        builder.setMessage(ConfigHolder.isOverseas?"The balance of the currency is not enough,whether payment?":"天游币余额不足，是否给天游币充值?");  
         builder.setTitle(ConfigHolder.isOverseas?"Prompt":"提示");
         builder.setPositiveButton(ConfigHolder.isOverseas?"Confirm":"确认", new OnClickListener() {
             @Override
@@ -162,7 +162,7 @@ public class PayHandler {
     
     // 获取金额对应的货币值
     public String getCurrencyValue(int money) {
-        return money * mPayInfo.getScale() + mPayInfo.getCurrency();
+        return money * mPayInfo.getScale() + " " + mPayInfo.getCurrency();
     }
     
     private String mPayWayCode = "WXPAY";
@@ -296,7 +296,7 @@ public class PayHandler {
     
     // 查询订单
     public void doQueryOrder() {
-        AppUtils.showProgressDialog(mActivity, "查询订单", "正在查询订单，请稍后...", new DialogCallback() {
+        AppUtils.showProgressDialog(mActivity, ConfigHolder.isOverseas?"Query order":"查询订单", ConfigHolder.isOverseas?"The order is being queried, please wait...":"正在查询订单，请稍后...", new DialogCallback() {
             public void onDismiss() {
             	Map<String, String> checkParam = new HashMap<String, String>();
                 checkParam.put("orderid", mPayInfo.getOrderId());

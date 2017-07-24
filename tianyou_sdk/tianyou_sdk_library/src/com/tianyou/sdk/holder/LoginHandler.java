@@ -88,7 +88,7 @@ public class LoginHandler {
 			
 			@Override
 			public void onFailed() {
-				ToastUtils.show(mActivity, "网络连接失败，请检查网络~");
+				ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Network connection failure,please check":"网络连接失败，请检查网络~");
 				ProgressHandler.getInstance().closeProgressDialog();
 			}
 		});

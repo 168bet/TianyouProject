@@ -17,7 +17,7 @@
             android:id="@+id/edit_alert_password"
             android:singleLine="true"
             android:inputType="textPassword"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:maxLength="16"
             android:hint="@string/ty_user_register_hint2" />
 
@@ -32,7 +32,7 @@
             style="@style/style_edit_common"
             android:id="@+id/edit_alert_again"
             android:inputType="textPassword"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:maxLength="16"
             android:hint="@string/ty_alert_pw_new_hint" />
     </LinearLayout>

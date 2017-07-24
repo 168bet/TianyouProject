@@ -6,7 +6,10 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Typeface;
+import android.text.Html;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -102,6 +105,8 @@ public class AlertPasswordFragment extends BaseFragment {
 			mContentView.findViewById(ResUtils.getResById(mActivity, "text_alert_forget", "id")).setOnClickListener(this);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "text_alert_confirm", "id")).setOnClickListener(this);
 			mEditAccountPass.setOnClickListener(this);
+			mEditAccountPass.setTypeface(Typeface.DEFAULT);
+			mEditAccountPass.setTransformationMethod(new PasswordTransformationMethod());
 			mImgSwitch.setOnClickListener(this);
 			break;
 		case ALERT_TYPE_NEW:
@@ -124,6 +129,12 @@ public class AlertPasswordFragment extends BaseFragment {
 		case ALERT_TYPE_PHONE_1:
 			mTextPhone.setText(mBindPhone.substring(0, 3) + "****" + mBindPhone.substring(7, 11));
 			break;
+//		case ALERT_TYPE_ACCOUNT:
+//			SpannableString ss = new SpannableString("我是测试 hint");//定义hint的值
+//	        AbsoluteSizeSpan ass = new AbsoluteSizeSpan(15,true);//设置字体大小 true表示单位是sp
+//	        ss.setSpan(ass, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//	        mEditAccountPass.setHint(new SpannedString(ss));
+//			break;
 		default:
 			break;
 		}
@@ -198,7 +209,7 @@ public class AlertPasswordFragment extends BaseFragment {
 		} else if (password.length() < 6 || password.length() > 16) {
 			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Length error":"密码长度错误");
 		} else if (!again.equals(password)) {
-			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The input password is inconsisten":"两次输入密码不一致");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"The input password is inconformity":"两次输入密码不一致");
 		} else {
 			postAlertPassword(password);
 		}

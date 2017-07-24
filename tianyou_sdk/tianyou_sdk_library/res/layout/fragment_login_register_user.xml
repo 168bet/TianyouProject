@@ -13,7 +13,7 @@
         <EditText
             android:id="@+id/edit_register_username"
             style="@style/style_edit_common"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:hint="@string/ty_user_register_hint1"
             android:maxLength="16"
             android:focusableInTouchMode="true"
@@ -30,7 +30,7 @@
             android:id="@+id/edit_register_code"
             style="@style/style_edit_common"
             android:layout_width="match_parent"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+            android:digits="@string/string_verify"
             android:hint="@string/ty_user_register_hint2"
             android:inputType="textPassword"
             android:maxLength="16"
@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/ty_user_register_hint3"
-                 android:digits="abcdefghijklmnopqrstuvwxyz0123456789"
+                 android:digits="@string/string_verify"
                 android:maxLength="4"
                 android:singleLine="true" >
 

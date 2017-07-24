@@ -42,7 +42,7 @@
     <string name="ty_google_login">Sign in</string>
     <string name="ty_qq_login">Login by the QQ account</string>
     <string name="ty_agree_server">Register and agree the Tianyou service</string>
-    <string name="ty_account">Account:</string>
+    <string name="ty_account">Account: </string>
     <string name="ty_username">User name</string>
     <string name="ty_letter_number">6-16 letters,numbers</string>
     <string name="ty_little_char">6-20 characters</string>
@@ -67,10 +67,10 @@
     <string name="ty_quick_get_help">Get help quickly</string>
     <string name="ty_back_game">Return the game</string>
     <string name="ty_sorry_pay_fail">Sorry,filaed to pay</string>
-    <string name="ty_otner_money">Other amount</string>
-    <string name="ty_money">Amount:</string>
+    <string name="ty_otner_money">Others</string>
+    <string name="ty_money">Amount: </string>
     <string name="ty_immediately_pay">Immedicate payment</string>
-    <string name="ty_tianyou_balance">Balance coins:</string>
+    <string name="ty_tianyou_balance">Balance coins: </string>
     <string name="ty_pay_way">The way of payment</string>
     <string name="ty_switch_pay_way">Switch the way of payment</string>
     
@@ -123,10 +123,10 @@
 	
     <string name="ty_money_sign">$</string>
     <string name="ty_account_login2">Login account</string>
-    <string name="ty_server">service:</string>
-    <string name="ty_scale">scale:</string>
-    <string name="ty_get">get</string>
-    <string name="ty_confirm_delete">confirm delete</string>
+    <string name="ty_server">service: </string>
+    <string name="ty_scale">scale: </string>
+    <string name="ty_get">get </string>
+    <string name="ty_confirm_delete">confirm delete </string>
     <string name="ty_confirm">confirm</string>
     <string name="ty_confirm_cancel">cancel</string>
     
@@ -167,6 +167,6 @@
     <string name="ty_security">Security Settings</string>
     <string name="ty_unset">Unset</string>
     <string name="ty_center_modify">Modity password</string>
-    <string name="ty_popup_personal_center"> </string>
+    <string name="ty_popup_personal_center">User center</string>
     <string name="ty_dialog_loading">Loading...</string>
 </resources>

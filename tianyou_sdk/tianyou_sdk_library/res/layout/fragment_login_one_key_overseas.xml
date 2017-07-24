@@ -4,7 +4,93 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <LinearLayout
+   
+    
+     <LinearLayout
+        android:id="@+id/layout_one_key_quicklogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_btn_height"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_btn_green_fill"
+        android:gravity="center"
+        android:padding="@dimen/layout_space_small" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:text="@string/ty_quick_register"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+    
+	 <LinearLayout
+        android:id="@+id/layout_one_key_simulate_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_btn_height"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_415dae_fill"
+        android:padding="@dimen/layout_space_small" >
+		<ImageView 
+		    android:src="@drawable/ty_facebook"
+		    android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:text="Log in with Facebook"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+    
+     <com.facebook.login.widget.LoginButton
+         android:id="@+id/btn_facebook_login"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/notify_btn_height"
+         android:layout_marginTop="@dimen/layout_space_small"
+         android:padding="@dimen/layout_space_small"
+         android:textSize="@dimen/text_size_common"
+         android:visibility="gone"
+          />
+	<!-- 
+
+	  <Button
+	         android:id="@+id/btn_google_login"
+	         android:layout_width="match_parent"
+	         android:layout_height="@dimen/notify_btn_height"
+	         android:layout_marginTop="@dimen/layout_space_small"
+	         android:background="@drawable/shape_bg_32adff_fill"
+	         android:padding="@dimen/layout_space_small"
+	         android:text="SIGN IN"
+	         android:textColor="@color/color_white"
+	         android:textSize="@dimen/text_size_common" />
+	 -->
+  	<LinearLayout
+        android:id="@+id/btn_google_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notify_btn_height"
+        android:layout_marginTop="@dimen/layout_space_small"
+        android:background="@drawable/shape_bg_415dae_fill"
+        android:gravity="center"
+        android:padding="@dimen/layout_space_small" >
+		<ImageView 
+		    android:src="@drawable/ty_google"
+		    android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_space_small"
+            android:text="SIGN IN"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_common" />
+    </LinearLayout>
+    
+     <LinearLayout
         android:id="@+id/layout_one_key_tourist"
         android:layout_width="match_parent"
         android:layout_height="@dimen/notify_btn_height"
@@ -22,45 +108,6 @@
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_size_common" />
     </LinearLayout>
-    
-     <LinearLayout
-        android:id="@+id/layout_one_key_quicklogin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/notify_btn_height"
-        android:layout_marginTop="@dimen/layout_space_small"
-        android:background="@drawable/shape_bg_ff9832_fill"
-        android:gravity="center"
-        android:padding="@dimen/layout_space_small" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_space_small"
-            android:text="@string/ty_quick_register"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/text_size_common" />
-    </LinearLayout>
-
-    
-     <com.facebook.login.widget.LoginButton
-         android:id="@+id/btn_facebook_login"
-         android:layout_width="match_parent"
-         android:layout_height="@dimen/notify_btn_height"
-         android:layout_marginTop="@dimen/layout_space_small"
-         android:padding="@dimen/layout_space_small"
-         android:textSize="@dimen/text_size_common"
-         android:visibility="visible" />
-
-    <Button
-         android:id="@+id/btn_google_login"
-         android:layout_width="match_parent"
-         android:layout_height="@dimen/notify_btn_height"
-         android:layout_marginTop="@dimen/layout_space_small"
-         android:background="@drawable/ty_login_way_4"
-         android:padding="@dimen/layout_space_small"
-         android:text="@string/ty_google_login"
-         android:textColor="@color/color_gray_1"
-         android:textSize="@dimen/text_size_common" />
 
     <RelativeLayout
         android:layout_width="match_parent"

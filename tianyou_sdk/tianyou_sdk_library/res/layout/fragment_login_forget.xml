@@ -24,7 +24,7 @@
             android:textColorHint="@color/color_gray_1"
             android:textSize="@dimen/text_size_small" 
             android:singleLine="true"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789"/>
+            android:digits="@string/string_verify"/>
 
         <!-- <ImageView
             android:id="@+id/img_forget_switch"

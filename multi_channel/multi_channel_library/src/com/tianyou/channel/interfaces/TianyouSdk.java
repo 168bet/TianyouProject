@@ -76,6 +76,7 @@ public class TianyouSdk {
 				}
 				LogUtils.d("className:" + className);
 				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();
+				sdkService = (BaseSdkService) Class.forName("com.multi.channel.ChannelService").newInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
 				ToastUtils.show(context, "渠道类没有找到");

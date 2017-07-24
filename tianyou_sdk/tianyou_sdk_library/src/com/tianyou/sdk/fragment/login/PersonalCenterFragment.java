@@ -50,6 +50,7 @@ public class PersonalCenterFragment extends BaseFragment {
 		if(ConfigHolder.isOverseas){
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_identifi", "id")).setVisibility(View.GONE);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_center_setting", "id")).setVisibility(View.GONE);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "logincenter_line3", "id")).setVisibility(View.GONE);
 		}
 	}
 

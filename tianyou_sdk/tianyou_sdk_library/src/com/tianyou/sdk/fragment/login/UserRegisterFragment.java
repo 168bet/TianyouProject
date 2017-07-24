@@ -103,15 +103,15 @@ public class UserRegisterFragment extends BaseFragment {
 		String editText1 = mEditText1.getText().toString();
 		String editText2 = mEditText2.getText().toString();
 		if (editText0.isEmpty()) {
-			ToastUtils.show(mActivity, "账号不能为空");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Account connot be empty":"账号不能为空");
 		} else if (editText1.isEmpty()) {
-			ToastUtils.show(mActivity, "密码不能为空");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Password connot be empty":"密码不能为空");
 		} else if (editText2.isEmpty()) {
-			ToastUtils.show(mActivity, "验证码不能为空");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Verification code connot be empty":"验证码不能为空");
 		} else if (editText0.length() < 6 || editText0.length() > 16) {
-			ToastUtils.show(mActivity, "账号长度错误");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Account length error":"账号长度错误");
 		} else if (editText1.length() < 6 || editText1.length() > 16) {
-			ToastUtils.show(mActivity, "密码长度错误");
+			ToastUtils.show(mActivity, ConfigHolder.isOverseas?"Password length error":"密码长度错误");
 		} else {
 			Map<String,String> map = new HashMap<String, String>();
 			map.put("username", editText0);
