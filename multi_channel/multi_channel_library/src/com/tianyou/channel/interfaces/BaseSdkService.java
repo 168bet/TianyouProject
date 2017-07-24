@@ -292,26 +292,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
-<<<<<<< HEAD
-=======
 				LogUtils.d("into:checkOrder onSuccess");
-//				try {
-//					JSONObject jsonObject = new JSONObject(data);
-//					JSONObject result = jsonObject.getJSONObject("result");
-//					String code = result.getString("code");
-//					String msg = result.getString("msg");
-//					LogUtils.d("checkOrder_result"+result.toString());
-//					if ("200".equals(code)) {
-//						doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, msg);
-//					} else {
-//						ToastUtils.show(mActivity, msg);
-//						doNoticeGame(TianyouCallback.CODE_PAY_FAILED, msg);
-//					}
-//				} catch (JSONException e) {
-//					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
-//					e.printStackTrace();
-//				}
->>>>>>> f7b3d0d1f30f3617c1fef70627441d1c525a8008
 				CheckOrder checkOrder = new Gson().fromJson(data, CheckOrder.class);
 				com.tianyou.channel.bean.CheckOrder.ResultBean result = checkOrder.getResult();
 				if (result.getCode().equals("200")) {
@@ -319,8 +300,6 @@ public class BaseSdkService implements SdkServiceInterface {
 					doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, result.getMsg());
 				} else {
 					LogUtils.d("base pay failed");
-//					ToastUtils.show(mActivity, result.getMsg());
-//					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, result.getMsg());
 				}
 			}
 			
@@ -419,9 +398,5 @@ public class BaseSdkService implements SdkServiceInterface {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void doSaveInstanceState(Bundle outState) { }
-=======
-	public void doSaveInstanceState(Bundle outState) {}
->>>>>>> f7b3d0d1f30f3617c1fef70627441d1c525a8008
 }
