@@ -9,6 +9,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 
 /**
  * 多渠道接口
@@ -136,6 +137,9 @@ public interface SdkServiceInterface {
 	void doExitGame();
 
 	// ------------------------ 生命周期方法 ------------------------ */
+	
+	void doSaveInstanceState(Bundle outState);
+	
 	/**
 	 * 加载onResume方法
 	 */

@@ -36,8 +36,10 @@ public class TianyouSdk {
 					className = "XiaoMiSdkService";
 				} else if ("ty003".equals(channelInfo.getChannelId())) {
 					className = "QihooSdkService"; 
-				} else if ("ty004".equals(channelInfo.getChannelId())){
+				} else if ("ty004".equals(channelInfo.getChannelId())) {
 					className = "VivoSdkService"; 
+				} else if ("ty008".equals(channelInfo.getChannelId()) || "ty076".equals(channelInfo.getChannelId())) {
+					className = "OppoSdkService";
 				} else if ("ty009".equals(channelInfo.getChannelId())) {
 					className = "JinliSdkService";
 				} else if ("ty069".equals(channelInfo.getChannelId())) {
@@ -51,18 +53,26 @@ public class TianyouSdk {
 					className = "LeshiSdkService";
 				} else if ("ty025".equals(channelInfo.getChannelId())) {
 					className = "M4399SdkService";
+				} else if ("ty052".equals(channelInfo.getChannelId())) {
+					className = "YijieSdkService";
 				} else if ("ty066".equals(channelInfo.getChannelId())) {
 					className = "HanfengService";
 				} else if ("ty067".equals(channelInfo.getChannelId())) {
 					className = "LeyouSdkService";
+				} else if ("ty068".equals(channelInfo.getChannelId())) {
+					className = "QuickSdkService";
 				} else if ("ty069".equals(channelInfo.getChannelId())) {
 					className = "LeshiSpecialSdkService";
 				} else if ("ty073".equals(channelInfo.getChannelId())) {
 					className = "SamsungSdkService";
+				} else if ("ty081".equals(channelInfo.getChannelId())) {
+					className = "KuaifaSdkSerivce";
 				} else if ("bm105".equals(channelInfo.getChannelId())) {
 					className = "YilingSdkService";
 				} else if ("bm106".equals(channelInfo.getChannelId())) {
 					className = "KakaoSdkService";
+				} else if ("bm107".equals(channelInfo.getChannelId())) {
+					className = "KakaoGoogleSdkService";
 				}
 				LogUtils.d("className:" + className);
 				sdkService = (BaseSdkService) Class.forName("com.multi.channel." + className).newInstance();
