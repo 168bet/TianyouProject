@@ -5,7 +5,7 @@
 
     <!-- Kakao Game SDK OS Version START -->
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="15"
         android:targetSdkVersion="25" />
     <!-- Kakao Game SDK OS Version END -->
 
@@ -28,7 +28,24 @@
     <uses-permission android:name="com.kakaogame.sample.permission.C2D_MESSAGE" />
     <!-- Android Push Permissions END -->
 
+	<!-- pgp permission start -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	        
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	    
+	<uses-feature android:name="android.hardware.camera" />
+	<!-- pgp permission end -->
+
     <application>
+        
+        <!-- one store -->
+        <meta-data
+            android:name="iap:api_version"
+            android:value="4" />
 
         <!-- Kakao Game Sample Activity START -->
         <!-- <activity
@@ -184,8 +201,26 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <!-- Kakao GameShop End -->
+        
+        <!-- pgp start --> 
+        <activity android:name="com.panggame.pgmp2sdk.Activity.CSCenterAcitivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.Panel" />
+        
+        <activity android:name="com.panggame.pgmp2sdk.Activity.FirstAgreeActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name="com.panggame.pgmp2sdk.Activity.WebSiteActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name="com.panggame.pgmp2sdk.Activity.PopupListActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name="com.panggame.pgmp2sdk.Activity.LoginAfterNoticeActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+ 
+        <!-- [Android M Permission Check][start]   -->    
+        <activity android:name="com.panggame.pgmp2sdk.MAppPermission.AppPermissionCheckActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.Panel" />
+ 		 <!-- [Android M Permission Check][end] -->
+
+        <!-- [naver-cafe-SDK][start] 네이버카페SDK 사용하기 위해서 넣어줘야하는 부분  -->
+        <activity android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity" android:configChanges="orientation|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity" android:configChanges="orientation|screenSize" android:label="OAuth2.0 In-app" />
+        <activity android:name="com.naver.glink.android.sdk.ui.VideoPlayActivity" android:screenOrientation="sensorLandscape" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity android:name="com.naver.glink.android.sdk.login.neoid.NeoIdInAppBrowserActivity" android:configChanges="keyboardHidden|screenSize|orientation" android:label="NeoId In-app" android:screenOrientation="sensor" />
+    	<!-- pgp end -->
     </application>
 
 </manifest>

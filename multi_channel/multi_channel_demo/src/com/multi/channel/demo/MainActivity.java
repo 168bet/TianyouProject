@@ -36,7 +36,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		mTianyouSdk.doActivityInit(mActivity, mTianyouCallback);
 		LogUtils.d("平台名称：" + TianyouSdk.getChannelName(this));
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		mTianyouSdk.doSaveInstanceState(outState);
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -109,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("pay_code_0");
+		payParam.setPayCode("2016001");
 		payParam.setCustomInfo("");
 		payParam.setAmount("1");
 		return payParam;

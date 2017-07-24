@@ -2,13 +2,7 @@
 //
 //import java.util.ArrayList;
 //
-//import com.baidu.bdgame.sdk.obf.el;
-//import com.baidu.bdgame.sdk.obf.nu;
-//import com.tianyou.channel.utils.LogUtils;
-//import com.tianyou.channel.utils.ResUtils;
-//
 //import android.Manifest;
-//import android.R.integer;
 //import android.app.Activity;
 //import android.app.AlertDialog;
 //import android.content.Intent;
@@ -17,7 +11,6 @@
 //import android.net.Uri;
 //import android.os.Build;
 //import android.os.Bundle;
-//import android.os.Handler;
 //import android.provider.Settings;
 //import android.support.annotation.NonNull;
 //import android.support.v4.app.ActivityCompat;
@@ -25,9 +18,12 @@
 //import android.support.v4.content.ContextCompat;
 //import android.util.Log;
 //import android.view.View;
+//import android.view.View.OnClickListener;
 //import android.view.Window;
 //import android.view.WindowManager;
-//import android.view.View.OnClickListener;
+//
+//import com.tianyou.channel.utils.LogUtils;
+//import com.tianyou.channel.utils.ResUtils;
 //
 //public class SplashActivity extends Activity implements OnRequestPermissionsResultCallback{
 //	private Activity mActivity;

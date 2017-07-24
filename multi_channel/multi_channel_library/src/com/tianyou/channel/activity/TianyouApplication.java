@@ -1,12 +1,10 @@
-package com.tianyou.channel.activity;
-
-import android.app.Application;
-
-public class TianyouApplication extends 
+//package com.tianyou.channel.activity;
 //
-Application{ }		// 正常的Application
+//import android.app.Application;
 //
-////SFOnlineApplication {}	// 易接的Application
-//
-////QuickSdkApplication{}		// Quick的Application
-//
+////public class TianyouApplication extends Application{ }		// 正常的Application
+//////
+////////SFOnlineApplication {}	// 易接的Application
+//////
+////////QuickSdkApplication{}		// Quick的Application
+//////
