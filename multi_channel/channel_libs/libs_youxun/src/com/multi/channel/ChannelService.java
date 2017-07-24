@@ -79,11 +79,22 @@ public class ChannelService extends BaseSdkService {
 			YouxunProxy.startLogin(mActivity);
 		}
 	}
+	
+	@Override
+	public void doUpdateRoleInfo(RoleInfo roleInfo) {
+		super.doUpdateRoleInfo(roleInfo);
+		YouxunProxy.uploadRole(mActivity, roleInfo.getServerId(), roleInfo.getRoleName(), 
+				roleInfo.getRoleLevel(), roleInfo.getCreateTime(), roleInfo.getRoleId(), roleInfo.getServerName());
+	}
 
 	@Override
 	public void doExitGame() {
-		super.doExitGame();
 		YouxunProxy.exitLogin(mActivity);
+	}
+	
+	@Override
+	public boolean isShowExitGame() {
+		return !super.isShowExitGame();
 	}
 
 	@Override

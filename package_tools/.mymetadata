@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="TianYouPackTools"
+  name="package_tools"
   id="myeclipse.1468921983673"
   context-root="/packing"
   j2ee-spec="5.0"
-  archive="TianYouPackTools.war">
+  archive="package_tools.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>

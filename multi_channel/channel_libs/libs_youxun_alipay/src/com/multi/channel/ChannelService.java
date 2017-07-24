@@ -107,10 +107,19 @@ public class ChannelService extends BaseSdkService {
 		super.doChannelPay(payInfo, orderInfo);
 		YouxunProxy.startPay(mActivity, orderInfo.getProduct_name(), orderInfo.getMoNey(),   orderInfo.getOrderID(), orderInfo.getServerID());
 	}
-
+	@Override
+	public void doUpdateRoleInfo(RoleInfo roleInfo) {
+		super.doUpdateRoleInfo(roleInfo);
+		YouxunProxy.uploadRole(mActivity, roleInfo.getServerId(), roleInfo.getRoleName(), 
+				roleInfo.getRoleLevel(), roleInfo.getCreateTime(), roleInfo.getRoleId(), roleInfo.getServerName());
+	}
 	@Override
 	public void doExitGame() {
-		super.doExitGame();
 		YouxunProxy.exitLogin(mActivity);
+	}
+	
+	@Override
+	public boolean isShowExitGame() {
+		return !super.isShowExitGame();
 	}
 }

@@ -5,7 +5,7 @@
   id="myeclipse.1406087975757"
   context-root="/unplat"
   j2ee-spec="6.0"
-  archive="K3KConsole.war">
+  archive="k3kconsole.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>

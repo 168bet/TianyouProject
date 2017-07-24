@@ -11,6 +11,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
@@ -235,23 +236,6 @@ public class BaseSdkService implements SdkServiceInterface {
 		HttpUtils.post(mActivity, url, param, new HttpCallback() {
 			@Override
 			public void onSuccess(String data) {
-				LogUtils.d("into:checkOrder onSuccess");
-				try {
-					JSONObject jsonObject = new JSONObject(data);
-					JSONObject result = jsonObject.getJSONObject("result");
-					String code = result.getString("code");
-					String msg = result.getString("msg");
-					LogUtils.d("checkOrder_result"+result.toString());
-					if ("200".equals(code)) {
-						doNoticeGame(TianyouCallback.CODE_PAY_SUCCESS, msg);
-					} else {
-						ToastUtils.show(mActivity, msg);
-						doNoticeGame(TianyouCallback.CODE_PAY_FAILED, msg);
-					}
-				} catch (JSONException e) {
-					doNoticeGame(TianyouCallback.CODE_PAY_FAILED, "");
-					e.printStackTrace();
-				}
 				CheckOrder checkOrder = new Gson().fromJson(data, CheckOrder.class);
 				com.tianyou.channel.bean.CheckOrder.ResultBean result = checkOrder.getResult();
 				if (result.getCode().equals("200")) {
@@ -356,4 +340,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		
 		void onSuccess(); 
 	}
+
+	@Override
+	public void doSaveInstanceState(Bundle outState) { }
 }

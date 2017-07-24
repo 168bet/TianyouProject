@@ -9,6 +9,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 
 /**
  * 多渠道接口
@@ -72,6 +73,11 @@ public interface SdkServiceInterface {
 	 * 客户服务
 	 */
 	void doCustomerService();
+	
+	/**
+	 * 客户服务
+	 */
+	void doSaveInstanceState(Bundle outState);
 	
 	/**
 	 * 上传角色信息

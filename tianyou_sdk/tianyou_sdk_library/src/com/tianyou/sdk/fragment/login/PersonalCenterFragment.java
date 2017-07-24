@@ -71,8 +71,9 @@ public class PersonalCenterFragment extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == ResUtils.getResById(mActivity, "text_center_logout", "id")) {
+			mActivity.finish();
 			mLoginHandler.doLogout();
-			mActivity.switchFragment(new AccountFragment());
+//			mActivity.switchFragment(new AccountFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_center_upgrade", "id")) {
 			mActivity.switchFragment(new UpgradeFragment());
 		} else if (v.getId() == ResUtils.getResById(mActivity, "text_center_alert", "id")) {

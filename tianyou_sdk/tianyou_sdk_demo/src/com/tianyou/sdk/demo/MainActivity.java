@@ -10,6 +10,7 @@ import com.tianyou.sdk.utils.ToastUtils;
 import com.tianyouxi.lszg.bm2.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;

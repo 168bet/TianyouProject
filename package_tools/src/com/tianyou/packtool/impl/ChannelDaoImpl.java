@@ -20,6 +20,7 @@ import com.tianyou.packtool.util.DbcpUtils;
 public class ChannelDaoImpl implements ChannelDao {
 
 	private QueryRunner qr = new QueryRunner(DbcpUtils.getDataSource());
+	
 	@Override
 	public int addChannel(Channel channel) {
 		int resule = 0;
