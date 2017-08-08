@@ -377,6 +377,9 @@ public class BaseSdkService implements SdkServiceInterface {
 	@Override
 	public void doVerifiedInfo() { LogUtils.d("调用实名认证防沉迷接口..."); }
 	
+	@Override
+	public void doSaveInstanceState(Bundle outState) { }
+	
 	//是否显示游戏的退出界面：true是显示，false不显示，默认不显示游戏的退出界面
 	@Override
 	public boolean isShowExitGame() { return false; }
@@ -386,17 +389,8 @@ public class BaseSdkService implements SdkServiceInterface {
 	public boolean isShowLogout() { return false; }
 	
 	//登陆成功回调接口
-	public interface LoginCallback {
-		
-		void onSuccess(); 
-	}
+	public interface LoginCallback { void onSuccess(); }
 	
 	//登陆成功回调接口
-	public interface PayCallback {
-		
-		void onSuccess(); 
-	}
-
-	@Override
-	public void doSaveInstanceState(Bundle outState) { }
+	public interface PayCallback { void onSuccess(); }
 }

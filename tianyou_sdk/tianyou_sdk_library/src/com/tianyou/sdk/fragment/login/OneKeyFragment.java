@@ -28,9 +28,9 @@ public class OneKeyFragment extends BaseFragment {
 		((LoginActivity)mActivity).setBgHeight(true);
 		mActivity.setFragmentTitle(ResUtils.getString(mActivity, "ty_one_key_login"));
 		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_tourist", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_simulate_facebook", "id")).setOnClickListener(this);
-		mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_account", "id")).setOnClickListener(this);
 		if(ConfigHolder.isOverseas) {
+			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_simulate_facebook", "id")).setOnClickListener(this);
+			mContentView.findViewById(ResUtils.getResById(mActivity, "text_one_key_account", "id")).setOnClickListener(this);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "layout_one_key_quicklogin", "id")).setOnClickListener(this);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_facebook_login", "id")).setOnClickListener(this);
 			mContentView.findViewById(ResUtils.getResById(mActivity, "btn_google_login", "id")).setOnClickListener(this);
