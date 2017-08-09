@@ -172,6 +172,8 @@ public interface SdkServiceInterface {
 	 */
 	void doDestory();
 	
+	void doSaveInstanceState(Bundle outState);
+	
 	/**
 	 * doActivityResult
 	 * @param requestCode

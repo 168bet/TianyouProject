@@ -580,6 +580,12 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGKakaoInvitationEvent>> kgResult) {
 				if (kgResult.isSuccess()) {
 					List<KGKakaoInvitationEvent> invitationEventList = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(invitationEventList);
+					jsonObject.put("code", "loadInvitationEvents");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 					for (KGKakaoInvitationEvent invitationEvent : invitationEventList) {
 						int eventId = invitationEvent.getEventId();
 						boolean isEventCardEnabled = invitationEvent.isEventCardEnabled();
@@ -608,6 +614,10 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<KGKakaoInvitationHost> kgResult) {
 				if (kgResult.isSuccess()) {
 					KGKakaoInvitationHost invitationHost = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadInvitationHost");
+					jsonObject.put("result", invitationHost.toJSONString());
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 					if (invitationHost != null) {
 						KGPlayer player = invitationHost.getPlayer();
 						int totalJoinerCount = invitationHost.getTotalJoinerCount();
@@ -631,6 +641,12 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGKakaoInvitationJoiner>> kgResult) {
 				if (kgResult.isSuccess()) {
 					List<KGKakaoInvitationJoiner> invitationJoinerList = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(invitationJoinerList);
+					jsonObject.put("code", "loadInvitationJoiners");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 					for (KGKakaoInvitationJoiner invitationJoiner : invitationJoinerList) {
 						KGPlayer player = invitationJoiner.getPlayer();
 						int hostRewardCode = invitationJoiner.getHostRewardCode();
@@ -659,6 +675,12 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGPlayer>> kgResult) {
 				if (kgResult.isSuccess()) {
 					List<KGPlayer> friendList = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendList);
+					jsonObject.put("code", "kakaoTalkLoadFriendPlayers");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 					LogUtils.d("kakaotalkfriendlist.size= "+friendList.size());
 				} else {
 					
