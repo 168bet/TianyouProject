@@ -25,6 +25,8 @@ public interface TianyouCallback {
 	public static final int CODE_VERIFIEDINFO_SUCCESS = 10;
 	public static final int CODE_VERIFIEDINFO_FAILED = 11;
 	
+	public static final int CODE_KAKAO_RESULT = 12;
+	
 	/**
 	 * sdk操作成功回调
 	 * @param code

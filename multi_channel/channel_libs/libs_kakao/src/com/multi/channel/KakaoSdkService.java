@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -196,6 +199,11 @@ public class KakaoSdkService extends BaseSdkService {
 					LogUtils.d("google login kgResult.isSuccess= "+kgResult.isSuccess());
 					String message = kgResult.getMessage();
 					LogUtils.d("google login kgResult message= "+message);
+					JSONObject kgResultObject = new JSONObject();
+					String kgResultString = kgResult.toJSONString();
+					kgResultObject.put("code", "googleLogin");
+					kgResultObject.put("result", kgResultString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, kgResultObject.toJSONString());
 				}
 			});
 		}
@@ -211,6 +219,10 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<Void> kgResult) {
 				LogUtils.d("google logout kgResult.isSuccess= "+kgResult.isSuccess());
 				LogUtils.d("google logout kgResult message= "+kgResult.getMessage());
+				JSONObject kgResultObject = new JSONObject();
+				kgResultObject.put("code", "googleLogout");
+				kgResultObject.put("result", kgResult.toJSONString());
+				mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, kgResultObject.toJSONString());
 			}
 		});
 	}
@@ -253,6 +265,7 @@ public class KakaoSdkService extends BaseSdkService {
 	/**
 	 * 显示成就屏幕
 	 */
+	@Override
 	public void doGoogleAchieveActivity() {
 		super.doGoogleAchieveActivity();
 		KGGoogleGamesAchievements.showAchievementView(mActivity);
@@ -414,6 +427,10 @@ public class KakaoSdkService extends BaseSdkService {
 		KGLocalPlayer currentPlayer = KGLocalPlayer.getCurrentPlayer();
 		String playerId = currentPlayer.getPlayerId();
 		LogUtils.d("getCurrentPlayerID palyerID= "+playerId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("code", "currentPlayerData");
+		jsonObject.put("result", currentPlayer.toJSONString());
+		mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 	}
 	
 	/**
@@ -426,6 +443,10 @@ public class KakaoSdkService extends BaseSdkService {
 				if (kgResult.isSuccess()) {		// 更新成功
 					KGIdpProfile newIdpProfile = KGLocalPlayer.getCurrentPlayer().getIdpProfile();
 					LogUtils.d("refreshLocalIdpProfile.success= "+newIdpProfile.toJSONString());
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "refreshLocalIdpProfile");
+					jsonObject.put("result", newIdpProfile.toJSONString());
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				} else {
 					LogUtils.e("refreshLocalIdpProfile.failed");
 				}
@@ -444,11 +465,13 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGPlayer>> result) {
 				if (result.isSuccess()) {
 					List<KGPlayer> friendPlayers = result.getContent();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendPlayers);
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadFriendPlayers");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 					LogUtils.d("friendPlayers.size= "+friendPlayers.size());
-					for (KGPlayer kgPlayer : friendPlayers) {
-						KGIdpProfile idpProfile = kgPlayer.getIdpProfile();
-						LogUtils.d("idProfile= "+idpProfile+"\n");
-					}
 				} else { LogUtils.d("load friendplayers failed");}
 			}
 		});
@@ -468,7 +491,12 @@ public class KakaoSdkService extends BaseSdkService {
 					KGKakaoFriendsResponse response = kgResult.getContent();
 					int totalCount = response.getTotalCount();
 					List<KGKakaoProfile> friendList = response.getFriendList();
-					LogUtils.d("invitablefriendprofileslist.size= "+friendList.size());
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendList);
+					jsonObject.put("code", "loadInvitableFriendProfiles");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				} else {LogUtils.d("查询kakao talk邀请对象列表失败");}
 			}
 		});
@@ -487,6 +515,12 @@ public class KakaoSdkService extends BaseSdkService {
 					int totalCount = response.getTotalCount();
 					List<KGKakaoProfile> friendList = response.getFriendList();
 					LogUtils.d("recommendedinvitablefriendprofiles.size= "+friendList.size());
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendList);
+					jsonObject.put("code", "loadRecommendedInvitableFriendProfiles");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				} else { LogUtils.d("查找kakao talk推荐邀请对象列表失败");}
 			}
 		});

@@ -75,11 +75,6 @@ public interface SdkServiceInterface {
 	void doCustomerService();
 	
 	/**
-	 * 客户服务
-	 */
-	void doSaveInstanceState(Bundle outState);
-	
-	/**
 	 * 上传角色信息
 	 */
 	void doUploadRoleInfo(RoleInfo roleInfo);
