@@ -46,12 +46,13 @@ public class BaseSdkService implements SdkServiceInterface {
 	protected RoleInfo mRoleInfo;					//游戏角色相关参数
 	protected LoginInfo mLoginInfo;					//用户登录相关参数
 	protected ChannelInfo mChannelInfo;				//渠道信息相关参数
-	
+	protected Map<String, String> mChannelMap;				//渠道信息相关参数
 	
 	@Override
 	public void doApplicationCreate(Context context, boolean island) {
 		LogUtils.d("调用doApplicationCreate接口");
 		mChannelInfo = ConfigHolder.getChannelInfo(context);
+		mChannelMap = ConfigHolder.getChannelMap(context);
 	}
 
 	@Override

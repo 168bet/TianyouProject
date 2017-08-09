@@ -13,7 +13,7 @@ public class URLHolder {
 	public static String CHECK_LOGIN_URL_QIHOO = URL_BASE + "?c=login&a=UserCheck";
 	//创建订单地址
 	public static String CREATE_ORDER_URL = "?c=Order&a=CreatOrder";
-	//校验订单地址
+	//校验订单地址  
 	public static String CHECK_ORDER_URL = "?c=Order&a=SendOrder";
 	//one store查单
 	public static String URL_ONE_STORE = "?c=OneStore&a=GetPayInfo";

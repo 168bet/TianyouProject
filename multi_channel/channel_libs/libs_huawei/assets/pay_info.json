@@ -1,25 +1,53 @@
 {
     "payinfo": [
         {
-            "id": "tyxmulti_qihoo_01",
-            "money": "8",
-            "product_id": "tyxmulti_qihoo_02",
-            "product_name": "80钻石",
-            "product_desc": "购买此商品获得80钻石"
+            "id": "pay_code_0",
+            "money": "6",
+            "product_id": "com.xianxiachuanqi.6",
+            "product_name": "60元宝",
+            "product_desc": "获得60元宝"
         },
         {
-            "id": "tyxmulti_qihoo_02",
-            "money": "12",
-            "product_id": "tyxmulti_qihoo_03",
-            "product_name": "120钻石",
-            "product_desc": "购买此商品获得120钻石"
+            "id": "pay_code_1",
+            "money": "30",
+            "product_id": "com.xianxiachuanqi.30",
+            "product_name": "300元宝",
+            "product_desc": "获得300元宝"
         },
         {
-            "id": "tyxmulti_qihoo_03",
-            "money": "18",
-            "product_id": "tyxmulti_qihoo_04",
-            "product_name": "180钻石",
-            "product_desc": "购买此商品获得180钻石"
+            "id": "pay_code_2",
+            "money": "68",
+            "product_id": "com.xianxiachuanqi.68",
+            "product_name": "680元宝",
+            "product_desc": "获得680元宝"
+        },
+        {
+            "id": "pay_code_3",
+            "money": "98",
+            "product_id": "com.xianxiachuanqi.98",
+            "product_name": "980元宝",
+            "product_desc": "获得980元宝"
+        },
+        {
+            "id": "pay_code_4",
+            "money": "198",
+            "product_id": "com.xianxiachuanqi.198",
+            "product_name": "1980元宝",
+            "product_desc": "获得1980元宝"
+        },
+        {
+            "id": "pay_code_5",
+            "money": "328",
+            "product_id": "com.xianxiachuanqi.328",
+            "product_name": "3280元宝",
+            "product_desc": "获得3280元宝"
+        },
+        {
+            "id": "pay_code_6",
+            "money": "648",
+            "product_id": "com.xianxiachuanqi.648",
+            "product_name": "6480元宝",
+            "product_desc": "获得6480元宝"
         }
     ]
 }

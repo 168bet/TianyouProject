@@ -36,6 +36,7 @@ public class ChannelService extends BaseSdkService {
 		ucNetworkAndInitUCGameSDK(getPullupInfo(mActivity.getIntent()));
 		handler = new Handler(Looper.getMainLooper());
 		UCGameSdk.defaultSdk().registerSDKEventReceiver(receiver);
+		doNoticeGame(TianyouCallback.CODE_INIT, "");
 	}
 
 	public void ucNetworkAndInitUCGameSDK(String pullUpInfo) {
@@ -78,7 +79,7 @@ public class ChannelService extends BaseSdkService {
 
 
         //联调环境已经废用
-      //  sdkParams.put(SDKParamKey.DEBUG_MODE, UCSdkConfig.debugMode);
+        //  sdkParams.put(SDKParamKey.DEBUG_MODE, UCSdkConfig.debugMode);
 
         try {
             UCGameSdk.defaultSdk().initSdk(mActivity, sdkParams);
@@ -102,10 +103,6 @@ public class ChannelService extends BaseSdkService {
 			doNoticeGame(TianyouCallback.CODE_LOGOUT, "");
 		}
 	};
-
-	private void startGame() {
-		doLogin();
-    }
 	
 	@Override
 	public void doLogin() {

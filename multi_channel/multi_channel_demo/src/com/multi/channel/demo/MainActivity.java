@@ -7,7 +7,7 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
-import com.tygame.yjqk.vivo.R;
+import com.tygame.yjqk.huawei.R;
 
 import android.app.Activity;
 import android.content.Intent;
