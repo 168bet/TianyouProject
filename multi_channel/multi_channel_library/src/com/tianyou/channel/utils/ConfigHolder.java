@@ -5,10 +5,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.tianyou.channel.bean.ChannelInfo;
 import com.tianyou.channel.bean.PayInfo;
@@ -18,16 +29,53 @@ import android.content.Context;
 
 /**
  * 获取渠道配置信息类
+ * 
  * @author itstrong
  * 
  */
 public class ConfigHolder {
-	
+
 	private static ChannelInfo mChannelInfo;
 	private static ArrayList<PayInfo> mPayInfoList;
+	private static Map<String, String> mChannelMap;
+
+	public static Map<String, String> getChannelMap(Context context) {
+		if (mChannelMap != null)
+			return mChannelMap;
+		mChannelMap = new HashMap<String, String>();
+		DocumentBuilderFactory factory = null;
+		DocumentBuilder builder = null;
+		Document document = null;
+		InputStream inputStream = null;
+		factory = DocumentBuilderFactory.newInstance();
+		try {
+			builder = factory.newDocumentBuilder();
+			inputStream = context.getResources().getAssets().open("channel_info.xml");
+			document = builder.parse(inputStream);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
+		Element root = document.getDocumentElement();
+		NodeList nodes = root.getChildNodes();
+		for (int i = 0; i < nodes.getLength(); i++) {
+			Node item = nodes.item(i);
+			String textContent = item.getTextContent().trim();
+			if (!textContent.isEmpty()) {
+				mChannelMap.put(item.getNodeName(), textContent);
+			}
+		}
+		LogUtils.d("渠道信息：" + mChannelMap);
+		return mChannelMap;
+	}
 	
 	public static ChannelInfo getChannelInfo(Context context) {
-		if (mChannelInfo != null) return mChannelInfo;
+		if (mChannelInfo != null)
+			return mChannelInfo;
 		String channelInfo = readFileData(context, "channel_info.json");
 		JSONObject info;
 		try {
@@ -100,7 +148,7 @@ public class ConfigHolder {
 		}
 		return mChannelInfo;
 	}
-	
+
 	public static PayInfo getPayInfo(final Activity activity, String payCode) {
 		LogUtils.d("getPayInfo0");
 		if (mPayInfoList == null) {
@@ -139,19 +187,19 @@ public class ConfigHolder {
 		}
 		return null;
 	}
-	
+
 	private static String readFileData(Context context, String fileName) {
 		try {
 			InputStream input = context.getAssets().open(fileName);
 			InputStreamReader reader = new InputStreamReader(input);
 			BufferedReader br = new BufferedReader(reader);
 			String results = "";
-            String newLine = "";
-            while((newLine = br.readLine()) != null) {
-                results += newLine;
-            }
-            reader.close();
-            return results;
+			String newLine = "";
+			while ((newLine = br.readLine()) != null) {
+				results += newLine;
+			}
+			reader.close();
+			return results;
 		} catch (IOException e) {
 			ToastUtils.show(context, "配置文件" + fileName + "不存在");
 		}

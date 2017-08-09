@@ -52,7 +52,7 @@
 
         <!-- 微信支付回调Activity -->
         <activity
-            android:name="com.tianyouxi.lszg.vivo.wxapi.WXPayEntryActivity"
+            android:name="com.tygame.yjqk.vivo.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -69,7 +69,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:scheme="qwalletcom.tianyouxi.lszg.vivo" />
+                <data android:scheme="qwalletcom.tygame.yjqk.vivo" />
             </intent-filter>
         </activity>
 

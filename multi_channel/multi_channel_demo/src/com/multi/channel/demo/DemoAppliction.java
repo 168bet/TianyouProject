@@ -3,12 +3,8 @@ package com.multi.channel.demo;
 import com.tianyou.channel.activity.TianyouApplication;
 import com.tianyou.channel.interfaces.TianyouSdk;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-
-import com.tianyou.channel.activity.TianyouApplication;
-import com.tianyou.channel.interfaces.TianyouSdk;
 
 public class DemoAppliction extends TianyouApplication {
 

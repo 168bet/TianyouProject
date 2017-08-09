@@ -328,6 +328,7 @@ public class HomeFragment extends BaseFragment {
 	            }  
 	        });
 	        initViewData(popupView);
+	        getPayWayControl();
 	        popupView.findViewById(ResUtils.getResById(mActivity, "img_popup_close", "id")).setOnClickListener(this);
 //		}
 		mPopupWindow.showAtLocation(mPaySwitch, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);

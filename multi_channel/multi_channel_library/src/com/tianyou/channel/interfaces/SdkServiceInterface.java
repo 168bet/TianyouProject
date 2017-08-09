@@ -137,9 +137,6 @@ public interface SdkServiceInterface {
 	void doExitGame();
 
 	// ------------------------ 生命周期方法 ------------------------ */
-	
-	void doSaveInstanceState(Bundle outState);
-	
 	/**
 	 * 加载onResume方法
 	 */

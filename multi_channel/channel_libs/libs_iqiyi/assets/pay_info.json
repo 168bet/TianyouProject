@@ -1,0 +1,25 @@
+{
+    "payinfo": [
+        {
+            "id": "pay_code_0",
+            "money": "6",
+            "product_id": "com.xianxiachuanqi.6",
+            "product_name": "60元宝",
+            "product_desc": "获得60元宝"
+        },
+        {
+            "id": "pay_code_1",
+            "money": "30",
+            "product_id": "com.xianxiachuanqi.30",
+            "product_name": "300元宝",
+            "product_desc": "获得300元宝"
+        },
+        {
+            "id": "pay_code_2",
+            "money": "68",
+            "product_id": "com.xianxiachuanqi.68",
+            "product_name": "680元宝",
+            "product_desc": "获得680元宝"
+        }
+    ]
+}
