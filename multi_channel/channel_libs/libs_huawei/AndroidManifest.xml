@@ -76,7 +76,7 @@
         <!-- 详细说明请参考SDK接口文档 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.huawei.gb.huawei.installnewtype.provider"
+            android:authorities="com.tygame.yjqk.huawei.installnewtype.provider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data

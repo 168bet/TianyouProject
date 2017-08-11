@@ -107,7 +107,7 @@ public class BaseSdkService implements SdkServiceInterface {
 			tips = "退出游戏取消";
 			break;
 		}
-		LogUtils.d("通知游戏：" + tips);
+		LogUtils.d("通知游戏：" + tips + "_" + msg);
 		mTianyouCallback.onResult(type, msg);
 	}
 	
