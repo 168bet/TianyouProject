@@ -10,6 +10,7 @@ import com.tianyou.channel.bean.PayParam;
 import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
+import com.tianyou.channel.utils.LogUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -179,6 +180,22 @@ public class ChannelService extends BaseSdkService {
 	@Override
 	public void doUploadRoleInfo(RoleInfo roleInfo) {
 		super.doUploadRoleInfo(roleInfo);
+		submitRoleData();
+	}
+	
+	@Override
+	public void doEntryGame() {
+		super.doEntryGame();
+		submitRoleData();
+	}
+	
+	@Override
+	public void doUpdateRoleInfo(RoleInfo roleInfo) {
+		super.doUploadRoleInfo(roleInfo);
+		submitRoleData();
+	}
+
+	private void submitRoleData() {
 		SDKParams sdkParams = new SDKParams();
         sdkParams.put(SDKParamKey.STRING_ROLE_ID, mRoleInfo.getRoleId());
         sdkParams.put(SDKParamKey.STRING_ROLE_NAME, mRoleInfo.getRoleName());
@@ -186,16 +203,19 @@ public class ChannelService extends BaseSdkService {
         sdkParams.put(SDKParamKey.LONG_ROLE_CTIME, mRoleInfo.getCreateTime());
         sdkParams.put(SDKParamKey.STRING_ZONE_ID, mRoleInfo.getServerId());
         sdkParams.put(SDKParamKey.STRING_ZONE_NAME, mRoleInfo.getServerName());
-
+        LogUtils.d("sdkParams:" + sdkParams.toString());
         try {
             UCGameSdk.defaultSdk().submitRoleData(mActivity, sdkParams);
+            LogUtils.d("sdkParams:doUpdateRoleInfo");
         } catch (AliNotInitException e) {
+        	LogUtils.w("submitRoleData:AliNotInitException");
             e.printStackTrace();
         } catch (AliLackActivityException e) {
+        	LogUtils.w("submitRoleData:AliLackActivityException");
             e.printStackTrace();
         }
 	}
-	
+
 	SDKEventReceiver receiver = new SDKEventReceiver() {
 		@Subscribe(event = SDKEventKey.ON_INIT_SUCC)
 		private void onInitSucc() {
@@ -219,7 +239,6 @@ public class ChannelService extends BaseSdkService {
 		private void onLoginSucc(String sid) {
 			mLoginInfo.setUserToken(sid);
 			checkLogin();
-			final Activity me = mActivity;
 			AccountInfo.instance().setSid(sid);
 			handler.post(new Runnable() {
 

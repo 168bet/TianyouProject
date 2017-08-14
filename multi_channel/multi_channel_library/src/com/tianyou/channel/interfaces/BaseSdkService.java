@@ -180,7 +180,7 @@ public class BaseSdkService implements SdkServiceInterface {
 		map.put("session", mLoginInfo.getUserToken());
 		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
 		map.put("appid", gameId);
-		map.put("playerid", mLoginInfo.getUserToken());
+		map.put("playerid", mLoginInfo.getPlayId());
 		map.put("nickname", mLoginInfo.getNickname());
 		map.put("promotion", mChannelInfo.getChannelId());
 		map.put("is_guest", mLoginInfo.getIsGuest());

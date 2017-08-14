@@ -3,6 +3,7 @@ package com.tianyou.channel.bean;
 public class LoginInfo {
 
 	private String channelUserId; 	// 渠道用户id
+	private String playId; 	// 渠道用户id
 	private String tianyouUserId; 	// 天游用户id
 	private String hanfengUid; 		// 汉风uid
 	private String userToken;
@@ -17,6 +18,14 @@ public class LoginInfo {
 
 	public void setYijieAppId(String yijieAppId) {
 		this.yijieAppId = yijieAppId;
+	}
+
+	public String getPlayId() {
+		return playId;
+	}
+
+	public void setPlayId(String playId) {
+		this.playId = playId;
 	}
 
 	public String getChannelUserId() {
