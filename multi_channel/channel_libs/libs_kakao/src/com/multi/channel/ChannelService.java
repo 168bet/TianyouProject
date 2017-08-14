@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -66,7 +69,7 @@ import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.channel.utils.URLHolder;
 
-public class KakaoSdkService extends BaseSdkService {
+public class ChannelService extends BaseSdkService {
 
 	private SessionCallback callback;
 	private IapPlugin mIapPlugin;		// onstore支付
@@ -196,6 +199,11 @@ public class KakaoSdkService extends BaseSdkService {
 					LogUtils.d("google login kgResult.isSuccess= "+kgResult.isSuccess());
 					String message = kgResult.getMessage();
 					LogUtils.d("google login kgResult message= "+message);
+					JSONObject kgResultObject = new JSONObject();
+					String kgResultString = kgResult.toJSONString();
+					kgResultObject.put("code", "googleLogin");
+					kgResultObject.put("result", kgResultString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, kgResultObject.toJSONString());
 				}
 			});
 		}
@@ -211,6 +219,10 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<Void> kgResult) {
 				LogUtils.d("google logout kgResult.isSuccess= "+kgResult.isSuccess());
 				LogUtils.d("google logout kgResult message= "+kgResult.getMessage());
+				JSONObject kgResultObject = new JSONObject();
+				kgResultObject.put("code", "googleLogout");
+				kgResultObject.put("result", kgResult.toJSONString());
+				mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, kgResultObject.toJSONString());
 			}
 		});
 	}
@@ -253,6 +265,7 @@ public class KakaoSdkService extends BaseSdkService {
 	/**
 	 * 显示成就屏幕
 	 */
+	@Override
 	public void doGoogleAchieveActivity() {
 		super.doGoogleAchieveActivity();
 		KGGoogleGamesAchievements.showAchievementView(mActivity);
@@ -308,7 +321,7 @@ public class KakaoSdkService extends BaseSdkService {
 	public void doChannelPay(final PayParam payInfo, final OrderinfoBean orderInfo) {
 		super.doChannelPay(payInfo, orderInfo);
 		
-		mIapPlugin.sendPaymentRequest("OA00715316", "0910077154","165금화",//orderInfo.getProductId(), orderInfo.getProductName(), 
+		mIapPlugin.sendPaymentRequest("OA00715316", orderInfo.getProductId(), orderInfo.getProductName(), 
 				orderInfo.getOrderID(), "", new RequestCallback() {
 					
 					@Override
@@ -414,6 +427,11 @@ public class KakaoSdkService extends BaseSdkService {
 		KGLocalPlayer currentPlayer = KGLocalPlayer.getCurrentPlayer();
 		String playerId = currentPlayer.getPlayerId();
 		LogUtils.d("getCurrentPlayerID palyerID= "+playerId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("code", "currentPlayerData");
+		jsonObject.put("status", "success");
+		jsonObject.put("result", currentPlayer.toJSONString());
+		mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 	}
 	
 	/**
@@ -426,8 +444,18 @@ public class KakaoSdkService extends BaseSdkService {
 				if (kgResult.isSuccess()) {		// 更新成功
 					KGIdpProfile newIdpProfile = KGLocalPlayer.getCurrentPlayer().getIdpProfile();
 					LogUtils.d("refreshLocalIdpProfile.success= "+newIdpProfile.toJSONString());
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "refreshLocalIdpProfile");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", newIdpProfile.toJSONString());
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				} else {
 					LogUtils.e("refreshLocalIdpProfile.failed");
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "refreshLocalIdpProfile");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
@@ -444,12 +472,22 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGPlayer>> result) {
 				if (result.isSuccess()) {
 					List<KGPlayer> friendPlayers = result.getContent();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendPlayers);
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadFriendPlayers");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 					LogUtils.d("friendPlayers.size= "+friendPlayers.size());
-					for (KGPlayer kgPlayer : friendPlayers) {
-						KGIdpProfile idpProfile = kgPlayer.getIdpProfile();
-						LogUtils.d("idProfile= "+idpProfile+"\n");
-					}
-				} else { LogUtils.d("load friendplayers failed");}
+				} else { 
+					LogUtils.d("load friendplayers failed");
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadFriendPlayers");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
+				}
 			}
 		});
 	}
@@ -468,8 +506,21 @@ public class KakaoSdkService extends BaseSdkService {
 					KGKakaoFriendsResponse response = kgResult.getContent();
 					int totalCount = response.getTotalCount();
 					List<KGKakaoProfile> friendList = response.getFriendList();
-					LogUtils.d("invitablefriendprofileslist.size= "+friendList.size());
-				} else {LogUtils.d("查询kakao talk邀请对象列表失败");}
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendList);
+					jsonObject.put("code", "loadInvitableFriendProfiles");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
+				} else {
+					LogUtils.d("查询kakao talk邀请对象列表失败");
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadInvitableFriendProfiles");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
+				}
 			}
 		});
 	}
@@ -487,7 +538,21 @@ public class KakaoSdkService extends BaseSdkService {
 					int totalCount = response.getTotalCount();
 					List<KGKakaoProfile> friendList = response.getFriendList();
 					LogUtils.d("recommendedinvitablefriendprofiles.size= "+friendList.size());
-				} else { LogUtils.d("查找kakao talk推荐邀请对象列表失败");}
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendList);
+					jsonObject.put("code", "loadRecommendedInvitableFriendProfiles");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
+				} else { 
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadRecommendedInvitableFriendProfiles");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
+					LogUtils.d("查找kakao talk推荐邀请对象列表失败");
+				}
 			}
 		});
 	}
@@ -507,8 +572,18 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<Boolean> kgResult) {
 				if (kgResult.isSuccess()) {
 					LogUtils.d("kgresult.getcontent()= "+kgResult.getContent());
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "sendInviteMessage");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", kgResult.toJSONString());
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 				} else {
 					LogUtils.d("sendinvtemessage failed= "+kgResult.getContent());
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "sendInviteMessage");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
@@ -546,6 +621,13 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGKakaoInvitationEvent>> kgResult) {
 				if (kgResult.isSuccess()) {
 					List<KGKakaoInvitationEvent> invitationEventList = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(invitationEventList);
+					jsonObject.put("code", "loadInvitationEvents");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 					for (KGKakaoInvitationEvent invitationEvent : invitationEventList) {
 						int eventId = invitationEvent.getEventId();
 						boolean isEventCardEnabled = invitationEvent.isEventCardEnabled();
@@ -559,6 +641,11 @@ public class KakaoSdkService extends BaseSdkService {
 					}
 				} else {
 					// 调用失败
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadInvitationEvents");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
@@ -574,6 +661,11 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<KGKakaoInvitationHost> kgResult) {
 				if (kgResult.isSuccess()) {
 					KGKakaoInvitationHost invitationHost = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadInvitationHost");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", invitationHost.toJSONString());
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 					if (invitationHost != null) {
 						KGPlayer player = invitationHost.getPlayer();
 						int totalJoinerCount = invitationHost.getTotalJoinerCount();
@@ -581,7 +673,11 @@ public class KakaoSdkService extends BaseSdkService {
 						// 没有人邀请我
 					}
 				} else {
-					
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadInvitationHost");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
@@ -597,6 +693,13 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGKakaoInvitationJoiner>> kgResult) {
 				if (kgResult.isSuccess()) {
 					List<KGKakaoInvitationJoiner> invitationJoinerList = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(invitationJoinerList);
+					jsonObject.put("code", "loadInvitationJoiners");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 					for (KGKakaoInvitationJoiner invitationJoiner : invitationJoinerList) {
 						KGPlayer player = invitationJoiner.getPlayer();
 						int hostRewardCode = invitationJoiner.getHostRewardCode();
@@ -607,6 +710,11 @@ public class KakaoSdkService extends BaseSdkService {
 					}
 				} else {
 					// 调用失败
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadInvitationJoiners");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
@@ -625,9 +733,20 @@ public class KakaoSdkService extends BaseSdkService {
 			public void onResult(KGResult<List<KGPlayer>> kgResult) {
 				if (kgResult.isSuccess()) {
 					List<KGPlayer> friendList = kgResult.getContent();
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(friendList);
+					jsonObject.put("code", "kakaoTalkLoadFriendPlayers");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 					LogUtils.d("kakaotalkfriendlist.size= "+friendList.size());
 				} else {
-					
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "kakaoTalkLoadFriendPlayers");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
@@ -646,9 +765,18 @@ public class KakaoSdkService extends BaseSdkService {
 			@Override
 			public void onResult(KGResult<Boolean> kgResult) {
 				if (kgResult.isSuccess()) {
-					
+					String jsonString = kgResult.toJSONString();
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "sendGameMessage");
+					jsonObject.put("status", "success");
+					jsonObject.put("result",jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				} else {
-					
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "sendGameMessage");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
@@ -665,8 +793,19 @@ public class KakaoSdkService extends BaseSdkService {
 					KGKakaoTalkGroupChatsResponse response = kgResult.getContent();
 					int totalCount = response.getTotalCount();
 					List<KGKakaoTalkGroupChat> groupChats = response.getGroupChats();
+					JSONObject jsonObject = new JSONObject();
+					JSONArray jsonArray = new JSONArray();
+					String jsonString = jsonArray.toJSONString(groupChats);
+					jsonObject.put("code", "loadGroupChats");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 				} else {
-					
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "loadGroupChats");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT,jsonObject.toJSONString());
 				}
 			}
 		});
@@ -684,9 +823,18 @@ public class KakaoSdkService extends BaseSdkService {
 			@Override
 			public void onResult(KGResult<Boolean> kgResult) {
 				if (kgResult.isSuccess()) {
-					
+					String jsonString = kgResult.toJSONString();
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "sendGroupChatMessage");
+					jsonObject.put("status", "success");
+					jsonObject.put("result", jsonString);
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				} else {
-					
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", "sendGroupChatMessage");
+					jsonObject.put("status", "failed");
+					jsonObject.put("result", "调用失败");
+					mTianyouCallback.onResult(TianyouCallback.CODE_KAKAO_RESULT, jsonObject.toJSONString());
 				}
 			}
 		});
