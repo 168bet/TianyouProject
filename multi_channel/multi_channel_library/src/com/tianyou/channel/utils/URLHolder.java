@@ -22,7 +22,7 @@ public class URLHolder {
 	public static String CHECK_ORDER_GOOGLE = "http://bmchannel.tianyouxi.com/index.php?s=Korea/GoogleUpdateOrder";
 
 	//校验应用宝订单地址
-	public static String CHECK_ORDER_URL_YYB = URL_BASE + "/Ysdk/GetPayInfo";
+	public static String CHECK_ORDER_URL_YYB = URL_BASE + "/ysdk/GetPayInfo";
 	
 	// 秒乐猎妖应用宝校验订单地址
 	public static String CHECK_ORDER_ML_LY_YYB = "http://channel.tianyouxi.com/index.php/MLyyb/GetPayInfo";
