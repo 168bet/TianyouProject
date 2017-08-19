@@ -98,8 +98,17 @@ public class OrderInfo {
             private String waresid;
             private String currency;
             private String rate;
+            private String sign;
             
-            public String getChanneluid() {
+            public String getSign() {
+				return sign;
+			}
+
+			public void setSign(String sign) {
+				this.sign = sign;
+			}
+
+			public String getChanneluid() {
 				return channeluid;
 			}
 

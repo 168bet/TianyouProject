@@ -89,82 +89,62 @@ public class ConfigHolder {
 			mChannelInfo.setChannelId(info.getString("channel_id"));
 		} catch (JSONException e) {
 			e.printStackTrace();
-			LogUtils.d("channel_id为空");
 		}
 		try {
 			mChannelInfo.setChannelName(info.getString("channel_name"));
 		} catch (JSONException e) {
-			LogUtils.d("channel_name为空");
 		}
 		try {
 			mChannelInfo.setAppId(info.getString("app_id"));
 		} catch (JSONException e) {
-			LogUtils.d("app_id为空");
 		}
 		try {
 			mChannelInfo.setAppToken(info.getString("app_token"));
 		} catch (JSONException e) {
-			LogUtils.d("app_token为空");
 		}
 		try {
 			mChannelInfo.setGameName(info.getString("game_name"));
 		} catch (JSONException e) {
-			LogUtils.d("game_name为空");
 		}
 		try {
 			mChannelInfo.setGameId(info.getString("game_id"));
 		} catch (JSONException e) {
-			LogUtils.d("game_id为空");
 		}
 		try {
 			mChannelInfo.setGameToken(info.getString("game_token"));
 		} catch (JSONException e) {
-			LogUtils.d("game_token为空");
 		}
 		try {
 			mChannelInfo.setAppKey(info.getString("app_key"));
 		} catch (JSONException e) {
-			LogUtils.d("app_key为空");
 		}
 		try {
 			mChannelInfo.setPrivateKey(info.getString("private_key"));
 		} catch (JSONException e1) {
-			LogUtils.d("private_key为空");
 		}
 		try {
 			mChannelInfo.setPublicKey(info.getString("public_key"));
 		} catch (JSONException e1) {
-			LogUtils.d("public_key为空");
 		}
 		try {
 			mChannelInfo.setClientId(info.getString("client_id"));
 		} catch (JSONException e) {
-			LogUtils.d("client_id为空");
 		}
 		try {
 			mChannelInfo.setClientSecret(info.getString("client_secret"));
 		} catch (JSONException e) {
-			LogUtils.d("client_secret为空");
 		}
 		return mChannelInfo;
 	}
 
 	public static PayInfo getPayInfo(final Activity activity, String payCode) {
-		LogUtils.d("getPayInfo0");
 		if (mPayInfoList == null) {
-			LogUtils.d("getPayInfo1");
 			String json = readFileData(activity, "pay_info.json");
-			LogUtils.d("getPayInfo2");
 			try {
-				LogUtils.d("getPayInfo3");
 				JSONObject jsonInfo = new JSONObject(json);
-				LogUtils.d("getPayInfo4");
 				mPayInfoList = new ArrayList<PayInfo>();
-				LogUtils.d("getPayInfo5");
 				JSONArray payArray = jsonInfo.getJSONArray("payinfo");
-				LogUtils.d("getPayInfo6");
 				for (int i = 0; i < payArray.length(); i++) {
-					LogUtils.d("getPayInfo7");
 					PayInfo payInfo = new PayInfo();
 					JSONObject info = payArray.getJSONObject(i);
 					payInfo.setId(info.getString("id"));
@@ -173,7 +153,6 @@ public class ConfigHolder {
 					payInfo.setProductName(info.getString("product_name"));
 					payInfo.setProductDesc(info.getString("product_desc"));
 					mPayInfoList.add(payInfo);
-					LogUtils.d("getPayInfo8");
 				}
 				LogUtils.d("支付信息：" + mPayInfoList);
 			} catch (JSONException e1) {

@@ -1,7 +1,13 @@
 package com.multi.channel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.multi.channel.account.AccountInfo;
 import com.multi.channel.util.APNUtil;
+import com.tianyou.channel.bean.OrderInfo.ResultBean.OrderinfoBean;
+import com.tianyou.channel.bean.PayParam;
+import com.tianyou.channel.bean.RoleInfo;
 import com.tianyou.channel.interfaces.BaseSdkService;
 import com.tianyou.channel.interfaces.TianyouCallback;
 
@@ -36,7 +42,6 @@ public class ChannelService extends BaseSdkService {
 		ucNetworkAndInitUCGameSDK(getPullupInfo(mActivity.getIntent()));
 		handler = new Handler(Looper.getMainLooper());
 		UCGameSdk.defaultSdk().registerSDKEventReceiver(receiver);
-		doNoticeGame(TianyouCallback.CODE_INIT, "");
 	}
 
 	public void ucNetworkAndInitUCGameSDK(String pullUpInfo) {
@@ -116,6 +121,33 @@ public class ChannelService extends BaseSdkService {
         }
 	}
 	
+	@Override
+	public void doChannelPay(PayParam payInfo, OrderinfoBean orderInfo) {
+		super.doChannelPay(payInfo, orderInfo);
+		Map<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put(SDKParamKey.CALLBACK_INFO, payInfo.getCustomInfo());
+        paramMap.put(SDKParamKey.NOTIFY_URL, orderInfo.getNotifyurl());
+        paramMap.put(SDKParamKey.AMOUNT, orderInfo.getMoNey());
+        paramMap.put(SDKParamKey.CP_ORDER_ID, orderInfo.getOrderID());
+        paramMap.put(SDKParamKey.ACCOUNT_ID, mLoginInfo.getChannelUserId());
+        paramMap.put(SDKParamKey.SIGN_TYPE, "MD5");
+
+        SDKParams sdkParams = new SDKParams();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.putAll(paramMap);
+        sdkParams.putAll(map);
+
+        sdkParams.put(SDKParamKey.SIGN, orderInfo.getSign());
+        System.out.println("sdkParams:"+sdkParams.toString());
+        try {
+            UCGameSdk.defaultSdk().pay(mActivity, sdkParams);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(mActivity, "charge failed - Exception: "+e.toString(), Toast.LENGTH_SHORT).show();
+        }
+	}
+	
 	private void dumpOrderInfo(OrderInfo orderInfo) {
         if (orderInfo != null) {
             StringBuilder sb = new StringBuilder();
@@ -128,12 +160,47 @@ public class ChannelService extends BaseSdkService {
         }
     }
 	
+	@Override
+	public void doExitGame() {
+//		super.doExitGame();
+		try {
+            UCGameSdk.defaultSdk().exit(mActivity, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+	
+	@Override
+	public void doDestory() {
+		super.doDestory();
+		UCGameSdk.defaultSdk().unregisterSDKEventReceiver(receiver);
+	}
+	
+	@Override
+	public void doUploadRoleInfo(RoleInfo roleInfo) {
+		super.doUploadRoleInfo(roleInfo);
+		SDKParams sdkParams = new SDKParams();
+        sdkParams.put(SDKParamKey.STRING_ROLE_ID, mRoleInfo.getRoleId());
+        sdkParams.put(SDKParamKey.STRING_ROLE_NAME, mRoleInfo.getRoleName());
+        sdkParams.put(SDKParamKey.LONG_ROLE_LEVEL, mRoleInfo.getRoleLevel());
+        sdkParams.put(SDKParamKey.LONG_ROLE_CTIME, mRoleInfo.getCreateTime());
+        sdkParams.put(SDKParamKey.STRING_ZONE_ID, mRoleInfo.getServerId());
+        sdkParams.put(SDKParamKey.STRING_ZONE_NAME, mRoleInfo.getServerName());
+
+        try {
+            UCGameSdk.defaultSdk().submitRoleData(mActivity, sdkParams);
+        } catch (AliNotInitException e) {
+            e.printStackTrace();
+        } catch (AliLackActivityException e) {
+            e.printStackTrace();
+        }
+	}
+	
 	SDKEventReceiver receiver = new SDKEventReceiver() {
 		@Subscribe(event = SDKEventKey.ON_INIT_SUCC)
 		private void onInitSucc() {
 			// 初始化成功
 			handler.post(new Runnable() {
-
 				@Override
 				public void run() {
 					doNoticeGame(TianyouCallback.CODE_INIT, "");
@@ -150,9 +217,8 @@ public class ChannelService extends BaseSdkService {
 
 		@Subscribe(event = SDKEventKey.ON_LOGIN_SUCC)
 		private void onLoginSucc(String sid) {
-			mLoginInfo.setChannelUserId(sid);
+			mLoginInfo.setUserToken(sid);
 			checkLogin();
-//			Toast.makeText(mActivity, "login succ,sid=" + sid, Toast.LENGTH_SHORT).show();
 			final Activity me = mActivity;
 			AccountInfo.instance().setSid(sid);
 			handler.post(new Runnable() {
@@ -209,7 +275,7 @@ public class ChannelService extends BaseSdkService {
 		@Subscribe(event = SDKEventKey.ON_EXIT_SUCC)
 		private void onExit(String desc) {
 //			Toast.makeText(GameActivity.this, desc, Toast.LENGTH_SHORT).show();
-			doNoticeGame(TianyouCallback.CODE_QUIT_SUCCESS, "");
+			doNoticeGame(TianyouCallback.CODE_QUIT_SUCCESS, "");  
 //			mActivity.finish();
 
 			// 退出程序

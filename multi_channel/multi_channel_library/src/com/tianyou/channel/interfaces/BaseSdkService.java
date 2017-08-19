@@ -6,17 +6,8 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
-
 import com.google.gson.Gson;
 import com.tianyou.channel.bean.ChannelInfo;
-import com.tianyou.channel.bean.CheckLogin;
-import com.tianyou.channel.bean.CheckLogin.ResultBean;
 import com.tianyou.channel.bean.CheckOrder;
 import com.tianyou.channel.bean.LoginInfo;
 import com.tianyou.channel.bean.OrderInfo;
@@ -31,6 +22,13 @@ import com.tianyou.channel.utils.HttpUtils.HttpCallback;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
 import com.tianyou.channel.utils.URLHolder;
+
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
 
 /**
  * 多渠道接口默认实现
@@ -76,7 +74,40 @@ public class BaseSdkService implements SdkServiceInterface {
 	
 	//通知游戏回调方法
 	protected void doNoticeGame(int type, String msg) {
-		LogUtils.d("通知游戏成功：" + type);
+		String tips = "";
+		switch (type) {
+		case TianyouCallback.CODE_INIT:
+			tips = "初始化成功";
+			break;
+		case TianyouCallback.CODE_LOGIN_SUCCESS:
+			tips = "登录成功";
+			break;
+		case TianyouCallback.CODE_LOGIN_FAILED:
+			tips = "登录失败";
+			break;
+		case TianyouCallback.CODE_LOGIN_CANCEL:
+			tips = "登录取消";
+			break;
+		case TianyouCallback.CODE_LOGOUT:
+			tips = "注销账号";
+			break;
+		case TianyouCallback.CODE_PAY_SUCCESS:
+			tips = "支付成功";
+			break;
+		case TianyouCallback.CODE_PAY_FAILED:
+			tips = "支付失败";
+			break;
+		case TianyouCallback.CODE_PAY_CANCEL:
+			tips = "支付取消";
+			break;
+		case TianyouCallback.CODE_QUIT_SUCCESS:
+			tips = "退出游戏成功";
+			break;
+		case TianyouCallback.CODE_QUIT_CANCEL:
+			tips = "退出游戏取消";
+			break;
+		}
+		LogUtils.d("通知游戏：" + tips);
 		mTianyouCallback.onResult(type, msg);
 	}
 	
@@ -140,10 +171,9 @@ public class BaseSdkService implements SdkServiceInterface {
 	}
 	
 	// 查询登录信息
-	protected void checkLogin() { checkLogin2(null); }
+	protected void checkLogin() { checkLogin(null); }
 	
-	
-	protected void checkLogin2(final LoginCallback callback) {
+	protected void checkLogin(final LoginCallback callback) {
 		String gameId = mChannelInfo.getGameId();
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("uid", mLoginInfo.getChannelUserId());
@@ -166,22 +196,15 @@ public class BaseSdkService implements SdkServiceInterface {
 					String code = result.getString("code");
 					if ("200".equals(code)) {
 						String userId = result.getString("uid");
-//						mHanfengUid = result.getString("channeluid");
-						LogUtils.d("userid= "+userId);
-						LogUtils.d("tianyouuserId= "+mLoginInfo.getTianyouUserId());
+						mLoginInfo.setChannelUserId(result.getString("channeluid"));
 						if (mLoginInfo.getTianyouUserId() != null && !userId.equals(mLoginInfo.getTianyouUserId())) {
-							LogUtils.d("current uid= "+mLoginInfo.getTianyouUserId()+",new uid= "+userId);
 							mLoginInfo.setTianyouUserId(userId);
 							mTianyouCallback.onResult(TianyouCallback.CODE_LOGOUT, "");
 							mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
-							LogUtils.d("onlogout -------------------------");
 						} else {
-							LogUtils.d("uid= "+userId);
 							mLoginInfo.setTianyouUserId(userId);
-							LogUtils.d("CODE_LOGIN_SUCCESS");
 							mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_SUCCESS, userId);
 						}
-//						if (callback != null) callback.onSuccess("");
 					} else {
 						mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败");
 					}
@@ -194,47 +217,6 @@ public class BaseSdkService implements SdkServiceInterface {
 			@Override
 			public void onFailed(String code) {
 				mTianyouCallback.onResult(TianyouCallback.CODE_LOGIN_FAILED, "登录失败" + code);
-			}
-		});
-	}
-	
-	// 查询登录信息
-	protected void checkLogin(final LoginCallback callback) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("uid", mLoginInfo.getChannelUserId());
-		map.put("session", mLoginInfo.getUserToken());
-		map.put("imei", AppUtils.getPhoeIMEI(mActivity));
-		map.put("appid", mChannelInfo.getGameId());
-		map.put("playerid", mLoginInfo.getUserToken());
-		map.put("nickname", mLoginInfo.getNickname());
-		map.put("promotion", mChannelInfo.getChannelId());
-		map.put("is_guest", mLoginInfo.getIsGuest());
-		map.put("yijie_appid",mLoginInfo.getYijieAppId());
-		map.put("signature", AppUtils.MD5("session=" + mLoginInfo.getUserToken()
-			+ "&uid=" + mLoginInfo.getChannelUserId() + "&appid=" + mChannelInfo.getGameId()));
-		String url = (mLoginInfo.getIsOverseas() ? URLHolder.URL_OVERSEAS : URLHolder.URL_BASE) + URLHolder.CHECK_LOGIN_URL;
-		HttpUtils.post(mActivity, url, map, new HttpCallback() {
-			@Override
-			public void onSuccess(String data) {
-				CheckLogin checkLogin = new Gson().fromJson(data, CheckLogin.class);
-				ResultBean result = checkLogin.getResult();
-				LogUtils.d("checkLogin"+result.toString());
-				LogUtils.d("checkLogin getCode"+result.getCode());
-				if (result.getCode().equals("200")) {
-					mLoginInfo.setHanfengUid(result.getChanneluid());
-					mLoginInfo.setTianyouUserId(result.getUid());
-					if(callback != null) callback.onSuccess();
-					doNoticeGame(TianyouCallback.CODE_LOGIN_SUCCESS, result.getUid());
-				} else {
-					LogUtils.d("走这里了？");
-					ToastUtils.show(mActivity, result.getMsg());
-					doNoticeGame(TianyouCallback.CODE_LOGIN_FAILED, result.getMsg());
-				}
-			}
-			
-			@Override
-			public void onFailed(String code) {
-				doNoticeGame(TianyouCallback.CODE_LOGIN_FAILED, "网络异常");
 			}
 		});
 	}

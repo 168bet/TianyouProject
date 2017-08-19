@@ -7,7 +7,7 @@ import com.tianyou.channel.interfaces.TianyouCallback;
 import com.tianyou.channel.interfaces.TianyouSdk;
 import com.tianyou.channel.utils.LogUtils;
 import com.tianyou.channel.utils.ToastUtils;
-import com.tygame.yjqk.huawei.R;
+import com.tygame.yjqk.lenovo.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -115,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private PayParam getPayParam() {
 		PayParam payParam = new PayParam();
-		payParam.setPayCode("2016001");
+		payParam.setPayCode("pay_code_0");
 		payParam.setCustomInfo("");
 		payParam.setAmount("1");
 		return payParam;
