@@ -4,9 +4,11 @@
 
 * **document**: 项目文档
 
+* **k3kconsole**：手游GM后台系统
+
 * **multi_channel**: 多渠道SDK
 
-* **package_tools**: BS打包工具
+* **package_tools**: 打包工具
 
 * **tianyou_sdk**: 天游SDK
 
